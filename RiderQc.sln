@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiderQc", "RiderQc\RiderQc.csproj", "{15F66794-E9E6-4A02-A383-937E56157BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiderQc.Web", "RiderQc\RiderQc.Web.csproj", "{15F66794-E9E6-4A02-A383-937E56157BFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiderQc.WebServices", "RiderQcApi\RiderQc.WebServices.csproj", "{F5268ADD-D116-46F3-AEB0-CC04B2EC6EB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{15F66794-E9E6-4A02-A383-937E56157BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15F66794-E9E6-4A02-A383-937E56157BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15F66794-E9E6-4A02-A383-937E56157BFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5268ADD-D116-46F3-AEB0-CC04B2EC6EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5268ADD-D116-46F3-AEB0-CC04B2EC6EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5268ADD-D116-46F3-AEB0-CC04B2EC6EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5268ADD-D116-46F3-AEB0-CC04B2EC6EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
