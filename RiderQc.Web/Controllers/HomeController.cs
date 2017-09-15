@@ -26,7 +26,5 @@ namespace RiderQc.Web.Controllers
 
             return View();
         }
-
-        //KAWWAKKK
     }
 }
