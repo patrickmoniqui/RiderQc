@@ -14,7 +14,6 @@ namespace RiderQc.Web.DAL.Entity
 
         public int CommentId { get; set; }
 
-
         public int? ParentId { get; set; }
 
         public int SenderId { get; set; }
