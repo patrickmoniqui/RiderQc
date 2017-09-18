@@ -1,13 +1,15 @@
-namespace RiderQc.Web.DAL.Entity
+namespace RiderQc.Web.DAL
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("UserLevel")]
     public partial class UserLevel
     {
-        [Key]
-        public int LevelPreferenceId { get; set; }
+        public int UserLevelId { get; set; }
 
         public int UserId { get; set; }
 

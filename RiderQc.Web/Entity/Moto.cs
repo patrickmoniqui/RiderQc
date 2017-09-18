@@ -1,7 +1,10 @@
-namespace RiderQc.Web.DAL.Entity
+namespace RiderQc.Web.DAL
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("Moto")]
     public partial class Moto
@@ -22,5 +25,7 @@ namespace RiderQc.Web.DAL.Entity
         public int? Type { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual User User1 { get; set; }
     }
 }
