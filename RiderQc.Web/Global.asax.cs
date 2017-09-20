@@ -12,7 +12,11 @@ namespace RiderQc.Web
             AreaRegistration.RegisterAllAreas();
             
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            
+            //Web Api routes
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //MVC routes
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
