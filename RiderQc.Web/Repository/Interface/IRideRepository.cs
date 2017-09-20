@@ -1,7 +1,7 @@
-﻿using RiderQc.Web.DAL;
+﻿using RiderQc.Web.Entities;
 using System.Collections.Generic;
 
-namespace RiderQc.Web.Repository
+namespace RiderQc.Web.Repository.Interface
 {
     public interface IRideRepository
     {

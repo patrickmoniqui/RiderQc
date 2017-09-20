@@ -1,0 +1,993 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RiderQcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="SenderId" Type="int" Nullable="false" />
+          <Property Name="RideId" Type="int" />
+          <Property Name="TrajetId" Type="int" />
+          <Property Name="CommentText" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
+          <Property Name="Vote" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="LevelId" />
+          </Key>
+          <Property Name="LevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderId" Type="int" Nullable="false" />
+          <Property Name="ReceiverId" Type="int" Nullable="false" />
+          <Property Name="MessageText" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="Read" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Moto">
+          <Key>
+            <PropertyRef Name="MotoId" />
+          </Key>
+          <Property Name="MotoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="25" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="RideId" />
+          </Key>
+          <Property Name="RideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrajetId" Type="int" />
+          <Property Name="CreatorId" Type="int" Nullable="false" />
+          <Property Name="Depart" Type="datetime" Nullable="false" />
+          <Property Name="Arrive" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="LevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Trajet">
+          <Key>
+            <PropertyRef Name="TrajetId" />
+          </Key>
+          <Property Name="TrajetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatorId" Type="int" Nullable="false" />
+          <Property Name="GoogleCo" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ville" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DpUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserLevel">
+          <Key>
+            <PropertyRef Name="UserLevelId" />
+          </Key>
+          <Property Name="UserLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="UserRatingId" />
+          </Key>
+          <Property Name="UserRatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RaterId" Type="int" Nullable="false" />
+          <Property Name="RatedId" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="RatingMessage" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="UserRide">
+          <Key>
+            <PropertyRef Name="UserRideId" />
+          </Key>
+          <Property Name="RideId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserRideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Comment__ParentI__0A9D95DB">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="CommentId" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__RideId__0B91BA14">
+          <End Role="Ride" Type="Self.Ride" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="RideId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__SenderI__0C85DE4D">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__TrajetI__0D7A0286">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="TrajetId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TrajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Receive__151B244E">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__SenderI__160F4887">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moto__UserId__01142BA1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Moto" Type="Self.Moto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Moto">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trajet__CreatorI__1BC821DD">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Trajet">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRatin__Rated__17F790F9">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRatin__Rater__18EBB532">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride">
+          <End Role="Ride" Type="Self.Ride" Multiplicity="1" />
+          <End Role="UserRide" Type="Self.UserRide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="RideId" />
+            </Principal>
+            <Dependent Role="UserRide">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_Trajet">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="TrajetId" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="TrajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRide" Type="Self.UserRide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRide">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLevel_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="UserLevel">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLevel_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLevel">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RiderQcModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moto" EntityType="Self.Moto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ride" EntityType="Self.Ride" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trajet" EntityType="Self.Trajet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRating" EntityType="Self.UserRating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRide" EntityType="Self.UserRide" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__ParentI__0A9D95DB" Association="Self.FK__Comment__ParentI__0A9D95DB">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Comment1" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__RideId__0B91BA14" Association="Self.FK__Comment__RideId__0B91BA14">
+            <End Role="Ride" EntitySet="Ride" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__SenderI__0C85DE4D" Association="Self.FK__Comment__SenderI__0C85DE4D">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__TrajetI__0D7A0286" Association="Self.FK__Comment__TrajetI__0D7A0286">
+            <End Role="Trajet" EntitySet="Trajet" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Receive__151B244E" Association="Self.FK__Message__Receive__151B244E">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__SenderI__160F4887" Association="Self.FK__Message__SenderI__160F4887">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moto__UserId__01142BA1" Association="Self.FK__Moto__UserId__01142BA1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Moto" EntitySet="Moto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trajet__CreatorI__1BC821DD" Association="Self.FK__Trajet__CreatorI__1BC821DD">
+            <End Role="User" EntitySet="User" />
+            <End Role="Trajet" EntitySet="Trajet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRatin__Rated__17F790F9" Association="Self.FK__UserRatin__Rated__17F790F9">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRatin__Rater__18EBB532" Association="Self.FK__UserRatin__Rater__18EBB532">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride" Association="Self.FK_Ride">
+            <End Role="Ride" EntitySet="Ride" />
+            <End Role="UserRide" EntitySet="UserRide" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_Level" Association="Self.FK_Ride_Level">
+            <End Role="Level" EntitySet="Level" />
+            <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_Trajet" Association="Self.FK_Ride_Trajet">
+            <End Role="Trajet" EntitySet="Trajet" />
+            <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_User" Association="Self.FK_Ride_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User" Association="Self.FK_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRide" EntitySet="UserRide" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLevel_Level" Association="Self.FK_UserLevel_Level">
+            <End Role="Level" EntitySet="Level" />
+            <End Role="UserLevel" EntitySet="UserLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLevel_User" Association="Self.FK_UserLevel_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLevel" EntitySet="UserLevel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RiderQcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="SenderId" Type="Int32" Nullable="false" />
+          <Property Name="RideId" Type="Int32" />
+          <Property Name="TrajetId" Type="Int32" />
+          <Property Name="CommentText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
+          <Property Name="Vote" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Comment1" Relationship="Self.FK__Comment__ParentI__0A9D95DB" FromRole="Comment" ToRole="Comment1" />
+          <NavigationProperty Name="Comment2" Relationship="Self.FK__Comment__ParentI__0A9D95DB" FromRole="Comment1" ToRole="Comment" />
+          <NavigationProperty Name="Ride" Relationship="Self.FK__Comment__RideId__0B91BA14" FromRole="Comment" ToRole="Ride" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Comment__SenderI__0C85DE4D" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Trajet" Relationship="Self.FK__Comment__TrajetI__0D7A0286" FromRole="Comment" ToRole="Trajet" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="LevelId" />
+          </Key>
+          <Property Name="LevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Rides" Relationship="Self.FK_Ride_Level" FromRole="Level" ToRole="Ride" />
+          <NavigationProperty Name="UserLevels" Relationship="Self.FK_UserLevel_Level" FromRole="Level" ToRole="UserLevel" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderId" Type="Int32" Nullable="false" />
+          <Property Name="ReceiverId" Type="Int32" Nullable="false" />
+          <Property Name="MessageText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Read" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Message__Receive__151B244E" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Message__SenderI__160F4887" FromRole="Message" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Moto">
+          <Key>
+            <PropertyRef Name="MotoId" />
+          </Key>
+          <Property Name="MotoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Moto__UserId__01142BA1" FromRole="Moto" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Ride">
+          <Key>
+            <PropertyRef Name="RideId" />
+          </Key>
+          <Property Name="RideId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrajetId" Type="Int32" />
+          <Property Name="CreatorId" Type="Int32" Nullable="false" />
+          <Property Name="Depart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Arrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__RideId__0B91BA14" FromRole="Ride" ToRole="Comment" />
+          <NavigationProperty Name="Level" Relationship="Self.FK_Ride_Level" FromRole="Ride" ToRole="Level" />
+          <NavigationProperty Name="UserRides" Relationship="Self.FK_Ride" FromRole="Ride" ToRole="UserRide" />
+          <NavigationProperty Name="Trajet" Relationship="Self.FK_Ride_Trajet" FromRole="Ride" ToRole="Trajet" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Ride_User" FromRole="Ride" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Trajet">
+          <Key>
+            <PropertyRef Name="TrajetId" />
+          </Key>
+          <Property Name="TrajetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatorId" Type="Int32" Nullable="false" />
+          <Property Name="GoogleCo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__TrajetI__0D7A0286" FromRole="Trajet" ToRole="Comment" />
+          <NavigationProperty Name="Rides" Relationship="Self.FK_Ride_Trajet" FromRole="Trajet" ToRole="Ride" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Trajet__CreatorI__1BC821DD" FromRole="Trajet" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ville" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DpUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__SenderI__0C85DE4D" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Receive__151B244E" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__160F4887" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Motoes" Relationship="Self.FK__Moto__UserId__01142BA1" FromRole="User" ToRole="Moto" />
+          <NavigationProperty Name="Rides" Relationship="Self.FK_Ride_User" FromRole="User" ToRole="Ride" />
+          <NavigationProperty Name="Trajets" Relationship="Self.FK__Trajet__CreatorI__1BC821DD" FromRole="User" ToRole="Trajet" />
+          <NavigationProperty Name="UserRatings" Relationship="Self.FK__UserRatin__Rated__17F790F9" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserRatings1" Relationship="Self.FK__UserRatin__Rater__18EBB532" FromRole="User" ToRole="UserRating" />
+          <NavigationProperty Name="UserRides" Relationship="Self.FK_User" FromRole="User" ToRole="UserRide" />
+          <NavigationProperty Name="UserLevels" Relationship="Self.FK_UserLevel_User" FromRole="User" ToRole="UserLevel" />
+        </EntityType>
+        <EntityType Name="UserLevel">
+          <Key>
+            <PropertyRef Name="UserLevelId" />
+          </Key>
+          <Property Name="UserLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Level" Relationship="Self.FK_UserLevel_Level" FromRole="UserLevel" ToRole="Level" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserLevel_User" FromRole="UserLevel" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRating">
+          <Key>
+            <PropertyRef Name="UserRatingId" />
+          </Key>
+          <Property Name="UserRatingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RaterId" Type="Int32" Nullable="false" />
+          <Property Name="RatedId" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="RatingMessage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserRatin__Rated__17F790F9" FromRole="UserRating" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__UserRatin__Rater__18EBB532" FromRole="UserRating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRide">
+          <Key>
+            <PropertyRef Name="UserRideId" />
+          </Key>
+          <Property Name="RideId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserRideId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Ride" Relationship="Self.FK_Ride" FromRole="UserRide" ToRole="Ride" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User" FromRole="UserRide" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Comment__ParentI__0A9D95DB">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comment1" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="CommentId" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__RideId__0B91BA14">
+          <End Role="Ride" Type="Self.Ride" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="RideId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__SenderI__0C85DE4D">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__TrajetI__0D7A0286">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="TrajetId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TrajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLevel_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="LevelId" />
+            </Principal>
+            <Dependent Role="UserLevel">
+              <PropertyRef Name="LevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Receive__151B244E">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ReceiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__SenderI__160F4887">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moto__UserId__01142BA1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Moto" Type="Self.Moto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Moto">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride">
+          <End Role="Ride" Type="Self.Ride" Multiplicity="1" />
+          <End Role="UserRide" Type="Self.UserRide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ride">
+              <PropertyRef Name="RideId" />
+            </Principal>
+            <Dependent Role="UserRide">
+              <PropertyRef Name="RideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_Trajet">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="TrajetId" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="TrajetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ride_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Ride" Type="Self.Ride" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Ride">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trajet__CreatorI__1BC821DD">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Trajet">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRatin__Rated__17F790F9">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RatedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRatin__Rater__18EBB532">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRating" Type="Self.UserRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRating">
+              <PropertyRef Name="RaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRide" Type="Self.UserRide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRide">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLevel_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLevel">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RiderQcContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Levels" EntityType="Self.Level" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Motoes" EntityType="Self.Moto" />
+          <EntitySet Name="Rides" EntityType="Self.Ride" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Trajets" EntityType="Self.Trajet" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserLevels" EntityType="Self.UserLevel" />
+          <EntitySet Name="UserRatings" EntityType="Self.UserRating" />
+          <EntitySet Name="UserRides" EntityType="Self.UserRide" />
+          <AssociationSet Name="FK__Comment__ParentI__0A9D95DB" Association="Self.FK__Comment__ParentI__0A9D95DB">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Comment1" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__RideId__0B91BA14" Association="Self.FK__Comment__RideId__0B91BA14">
+            <End Role="Ride" EntitySet="Rides" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__SenderI__0C85DE4D" Association="Self.FK__Comment__SenderI__0C85DE4D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__TrajetI__0D7A0286" Association="Self.FK__Comment__TrajetI__0D7A0286">
+            <End Role="Trajet" EntitySet="Trajets" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_Level" Association="Self.FK_Ride_Level">
+            <End Role="Level" EntitySet="Levels" />
+            <End Role="Ride" EntitySet="Rides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLevel_Level" Association="Self.FK_UserLevel_Level">
+            <End Role="Level" EntitySet="Levels" />
+            <End Role="UserLevel" EntitySet="UserLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Receive__151B244E" Association="Self.FK__Message__Receive__151B244E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__SenderI__160F4887" Association="Self.FK__Message__SenderI__160F4887">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moto__UserId__01142BA1" Association="Self.FK__Moto__UserId__01142BA1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Moto" EntitySet="Motoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride" Association="Self.FK_Ride">
+            <End Role="Ride" EntitySet="Rides" />
+            <End Role="UserRide" EntitySet="UserRides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_Trajet" Association="Self.FK_Ride_Trajet">
+            <End Role="Trajet" EntitySet="Trajets" />
+            <End Role="Ride" EntitySet="Rides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ride_User" Association="Self.FK_Ride_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Ride" EntitySet="Rides" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trajet__CreatorI__1BC821DD" Association="Self.FK__Trajet__CreatorI__1BC821DD">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Trajet" EntitySet="Trajets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRatin__Rated__17F790F9" Association="Self.FK__UserRatin__Rated__17F790F9">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRatin__Rater__18EBB532" Association="Self.FK__UserRatin__Rater__18EBB532">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRating" EntitySet="UserRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User" Association="Self.FK_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRide" EntitySet="UserRides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLevel_User" Association="Self.FK_UserLevel_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLevel" EntitySet="UserLevels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RiderQcModelStoreContainer" CdmEntityContainer="RiderQcContext">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="RiderQcModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+                <ScalarProperty Name="TrajetId" ColumnName="TrajetId" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="Vote" ColumnName="Vote" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels">
+            <EntityTypeMapping TypeName="RiderQcModel.Level">
+              <MappingFragment StoreEntitySet="Level">
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="RiderQcModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Read" ColumnName="Read" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motoes">
+            <EntityTypeMapping TypeName="RiderQcModel.Moto">
+              <MappingFragment StoreEntitySet="Moto">
+                <ScalarProperty Name="MotoId" ColumnName="MotoId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rides">
+            <EntityTypeMapping TypeName="RiderQcModel.Ride">
+              <MappingFragment StoreEntitySet="Ride">
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+                <ScalarProperty Name="TrajetId" ColumnName="TrajetId" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="Depart" ColumnName="Depart" />
+                <ScalarProperty Name="Arrive" ColumnName="Arrive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RiderQcModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trajets">
+            <EntityTypeMapping TypeName="RiderQcModel.Trajet">
+              <MappingFragment StoreEntitySet="Trajet">
+                <ScalarProperty Name="TrajetId" ColumnName="TrajetId" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="GoogleCo" ColumnName="GoogleCo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RiderQcModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DpUrl" ColumnName="DpUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLevels">
+            <EntityTypeMapping TypeName="RiderQcModel.UserLevel">
+              <MappingFragment StoreEntitySet="UserLevel">
+                <ScalarProperty Name="UserLevelId" ColumnName="UserLevelId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LevelId" ColumnName="LevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRatings">
+            <EntityTypeMapping TypeName="RiderQcModel.UserRating">
+              <MappingFragment StoreEntitySet="UserRating">
+                <ScalarProperty Name="UserRatingId" ColumnName="UserRatingId" />
+                <ScalarProperty Name="RaterId" ColumnName="RaterId" />
+                <ScalarProperty Name="RatedId" ColumnName="RatedId" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="RatingMessage" ColumnName="RatingMessage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRides">
+            <EntityTypeMapping TypeName="RiderQcModel.UserRide">
+              <MappingFragment StoreEntitySet="UserRide">
+                <ScalarProperty Name="RideId" ColumnName="RideId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserRideId" ColumnName="UserRideId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

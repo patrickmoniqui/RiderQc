@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
-using RiderQc.Web.DAL;
-using RiderQc.Web.Repository;
+using RiderQc.Web.Entities;
+using RiderQc.Web.Repository.Interface;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace RiderQc.Web.Controllers.Api
 {
@@ -11,24 +12,19 @@ namespace RiderQc.Web.Controllers.Api
     {
         private readonly IRideRepository repo;
 
-        public RideController(/*IRideRepository _repo*/)
+        public RideController(IRideRepository _repo)
         {
-            repo = new RideRepository();
+            repo = _repo;
         }
-
-        [System.Web.Http.AcceptVerbs("GET")]
-        [System.Web.Http.HttpGet]
+        
+        [HttpGet]
+        [Route("list")]
+        [ResponseType(typeof(List<Ride>))]
         public IHttpActionResult GetAllRides()
         {
             List<Ride> rides = repo.GetAllRides();
-
-            string json = JsonConvert.SerializeObject(rides, Formatting.None, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
             
-            return Ok(json);
+            return Ok(rides);
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using RiderQc.Web.DAL.Interface;
+using RiderQc.Web.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace RiderQc.Web.DAL
 {
@@ -11,7 +12,11 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Rides.ToList();
+                return ctx.Rides
+                    .Include(x => x.User)
+                    .Include(x => x.Level)
+                    .Include(x => x.Trajet)
+                    .ToList();
             }
         }
     }

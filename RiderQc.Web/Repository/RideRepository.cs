@@ -1,8 +1,7 @@
-﻿using RiderQc.Web.DAL;
-using System;
+﻿using RiderQc.Web.DAL.Interface;
+using RiderQc.Web.Entities;
+using RiderQc.Web.Repository.Interface;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace RiderQc.Web.Repository
 {
@@ -10,9 +9,9 @@ namespace RiderQc.Web.Repository
     {
         private readonly IRideDao dao;
 
-        public RideRepository(/*IRideDao _dao*/)
+        public RideRepository(IRideDao _dao)
         {
-            dao = new RideDao();
+            dao = _dao;
         }
 
         public List<Ride> GetAllRides()
