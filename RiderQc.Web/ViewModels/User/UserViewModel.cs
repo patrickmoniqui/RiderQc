@@ -14,6 +14,6 @@ namespace RiderQc.Web.ViewModels.User
         public string Description { get; set; }
         public string DpUrl { get; set; }
         public virtual ICollection<Moto> Motoes { get; set; }
-        public virtual ICollection<Ride> Rides { get; set; }
+        public virtual ICollection<Entities.Ride> Rides { get; set; }
     }
 }

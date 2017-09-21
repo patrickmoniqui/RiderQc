@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\RiderQc.Web.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -259,6 +260,7 @@
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\RideRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="ViewModels\Ride\RideViewModel.cs" />
     <Compile Include="ViewModels\User\UserRegisterViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>

@@ -9,9 +9,7 @@
 
 namespace RiderQc.Web.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class UserLevel
     {
         public int UserLevelId { get; set; }

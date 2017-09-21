@@ -20,6 +20,11 @@ namespace RiderQc.Web.Controllers.API
             repo = _repo;
         }
 
+        /// <summary>
+        /// Register a user
+        /// </summary>
+        /// <param name="userViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [Route("register")]
@@ -43,6 +48,11 @@ namespace RiderQc.Web.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Delete a user
+        /// </summary>
+        /// <param name="username">username of the user.</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{username}")]
         [ResponseType(typeof(string))]
@@ -65,6 +75,10 @@ namespace RiderQc.Web.Controllers.API
             }
         }
 
+        /// <summary>
+        /// List all the users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("list")]
         [ResponseType(typeof(List<User>))]

@@ -9,9 +9,10 @@
 
 namespace RiderQc.Web.Entities
 {
+    using RiderQc.Web.ViewModels.Ride;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Ride
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,14 +21,26 @@ namespace RiderQc.Web.Entities
             this.Comments = new HashSet<Comment>();
             this.UserRides = new HashSet<UserRide>();
         }
-    
+
+        public Ride(RideViewModel rideViewModel)
+        {
+            this.Title = rideViewModel.Title;
+            this.Description = rideViewModel.Description;
+            this.CreatorId = rideViewModel.CreatorId;
+            this.TrajetId = rideViewModel.TrajetId;
+            this.LevelId = rideViewModel.LevelId;
+            this.DateDepart = rideViewModel.DateDepart;
+            this.DateFin = rideViewModel.DateFin;
+        }
+        
         public int RideId { get; set; }
         public Nullable<int> TrajetId { get; set; }
         public int CreatorId { get; set; }
-        public System.DateTime Depart { get; set; }
-        public System.DateTime Arrive { get; set; }
         public string Description { get; set; }
         public int LevelId { get; set; }
+        public System.DateTime DateDepart { get; set; }
+        public System.DateTime DateFin { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
