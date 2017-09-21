@@ -26,5 +26,10 @@ namespace RiderQc.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Redoc()
+        {
+            return View();
+        }
     }
 }
