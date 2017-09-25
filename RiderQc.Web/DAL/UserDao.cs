@@ -1,5 +1,4 @@
-﻿using System;
-using RiderQc.Web.DAL.Interface;
+﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using System.Linq;
 
@@ -44,5 +43,20 @@ namespace RiderQc.Web.DAL
                 return false;
             }
         }
+
+        public bool CheckUserExistence(string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                foreach (User u in ctx.Users)
+                {
+                    if (u.Username == username)
+                        return true;
+                }
+
+            }
+            return false;
+        }
+
     }
 }

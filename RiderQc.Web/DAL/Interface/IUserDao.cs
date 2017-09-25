@@ -6,5 +6,6 @@ namespace RiderQc.Web.DAL.Interface
     {
         bool RegisterUser(User user);
         bool DeleteUser(string username);
+        bool CheckUserExistence(string username);
     }
 }

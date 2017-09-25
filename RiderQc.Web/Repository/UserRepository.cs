@@ -37,5 +37,10 @@ namespace RiderQc.Web.Repository
 
             return result;
         }
+
+        public bool CheckUserExistence(string username)
+        {
+            return dao.CheckUserExistence(username);
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace RiderQc.Web.Entities
         public string Password { get; set; }
         public string Region { get; set; }
         public string Ville { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string Description { get; set; }
         public string DpUrl { get; set; }
     
