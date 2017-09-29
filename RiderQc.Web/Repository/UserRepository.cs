@@ -1,5 +1,4 @@
-﻿using System;
-using RiderQc.Web.DAL.Interface;
+﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;

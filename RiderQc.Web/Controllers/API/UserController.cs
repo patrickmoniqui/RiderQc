@@ -1,11 +1,10 @@
 ﻿using RiderQc.Web.Entities;
+using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -37,16 +36,20 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            string username = Base64Decode(userViewModel.Username);
+            if (!EncryptionHelper.IsBase64(userViewModel.Username) || !(EncryptionHelper.IsBase64(userViewModel.Password)))
+                return BadRequest("An error has occured");
+
+
+            string username = EncryptionHelper.Base64Decode(userViewModel.Username);
 
             if (repo.CheckUserExistence(username))
                 return BadRequest("That username is already taken.");
 
             userViewModel.Username = username;
 
-            string password = Base64Decode(userViewModel.Password);
+            string password = EncryptionHelper.Base64Decode(userViewModel.Password);
 
-            userViewModel.Password = HashToSHA256(password);
+            userViewModel.Password = EncryptionHelper.HashToSHA256(password);
 
             DateTime? userDOB = userViewModel.DateOfBirth;
             string region = userViewModel.Region;
@@ -109,34 +112,6 @@ namespace RiderQc.Web.Controllers.API
             }
 
             return Ok(users);
-        }
-        #region Methods for Encryption/Decryption
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
-
-        public static string Base64Decode(string base64EncodedData)
-        {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
-
-        public static String HashToSHA256(String value)
-        {
-            StringBuilder Sb = new StringBuilder();
-
-            using (SHA256 hash = SHA256.Create())
-            {
-                Encoding enc = Encoding.UTF8;
-                byte[] result = hash.ComputeHash(enc.GetBytes(value));
-
-                foreach (byte b in result)
-                    Sb.Append(b.ToString("x2"));
-            }
-            return Sb.ToString();
-        }
-        #endregion
+        }    
     }
 }
