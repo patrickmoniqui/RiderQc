@@ -1,0 +1,54 @@
+<h1>RiderQc</h1>
+<agm-map [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)">
+  <agm-directions [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-directions>
+  <!--<agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" (rightClick)="rightClickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, i, $event)"></agm-marker>-->
+</agm-map>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of waypoints; let i = index" [(ngModel)]="waypoints" ngDefaultControl>
+      <td>{{w.location}}</td>
+      <td><button (click)="deleteMarker(i)">X</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of geocodedWaypoints; let i = index" [(ngModel)]="geocodedWaypoints" ngDefaultControl>
+      <td>{{w.place_id}}</td>
+      <td><button (click)="deleteGeocodedWaypoint(i)">X</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+<thead>
+  <tr>
+    <th>Instructions</th>
+    <th>Time</th>
+    <th>Distance</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let w of legs.steps; let i = index" [(ngModel)]="legs" ngDefaultControl>
+    <td>{{i+1}} - <span [innerHTML]="w.instructions"></span></td>
+    <td>{{w.duration.text}}</td>
+    <td>{{w.distance.text}}</td>
+  </tr>
+</tbody>
+</table>
+
+<p>Total duration : {{legs.duration.text}}</p>
+<p>Total distance : {{legs.distance.text}}</p>
