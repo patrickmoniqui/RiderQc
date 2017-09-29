@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -200,6 +201,7 @@
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
     <Compile Include="DAL\RideDao.cs" />
@@ -324,10 +326,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Redoc.cshtml" />
+    <Content Include="Views\UserAdmin\Index.cshtml" />
+    <Content Include="Views\UserAdmin\ManageTrajet.cshtml" />
+    <Content Include="Views\UserAdmin\ManageRide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Ride\" />
   </ItemGroup>
   <ItemGroup>

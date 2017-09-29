@@ -2,6 +2,7 @@
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
+using System.Collections.Generic;
 
 namespace RiderQc.Web.Repository
 {
@@ -40,6 +41,21 @@ namespace RiderQc.Web.Repository
         public bool CheckUserExistence(string username)
         {
             return dao.CheckUserExistence(username);
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return dao.GetAllUsers();
+        }
+
+        public List<Trajet> GetAllTrajets()
+        {
+            return dao.GetAllTrajets();
+        }
+
+        public List<Ride> GetAllRides()
+        {
+            return dao.GetAllRides();
         }
     }
 }

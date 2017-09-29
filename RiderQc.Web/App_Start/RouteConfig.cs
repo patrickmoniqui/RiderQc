@@ -10,7 +10,7 @@ namespace RiderQc.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapMvcAttributeRoutes();
             //swagger
             routes.MapHttpRoute(
                 name: "swagger_root",
