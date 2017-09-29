@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace RiderQc.Web.ViewModels.User
 {
     public class UserRegisterViewModel
     {
+        [Required, MinLength(4), MaxLength(30)]
         public string Username { get; set; }
+        [Required, MinLength(8), MaxLength(25)]
         public string Password { get; set; }
         public string Region { get; set; }
         public string Ville { get; set; }

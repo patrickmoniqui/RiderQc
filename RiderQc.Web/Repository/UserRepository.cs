@@ -1,5 +1,4 @@
-﻿using System;
-using RiderQc.Web.DAL.Interface;
+﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
@@ -36,6 +35,11 @@ namespace RiderQc.Web.Repository
             bool result = dao.RegisterUser(user);
 
             return result;
+        }
+
+        public bool CheckUserExistence(string username)
+        {
+            return dao.CheckUserExistence(username);
         }
     }
 }

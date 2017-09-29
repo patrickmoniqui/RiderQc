@@ -6,5 +6,6 @@ namespace RiderQc.Web.Repository.Interface
     {
         bool RegisterUser(UserRegisterViewModel user);
         bool DeleteUser(string username);
+        bool CheckUserExistence(string username);
     }
 }
