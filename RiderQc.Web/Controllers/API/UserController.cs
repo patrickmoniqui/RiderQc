@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using RiderQc.Web.Entities;
+﻿using RiderQc.Web.Entities;
+using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
-using Swashbuckle.Swagger.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -31,14 +31,34 @@ namespace RiderQc.Web.Controllers.API
         [ResponseType(typeof(UserRegisterViewModel))]
         public IHttpActionResult Register(UserRegisterViewModel userViewModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            if (!EncryptionHelper.IsBase64(userViewModel.Username) || !(EncryptionHelper.IsBase64(userViewModel.Password)))
+                return BadRequest("An error has occured");
+
+
+            string username = EncryptionHelper.Base64Decode(userViewModel.Username);
+
+            if (repo.CheckUserExistence(username))
+                return BadRequest("That username is already taken.");
+
+            userViewModel.Username = username;
+
+            string password = EncryptionHelper.Base64Decode(userViewModel.Password);
+
+            userViewModel.Password = EncryptionHelper.HashToSHA256(password);
+
+            DateTime? userDOB = userViewModel.DateOfBirth;
+            string region = userViewModel.Region;
+            string ville = userViewModel.Ville;
+            string dpURL = userViewModel.DpUrl;
+
             bool result = repo.RegisterUser(userViewModel);
-            
-            if(result)
+
+            if (result)
             {
                 return Ok("User successfully registered!");
             }
@@ -92,6 +112,6 @@ namespace RiderQc.Web.Controllers.API
             }
 
             return Ok(users);
-        }
+        }    
     }
 }
