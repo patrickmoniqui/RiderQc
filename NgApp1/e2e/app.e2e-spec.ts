@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('riderqc App', () => {
+describe('ng-app1 App', () => {
   let page: AppPage;
 
   beforeEach(() => {
