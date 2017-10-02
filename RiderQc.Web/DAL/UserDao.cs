@@ -1,6 +1,7 @@
 ﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace RiderQc.Web.DAL
 {
@@ -58,5 +59,57 @@ namespace RiderQc.Web.DAL
             return false;
         }
 
+        public List<User> GetAllUsers() 
+        {
+
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                var users = ctx.Users;
+
+                if (users != null)
+                {
+                    return users.ToList();
+                }
+                else
+                {
+                    return new List<User>();
+                }
+            }
+        }
+
+        public List<Trajet> GetAllTrajets()
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                var trajets = ctx.Trajets;
+
+                if (trajets != null)
+                {
+                    return trajets.ToList();
+                }
+                else
+                {
+                    return new List<Trajet>();
+                }
+            }
+        }
+
+        public List<Ride> GetAllRides()
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                var rides = ctx.Rides;
+
+                if (rides != null)
+                {
+                    return rides.ToList();
+                }
+                else
+                {
+                    return new List<Ride>();
+                }
+            }
+        }
     }
 }

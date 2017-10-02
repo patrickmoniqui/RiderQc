@@ -26,6 +26,11 @@ namespace RiderQc.Web.Controllers.Api
         [Route("")]
         public IHttpActionResult Create(RideViewModel rideViewModel)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             bool result = repo.Create(rideViewModel);
 
             if(result)
