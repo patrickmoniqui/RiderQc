@@ -1,4 +1,6 @@
-﻿using RiderQc.Web.ViewModels.User;
+﻿using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.User;
+using System.Collections.Generic;
 
 namespace RiderQc.Web.Repository.Interface
 {
@@ -7,5 +9,8 @@ namespace RiderQc.Web.Repository.Interface
         bool RegisterUser(UserRegisterViewModel user);
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
+        List<User> GetAllUsers();
+        List<Trajet> GetAllTrajets();
+        List<Ride> GetAllRides();
     }
 }
