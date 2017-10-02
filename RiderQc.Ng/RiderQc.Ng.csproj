@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -17,11 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< Updated upstream:RiderQc.Ng/RiderQc.Ng.csproj
-=======
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\model\" />
->>>>>>> Stashed changes:NgApp1/NgApp1.csproj
     <Folder Include="src\app\services\" />
   </ItemGroup>
 
