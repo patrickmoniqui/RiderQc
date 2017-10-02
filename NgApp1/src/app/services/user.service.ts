@@ -18,6 +18,10 @@ export class UserService {
 		  .map(res => res.json());
 	}
 
+	register(jsonUser) {
+		return this.http.post(`${this.baseUrl}/user/register`, JSON.stringify(jsonUser));
+	}
+
   private getHeaders() {
 	  let headers = new Headers();
 	  headers.append('Accept', 'application/json');
@@ -29,4 +33,6 @@ export class UserService {
 	  headers.append("Authorization", userBtoa);
 	  return headers;
   }
+
+  
 }

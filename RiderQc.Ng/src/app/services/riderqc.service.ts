@@ -12,11 +12,7 @@ export class RiderqcService {
 
     getRides()
     {
-<<<<<<< Updated upstream:RiderQc.Ng/src/app/services/riderqc.service.ts
-        return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
-=======
-		return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
->>>>>>> Stashed changes:NgApp1/src/app/services/riderqc.service.ts
+		  return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
             .map(res => res.json());
     }
 }
