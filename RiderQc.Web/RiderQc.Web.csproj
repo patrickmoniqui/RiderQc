@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\MotoController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -205,9 +206,11 @@
     <Compile Include="Controllers\RideAdminController.cs" />
     <Compile Include="Controllers\TrajetAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\ITrajetDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
+    <Compile Include="DAL\MotoDao.cs" />
     <Compile Include="DAL\RideDao.cs" />
     <Compile Include="DAL\TrajetDao.cs" />
     <Compile Include="DAL\UserDao.cs" />
@@ -265,12 +268,15 @@
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="NinjectBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Interface\IMotoRepository.cs" />
     <Compile Include="Repository\Interface\IRideRepository.cs" />
     <Compile Include="Repository\Interface\ITrajetRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\MotoRepository.cs" />
     <Compile Include="Repository\RideRepository.cs" />
     <Compile Include="Repository\TrajetRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="ViewModels\Moto\MotoViewModel.cs" />
     <Compile Include="ViewModels\Ride\RideViewModel.cs" />
     <Compile Include="ViewModels\Trajet\TrajetViewModel.cs" />
     <Compile Include="ViewModels\User\UserRegisterViewModel.cs" />
@@ -348,6 +354,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Moto\" />
+    <Folder Include="Views\Ride\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\TrajetAdmin\" />
     <Folder Include="Views\Trajet\" />
