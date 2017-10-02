@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< Updated upstream:RiderQc.Ng/RiderQc.Ng.csproj
+=======
+    <Folder Include="src\app\components\" />
+    <Folder Include="src\app\model\" />
+>>>>>>> Stashed changes:NgApp1/NgApp1.csproj
     <Folder Include="src\app\services\" />
   </ItemGroup>
 
