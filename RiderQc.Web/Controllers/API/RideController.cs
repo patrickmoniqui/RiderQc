@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using RiderQc.Web.Entities;
+﻿using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Ride;
 using System.Collections.Generic;
