@@ -1,9 +1,11 @@
 ﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
-using System.Collections.Generic;
-using RiderQc.Web.ViewModels.Ride;
+using RiderQc.Web.ViewModels.Trajet;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace RiderQc.Web.Repository
 {
@@ -15,28 +17,26 @@ namespace RiderQc.Web.Repository
         {
             dao = _dao;
         }
-
-        public bool Create(TrajetViewModel trajetViewModel)
+        public List<TrajetViewModel> GetTrajetList()
         {
-            //mapping
-            Trajet trajet = new Trajet();
+            List<TrajetViewModel> list = new List<TrajetViewModel>();
 
-            return dao.Create(trajet);
-        }
+            List<Trajet> trajets = dao.GetTrajetList();
 
-        public bool Delete(int trajetId)
-        {
-            return dao.Delete(trajetId);
-        }
+            foreach (Trajet trajet in trajets)
+            {
+                TrajetViewModel trajetViewModel = new TrajetViewModel();
+                trajetViewModel.TrajetId = trajet.TrajetId;
+                trajetViewModel.GpsPoints = new List<string>();
 
-        public Trajet Get(int trajetId)
-        {
-            return dao.Get(trajetId);
-        }
+                var gpsPoints = trajet.GoogleCo.Split(';');
 
-        public List<Trajet> GetAllTrajets()
-        {
-            return dao.GetAllTrajets();
+                trajetViewModel.GpsPoints.AddRange(gpsPoints);
+
+                list.Add(trajetViewModel);
+            }
+
+            return list;
         }
     }
 }

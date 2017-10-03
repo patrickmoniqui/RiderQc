@@ -1,4 +1,4 @@
-﻿using RiderQc.Web.ViewModels.Trajet;
+﻿using RiderQc.Web.ViewModels.Level;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RiderQc.Web.Repository.Interface
 {
-    public interface ITrajetRepository
+    public interface ILevelRepository
     {
-        List<TrajetViewModel> GetTrajetList();
+        List<LevelViewModel> GetLevelList();
     }
 }

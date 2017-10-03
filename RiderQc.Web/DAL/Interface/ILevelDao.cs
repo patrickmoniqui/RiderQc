@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace RiderQc.Web.DAL.Interface
 {
-    public interface ITrajetDao
+    public interface ILevelDao
     {
-        List<Trajet> GetTrajetList();
+        List<Level> GetLevelList();
     }
 }

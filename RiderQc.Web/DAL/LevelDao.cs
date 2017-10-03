@@ -3,25 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using RiderQc.Web.ViewModels.Trajet;
 using RiderQc.Web.Entities;
 
 namespace RiderQc.Web.DAL
 {
-    public class TrajetDao : ITrajetDao
+    public class LevelDao : ILevelDao
     {
-        public List<Trajet> GetTrajetList()
+        public List<Level> GetLevelList()
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var trajets = ctx.Trajets;
+                var list = ctx.Levels;
 
-                if(trajets != null)
+                if (list != null)
                 {
-                    return ctx.Trajets.ToList();
+                    return list.ToList();
+                }
+                else
+                {
+                    return new List<Level>();
                 }
             }
-            return new List<Trajet>();
         }
     }
 }
