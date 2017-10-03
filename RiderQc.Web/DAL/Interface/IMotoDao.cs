@@ -9,6 +9,7 @@ namespace RiderQc.Web.DAL.Interface
         bool CreateMoto(Moto moto);
         bool EditMoto(Moto moto);
         bool DeleteMoto(int motoId);
+        bool UserHasAccess(int motoId, string username);
         Moto GetMoto(int motoId);
         List<Moto> GetAllMotos();
     }

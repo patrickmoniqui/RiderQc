@@ -9,6 +9,7 @@ namespace RiderQc.Web.Repository.Interface
         bool CreateMoto(MotoViewModel motoViewModel);
         bool EditMoto(MotoViewModel motoViewModel);
         bool DeleteMoto(int motoId);
+        bool UserHasAccess(int motoId, string username);
         Moto GetMoto(int motoId);
         List<Moto> GetAllMotos();
     }
