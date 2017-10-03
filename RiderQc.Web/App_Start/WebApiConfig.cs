@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RiderQc.Web.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,7 @@ namespace RiderQc.Web
     {
         public static void Register(HttpConfiguration config)
         {
+            //config.Filters.Add(new BasicAuthorization());
             //enable cros
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

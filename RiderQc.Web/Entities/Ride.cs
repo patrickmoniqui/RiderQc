@@ -21,17 +21,6 @@ namespace RiderQc.Web.Entities
             this.Comments = new HashSet<Comment>();
             this.UserRides = new HashSet<UserRide>();
         }
-
-        public Ride(RideViewModel rideViewModel)
-        {
-            this.Title = rideViewModel.Title;
-            this.Description = rideViewModel.Description;
-            this.CreatorId = rideViewModel.CreatorId;
-            this.TrajetId = rideViewModel.TrajetId;
-            this.LevelId = rideViewModel.LevelId;
-            this.DateDepart = rideViewModel.DateDepart;
-            this.DateFin = rideViewModel.DateFin;
-        }
         
         public int RideId { get; set; }
         public Nullable<int> TrajetId { get; set; }

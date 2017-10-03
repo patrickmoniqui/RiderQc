@@ -66,5 +66,32 @@ namespace RiderQc.Web.DAL
                 }
             }
         }
+        
+        public bool UserIsCreator(int rideId, string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Ride ride = ctx.Rides.FirstOrDefault(x => x.RideId == rideId);
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if(ride == null || user == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(ride.CreatorId == user.UserID)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+
+            }
+        }
     }
 }
