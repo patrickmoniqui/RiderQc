@@ -88,8 +88,6 @@ namespace RiderQc.Web.DAL
                         return false;
                     }
                 }
-
-
             }
         }
     }

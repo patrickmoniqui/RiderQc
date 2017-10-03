@@ -1,4 +1,6 @@
-﻿using RiderQc.Web.Entities;
+﻿using RiderQc.Web.App_Start;
+using RiderQc.Web.Entities;
+using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Moto;
 using System.Collections.Generic;
@@ -22,8 +24,9 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoViewModel"></param>
         /// <returns></returns>
+        [BasicAuthorization]
         [HttpPost]
-        [Route("add")]
+        [Route("")]
         [ResponseType(typeof(MotoViewModel))]
         public IHttpActionResult CreateMoto(MotoViewModel motoViewModel)
         {
@@ -43,17 +46,27 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoViewModel"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("edit")]
+        [BasicAuthorization]
+        [HttpPut]
+        [Route("")]
         [ResponseType(typeof(MotoViewModel))]
         public IHttpActionResult EditMoto(MotoViewModel motoViewModel)
         {
-            //NEEDS USER AUTHENTIFICATION
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            bool result = repo.EditMoto(motoViewModel);
+            ApplicationUser user = (ApplicationUser)User;
+
+            bool result = false;
+
+            if (repo.UserHasAccess(motoViewModel.MotoId, user.Username))
+            {
+                result = repo.EditMoto(motoViewModel);
+            }
+            else
+            {
+                return Unauthorized();
+            }
 
             if (!result)
                 return BadRequest("An error as occured.");
@@ -66,14 +79,24 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoId"></param>
         /// <returns></returns>
+        [BasicAuthorization]
         [HttpDelete]
         [Route("{motoId}")]
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteMoto(int motoId)
         {
-            //NEEDS USER AUTHENTIFICATION
+            ApplicationUser user = (ApplicationUser)User;
+        
+            bool result = false;
 
-            bool result = repo.DeleteMoto(motoId);
+            if (repo.UserHasAccess(motoId, user.Username))
+            {
+                result = repo.DeleteMoto(motoId);
+            }
+            else
+            {
+                return Unauthorized();
+            }
 
             if (!result)
                 return BadRequest("An error as occured.");
@@ -91,7 +114,6 @@ namespace RiderQc.Web.Controllers.API
         [ResponseType(typeof(int))]
         public IHttpActionResult GetMoto(int motoId)
         {
-            //NEEDS USER AUTHENTIFICATION
             Moto moto = repo.GetMoto(motoId);
 
             if (moto == null)
@@ -110,7 +132,6 @@ namespace RiderQc.Web.Controllers.API
         [ResponseType(typeof(List<Moto>))]
         public IHttpActionResult GetAllMotos()
         {
-            //NEEDS USER AUTHENTIFICATION
             return Ok(repo.GetAllMotos());
         }
     }

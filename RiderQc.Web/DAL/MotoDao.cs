@@ -3,6 +3,7 @@ using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace RiderQc.Web.DAL
 {
@@ -67,6 +68,31 @@ namespace RiderQc.Web.DAL
                     return motos.ToList();
                 else
                     return new List<Moto>();
+            }
+        }
+
+        public bool UserHasAccess(int motoId, string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Moto moto = ctx.Motos.FirstOrDefault(x => x.MotoId == motoId);
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if (moto == null || user == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (moto.UserId == user.UserID)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
         }
     }

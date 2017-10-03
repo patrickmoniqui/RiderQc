@@ -45,5 +45,14 @@ namespace RiderQc.Web.Repository
         {
             return dao.GetAllMotos();
         }
+
+        public bool UserHasAccess(int motoId, string username)
+        {
+            if (motoId <= 0 || string.IsNullOrWhiteSpace(username))
+            {
+                return false;
+            }
+            return dao.UserHasAccess(motoId, username);
+        }
     }
 }
