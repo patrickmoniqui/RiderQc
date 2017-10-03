@@ -1,11 +1,9 @@
 ﻿using RiderQc.Web.App_Start;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Models;
-using System;
+using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Trajet;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace RiderQc.Web.Controllers.API
@@ -13,6 +11,13 @@ namespace RiderQc.Web.Controllers.API
     [RoutePrefix("trajet")]
     public class TrajetController : ApiController
     {
+        private readonly ITrajetRepository repo;
+
+        public TrajetController(ITrajetRepository _repo)
+        {
+            repo = _repo;
+        }
+
         /// <summary>
         /// Create a trajet.
         /// </summary>
@@ -41,6 +46,19 @@ namespace RiderQc.Web.Controllers.API
             {
                 return BadRequest("Error while creating trajet.");
             }
+        }
+
+        /// <summary>
+        /// List of trajets.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("list")]
+        public IHttpActionResult List()
+        {
+            List<TrajetViewModel> trajets = repo.GetTrajetList();
+
+            return Ok(trajets);
         }
     }
 }
