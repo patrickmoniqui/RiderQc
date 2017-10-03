@@ -1,4 +1,6 @@
-﻿using RiderQc.Web.Entities;
+﻿using Newtonsoft.Json;
+using RiderQc.Web.Entities;
+using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Ride;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace RiderQc.Web.Controllers.Api
         /// </summary>
         /// <param name="rideViewModel"></param>
         /// <returns></returns>
+        [BasicAuthorization]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Create(RideViewModel rideViewModel)
@@ -30,6 +33,9 @@ namespace RiderQc.Web.Controllers.Api
             {
                 return BadRequest(ModelState);
             }
+
+            ApplicationUser user = (ApplicationUser)User;
+            rideViewModel.CreatorId = user.Id;
 
             bool result = repo.Create(rideViewModel);
 
@@ -47,13 +53,24 @@ namespace RiderQc.Web.Controllers.Api
         /// Delete a ride
         /// </summary>
         /// <param name="rideId">Id of the ride.</param>
-        /// <returns></returns>
+        [BasicAuthorization]
         [HttpDelete]
         [Route("{rideId}")]
         public IHttpActionResult Delete(int rideId)
         {
-            bool result = repo.Delete(rideId);
+            ApplicationUser user = (ApplicationUser)User;
 
+            bool result = false;
+
+            if(repo.UserIsCreator(rideId, user.Username))
+            {
+                result = repo.Delete(rideId);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+            
             if (result)
             {
                 return Ok("Ride successfully deleted.");
