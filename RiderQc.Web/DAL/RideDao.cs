@@ -3,7 +3,6 @@ using RiderQc.Web.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System;
 
 namespace RiderQc.Web.DAL
 {
