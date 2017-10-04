@@ -201,6 +201,7 @@
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
+    <Compile Include="Controllers\RideAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
@@ -327,11 +328,15 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Redoc.cshtml" />
     <Content Include="Views\UserAdmin\Index.cshtml" />
-    <Content Include="Views\UserAdmin\ManageTrajet.cshtml" />
-    <Content Include="Views\UserAdmin\ManageRide.cshtml" />
     <Content Include="Views\UserAdmin\CreateNewUser.cshtml" />
     <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
     <Content Include="Views\UserAdmin\DetailUser.cshtml" />
+    <Content Include="Views\UserAdmin\EditUser.cshtml" />
+    <Content Include="Views\RideAdmin\RideListe.cshtml" />
+    <Content Include="Views\RideAdmin\EditRide.cshtml" />
+    <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
+    <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
+    <Content Include="Views\RideAdmin\DetailRide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

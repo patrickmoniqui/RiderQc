@@ -8,6 +8,7 @@ namespace RiderQc.Web.Repository.Interface
     {
         bool Create(RideViewModel rideViewModel);
         bool Delete(int rideId);
+
         Ride Get(int rideId);
         List<Ride> GetAllRides();
     }
