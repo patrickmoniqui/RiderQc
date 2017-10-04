@@ -62,5 +62,12 @@ namespace RiderQc.Web.Repository
         {
             return dao.GetAllRides();
         }
+
+        public User GetUserById(int userId)
+        {
+            return dao.GetUserById(userId);
+        }
+
+
     }
 }
