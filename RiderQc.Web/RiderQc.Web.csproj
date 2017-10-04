@@ -329,6 +329,9 @@
     <Content Include="Views\UserAdmin\Index.cshtml" />
     <Content Include="Views\UserAdmin\ManageTrajet.cshtml" />
     <Content Include="Views\UserAdmin\ManageRide.cshtml" />
+    <Content Include="Views\UserAdmin\CreateNewUser.cshtml" />
+    <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
+    <Content Include="Views\UserAdmin\DetailUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

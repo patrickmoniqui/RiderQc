@@ -59,6 +59,21 @@ namespace RiderQc.Web.DAL
             return false;
         }
 
+        public bool GetUserById(int userId)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                foreach(User u in ctx.Users)
+                {
+                    if(u.UserID == userId)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public List<User> GetAllUsers() 
         {
 

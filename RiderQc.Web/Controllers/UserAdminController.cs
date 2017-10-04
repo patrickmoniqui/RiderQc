@@ -26,6 +26,28 @@ namespace RiderQc.Web.Controllers
             return View(users);
         }
 
+        public ActionResult EditUser(int userid)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteUser(string username)
+        {
+            repo.DeleteUser(username);
+            return View();
+        }
+
+        public ActionResult CreateNewUser()
+        {
+            return View();
+        }
+
+        public ActionResult DetailUser(int userid)
+        {
+            return View();
+        }
+        
+
         public ActionResult ManageTrajet()
         {
             List<Trajet> trajets = repo.GetAllTrajets();
