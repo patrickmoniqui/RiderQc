@@ -147,17 +147,5 @@ namespace RiderQc.Web.DAL
                 return user;
             }
         }
-
-        public User GetUserById(int user_id)
-        {
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                User user = null;
-
-                user = ctx.Users.FirstOrDefault(x => x.UserID == user_id);
-
-                return user;
-            }
-        }
     }
 }

@@ -17,6 +17,29 @@ namespace RiderQc.Web.Repository
         {
             dao = _dao;
         }
+
+        public bool Create(TrajetViewModel trajetViewModel)
+        {
+            //mapping
+            Trajet trajet = new Trajet();
+
+            return dao.Create(trajet);
+        }
+
+        public bool Delete(int trajetId)
+        {
+            return dao.Delete(trajetId);
+        }
+
+        public TrajetViewModel Get(int trajetId)
+        {
+            return dao.Get(trajetId);
+
+            TrajetViewModel trajetViewModel = new TrajetViewModel();
+
+
+        }
+
         public List<TrajetViewModel> GetTrajetList()
         {
             List<TrajetViewModel> list = new List<TrajetViewModel>();

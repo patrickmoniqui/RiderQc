@@ -205,9 +205,9 @@
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
+    <Compile Include="Controllers\RideAdminController.cs" />
+    <Compile Include="Controllers\TrajetAdminController.cs" />
     <Compile Include="DAL\Interface\ILevelDao.cs" />
-    <Compile Include="DAL\Interface\IMotoDao.cs" />
-    <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
@@ -277,7 +277,6 @@
     <Compile Include="Repository\Interface\IMotoRepository.cs" />
     <Compile Include="Repository\Interface\ITrajetRepository.cs" />
     <Compile Include="Repository\Interface\IRideRepository.cs" />
-    <Compile Include="Repository\Interface\ITrajetRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\LevelRepository.cs" />
     <Compile Include="Repository\MotoRepository.cs" />
@@ -365,7 +364,6 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Moto\" />
     <Folder Include="Views\Ride\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\TrajetAdmin\" />
     <Folder Include="Views\Trajet\" />
   </ItemGroup>

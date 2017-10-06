@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.ViewModels.Trajet;
+﻿using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.Trajet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace RiderQc.Web.Repository.Interface
 {
     public interface ITrajetRepository
     {
-        List<TrajetViewModel> GetTrajetList();
+        bool Create(TrajetViewModel trajetViewModel);
+        bool Delete(int trajetId);
+        Trajet Get(int trajetId);
+        List<Trajet> GetAllTrajets();
     }
 }
