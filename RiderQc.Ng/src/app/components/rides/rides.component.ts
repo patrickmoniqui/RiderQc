@@ -16,7 +16,7 @@ export class RidesComponent implements OnInit {
 
     ngOnInit() {
         this.riderqcSerice.getRides().subscribe((rides) => {
-            //console.log(rides);
+            console.log(rides);
             this.rides = rides;
       });
   }

@@ -1,10 +1,24 @@
 
-
 <div>
-  <div *ngFor="let ride of rides">
-    <p>{{ride.Description}}</p>
-    <p>{{ride.Arrive}}</p>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Arrive</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let  ride of rides;">
+        <td>
+          {{ride.Description}}
+        </td>
+        <td>
+          {{ride.Arive}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
 </div>
-<a>NYESS</a>
 

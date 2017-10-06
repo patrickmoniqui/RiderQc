@@ -28,8 +28,8 @@ import { UserComponent } from './components/user/user.component';
         BrowserModule,
         HttpModule,
         AppRoutingModule
-    ],
-    providers: [],
+	],
+	  providers: [RiderqcService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

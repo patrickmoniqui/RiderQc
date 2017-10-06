@@ -7,8 +7,8 @@ import { UserService } from '../../services/user.service';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'],
-    providers: [UserService, FormBuilder]
+	styleUrls: ['./register.component.css'],
+	providers: [UserService, FormBuilder, RiderqcService]
 })
 /** register component*/
 export class RegisterComponent implements OnInit
