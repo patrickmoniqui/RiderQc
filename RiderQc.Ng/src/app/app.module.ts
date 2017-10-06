@@ -11,13 +11,16 @@ import { AppComponent } from './app.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TrajetComponent } from './components/trajet/trajet.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        RidesComponent,
-        TrajetComponent,
-        RegisterComponent
+		AppComponent,
+		RidesComponent,
+		TrajetComponent,
+		RegisterComponent,
+		UserComponent
+
     ],
     imports: [
         RouterModule,
@@ -25,8 +28,8 @@ import { TrajetComponent } from './components/trajet/trajet.component';
         BrowserModule,
         HttpModule,
         AppRoutingModule
-    ],
-    providers: [RiderqcService],
+	],
+	  providers: [RiderqcService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
