@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Trajet;
 
 namespace RiderQc.Web.Controllers
 {
@@ -22,13 +23,13 @@ namespace RiderQc.Web.Controllers
 
         public ActionResult Index()
         {
-            List<Trajet> trajets = repo.GetAllTrajets();
+            List<TrajetViewModel> trajets = repo.GetAllTrajets();
             return View(trajets);
         }
 
         public ActionResult Edittrajet(int trajetid)
         {
-            Trajet trajet = repo.Get(trajetid);
+            TrajetViewModel trajet = repo.Get(trajetid);
             return View(trajet);
         }
 
@@ -45,7 +46,7 @@ namespace RiderQc.Web.Controllers
 
         public ActionResult DetailTrajet(int trajetid)
         {
-            Trajet trajet = repo.Get(trajetid);
+            TrajetViewModel trajet = repo.Get(trajetid);
             return View(trajet);
         }
 

@@ -33,14 +33,18 @@ namespace RiderQc.Web.Repository
 
         public TrajetViewModel Get(int trajetId)
         {
-            return dao.Get(trajetId);
 
             TrajetViewModel trajetViewModel = new TrajetViewModel();
-
+            Trajet trajet = dao.Get(trajetId);
+            trajetViewModel.TrajetId = trajet.TrajetId;
+            trajetViewModel.GpsPoints = new List<string>();
+            var gpsPoints = trajet.GoogleCo.Split(';');
+            trajetViewModel.GpsPoints.AddRange(gpsPoints);
+            return trajetViewModel;
 
         }
 
-        public List<TrajetViewModel> GetTrajetList()
+        public List<TrajetViewModel> GetAllTrajets()
         {
             List<TrajetViewModel> list = new List<TrajetViewModel>();
 

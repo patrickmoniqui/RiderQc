@@ -12,7 +12,7 @@ namespace RiderQc.Web.Repository.Interface
     {
         bool Create(TrajetViewModel trajetViewModel);
         bool Delete(int trajetId);
-        Trajet Get(int trajetId);
-        List<Trajet> GetAllTrajets();
+        TrajetViewModel Get(int trajetId);
+        List<TrajetViewModel> GetAllTrajets();
     }
 }

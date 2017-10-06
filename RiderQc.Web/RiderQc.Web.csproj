@@ -203,12 +203,12 @@
     <Compile Include="Controllers\API\MotoController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
-    <Compile Include="Controllers\RideAdminController.cs" />
-    <Compile Include="Controllers\TrajetAdminController.cs" />
+    <Compile Include="Controllers\MVC\RideAdminController.cs" />
+    <Compile Include="Controllers\MVC\TrajetAdminController.cs" />
     <Compile Include="DAL\Interface\ILevelDao.cs" />
-    <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\MVC\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\ITrajetDao.cs" />

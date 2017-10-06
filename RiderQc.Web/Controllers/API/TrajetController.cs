@@ -56,7 +56,7 @@ namespace RiderQc.Web.Controllers.API
         [Route("list")]
         public IHttpActionResult List()
         {
-            List<TrajetViewModel> trajets = repo.GetTrajetList();
+            List<TrajetViewModel> trajets = repo.GetAllTrajets();
 
             return Ok(trajets);
         }
