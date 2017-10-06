@@ -20,19 +20,21 @@ namespace RiderQc.Web.Controllers
             repo = _repo;
         }
 
-        [Route("liste")]
+        [Route("list")]
         public ActionResult Index()
         {
             List<User> users = repo.GetAllUsers();
             return View(users);
         }
-        
+
+        [Route("edit/{userid}")]
         public ActionResult EditUser(int userid)
         {
             User user = repo.GetUserById(userid);
             return View(user);
         }
 
+        [Route("delete/{username}")]
         public ActionResult DeleteUser(string username)
         {
             repo.DeleteUser(username);
@@ -44,6 +46,7 @@ namespace RiderQc.Web.Controllers
             return View();
         }
 
+        [Route("detail/{userid}")]
         public ActionResult DetailUser(int userid)
         {
             User user = repo.GetUserById(userid);
