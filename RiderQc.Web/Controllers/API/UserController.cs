@@ -28,7 +28,6 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        [BasicAuthorization]
         [Route("register")]
         [ResponseType(typeof(UserRegisterViewModel))]
         public IHttpActionResult Register(UserRegisterViewModel userViewModel)
@@ -78,6 +77,7 @@ namespace RiderQc.Web.Controllers.API
         [HttpDelete]
         [Route("{username}")]
         [BasicAuthorization]
+
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteUser(string username)
         {
