@@ -205,6 +205,8 @@
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
+    <Compile Include="DAL\Interface\ILevelDao.cs" />
+    <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
@@ -362,7 +364,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Moto\" />
-    <Folder Include="Views\Ride\" />
     <Folder Include="Views\Ride\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\TrajetAdmin\" />

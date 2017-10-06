@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using RiderQc.Web.App_Start;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
