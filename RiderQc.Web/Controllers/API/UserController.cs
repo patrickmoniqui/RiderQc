@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.Entities;
+﻿using RiderQc.Web.App_Start;
+using RiderQc.Web.Entities;
 using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
@@ -27,6 +28,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [BasicAuthorization]
         [Route("register")]
         [ResponseType(typeof(UserRegisterViewModel))]
         public IHttpActionResult Register(UserRegisterViewModel userViewModel)
@@ -75,6 +77,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpDelete]
         [Route("{username}")]
+        [BasicAuthorization]
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteUser(string username)
         {
