@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { RiderqcService } from '../../services/riderqc.service';
+import { Ride } from '../../model/ride';
 
 @Component({
   selector: 'app-rides',
@@ -17,9 +18,4 @@ export class RidesComponent implements OnInit {
             this.rides = rides;
       });
   }
-}
-
-interface Ride {
-    Arrive: Date;
-    Description: string;
 }

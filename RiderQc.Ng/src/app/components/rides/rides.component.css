@@ -1,8 +1,40 @@
-tr {
+﻿tr {
   text-align: left;
 }
 
 table, tr, td, th {
   border: 2px solid black;
   border-collapse: collapse;
+}
+
+.aligned-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+input.searchbox {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input.searchbox:focus {
+  width: 100%;
+}
+
+Try it Yourself » .aligned-row::before {
+  display: block;
+}
+
+.ride-container {
+  padding: 5px;
+  border-radius: 5px;
+  overflow:hidden;
+}
+
+.riderqc-section {
+  background-color: dodgerblue;
+  text-align: center;
+  font-weight: 600;
 }

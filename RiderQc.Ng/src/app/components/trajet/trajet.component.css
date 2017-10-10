@@ -1,13 +1,11 @@
-agm-map {
-  height: 500px;
-  width: 500px;
+﻿agm-map {
+  height:100%;
+  width: 100%;
 }
 
 .google_map {
-  height: 500px;
-  width: 500px;
-  margin-right: 2%;
-  float: left;
+  height: 100%;
+  width: 100%;
 }
 
 .google_map agm-map {

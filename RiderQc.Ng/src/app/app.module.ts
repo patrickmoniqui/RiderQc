@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RiderqcService } from './services/riderqc.service';
 import { HttpModule } from '@angular/http';
@@ -9,14 +9,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { TrajetComponent } from './components/trajet/trajet.component';
+import { RegisterComponent } from './components/register/register.component';
 import { DirectionsMapDirective } from './components/trajet/direction.directive';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         RidesComponent,
         TrajetComponent,
-        DirectionsMapDirective
+        RegisterComponent,
+        DirectionsMapDirective,
+        LoginComponent
     ],
     imports: [
         BrowserModule,

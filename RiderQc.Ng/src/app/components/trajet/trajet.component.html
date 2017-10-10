@@ -1,4 +1,4 @@
-<div class="form-group" *ngIf="editable">
+﻿<div class="form-group" *ngIf="editable">
   <input placeholder="Origin" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #originSearch [formControl]="searchControl">
   <input placeholder="Destination" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #destinationSearch [formControl]="searchControl">
 </div>
@@ -12,7 +12,7 @@
   <button (click)="setCurrentPosition()">Find current position</button>
 </div>
 
-<div class="trajetInfo">
+<div style="display:none;" class="trajetInfo">
   <section *ngIf="trajetInfo">
     <table>
       <thead>

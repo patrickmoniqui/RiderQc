@@ -1,11 +1,29 @@
-<p>
-  rides works!
-</p>
+﻿<div>
+  <h1 class="text-center">Browse rides</h1>
 
-<div>
+  <div style="padding-bottom:20px;" class="container text-center">
+    <input class="searchbox" type="text" name="search" placeholder="Search rides..">
+  </div>
+  
   <div *ngFor="let ride of rides">
-    <p>{{ride.Description}}</p>
-    <p>{{ride.Arrive}}</p>
-    <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
+    <div>
+      <div class="container">
+        <div class="riderqc-section">
+          <a href="/ride/{{ride.RideId}}">
+            {{ride.Title}} - {{ride.DateDepart}}
+          </a>
+        </div>
+        <div class="row aligned-row">
+          <div class="col-md-4">
+            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
+          </div>
+          <div style="background-color:red" class="col-md-8">
+            <p>
+              {{ride.Description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
