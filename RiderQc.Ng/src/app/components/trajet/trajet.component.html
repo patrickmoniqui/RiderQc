@@ -1,3 +1,89 @@
-<p>
-  trajet works!
-</p>
+<div class="form-group" *ngIf="editable">
+  <input placeholder="Origin" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #originSearch [formControl]="searchControl">
+  <input placeholder="Destination" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #destinationSearch [formControl]="searchControl">
+</div>
+<br />
+<div class="google_map">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-directions [origin]="trajetInfo.origin" [destination]="trajetInfo.destination" [waypoints]="trajetInfo.waypoints"></agm-directions>
+    <!--agm-marker [latitude]="lat" [longitude]="lng"></!--agm-marker-->
+  </agm-map>
+  <br />
+  <button (click)="setCurrentPosition()">Find current position</button>
+</div>
+
+<div class="trajetInfo">
+  <section *ngIf="trajetInfo">
+    <table>
+      <thead>
+        <tr>
+          <th>Instructions</th>
+          <th>Duration</th>
+          <th>Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ti of trajetInfo.steps; let i = index">
+          <td>{{i+1}} - <span [innerHTML]="ti.instructions"></span></td>
+          <td>{{ti.duration}}</td>
+          <td>{{ti.distance}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Total duration : {{trajetInfo.duration}}</p>
+    <p>Total distance : {{trajetInfo.distance}}</p>
+  </section>
+</div>
+<div style="clear: both;"><br /><br /></div>
+
+<span *ngIf="placeInfoOrigin != null && placeInfoDestination != null && editable">
+  <h2>Origin</h2>
+
+  <p>Place Id : {{placeInfoOrigin.placeId}}</p>
+  <p>Street Number : {{placeInfoOrigin.street_number}}</p>
+  <p>Route : {{placeInfoOrigin.route}}</p>
+  <p>Locality : {{placeInfoOrigin.locality}}</p>
+  <p>Postal Code : {{placeInfoOrigin.postalCode}}</p>
+  <p>Address : {{placeInfoOrigin.address}}</p>
+  <p>Phone Format : {{placeInfoOrigin.phoneFormat}}</p>
+  <p>The latitude : {{placeInfoOrigin.lat}}</p>
+  <p>The longitude : {{placeInfoOrigin.lng}}</p>
+  <p>The country : {{placeInfoOrigin.country}}</p>
+  <p>The city : {{placeInfoOrigin.city}}</p>
+
+  <h2>Destination</h2>
+
+  <p>Place Id : {{placeInfoDestination.placeId}}</p>
+  <p>Street Number : {{placeInfoDestination.street_number}}</p>
+  <p>Route : {{placeInfoDestination.route}}</p>
+  <p>Locality : {{placeInfoDestination.locality}}</p>
+  <p>Postal Code : {{placeInfoDestination.postalCode}}</p>
+  <p>Address : {{placeInfoDestination.address}}</p>
+  <p>Phone Format : {{placeInfoDestination.phoneFormat}}</p>
+  <p>The latitude : {{placeInfoDestination.lat}}</p>
+  <p>The longitude : {{placeInfoDestination.lng}}</p>
+  <p>The country : {{placeInfoDestination.country}}</p>
+  <p>The city : {{placeInfoDestination.city}}</p>
+
+  <p>This origin: {{trajetInfo.origin.lat}}, {{trajetInfo.origin.lng}}</p>
+  <p>This destination: {{trajetInfo.destination.lat}}, {{trajetInfo.destination.lng}}</p>
+</span>
+
+<br />
+
+<table *ngIf="trajetInfo.waypoints && editable">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of trajetInfo.waypoints; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{w.location}}</td>
+      <td><button (click)="deleteWaypoint(i)">X</button></td>
+    </tr>
+  </tbody>
+</table>

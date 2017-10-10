@@ -9,10 +9,7 @@ import { RiderqcService } from '../../services/riderqc.service';
 })
 export class RidesComponent implements OnInit {
     public rides: Ride[];
-    constructor(public riderqcSerice: RiderqcService)
-    {
-
-    }
+    constructor(public riderqcSerice: RiderqcService) {}
 
     ngOnInit() {
         this.riderqcSerice.getRides().subscribe((rides) => {
@@ -24,5 +21,5 @@ export class RidesComponent implements OnInit {
 
 interface Ride {
     Arrive: Date;
-    Descript: string;
+    Description: string;
 }

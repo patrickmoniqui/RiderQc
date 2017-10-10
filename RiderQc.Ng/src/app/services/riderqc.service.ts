@@ -12,7 +12,7 @@ export class RiderqcService {
 
     getRides()
     {
-		  return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
+        return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
             .map(res => res.json());
     }
 }
