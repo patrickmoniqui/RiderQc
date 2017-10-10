@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RiderqcService } from '../../services/riderqc.service';
 
 @Component({
@@ -6,7 +6,6 @@ import { RiderqcService } from '../../services/riderqc.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-
 export class UserComponent implements OnInit {
 
 

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RiderqcService } from '../../services/riderqc.service';
 
 @Component({
@@ -8,14 +8,11 @@ import { RiderqcService } from '../../services/riderqc.service';
 })
 export class RidesComponent implements OnInit {
     public rides: Ride[];
-    constructor(public riderqcSerice: RiderqcService)
-    {
-
-    }
+    constructor(public riderqcSerice: RiderqcService) {}
 
     ngOnInit() {
         this.riderqcSerice.getRides().subscribe((rides) => {
-            //console.log(rides);
+            console.log(rides);
             this.rides = rides;
       });
   }
@@ -23,5 +20,5 @@ export class RidesComponent implements OnInit {
 
 interface Ride {
     Arrive: Date;
-    Descript: string;
+    Description: string;
 }

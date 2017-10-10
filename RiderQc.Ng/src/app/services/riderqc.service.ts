@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -12,7 +12,7 @@ export class RiderqcService {
 
     getRides()
     {
-        return this.http.get('http://riderqc.azurewebsites.net/ride/list')
+        return this.http.get('http://riderqc-api.azurewebsites.net/ride/list')
             .map(res => res.json());
     }
 }

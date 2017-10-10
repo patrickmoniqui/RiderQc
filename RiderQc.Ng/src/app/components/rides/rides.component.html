@@ -1,4 +1,4 @@
-﻿<p>
+<p>
   rides works!
 </p>
 
@@ -6,7 +6,6 @@
   <div *ngFor="let ride of rides">
     <p>{{ride.Description}}</p>
     <p>{{ride.Arrive}}</p>
+    <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
   </div>
 </div>
-
-
