@@ -4,7 +4,8 @@ import { RiderqcService } from '../../services/riderqc.service';
 @Component({
   selector: 'app-rides',
   templateUrl: './rides.component.html',
-  styleUrls: ['./rides.component.css']
+  styleUrls: ['./rides.component.css'],
+  providers:[RiderqcService]
 })
 export class RidesComponent implements OnInit {
     public rides: Ride[];

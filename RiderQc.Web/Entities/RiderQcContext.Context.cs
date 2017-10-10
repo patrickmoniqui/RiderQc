@@ -29,7 +29,7 @@ namespace RiderQc.Web.Entities
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<Moto> Motoes { get; set; }
+        public virtual DbSet<Moto> Motos { get; set; }
         public virtual DbSet<Ride> Rides { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Trajet> Trajets { get; set; }

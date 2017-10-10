@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RiderQc.Web.Helpers
 {
-    public class EncryptionHelper
+    public static class EncryptionHelper
     {
         #region Methods for Encryption/Decryption
         public static string Base64Encode(string plainText)

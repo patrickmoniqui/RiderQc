@@ -3,7 +3,6 @@ using RiderQc.Web.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System;
 
 namespace RiderQc.Web.DAL
 {
@@ -63,6 +62,31 @@ namespace RiderQc.Web.DAL
                 else
                 {
                     return new List<Ride>();
+                }
+            }
+        }
+        
+        public bool UserIsCreator(int rideId, string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Ride ride = ctx.Rides.FirstOrDefault(x => x.RideId == rideId);
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if(ride == null || user == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(ride.CreatorId == user.UserID)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }

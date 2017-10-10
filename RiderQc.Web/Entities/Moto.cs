@@ -9,18 +9,33 @@
 
 namespace RiderQc.Web.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    
+    using ViewModels.Moto;
     public partial class Moto
     {
+        public Moto() { }
+        public Moto(MotoViewModel motoViewModel)
+        {
+            Brand = motoViewModel.Brand;
+            Model = motoViewModel.Model;
+            Year = motoViewModel.Year;
+            Type = motoViewModel.Type;
+        }
+
+        public Moto(MotoViewModel motoViewModel, int motoId)
+        {
+            Brand = motoViewModel.Brand;
+            Model = motoViewModel.Model;
+            Year = motoViewModel.Year;
+            Type = motoViewModel.Type;
+            MotoId = motoId;
+        }
+
         public int MotoId { get; set; }
         public int UserId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
-        public Nullable<int> Year { get; set; }
-        public Nullable<int> Type { get; set; }
-    
+        public int? Year { get; set; }
+        public int? Type { get; set; } 
         public virtual User User { get; set; }
     }
 }

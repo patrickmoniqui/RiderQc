@@ -1,0 +1,69 @@
+﻿@model IEnumerable<RiderQc.Web.Entities.Ride>
+
+@{
+    ViewBag.Title = "RideListe";
+}
+
+<h2>RideListe</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateDepart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trajet.GoogleCo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateDepart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trajet.GoogleCo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RideId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RideId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RideId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -71,10 +71,16 @@ namespace RiderQc.Web.App_Start
             //daos
             kernel.Bind<IRideDao>().To<RideDao>();
             kernel.Bind<IUserDao>().To<UserDao>();
+            kernel.Bind<IMotoDao>().To<MotoDao>();
+            kernel.Bind<ILevelDao>().To<LevelDao>();
+            kernel.Bind<ITrajetDao>().To<TrajetDao>();
 
             //repos
             kernel.Bind<IRideRepository>().To<RideRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<IMotoRepository>().To<MotoRepository>();
+            kernel.Bind<ILevelRepository>().To<LevelRepository>();
+            kernel.Bind<ITrajetRepository>().To<TrajetRepository>();
         }        
     }
 }
