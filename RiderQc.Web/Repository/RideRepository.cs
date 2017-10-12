@@ -36,14 +36,38 @@ namespace RiderQc.Web.Repository
             return dao.Delete(rideId);
         }
 
-        public Ride Get(int rideId)
+        public RideViewModel Get(int rideId)
         {
-            return dao.Get(rideId);
+            RideViewModel rideViewModel = new RideViewModel();
+            Ride ride = dao.Get(rideId);
+            rideViewModel.CreatorId = ride.CreatorId;
+            rideViewModel.DateDepart = ride.DateDepart;
+            rideViewModel.DateFin = ride.DateFin;
+            rideViewModel.Description = ride.Description;
+            rideViewModel.LevelId = ride.LevelId;
+            rideViewModel.Title = ride.Title;
+            rideViewModel.TrajetId = ride.TrajetId;
+            return rideViewModel;
         }
 
-        public List<Ride> GetAllRides()
+        public List<RideViewModel> GetAllRides()
         {
-            return dao.GetAllRides();
+            List<RideViewModel> list = new List<RideViewModel>();
+            List<Ride> rides = dao.GetAllRides();
+
+            foreach (Ride ride in rides)
+            {
+                RideViewModel rideViewModel = new RideViewModel();
+                rideViewModel.CreatorId = ride.CreatorId;
+                rideViewModel.DateDepart = ride.DateDepart;
+                rideViewModel.DateFin = ride.DateFin;
+                rideViewModel.Description = ride.Description;
+                rideViewModel.LevelId = ride.LevelId;
+                rideViewModel.Title = ride.Title;
+                rideViewModel.TrajetId = ride.TrajetId;
+                list.Add(rideViewModel);
+            }
+            return list;
         }
 
         public bool UserIsCreator(int rideId, string username)
