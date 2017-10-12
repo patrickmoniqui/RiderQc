@@ -1,13 +1,14 @@
 <div>Register</div>
 <form [formGroup]="registerForm" novalidate>
   <div class="form-group">
+    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
     <table>
       <tr>
         <td>
-          <label>Username</label>
+          <label>Email</label>
         </td>
         <td>
-          <input id="username" placeholder="Username" class="form-control" formControlName="name" />
+          <input id="username" type="email" placeholder="Username" class="form-control" formControlName="name" />
         </td>
       </tr>
       <tr>
@@ -28,10 +29,10 @@
       </tr>
       <tr>
         <td>
-          <label>Email address</label>
+          <label>Ville</label>
         </td>
         <td>
-          <input id="email" type="email" placeholder="Email address" />
+          <input id="ville"  placeholder="Ville" class="form-control" formControlName="ville"/>
         </td>
       </tr>
       <tr>
@@ -44,9 +45,27 @@
           </select>
         </td>
       </tr>
+      <tr>
+        <td>
+          <label>Description</label>
+        </td>
+        <td>
+          <input id="description" placeholder="Description" class="form-control" formControlName="description" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Date de naissance</label>
+        </td>
+        <td>
+          <input id="dateOfBirth" type="date" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" />
+        </td>
+      </tr>
     </table>
-    <button id="submitRegistration" type="submit">Register</button>
+    <button id="submitRegistration" (click)="register()" [disabled]="registerForm.invalid" >Register</button>
   </div>
   <p>Form value: {{ registerForm.value | json }}</p>
-  <p>Form status: {{ registerForm.status | json }}</p>
+  <p>Form status: {{  lookIfValid() }}</p>
+  <p>Form status: {{ registerForm.invalid }}</p>
+
 </form>
