@@ -9,61 +9,47 @@
 <p>
     @Html.ActionLink("Create New User", "CreateNewUser")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Region)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ville)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DpUrl)
-        </th>
-        <th></th>
-    </tr>
+<div class="col-sm-12 col-lg-12 col-md-12">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Region)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ville)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DpUrl)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "edit", new { id=item.UserID }) |
-            @Html.ActionLink("Detail", "DetailUser", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "DeleteUser", new { id=item.Username })
-        </td>
-    </tr>
-}
+    <button class="btn-danger btn ">Delete</button>
 
-</table>
+    <table class="table-responsive table-striped table-bordered table">
+        <tr>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                @Html.DisplayNameFor(model => model.DpUrl)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">Options</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DpUrl)
+                </td>
+                <td class="text-center">
+                    <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/user", id = item.UserID})'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                    <button class="btn-info btn" onclick="location.href='@Url.Action("detail", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-book"></i> Details</button>
+                    <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/user", id = item.Username })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
