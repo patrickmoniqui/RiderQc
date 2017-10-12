@@ -4,30 +4,35 @@
     ViewBag.Title = "UserManagement";
 }
 
-<h2>User Management</h2>
-
-<p>
-    @Html.ActionLink("Create New User", "CreateNewUser")
-</p>
 <div class="col-sm-12 col-lg-12 col-md-12">
 
-    <button class="btn-danger btn ">Delete</button>
+    <div class="row">
+        <h2 class="page-header alert-dismissable">User Management</h2>
+        <button class="btn-success btn" style="margin-bottom:1%;" onclick="location.href='@Url.Action("create", new { controller = "admin/user"})'"><i class="glyphicon glyphicon-plus-sign"></i> Create a User</button>
+    </div>
 
-    <table class="table-responsive table-striped table-bordered table">
+    <table class="table-responsive table-striped table-bordered table table-hover">
         <tr>
             <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-user"></i>
                 @Html.DisplayNameFor(model => model.Username)
             </th>
             <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-lock"></i>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
             <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-info-sign"></i>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th class="col-sm-2 col-lg-2 col-md-2 text-center">
-                @Html.DisplayNameFor(model => model.DpUrl)
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Region)
             </th>
-            <th class="col-sm-3 col-lg-3 col-md-3 text-center">Options</th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-cog"></i>
+                Options
+            </th>
         </tr>
         @foreach (var item in Model)
         {
@@ -42,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DpUrl)
+                    @Html.DisplayFor(modelItem => item.Region)
                 </td>
                 <td class="text-center">
                     <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/user", id = item.UserID})'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
