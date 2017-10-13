@@ -41,7 +41,16 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Rides.Find(rideId);
+                return ctx.Rides
+                    .Include(x => x.User)
+                    .Include(x => x.Level)
+                    .Include(x => x.Trajet)
+                    .Include(x => x.Comments.Where(y => y.ParentId == null))
+                    // include user information (creator)
+                    .Include("Comments.User")
+                    // include child comments of comment
+                    .Include("Comments.Comment1")
+                    .SingleOrDefault(x => x.RideId == rideId);
             }
         }
 
@@ -53,9 +62,13 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.User)
                     .Include(x => x.Level)
                     .Include(x => x.Trajet)
-                    .Include(x => x.Comments);
+                    .Include(x => x.Comments)
+                    // include user information (creator)
+                    .Include("Comments.User")
+                    // include child comments of comment
+                    .Include("Comments.Comment1");
 
-                if(rides != null)
+                if (rides != null)
                 {
                     return rides.ToList();
                 }

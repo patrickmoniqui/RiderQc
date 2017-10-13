@@ -352,17 +352,17 @@
     <Content Include="Views\UserAdmin\CreateNewUser.cshtml" />
     <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
     <Content Include="Views\UserAdmin\DetailUser.cshtml" />
+    <Content Include="Views\UserAdmin\EditUser.cshtml" />
+    <Content Include="Views\TrajetAdmin\Index.cshtml" />
+    <Content Include="Views\TrajetAdmin\Edittrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\DeleteTrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\CreateNewTrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\DetailTrajet.cshtml" />
+    <Content Include="Views\RideAdmin\Index.cshtml" />
     <Content Include="Views\RideAdmin\EditRide.cshtml" />
     <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
     <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
     <Content Include="Views\RideAdmin\DetailRide.cshtml" />
-    <Content Include="Views\UserAdmin\EditUser.cshtml" />
-    <Content Include="Views\RideAdmin\RideList.cshtml" />
-    <Content Include="Views\TrajetAdmin\TrajetList.cshtml" />
-    <Content Include="Views\TrajetAdmin\EditTrajet.cshtml" />
-    <Content Include="Views\TrajetAdmin\DeleteTrajet.cshtml" />
-    <Content Include="Views\TrajetAdmin\CreateTrajet.cshtml" />
-    <Content Include="Views\TrajetAdmin\DetailTrajet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

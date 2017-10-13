@@ -1,0 +1,21 @@
+﻿<div class="comment-container">
+  <p>
+    {{Comment.CommentText}}
+  </p>
+  <p class="ride-comment-header">
+    <a href="/user/{{Comment.User.Username}}">
+      {{Comment.User.Username}}
+    </a>
+    on {{Comment.TimeStamp}}
+  </p>
+
+  <!--<div>
+    <textarea placeholder="Enter your message"></textarea>
+  </div>
+  <button>Send</button>
+
+  <div class="subComment" *ngFor="let subComment of Comment.Comment1">
+    <app-comment [Comment]="subComment"></app-comment>
+  </div>-->
+
+</div>

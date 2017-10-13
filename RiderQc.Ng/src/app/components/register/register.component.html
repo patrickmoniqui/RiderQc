@@ -1,63 +1,16 @@
-﻿<!--<div>Register</div>
-<form [formGroup]="registerForm" novalidate>
-  <div class="form-group">
-    <table>
-      <tr>
-        <td>
-          <label>Username</label>
-        </td>
-        <td>
-          <input id="username" placeholder="Username" class="form-control" formControlName="name" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Password</label>
-        </td>
-        <td>
-          <input id="password" type="password" placeholder="Password" class="form-control" formControlName="password"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Confirm password</label>
-        </td>
-        <td>
-          <input id="passwordConf" type="password" placeholder="Confirm password" class="form-control" formControlName="passwordConf" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Email address</label>
-        </td>
-        <td>
-          <input id="email" type="email" placeholder="Email address" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Region</label>
-        </td>
-        <td>
-          <select class="form-control" formControlName="region">
-            <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-    <button id="submitRegistration" type="submit">Register</button>
-  </div>
-  <p>Form value: {{ registerForm.value | json }}</p>
-  <p>Form status: {{ registerForm.status | json }}</p>
-</form>-->
-
 <div class="login-page">
-  <div class="form">
-      <form class="register-form" [formGroup]="registerForm" novalidate>
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
-        <button (click)="submitRegistration">Register</button>
-        <p class="message">Already registered? <a href="/login">Sign In</a></p>
-      </form>
-  </div>
+    <form [formGroup]="registerForm" class="form" novalidatee>
+      <input id="username" type="email" placeholder="email" class="form-control" formControlName="name" />
+      <input id="password" type="password" placeholder="password" class="form-control" formControlName="password" />
+      <input id="passwordConf" type="password" placeholder="confirm password" class="form-control" formControlName="passwordConf" />
+      <input id="ville" placeholder="ville" class="form-control" formControlName="ville" />
+      <select class="form-control" formControlName="region">
+        <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
+      </select>
+      <input id="description" placeholder="description" class="form-control" formControlName="description" />
+      <input id="dateOfBirth" type="date" min="1900-01-01" onkeydown="return false" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" />
+      <button id="submitRegistration" (click)="register()" [disabled]="registerForm.invalid">Register</button>
+      <p class="message">Already registered? <a href="/login">Sign In</a></p>
+    </form>
+    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
 </div>
