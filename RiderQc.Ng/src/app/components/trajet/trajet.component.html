@@ -12,7 +12,7 @@
   <button (click)="setCurrentPosition()" *ngIf="editable">Find current position</button>
 </div>
 
-<div style="display:none;" class="trajetInfo">
+<div *ngIf="showInstructions"  class="trajetInfo">
   <section *ngIf="trajetInfo">
     <table>
       <thead>

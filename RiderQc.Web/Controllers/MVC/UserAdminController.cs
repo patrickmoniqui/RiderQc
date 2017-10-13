@@ -1,9 +1,6 @@
-﻿using RiderQc.Web.Entities;
-using RiderQc.Web.Repository.Interface;
-using System;
+﻿using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 
@@ -23,14 +20,14 @@ namespace RiderQc.Web.Controllers
         [Route("list")]
         public ActionResult Index()
         {
-            List<User> users = repo.GetAllUsers();
+            List<UserViewModel> users = repo.GetAllUsers();
             return View(users);
         }
 
         [Route("edit/{userid}")]
         public ActionResult EditUser(int userid)
         {
-            User user = repo.GetUserById(userid);
+            UserViewModel user = repo.GetUserById(userid);
             return View(user);
         }
 
@@ -41,6 +38,7 @@ namespace RiderQc.Web.Controllers
             return View();
         }
 
+        [Route("create")]
         public ActionResult CreateNewUser()
         {
             return View();
@@ -49,23 +47,8 @@ namespace RiderQc.Web.Controllers
         [Route("detail/{userid}")]
         public ActionResult DetailUser(int userid)
         {
-            User user = repo.GetUserById(userid);
+            UserViewModel user = repo.GetUserById(userid);
             return View(user);
         }
-        
-
-        public ActionResult ManageTrajet()
-        {
-            List<Trajet> trajets = repo.GetAllTrajets();
-            return View(trajets);
-        }
-
-        public ActionResult ManageRide()
-        {
-            List<Ride> rides = repo.GetAllRides();
-            return View(rides);
-        }
-
-
     }
 }

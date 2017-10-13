@@ -1,9 +1,12 @@
-export class Level {
-  Id: number;
-  Name: string ;
+import { Ride } from "../model/ride";
+import { User } from "../model/user";
 
-  constructor(Id?: number, Name?: string) {
-      this.Id = Id;
+export class Level {
+    public LevelId: number;
+    public Name: string;
+  
+    constructor(LevelId?: number, Name?: string) {
+      this.LevelId = LevelId;
       this.Name = Name;
-  }
+    }
 }

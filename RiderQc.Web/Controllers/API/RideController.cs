@@ -90,7 +90,7 @@ namespace RiderQc.Web.Controllers.Api
         [Route("{rideId}")]
         public IHttpActionResult Get(int rideId)
         {
-            Ride ride = repo.Get(rideId);
+            RideViewModel ride = repo.Get(rideId);
 
             if(ride != null)
             {
@@ -111,7 +111,7 @@ namespace RiderQc.Web.Controllers.Api
         [ResponseType(typeof(List<Ride>))]
         public IHttpActionResult GetAllRides()
         {
-            List<Ride> rides = repo.GetAllRides();
+            List<RideViewModel> rides = repo.GetAllRides();
             
             return Ok(rides);
         }

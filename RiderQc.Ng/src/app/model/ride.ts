@@ -1,3 +1,7 @@
+import { Comment } from '../model/comment';
+import { User } from '../model/user';
+import { Level } from '../model/level';
+
 export class Ride {
   RideId: number;
   Title: string ;
@@ -6,7 +10,10 @@ export class Ride {
   TrajetId: number ;
   LevelId: number ;
   DateDepart: Date ;
-  DateFin: Date;
+  DateFin: Date; 
+  User: User;
+  Level: Level;
+  Comments: Comment[];
 
   constructor(RideId?: number, Title?: string, Description?: string, CreatorId?: number, TrajetId?: number, LevelId?: number, DateDepart?: Date, DateFin?: Date) {
       this.RideId = RideId;

@@ -3,17 +3,25 @@ import { FormGroup } from '@angular/forms';
 import { FormControl, FormBuilder, Validators, ReactiveFormsModule  } from '@angular/forms';
 import { RiderqcService } from '../../services/riderqc.service';
 import { UserService } from '../../services/user.service';
+import { RouterModule, Routes, Router } from '@angular/router';
+import { EmailValidator } from '@angular/forms';
+import { CustomValidation } from './customValidation';
+
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-	styleUrls: ['./register.component.css'],
-	providers: [UserService, FormBuilder, RiderqcService]
+	  styleUrls: ['./register.component.css'],
+	  providers: [UserService, FormBuilder, RiderqcService]
 })
 /** register component*/
 export class RegisterComponent implements OnInit
 {
     registerForm: FormGroup;
+
+    errorlbl: any = "";
+    response: any = {};
+
     user: any = {
         "Username": "",
         "Password": "",
@@ -32,52 +40,71 @@ export class RegisterComponent implements OnInit
     /** register constructor` */
     constructor(private riderQcService: RiderqcService,
         private userService: UserService,
-        private fb: FormBuilder)
+        private fb: FormBuilder,
+        private router: Router)
     {
         this.createForm();
     }
 
     /** Called by Angular after register component initialized */
     ngOnInit(): void {
-        
-
-        this.test();
+        this.createForm();
     }
 
     createForm() {
         this.registerForm = this.fb.group({
-            'name': new FormControl(this.user.name, [
+            'name': new FormControl(this.user.Name, [
                 Validators.required,
-                Validators.minLength(4)
+                Validators.email
             ]),
-            'password': new FormControl(this.user.password, [
+            'password': new FormControl(this.user.Password, [
                 Validators.required,
-                Validators.minLength(4)
+                Validators.minLength(6)
             ]),
-            'passwordConf': new FormControl(this.user.passwordConf, [
+            'passwordConf': new FormControl(this.user.PasswordConf, [
                 Validators.required,
-                Validators.minLength(4)
+                Validators.minLength(6)
             ]),
-            /*'email': new FormControl(this.user.email, [
-                Validators.required,
-                Validators.minLength(4)
-            ]),*/
-            'region': new FormControl(this.user.password, [Validators.required])
+            'ville': new FormControl(this.user.Ville, [
+                Validators.minLength(2)
+            ]),
+            'region': new FormControl(this.user.Password, [Validators.required]),
+            'dateOfBirth': new FormControl(this.user.DateOfBirth, [Validators.required]),
+            'description': new FormControl(this.user.Description)
+        }, {
+                validator: CustomValidation.MatchPassword
         });
     }
 
-    test() {
-        /*this.userService.register({
-            "Username": "test44",
-            "Password": "aaa111",
-            "Region": "Mauricie",
-            "Ville": "Pincourt",
-            "DateOfBirth": "2050-01-01T00:00:00.000Z",
-            "Description": "Un tit test",
-            "DpUrl": ""
-        }).subscribe(data => {
-            console.log("HERE: " + data);
-            console.log("HERE: " + JSON.stringify(data));
-        });*/
+    lookIfValid() {
+        return this.registerForm.valid
+    }
+
+    register() {
+        var registerResponse;
+        this.errorlbl = "";
+        
+        this.userService.register({
+            "Username": btoa(this.registerForm.value.name),
+            "Password": btoa(this.registerForm.value.password),
+            "Region": this.registerForm.value.region,
+            "Ville": this.registerForm.value.ville,
+            "DateOfBirth": this.registerForm.value.dateOfBirth + "T00:00:00.000Z",
+            "Description": this.registerForm.value.description
+        }).subscribe(
+            (response) => {
+                //Here you can map the response to a type.
+                alert(response);
+                this.router.navigate(['login']); 
+            },
+            (err) => {
+                //Here you can catch the error
+                this.errorlbl = err;
+                //alert(err) 
+
+            },
+            () => { /*this.router.navigate(['rides'])*/ }
+        );
+
     }
 }
