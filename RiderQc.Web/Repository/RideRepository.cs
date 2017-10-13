@@ -19,7 +19,14 @@ namespace RiderQc.Web.Repository
         public bool Create(RideViewModel rideViewModel)
         {
             //mapping
-            Ride ride = new Ride(rideViewModel);
+            Ride ride = new Ride();
+            ride.Title = rideViewModel.Title;
+            ride.Description = rideViewModel.Description;
+            ride.CreatorId = rideViewModel.CreatorId;
+            ride.TrajetId = rideViewModel.TrajetId;
+            ride.LevelId = rideViewModel.LevelId;
+            ride.DateDepart = rideViewModel.DateDepart;
+            ride.DateFin = rideViewModel.DateFin;
 
             return dao.Create(ride);
         }
@@ -37,6 +44,15 @@ namespace RiderQc.Web.Repository
         public List<Ride> GetAllRides()
         {
             return dao.GetAllRides();
+        }
+
+        public bool UserIsCreator(int rideId, string username)
+        {
+            if(rideId <= 0 || string.IsNullOrWhiteSpace(username))
+            {
+                return false;
+            }
+            return dao.UserIsCreator(rideId, username);
         }
     }
 }

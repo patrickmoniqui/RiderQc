@@ -2,6 +2,8 @@
 using RiderQc.Web.Entities;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.DAL
 {
@@ -59,6 +61,14 @@ namespace RiderQc.Web.DAL
             return false;
         }
 
+        public User GetUserById(int userId)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                return ctx.Users.Find(userId);
+            }
+        }
+
         public List<User> GetAllUsers() 
         {
 
@@ -109,6 +119,32 @@ namespace RiderQc.Web.DAL
                 {
                     return new List<Ride>();
                 }
+            }
+        }
+
+        public bool LoginIsValid(string username, string password)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                bool result = false;
+
+                string hashedPwd = EncryptionHelper.HashToSHA256(password);
+
+                result = ctx.Users.Any(x => x.Username == username && x.Password == hashedPwd);
+
+                return result;
+            }
+        }
+
+        public User GetByUsername(string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User user = null;
+
+                user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                return user;
             }
         }
     }

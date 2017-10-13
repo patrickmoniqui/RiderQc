@@ -1,3 +1,22 @@
-<p>
-  user works!
-</p>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Passwords</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let  user of userList;">
+        <td>
+          {{user.Username}}
+        </td>
+        <td>
+          {{user.Password}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+</div>

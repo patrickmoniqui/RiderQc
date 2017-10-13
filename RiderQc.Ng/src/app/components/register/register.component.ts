@@ -7,18 +7,21 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { EmailValidator } from '@angular/forms';
 import { CustomValidation } from './customValidation';
 
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'],
-    providers: [UserService, FormBuilder]
+	  styleUrls: ['./register.component.css'],
+	  providers: [UserService, FormBuilder, RiderqcService]
 })
 /** register component*/
 export class RegisterComponent implements OnInit
 {
     registerForm: FormGroup;
+
     errorlbl: any = "";
     response: any = {};
+
     user: any = {
         "Username": "",
         "Password": "",
@@ -103,5 +106,6 @@ export class RegisterComponent implements OnInit
             },
             () => { /*this.router.navigate(['rides'])*/ }
         );
+
     }
 }

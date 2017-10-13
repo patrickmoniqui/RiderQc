@@ -9,10 +9,13 @@ import 'rxjs/add/operator/catch';
 import { User } from '../model/user';
 
 
+//Import Model
+import { User } from '../model/user';
+
+
 @Injectable()
 export class UserService {
    
-
     baseUrl: string = "http://riderqc-api.azurewebsites.net";
     constructor(public http: Http) { }
 
@@ -40,6 +43,7 @@ export class UserService {
         headers.append('Accept', 'application/json');
         return headers;
     }
+
 
     private handleError(error: Response) {
         console.error(error.json());

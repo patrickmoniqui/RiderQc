@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace RiderQc.Web.Controllers
 {
     [RoutePrefix("admin/user")]
@@ -19,12 +20,39 @@ namespace RiderQc.Web.Controllers
             repo = _repo;
         }
 
-        [Route("liste")]
+        [Route("list")]
         public ActionResult Index()
         {
             List<User> users = repo.GetAllUsers();
             return View(users);
         }
+
+        [Route("edit/{userid}")]
+        public ActionResult EditUser(int userid)
+        {
+            User user = repo.GetUserById(userid);
+            return View(user);
+        }
+
+        [Route("delete/{username}")]
+        public ActionResult DeleteUser(string username)
+        {
+            repo.DeleteUser(username);
+            return View();
+        }
+
+        public ActionResult CreateNewUser()
+        {
+            return View();
+        }
+
+        [Route("detail/{userid}")]
+        public ActionResult DetailUser(int userid)
+        {
+            User user = repo.GetUserById(userid);
+            return View(user);
+        }
+        
 
         public ActionResult ManageTrajet()
         {

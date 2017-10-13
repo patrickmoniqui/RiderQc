@@ -53,6 +53,11 @@ namespace RiderQc.Web.Repository
             return dao.GetAllTrajets();
         }
 
+        public User GetUserById(int userId)
+        {
+            return dao.GetUserById(userId);
+        }
+
         public List<Ride> GetAllRides()
         {
             return dao.GetAllRides();

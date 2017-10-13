@@ -9,6 +9,7 @@ namespace RiderQc.Web.Repository.Interface
         bool RegisterUser(UserRegisterViewModel user);
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
+        User GetUserById(int userId);
         List<User> GetAllUsers();
         List<Trajet> GetAllTrajets();
         List<Ride> GetAllRides();
