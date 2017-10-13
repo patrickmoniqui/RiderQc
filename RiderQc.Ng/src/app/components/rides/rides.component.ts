@@ -10,7 +10,6 @@ import { Ride } from '../../model/ride';
 })
 export class RidesComponent implements OnInit {
     public rides: Ride[];
-
     constructor(public riderqcSerice: RiderqcService) {}
 
     ngOnInit() {

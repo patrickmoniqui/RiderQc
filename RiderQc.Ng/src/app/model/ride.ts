@@ -1,4 +1,4 @@
-﻿import { Comment } from '../model/comment';
+import { Comment } from '../model/comment';
 import { User } from '../model/user';
 import { Level } from '../model/level';
 
