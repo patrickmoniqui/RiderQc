@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit
     register() {
         var registerResponse;
         this.errorlbl = "";
-       
+        
         this.userService.register({
             "Username": btoa(this.registerForm.value.name),
             "Password": btoa(this.registerForm.value.password),
@@ -94,9 +94,8 @@ export class RegisterComponent implements OnInit
         }).subscribe(
             (response) => {
                 //Here you can map the response to a type.
-                //this.errorlbl = response;
                 alert(response);
-                //this.router.navigate(['login']); //<2add>   !!!
+                this.router.navigate(['login']); 
             },
             (err) => {
                 //Here you can catch the error

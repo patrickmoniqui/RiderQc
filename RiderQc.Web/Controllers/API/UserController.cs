@@ -77,7 +77,6 @@ namespace RiderQc.Web.Controllers.API
         [HttpDelete]
         [Route("{username}")]
         [BasicAuthorization]
-
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteUser(string username)
         {

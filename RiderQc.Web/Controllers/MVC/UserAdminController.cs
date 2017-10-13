@@ -1,12 +1,6 @@
-﻿using RiderQc.Web.Entities;
-using RiderQc.Web.Repository.Interface;
-using RiderQc.Web.ViewModels.Ride;
-using RiderQc.Web.ViewModels.Trajet;
+﻿using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 
@@ -44,7 +38,7 @@ namespace RiderQc.Web.Controllers
             return View();
         }
 
-        [Route("CreateUser")]
+        [Route("create")]
         public ActionResult CreateNewUser()
         {
             return View();
