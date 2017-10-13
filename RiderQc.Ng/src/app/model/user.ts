@@ -1,5 +1,6 @@
 export class User {
 
+
 	  UserID: string;
 	  Username: string;
 	  Password: string;
@@ -20,6 +21,5 @@ export class User {
 			this.Description = Description;
 			this.DpUrl = DpUrl;
 		}
-    
-	      
+
 }
