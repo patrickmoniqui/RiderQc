@@ -108,7 +108,7 @@ namespace RiderQc.Web.Controllers.Api
         /// <returns></returns>
         [HttpGet]
         [Route("list")]
-        [ResponseType(typeof(List<Ride>))]
+        [ResponseType(typeof(List<RideViewModel>))]
         public IHttpActionResult GetAllRides()
         {
             List<RideViewModel> rides = repo.GetAllRides();

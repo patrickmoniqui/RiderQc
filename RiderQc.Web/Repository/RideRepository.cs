@@ -65,6 +65,10 @@ namespace RiderQc.Web.Repository
                 rideViewModel.LevelId = ride.LevelId;
                 rideViewModel.Title = ride.Title;
                 rideViewModel.TrajetId = ride.TrajetId;
+                rideViewModel.Comments = ride.Comments;
+                rideViewModel.Level = ride.Level;
+                rideViewModel.User = ride.User;
+                rideViewModel.Trajet = ride.Trajet;
                 list.Add(rideViewModel);
             }
             return list;

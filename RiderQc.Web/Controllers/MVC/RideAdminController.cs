@@ -23,7 +23,7 @@ namespace RiderQc.Web.Controllers
         [Route("list")]
         public ActionResult Index()
         {
-            List<RideViewModel> rides = repo.GetAllRides();
+            List<RideViewModel> rides = new List<RideViewModel>();
             return View(rides);
         }
         [Route("edit/{rideid}")]

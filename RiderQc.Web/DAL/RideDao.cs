@@ -45,7 +45,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.User)
                     .Include(x => x.Level)
                     .Include(x => x.Trajet)
-                    .Include(x => x.Comments.Where(y => y.ParentId == null))
+                    .Include(x => x.Comments)
                     // include user information (creator)
                     .Include("Comments.User")
                     // include child comments of comment
