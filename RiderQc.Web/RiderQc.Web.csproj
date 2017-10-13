@@ -353,7 +353,12 @@
     <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
     <Content Include="Views\UserAdmin\DetailUser.cshtml" />
     <Content Include="Views\UserAdmin\EditUser.cshtml" />
-    <Content Include="Views\RideAdmin\RideListe.cshtml" />
+    <Content Include="Views\TrajetAdmin\Index.cshtml" />
+    <Content Include="Views\TrajetAdmin\Edittrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\DeleteTrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\CreateNewTrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\DetailTrajet.cshtml" />
+    <Content Include="Views\RideAdmin\Index.cshtml" />
     <Content Include="Views\RideAdmin\EditRide.cshtml" />
     <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
     <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
@@ -364,7 +369,6 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Moto\" />
     <Folder Include="Views\Ride\" />
-    <Folder Include="Views\TrajetAdmin\" />
     <Folder Include="Views\Trajet\" />
   </ItemGroup>
   <ItemGroup>
