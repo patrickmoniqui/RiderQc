@@ -1,27 +1,49 @@
 ﻿<div>
-  <h1 class="text-center">Browse rides</h1>
+  <h1 class="text-center">Browse rides ({{rides.length}})</h1>
 
   <div style="padding-bottom:20px;" class="container text-center">
-    <input class="searchbox" type="text" name="search" placeholder="Search rides..">
+    <div class="search">
+      <input (change)="searchBar_OnChange($event)" class="searchTerm" type="text" name="search" placeholder="Search rides..">
+      <button type="submit" class="searchButton" (change)="searchBar_OnChange()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+
   </div>
   
-  <div *ngFor="let ride of rides">
-    <div>
-      <div class="container">
+  <div class="ride-container" *ngFor="let ride of rides">
+      <div class="container-fluid">
         <div class="riderqc-section">
           <a href="/ride/{{ride.RideId}}">
-            {{ride.Title}} - {{ride.DateDepart}}
+            {{ride.Title}} - {{ride.DateDepart}} by {{ride.User.Username}}
           </a>
+          <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </button>
         </div>
-        <div class="row aligned-row">
-          <div class="col-md-4">
+        <div class="aligned-row">
+          <div class="col-md-4 ride-map">
             <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
           </div>
-          <div style="background-color:red" class="col-md-8">
-            <p>
-              {{ride.Description}}
+          <div class="col-md-8 ride-description bg-strip1">
+            <p class="text-white">
+              <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-square" aria-hidden="true"> </i> 
             </p>
-          </div>
+            <p class="text-white">
+              <strong>Description:</strong> {{ride.Description}}
+            </p>
+            <hr />
+
+            <div class="comments-container">
+              <div *ngFor="let comment of ride.Comments">
+                <app-comment [Comment]="comment"></app-comment>
+              </div>
+
+              <div class="comment-container">
+                <textarea placeholder="Enter your message"></textarea>
+              </div>
+              <button>Send</button>
+            </div>
         </div>
       </div>
     </div>

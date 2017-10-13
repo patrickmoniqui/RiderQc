@@ -1,4 +1,8 @@
-﻿export interface Ride
+﻿import { Comment } from '../model/comment';
+import { User } from '../model/user';
+import { Level } from '../model/level';
+
+export interface Ride
 {
   RideId: number;
   Title: string ;
@@ -7,5 +11,8 @@
   TrajetId: number ;
   LevelId: number ;
   DateDepart: Date ;
-  DateFin: Date ; 
+  DateFin: Date; 
+  User: User;
+  Level: Level;
+  Comments: Comment[];
 }
