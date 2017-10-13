@@ -1,4 +1,4 @@
-﻿<div>
+<div>
   <h1 class="text-center">Browse rides</h1>
 
   <div style="padding-bottom:20px;" class="container text-center">
@@ -9,7 +9,7 @@
     <div>
       <div class="container">
         <div class="riderqc-section">
-          <a href="/ride/{{ride.RideId}}">
+          <a href="#" [routerLink]="[ride.RideId]">
             {{ride.Title}} - {{ride.DateDepart}}
           </a>
         </div>
@@ -17,7 +17,7 @@
           <div class="col-md-4">
             <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
           </div>
-          <div style="background-color:red" class="col-md-8">
+          <div style="background-color:gray" class="col-md-8">
             <p>
               {{ride.Description}}
             </p>
