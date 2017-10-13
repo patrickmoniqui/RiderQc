@@ -1,0 +1,86 @@
+<section>
+  <section *ngIf="ride">
+    <section *ngIf="ride.RideId">
+      <h2 *ngIf="isModification">Vous avez selectionné : {{ride.Title}}</h2>
+    </section>
+    <section id="left">
+      <br />
+      <h3>{{isModification ? 'Modification' : 'Ajouter'}}</h3>
+      <form (ngSubmit)="submitForm()" [formGroup]="rideForm">
+        <div>
+          <div>
+            <label for="RideId">Id :</label>
+            <input type="number" max="9999999999" formControlName="rideid" [(ngModel)]="ride.RideId" placeholder="Id">
+            <span [hidden]="rideForm.controls.rideid.valid">(Le rideid est requis)</span><br />
+          </div>
+        </div>
+
+        <div>
+          <label for="Title">Title :</label>
+          <input type="text" maxlength="50" formControlName="title" [(ngModel)]="ride.Title" placeholder="Title">
+          <span [hidden]="rideForm.controls.title.valid">(Le title est requis)</span>
+        </div>
+
+        <div>
+          <label for="Description">Description :</label>
+          <input type="text" maxlength="50" formControlName="description" [(ngModel)]="ride.Description" placeholder="Description">
+          <span [hidden]="rideForm.controls.description.valid">(La description est requise)</span>
+        </div>
+
+        <div>
+          <label for="CreatorId">CreatorId :</label>
+          <input type="number" max="9999999999" formControlName="creatorid" [(ngModel)]="ride.CreatorId" placeholder="CreatorId">
+          <span [hidden]="rideForm.controls.creatorid.valid">(Le creatorid est requis)</span>
+        </div>
+
+        <div>
+          <label for="TrajetId">TrajetId :</label>
+          <input type="number" max="9999999999" formControlName="trajetid" [(ngModel)]="ride.TrajetId" placeholder="TrajetId">
+          <span [hidden]="rideForm.controls.trajetid.valid">(Le trajetid est requis)</span>
+        </div>
+
+        <div>
+          <label for="LevelId">LevelId :</label>
+          <select formControlName="levelid" [(ngModel)]="ride.LevelId">
+            <option *ngFor="let level of levels" value={{level.Id}}>{{level.Name}}</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="DateDepart">DateDepart :</label>
+          <input type="text" formControlName="datedepart" [(ngModel)]="ride.DateDepart" placeholder="DateDepart">
+          <span [hidden]="rideForm.controls.datedepart.valid">(La DateDepart est requise)</span>
+        </div>
+
+        <div>
+          <label for="DateFin">DateFin :</label>
+          <input type="text" formControlName="datefin" [(ngModel)]="ride.DateFin" placeholder="DateFin">
+          <span [hidden]="rideForm.controls.datefin.valid">(La DateFin est requise)</span>
+        </div>
+
+        <button type="submit" [disabled]="!rideForm.valid">Submit</button>
+      </form>
+    </section>
+    <section id="right">
+      <ul>
+        <li><b>Id :</b> {{ride.RideId}}</li>
+        <li><b>Title : </b> {{ride.title}}</li>
+        <li><b>Description : </b> {{ride.description}}</li>
+        <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
+        <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
+        <li><b>Level Id : </b> {{ride.LevelId}}</li>
+        <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
+        <li><b>Date Fin : </b> {{ride.DateFin}}</li>
+        <li><b>Levels : </b> <ul><li *ngFor="let level of levels">{{level.Name}}</li></ul></li>
+      </ul>
+    </section>
+  </section>
+  <div class="row aligned-row">
+    <div class="col-md-4">
+      <app-trajet [editable]="true"></app-trajet>
+    </div>
+  </div>
+  <br /><br />
+  <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+  <br /><br />
+</section>
