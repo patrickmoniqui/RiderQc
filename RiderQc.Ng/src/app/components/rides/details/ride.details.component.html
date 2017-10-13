@@ -1,0 +1,19 @@
+<section>
+  <section *ngIf="ride">
+    <section>
+      <h2><b>Détails</b></h2>
+      <ul>
+        <li><b>Id :</b> {{ride.RideId}}</li>
+        <li><b>Title : </b> {{ride.Title}}</li>
+        <li><b>Description : </b> {{ride.Description}}</li>
+        <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
+        <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
+        <li><b>Level Id : </b> {{ride.LevelId}}</li>
+        <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
+        <li><b>Date Fin : </b> {{ride.DateFin}}</li>
+      </ul>
+      <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
+      <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+    </section>
+  </section>
+</section>

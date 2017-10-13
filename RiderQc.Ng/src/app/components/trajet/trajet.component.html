@@ -1,4 +1,4 @@
-﻿<div class="form-group" *ngIf="editable">
+<div class="form-group" *ngIf="editable">
   <input placeholder="Origin" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #originSearch [formControl]="searchControl">
   <input placeholder="Destination" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #destinationSearch [formControl]="searchControl">
 </div>
@@ -9,7 +9,7 @@
     <!--agm-marker [latitude]="lat" [longitude]="lng"></!--agm-marker-->
   </agm-map>
   <br />
-  <button (click)="setCurrentPosition()">Find current position</button>
+  <button (click)="setCurrentPosition()" *ngIf="editable">Find current position</button>
 </div>
 
 <div style="display:none;" class="trajetInfo">
