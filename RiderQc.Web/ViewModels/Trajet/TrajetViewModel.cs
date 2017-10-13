@@ -9,6 +9,6 @@ namespace RiderQc.Web.ViewModels.Trajet
     {
         public int TrajetId { get; set; }
         public int CreatorId { get; set; }
-        public List<string> GpsPoints { get; set; }
+        public string GoogleCo { get; set; }
     }
 }
