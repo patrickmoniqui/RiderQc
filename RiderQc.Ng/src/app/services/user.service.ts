@@ -8,11 +8,6 @@ import 'rxjs/add/operator/catch';
 //Import Model
 import { User } from '../model/user';
 
-
-//Import Model
-import { User } from '../model/user';
-
-
 @Injectable()
 export class UserService {
    
