@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.GoogleCo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.Username)
+            @Html.DisplayNameFor(model => model.CreatorId)
         </th>
         <th></th>
     </tr>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.GoogleCo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Username)
+            @Html.DisplayFor(modelItem => item.CreatorId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TrajetId }) |
