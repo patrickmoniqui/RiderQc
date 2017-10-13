@@ -1,71 +1,84 @@
-<div>Register</div>
-<form [formGroup]="registerForm" novalidate>
-  <div class="form-group">
-    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
-    <table>
-      <tr>
-        <td>
-          <label>Email</label>
-        </td>
-        <td>
-          <input id="username" type="email" placeholder="Username" class="form-control" formControlName="name" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Password</label>
-        </td>
-        <td>
-          <input id="password" type="password" placeholder="Password" class="form-control" formControlName="password"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Confirm password</label>
-        </td>
-        <td>
-          <input id="passwordConf" type="password" placeholder="Confirm password" class="form-control" formControlName="passwordConf" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Ville</label>
-        </td>
-        <td>
-          <input id="ville"  placeholder="Ville" class="form-control" formControlName="ville"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Region</label>
-        </td>
-        <td>
-          <select class="form-control" formControlName="region">
-            <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Description</label>
-        </td>
-        <td>
-          <input id="description" placeholder="Description" class="form-control" formControlName="description" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Date de naissance</label>
-        </td>
-        <td>
-          <input id="dateOfBirth" type="date" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" />
-        </td>
-      </tr>
-    </table>
-    <button id="submitRegistration" (click)="register()" [disabled]="registerForm.invalid" >Register</button>
-  </div>
-  <p>Form value: {{ registerForm.value | json }}</p>
-  <p>Form status: {{  lookIfValid() }}</p>
-  <p>Form status: {{ registerForm.invalid }}</p>
-
-</form>
+<div id="body">
+  <h1>Register</h1>
+  <br />
+  <form [formGroup]="registerForm" class="form" novalidate>
+    <div class="form-group">
+      <table>
+        <tr>
+          <td></td>
+          <td>
+            <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>*Email:</label>
+          </td>
+          <td>
+            <input id="username" type="email" placeholder="Username" class="form-control" formControlName="name" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>*Password:</label>
+          </td>
+          <td>
+            <input id="password" type="password" placeholder="Password" class="form-control" formControlName="password" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>*Confirm password:</label>
+          </td>
+          <td>
+            <input id="passwordConf" type="password" placeholder="Confirm password" class="form-control" formControlName="passwordConf" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Ville:</label>
+          </td>
+          <td>
+            <input id="ville" placeholder="Ville" class="form-control" formControlName="ville" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>*Region:</label>
+          </td>
+          <td>
+            <select class="form-control" formControlName="region">
+              <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Description:</label>
+          </td>
+          <td>
+            <input id="description" placeholder="Description" class="form-control" formControlName="description" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>*Date de naissance:</label>
+          </td>
+          <td>
+            <input id="dateOfBirth" type="date" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" />
+          </td>
+        </tr>
+        <tr><td></td><td></td></tr>
+        <tr>
+          <td></td>
+          <td>
+            <button id="submitRegistration" (click)="register()" [disabled]="registerForm.invalid">Register</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--<p>Form value: {{ registerForm.value | json }}</p>
+    <p>Form status: {{  lookIfValid() }}</p>
+    <p>Form status: {{ registerForm.invalid }}</p>-->
+  </form>
+</div>

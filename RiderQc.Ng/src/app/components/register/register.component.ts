@@ -52,19 +52,17 @@ export class RegisterComponent implements OnInit
         this.registerForm = this.fb.group({
             'name': new FormControl(this.user.Name, [
                 Validators.required,
-                Validators.minLength(4),
                 Validators.email
             ]),
             'password': new FormControl(this.user.Password, [
                 Validators.required,
-                Validators.minLength(4)
+                Validators.minLength(6)
             ]),
             'passwordConf': new FormControl(this.user.PasswordConf, [
                 Validators.required,
-                Validators.minLength(4)
+                Validators.minLength(6)
             ]),
             'ville': new FormControl(this.user.Ville, [
-                Validators.required,
                 Validators.minLength(2)
             ]),
             'region': new FormControl(this.user.Password, [Validators.required]),
@@ -81,28 +79,7 @@ export class RegisterComponent implements OnInit
 
     register() {
         var registerResponse;
-      
-            /*this.userService.register({
-                "Username": btoa("trumpanonyme@baraclou.siphon"),
-                "Password": btoa("asdasdasd"),
-                "Region": "Mauricie",
-                "Ville": "Pincourt",
-                "DateOfBirth": "2050-01-01T00:00:00.000Z",
-                "Description": "Un tit test"
-            }).subscribe(
-                (response) => {
-                    //Here you can map the response to a type.
-                    console.log("regRes: " + response);
-                },
-                (err) => {
-                    //Here you can catch the error
-                   // this.errorLabel.setText(err);
-                    console.log("regErr: " + err);
-                },
-                () => {
-                  //this.router.navigate(['rides'])
-                }
-            );*/
+        this.errorlbl = "";
        
         this.userService.register({
             "Username": btoa(this.registerForm.value.name),
@@ -114,31 +91,17 @@ export class RegisterComponent implements OnInit
         }).subscribe(
             (response) => {
                 //Here you can map the response to a type.
-                this.errorlbl = response;
-                console.log("regRes: " + response);
+                //this.errorlbl = response;
+                alert(response);
+                //this.router.navigate(['login']); //<2add>   !!!
             },
             (err) => {
                 //Here you can catch the error
                 this.errorlbl = err;
-                console.log("regErr: " + err);
+                //alert(err) 
+
             },
             () => { /*this.router.navigate(['rides'])*/ }
         );
-
-        
-
-        //console.log(registerResponse.status);
-        /*var cache = [];
-        console.log("okok:" + JSON.stringify(test, function (key, value) {
-            if (typeof value === 'object' && value !== null) {
-                if (cache.indexOf(value) !== -1) {
-                    // Circular reference found, discard key
-                    return;
-                }
-                // Store value in our collection
-                cache.push(value);
-            }
-            return value;
-        }));*/
     }
 }
