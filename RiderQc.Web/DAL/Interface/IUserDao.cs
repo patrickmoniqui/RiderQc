@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 
 namespace RiderQc.Web.DAL.Interface
@@ -14,8 +15,8 @@ namespace RiderQc.Web.DAL.Interface
         List<User> GetAllUsers();
         List<Trajet> GetAllTrajets();
         List<Ride> GetAllRides();
-        string GenerateTokenForUser(string username);
-        string GetLastValidTokenByUsername(string username);
+        AuthentificationTokenViewModel GenerateTokenForUser(string username);
+        AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         User GetUserByTokenIsLastTokenIsValid(string token);
     }
 }

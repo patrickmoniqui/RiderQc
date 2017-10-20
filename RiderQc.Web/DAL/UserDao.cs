@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using RiderQc.Web.Helpers;
+using RiderQc.Web.ViewModels.User;
 
 namespace RiderQc.Web.DAL
 {
@@ -149,7 +150,7 @@ namespace RiderQc.Web.DAL
             }
         }
 
-        public string GenerateTokenForUser(string username)
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username)
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
@@ -158,7 +159,7 @@ namespace RiderQc.Web.DAL
                 // If user not existing
                 if (user == null)
                 {
-                    return "";
+                    return null;
                 }
 
                 Authentification authToken = new Authentification();
@@ -170,13 +171,18 @@ namespace RiderQc.Web.DAL
                 user.Authentifications.Add(authToken);
                 ctx.SaveChanges();
 
-                return authToken.Token;
+                AuthentificationTokenViewModel tokenViewModel = new AuthentificationTokenViewModel();
+                tokenViewModel.Token = authToken.Token;
+                tokenViewModel.IssueDate = authToken.IssueDate;
+                tokenViewModel.ExpirationDate = authToken.ExpirationDate;
+
+                return tokenViewModel;
             }
         }
 
-        public string GetLastValidTokenByUsername(string username)
+        public AuthentificationTokenViewModel GetLastValidTokenByUsername(string username)
         {
-            string token = "";
+            AuthentificationTokenViewModel token = null;
 
             using (RiderQcContext ctx = new RiderQcContext())
             {
@@ -195,7 +201,10 @@ namespace RiderQc.Web.DAL
                         //Token still good
                         if (lastToken.ExpirationDate > DateTime.Now)
                         {
-                            token = lastToken.Token;
+                            token = new AuthentificationTokenViewModel();
+                            token.Token = lastToken.Token;
+                            token.IssueDate = lastToken.IssueDate;
+                            token.ExpirationDate = lastToken.ExpirationDate;
                         }
                     }
                 }

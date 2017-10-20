@@ -67,18 +67,15 @@ namespace RiderQc.Web.Controllers.API
             // User is valid.
             if(result)
             {
-                string token = repo.GetLastValidTokenByUsername(user.Username);
+                AuthentificationTokenViewModel token = repo.GetLastValidTokenByUsername(user.Username);
                 
                 // We need to generate a token if none found.
-                if(token == null || token == "")
+                if(token == null)
                 {
                     token = repo.GenerateTokenForUser(user.Username);
                 }
 
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-                dic.Add("AuthToken", token);
-
-                return Ok(dic);
+                return Ok(token);
             }
             else
             {

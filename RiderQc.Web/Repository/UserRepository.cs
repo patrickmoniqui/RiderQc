@@ -142,12 +142,12 @@ namespace RiderQc.Web.Repository
             return dao.CredentialsAreValid(username, password);
         }
 
-        public string GenerateTokenForUser(string username)
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username)
         {
             return dao.GenerateTokenForUser(username);
         }
 
-        public string GetLastValidTokenByUsername(string username)
+        public AuthentificationTokenViewModel GetLastValidTokenByUsername(string username)
         {
             return dao.GetLastValidTokenByUsername(username);
         }
