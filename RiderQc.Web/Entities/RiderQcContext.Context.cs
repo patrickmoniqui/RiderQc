@@ -18,7 +18,6 @@ namespace RiderQc.Web.Entities
         public RiderQcContext()
             : base("name=RiderQcContext")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,5 +36,6 @@ namespace RiderQc.Web.Entities
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserRating> UserRatings { get; set; }
         public virtual DbSet<UserRide> UserRides { get; set; }
+        public virtual DbSet<Authentification> Authentifications { get; set; }
     }
 }

@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RiderQcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Authentification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Token" Type="varchar(max)" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
@@ -238,6 +248,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Authentification_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Authentification" Type="Self.Authentification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Authentification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Ride">
           <End Role="Ride" Type="Self.Ride" Multiplicity="1" />
           <End Role="UserRide" Type="Self.UserRide" Multiplicity="*" />
@@ -323,6 +345,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RiderQcModelStoreContainer">
+          <EntitySet Name="Authentification" EntityType="Self.Authentification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
@@ -373,6 +396,10 @@
           <AssociationSet Name="FK__UserRatin__Rater__5F7E2DAC" Association="Self.FK__UserRatin__Rater__5F7E2DAC">
             <End Role="User" EntitySet="User" />
             <End Role="UserRating" EntitySet="UserRating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authentification_User" Association="Self.FK_Authentification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Authentification" EntitySet="Authentification" />
           </AssociationSet>
           <AssociationSet Name="FK_Ride" Association="Self.FK_Ride">
             <End Role="Ride" EntitySet="Ride" />
@@ -521,6 +548,7 @@
           <NavigationProperty Name="UserRatings1" Relationship="Self.FK__UserRatin__Rater__18EBB532" FromRole="User" ToRole="UserRating" />
           <NavigationProperty Name="UserRides" Relationship="Self.FK_User" FromRole="User" ToRole="UserRide" />
           <NavigationProperty Name="UserLevels" Relationship="Self.FK_UserLevel_User" FromRole="User" ToRole="UserLevel" />
+          <NavigationProperty Name="Authentifications" Relationship="RiderQcModel.FK_Authentification_User" FromRole="User" ToRole="Authentification" />
         </EntityType>
         <EntityType Name="UserLevel">
           <Key>
@@ -838,7 +866,35 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserLevel" EntitySet="UserLevels" />
           </AssociationSet>
+          <EntitySet Name="Authentifications" EntityType="RiderQcModel.Authentification" />
+          <AssociationSet Name="FK_Authentification_User" Association="RiderQcModel.FK_Authentification_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Authentification" EntitySet="Authentifications" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Authentification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="RiderQcModel.FK_Authentification_User" FromRole="Authentification" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Authentification_User">
+          <End Type="RiderQcModel.User" Role="User" Multiplicity="1" />
+          <End Type="RiderQcModel.Authentification" Role="Authentification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Authentification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -966,6 +1022,17 @@
                 <ScalarProperty Name="RideId" ColumnName="RideId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserRideId" ColumnName="UserRideId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authentifications">
+            <EntityTypeMapping TypeName="RiderQcModel.Authentification">
+              <MappingFragment StoreEntitySet="Authentification">
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

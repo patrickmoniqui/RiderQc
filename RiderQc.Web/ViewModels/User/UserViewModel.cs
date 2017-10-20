@@ -7,7 +7,6 @@ namespace RiderQc.Web.ViewModels.User
     {
         public int UserID { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Region { get; set; }
         public string Ville { get; set; }
         public DateTime? DateOfBirth { get; set; }

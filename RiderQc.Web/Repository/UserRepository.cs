@@ -5,6 +5,7 @@ using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.Trajet;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
+using System;
 
 namespace RiderQc.Web.Repository
 {
@@ -27,7 +28,6 @@ namespace RiderQc.Web.Repository
         {
             //map viewmodel to entity
             User user = new User();
-            user.UserID = userViewModel.UserID;
             user.Username = userViewModel.Username;
             user.Password = userViewModel.Password;
             user.Region = userViewModel.Region;
@@ -129,6 +129,57 @@ namespace RiderQc.Web.Repository
             return userViewModel;
         }
 
-        
+        public UserViewModel GetUserByName(string username)
+        {
+            UserViewModel userViewModel = new UserViewModel();
+            User user = dao.GetByUsername(username);
+            userViewModel = UserToUserViewModel(user);
+            return userViewModel;
+        }
+
+        public bool CredentialsAreValid(string username, string password)
+        {
+            return dao.CredentialsAreValid(username, password);
+        }
+
+        public string GenerateTokenForUser(string username)
+        {
+            return dao.GenerateTokenForUser(username);
+        }
+
+        public string GetLastValidTokenByUsername(string username)
+        {
+            return dao.GetLastValidTokenByUsername(username);
+        }
+
+        public UserViewModel GetUserByTokenIsLastTokenIsValid(string token)
+        {
+            User user = dao.GetUserByTokenIsLastTokenIsValid(token);
+
+            if (user == null)
+            {
+                return null;
+            }
+            else
+            {
+                UserViewModel userViewModel = UserToUserViewModel(user);
+                return userViewModel;
+            }
+        }
+
+        private UserViewModel UserToUserViewModel(User user)
+        {
+            UserViewModel userViewModel = new UserViewModel();
+            userViewModel.UserID = user.UserID;
+            userViewModel.Username = user.Username;
+            userViewModel.Region = user.Region;
+            userViewModel.DateOfBirth = user.DateOfBirth;
+            userViewModel.Description = user.Description;
+            userViewModel.DpUrl = user.DpUrl;
+            userViewModel.Motos = user.Motoes;
+            userViewModel.Rides = user.Rides;
+            userViewModel.Ville = user.Ville;
+            return userViewModel;
+        }
     }
 }

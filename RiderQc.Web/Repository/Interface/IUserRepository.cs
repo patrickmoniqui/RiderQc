@@ -11,9 +11,14 @@ namespace RiderQc.Web.Repository.Interface
         bool RegisterUser(UserRegisterViewModel user);
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
+        bool CredentialsAreValid(string username, string password);
         UserViewModel GetUserById(int userId);
+        UserViewModel GetUserByName(string username);
         List<UserViewModel> GetAllUsers();
         List<TrajetViewModel> GetAllTrajets();
         List<RideViewModel> GetAllRides();
+        string GenerateTokenForUser(string username);
+        string GetLastValidTokenByUsername(string username);
+        UserViewModel GetUserByTokenIsLastTokenIsValid(string token);
     }
 }

@@ -8,12 +8,14 @@ namespace RiderQc.Web.DAL.Interface
         bool RegisterUser(User user);
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
-        bool LoginIsValid(string username, string password);
+        bool CredentialsAreValid(string username, string password);
         User GetByUsername(string username);
         User GetUserById(int user_id);
         List<User> GetAllUsers();
         List<Trajet> GetAllTrajets();
         List<Ride> GetAllRides();
-
+        string GenerateTokenForUser(string username);
+        string GetLastValidTokenByUsername(string username);
+        User GetUserByTokenIsLastTokenIsValid(string token);
     }
 }

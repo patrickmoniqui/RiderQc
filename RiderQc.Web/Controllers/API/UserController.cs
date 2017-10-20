@@ -1,6 +1,5 @@
 ﻿using RiderQc.Web.App_Start;
 using RiderQc.Web.Entities;
-using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.User;
 using System;
@@ -37,20 +36,8 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            if (!EncryptionHelper.IsBase64(userViewModel.Username) || !(EncryptionHelper.IsBase64(userViewModel.Password)))
-                return BadRequest("An error has occured");
-
-
-            string username = EncryptionHelper.Base64Decode(userViewModel.Username);
-
-            if (repo.CheckUserExistence(username))
+            if (repo.CheckUserExistence(userViewModel.Username))
                 return BadRequest("That username is already taken.");
-
-            userViewModel.Username = username;
-
-            string password = EncryptionHelper.Base64Decode(userViewModel.Password);
-
-            userViewModel.Password = EncryptionHelper.HashToSHA256(password);
 
             DateTime? userDOB = userViewModel.DateOfBirth;
             string region = userViewModel.Region;
@@ -76,7 +63,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpDelete]
         [Route("{username}")]
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteUser(string username)
         {
@@ -114,8 +101,28 @@ namespace RiderQc.Web.Controllers.API
             }
 
             return Ok(users);
-        } 
-        
+        }
 
+        /// <summary>
+        /// Get User by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{username}")]
+        [ResponseType(typeof(UserViewModel))]
+        public IHttpActionResult GetUserById(string username)
+        {
+            UserViewModel user = repo.GetUserByName(username);
+
+            if(user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

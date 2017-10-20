@@ -9,7 +9,9 @@
 
 namespace RiderQc.Web.Entities
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class UserRating
     {
         public int UserRatingId { get; set; }

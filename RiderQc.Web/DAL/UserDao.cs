@@ -33,6 +33,7 @@ namespace RiderQc.Web.DAL
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
             {
+                user.Password = EncryptionHelper.HashToSHA256(user.Password);
                 ctx.Users.Add(user);
                 result = ctx.SaveChanges();
             }
@@ -69,7 +70,7 @@ namespace RiderQc.Web.DAL
             }
         }
 
-        public List<User> GetAllUsers() 
+        public List<User> GetAllUsers()
         {
 
 
@@ -122,7 +123,7 @@ namespace RiderQc.Web.DAL
             }
         }
 
-        public bool LoginIsValid(string username, string password)
+        public bool CredentialsAreValid(string username, string password)
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
@@ -145,6 +146,80 @@ namespace RiderQc.Web.DAL
                 user = ctx.Users.FirstOrDefault(x => x.Username == username);
 
                 return user;
+            }
+        }
+
+        public string GenerateTokenForUser(string username)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                // If user not existing
+                if (user == null)
+                {
+                    return "";
+                }
+
+                Authentification authToken = new Authentification();
+                authToken.UserId = user.UserID;
+                authToken.IssueDate = DateTime.Now;
+                authToken.ExpirationDate = DateTime.Now.AddDays(30);
+                authToken.Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                
+                user.Authentifications.Add(authToken);
+                ctx.SaveChanges();
+
+                return authToken.Token;
+            }
+        }
+
+        public string GetLastValidTokenByUsername(string username)
+        {
+            string token = "";
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User user = ctx.Users
+                    .Include("Authentifications")
+                    .FirstOrDefault(x => x.Username == username);
+
+                if (user != null)
+                {
+                    var listToken = user.Authentifications.OrderByDescending(x => x.IssueDate);
+
+                    if (listToken?.Count() >= 1)
+                    {
+                        Authentification lastToken = listToken.FirstOrDefault();
+
+                        //Token still good
+                        if (lastToken.ExpirationDate > DateTime.Now)
+                        {
+                            token = lastToken.Token;
+                        }
+                    }
+                }
+            }
+
+            return token;
+        }
+
+        public User GetUserByTokenIsLastTokenIsValid(string token)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Authentification auth = ctx.Authentifications
+                    .Include("User")
+                    .FirstOrDefault(x => x.Token == token && x.ExpirationDate < DateTime.Now);
+
+                if (auth != null && auth.User != null)
+                {
+                    return auth.User;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

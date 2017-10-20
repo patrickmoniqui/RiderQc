@@ -23,7 +23,7 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="trajet"></param>
         /// <returns></returns>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Create(Trajet trajet)

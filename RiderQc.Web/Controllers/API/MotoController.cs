@@ -24,7 +24,7 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoViewModel"></param>
         /// <returns></returns>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(MotoViewModel))]
@@ -46,7 +46,7 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoViewModel"></param>
         /// <returns></returns>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpPut]
         [Route("")]
         [ResponseType(typeof(MotoViewModel))]
@@ -79,7 +79,7 @@ namespace RiderQc.Web.Controllers.API
         /// </summary>
         /// <param name="motoId"></param>
         /// <returns></returns>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpDelete]
         [Route("{motoId}")]
         [ResponseType(typeof(string))]

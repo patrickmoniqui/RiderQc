@@ -12,13 +12,14 @@ namespace RiderQc.Web.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLevel
+    public partial class Authentification
     {
-        public int UserLevelId { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
-        public int LevelId { get; set; }
+        public string Token { get; set; }
+        public System.DateTime IssueDate { get; set; }
+        public System.DateTime ExpirationDate { get; set; }
     
-        public virtual Level Level { get; set; }
         public virtual User User { get; set; }
     }
 }

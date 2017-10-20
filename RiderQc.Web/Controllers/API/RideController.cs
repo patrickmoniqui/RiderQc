@@ -24,7 +24,7 @@ namespace RiderQc.Web.Controllers.Api
         /// </summary>
         /// <param name="rideViewModel"></param>
         /// <returns></returns>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Create(RideViewModel rideViewModel)
@@ -53,7 +53,7 @@ namespace RiderQc.Web.Controllers.Api
         /// Delete a ride
         /// </summary>
         /// <param name="rideId">Id of the ride.</param>
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [HttpDelete]
         [Route("{rideId}")]
         public IHttpActionResult Delete(int rideId)

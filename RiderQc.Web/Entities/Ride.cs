@@ -9,10 +9,9 @@
 
 namespace RiderQc.Web.Entities
 {
-    using RiderQc.Web.ViewModels.Ride;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Ride
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +20,7 @@ namespace RiderQc.Web.Entities
             this.Comments = new HashSet<Comment>();
             this.UserRides = new HashSet<UserRide>();
         }
-        
+    
         public int RideId { get; set; }
         public Nullable<int> TrajetId { get; set; }
         public int CreatorId { get; set; }

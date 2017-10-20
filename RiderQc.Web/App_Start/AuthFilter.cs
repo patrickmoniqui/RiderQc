@@ -1,36 +1,39 @@
-﻿using RiderQc.Web.Entities;
-using RiderQc.Web.Helpers;
-using RiderQc.Web.Models;
-using System;
+﻿using RiderQc.Web.Models;
+using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
-using System.Text;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.Mvc;
 
 namespace RiderQc.Web.App_Start
 {
-    public class BasicAuthorization : AuthorizationFilterAttribute
+    public class AuthTokenAuthorization : AuthorizationFilterAttribute
     {
+        private readonly IUserRepository repo;
+        private UserViewModel user;
+
+        public AuthTokenAuthorization()
+        {
+            user = null;
+            repo = DependencyResolver.Current.GetService<IUserRepository>();
+        }
+
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            string username = "";
-            string password = "";
+            string token = "";
 
             IEnumerable<string> headerValues = null;
-            actionContext.Request.Headers.TryGetValues("Authentification", out headerValues);
+            actionContext.Request.Headers.TryGetValues("Authorization", out headerValues);
             
             if(headerValues != null && headerValues.Count() >= 1)
             {
                 var authHeader = headerValues.FirstOrDefault();
-                authHeader = authHeader.Substring(6, authHeader.Length - 6);
-                string base64 = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader));
-
-                username = base64.Split(':')[0];
-                password = base64.Split(':')[1];
+                token = authHeader.Replace("Bearer", "").Trim();
             }
             else
             {
@@ -38,26 +41,22 @@ namespace RiderQc.Web.App_Start
                 return;
             }
             
-            // if user not authorize
-            if (!OnAuthorizeUser(username, password, actionContext))
+            // User is authorized
+            if (OnAuthorizeUser(token, actionContext))
             {
+                ApplicationUser AppUser = new ApplicationUser();
+                AppUser.Id = user.UserID;
+                AppUser.Username = user.Username;
+
+                IPrincipal principal = AppUser;
+                actionContext.RequestContext.Principal = principal;
+            }
+            else
+            {
+
                 UnAuthorized(actionContext);
                 return;
-            }
-
-            User identity = null;
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                string hashedPwd = EncryptionHelper.HashToSHA256(password);
-                identity = ctx.Users.FirstOrDefault(x => x.Username == username && x.Password == hashedPwd);
-            }
-
-            ApplicationUser user = new ApplicationUser();
-            user.Id = identity.UserID;
-            user.Username = identity.Username;
-
-            IPrincipal principal = user;
-            actionContext.RequestContext.Principal = principal;
+            } 
         }
 
         /// <summary>
@@ -66,23 +65,17 @@ namespace RiderQc.Web.App_Start
         /// <param name="password"></param>
         /// <param name="actionContext"></param>
         /// <returns></returns>
-        protected virtual bool OnAuthorizeUser(string username, string password, HttpActionContext actionContext)
+        protected virtual bool OnAuthorizeUser(string authToken, HttpActionContext actionContext)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(authToken))
             {
                 return false;
             }
             else
             {
-                using (RiderQcContext ctx = new RiderQcContext())
-                {
-                    bool auth = false;
-                    string hashedPwd = EncryptionHelper.HashToSHA256(password);
+               user = repo.GetUserByTokenIsLastTokenIsValid(authToken);
 
-                    auth = ctx.Users.Any(x => x.Username == username && x.Password == hashedPwd);
-
-                    return auth;
-                }
+                return (user != null) ? true : false;
             }
         }
 
