@@ -1,19 +1,4 @@
-<nav class="topnav" id="myTopnav">
-  <a [routerLink]="['/']">Home</a>
-  <a [routerLink]="['/rides']">Browse rides</a>
-  <a [routerLink]="['/login']">Login</a>
-  <a [routerLink]="['/register']">Register</a>
-  <a href="javascript:void(0);" class="icon" onclick="toggle()">&#9776;</a>
-</nav>
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
-<script>
-  function toggle() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-  }
-</script>
+
 

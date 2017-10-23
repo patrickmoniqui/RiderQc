@@ -16,6 +16,7 @@ import { DirectionsMapDirective } from './components/trajet/direction.directive'
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { CommentComponent } from './components/comment/comment.component';
         DirectionsMapDirective,
         LoginComponent,
         UserComponent,
-        CommentComponent
+        CommentComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
