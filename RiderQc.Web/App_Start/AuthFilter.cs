@@ -73,7 +73,7 @@ namespace RiderQc.Web.App_Start
             }
             else
             {
-               user = repo.GetUserByTokenIsLastTokenIsValid(authToken);
+               user = repo.GetUserByTokenIfLastTokenIsValid(authToken);
 
                 return (user != null) ? true : false;
             }

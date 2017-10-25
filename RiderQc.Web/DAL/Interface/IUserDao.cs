@@ -13,8 +13,6 @@ namespace RiderQc.Web.DAL.Interface
         User GetByUsername(string username);
         User GetUserById(int user_id);
         List<User> GetAllUsers();
-        List<Trajet> GetAllTrajets();
-        List<Ride> GetAllRides();
         AuthentificationTokenViewModel GenerateTokenForUser(string username);
         AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         User GetUserByTokenIsLastTokenIsValid(string token);

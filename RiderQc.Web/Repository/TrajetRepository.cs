@@ -33,7 +33,6 @@ namespace RiderQc.Web.Repository
 
         public TrajetViewModel Get(int trajetId)
         {
-
             TrajetViewModel trajetViewModel = new TrajetViewModel();
             Trajet trajet = dao.Get(trajetId);
             trajetViewModel.TrajetId = trajet.TrajetId;

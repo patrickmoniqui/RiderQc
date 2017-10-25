@@ -19,7 +19,7 @@ namespace RiderQc.Web.Entities
             : base("name=RiderQcContext")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

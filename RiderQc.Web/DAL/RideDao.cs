@@ -1,5 +1,10 @@
-﻿using RiderQc.Web.DAL.Interface;
+﻿using AutoMapper;
+using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.Level;
+using RiderQc.Web.ViewModels.Ride;
+using RiderQc.Web.ViewModels.Trajet;
+using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -37,11 +42,11 @@ namespace RiderQc.Web.DAL
             }
         }
 
-        public Ride Get(int rideId)
+        public RideViewModel Get(int rideId)
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Rides
+                Ride ride = ctx.Rides
                     .Include(x => x.User)
                     .Include(x => x.Level)
                     .Include(x => x.Trajet)
@@ -52,13 +57,20 @@ namespace RiderQc.Web.DAL
                     .Include("Comments.Comment1")
                     .SingleOrDefault(x => x.RideId == rideId);
             }
+
+            return new RideViewModel();
         }
 
-        public List<Ride> GetAllRides()
+        public List<RideViewModel> GetAllRides()
         {
+            List<Ride> rides = new List<Ride>();
+
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var rides = ctx.Rides
+                ctx.Configuration.ProxyCreationEnabled = false;
+                ctx.Configuration.LazyLoadingEnabled = false;
+
+                rides = ctx.Rides
                     .Include(x => x.User)
                     .Include(x => x.Level)
                     .Include(x => x.Trajet)
@@ -66,17 +78,43 @@ namespace RiderQc.Web.DAL
                     // include user information (creator)
                     .Include("Comments.User")
                     // include child comments of comment
-                    .Include("Comments.Comment1");
-
-                if (rides != null)
-                {
-                    return rides.ToList();
-                }
-                else
-                {
-                    return new List<Ride>();
-                }
+                    .Include("Comments.Comment1")
+                    .AsNoTracking()
+                    .ToList();
             }
+
+            List<RideViewModel> ridesViewModel = new List<RideViewModel>();
+
+            foreach(Ride ride in rides)
+            {
+                RideViewModel rideViewModel = new RideViewModel();
+                rideViewModel.Title = ride.Title;
+                rideViewModel.Description = ride.Description;
+                rideViewModel.CreatorId = ride.CreatorId;
+                rideViewModel.TrajetId = ride.TrajetId;
+                rideViewModel.DateDepart = ride.DateDepart;
+                rideViewModel.DateFin = ride.DateFin;
+
+                LevelViewModel levelViewModel = new LevelViewModel();
+                levelViewModel.Id = ride.Level.LevelId;
+                levelViewModel.Name = ride.Level.Name;
+                rideViewModel.Level = levelViewModel;
+
+                TrajetViewModel trajetViewModel = new TrajetViewModel();
+                trajetViewModel.TrajetId = ride.Trajet.TrajetId;
+                trajetViewModel.CreatorId = ride.Trajet.CreatorId;
+                trajetViewModel.GpsPoints = ride.Trajet.GoogleCo.Split(';').ToList();
+                rideViewModel.Trajet = trajetViewModel;
+
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.UserID = ride.User.UserID;
+                userViewModel.Username = ride.User.Username;
+                rideViewModel.User = userViewModel;
+
+                ridesViewModel.Add(rideViewModel);
+            }
+            
+            return ridesViewModel;
         }
         
         public bool UserIsCreator(int rideId, string username)

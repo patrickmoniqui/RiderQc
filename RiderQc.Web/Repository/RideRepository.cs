@@ -4,6 +4,7 @@ using RiderQc.Web.Repository.Interface;
 using System.Collections.Generic;
 using RiderQc.Web.ViewModels.Ride;
 using System;
+using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.Repository
 {
@@ -38,40 +39,15 @@ namespace RiderQc.Web.Repository
 
         public RideViewModel Get(int rideId)
         {
-            RideViewModel rideViewModel = new RideViewModel();
-            Ride ride = dao.Get(rideId);
-            rideViewModel.CreatorId = ride.CreatorId;
-            rideViewModel.DateDepart = ride.DateDepart;
-            rideViewModel.DateFin = ride.DateFin;
-            rideViewModel.Description = ride.Description;
-            rideViewModel.LevelId = ride.LevelId;
-            rideViewModel.Title = ride.Title;
-            rideViewModel.TrajetId = ride.TrajetId;
+            RideViewModel rideViewModel = dao.Get(rideId);
             return rideViewModel;
         }
 
         public List<RideViewModel> GetAllRides()
         {
-            List<RideViewModel> list = new List<RideViewModel>();
-            List<Ride> rides = dao.GetAllRides();
+            List<RideViewModel> rides = dao.GetAllRides();
 
-            foreach (Ride ride in rides)
-            {
-                RideViewModel rideViewModel = new RideViewModel();
-                rideViewModel.CreatorId = ride.CreatorId;
-                rideViewModel.DateDepart = ride.DateDepart;
-                rideViewModel.DateFin = ride.DateFin;
-                rideViewModel.Description = ride.Description;
-                rideViewModel.LevelId = ride.LevelId;
-                rideViewModel.Title = ride.Title;
-                rideViewModel.TrajetId = ride.TrajetId;
-                rideViewModel.Comments = ride.Comments;
-                rideViewModel.Level = ride.Level;
-                rideViewModel.User = ride.User;
-                rideViewModel.Trajet = ride.Trajet;
-                list.Add(rideViewModel);
-            }
-            return list;
+            return rides;
         }
 
         public bool UserIsCreator(int rideId, string username)

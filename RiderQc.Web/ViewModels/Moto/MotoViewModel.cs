@@ -13,5 +13,6 @@ namespace RiderQc.Web.ViewModels.Moto
         public int? Year { get; set; }
         [Required]
         public int? Type { get; set; }
+        public int UserId { get; set; }
     }
 }

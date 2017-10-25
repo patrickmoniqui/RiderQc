@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.Ride;
 using System.Collections.Generic;
 
 namespace RiderQc.Web.DAL.Interface
@@ -7,8 +8,8 @@ namespace RiderQc.Web.DAL.Interface
     {
         bool Create(Ride ride);
         bool Delete(int rideId);
-        Ride Get(int rideId);
-        List<Ride> GetAllRides();
+        RideViewModel Get(int rideId);
+        List<RideViewModel> GetAllRides();
         bool UserIsCreator(int rideId, string username);
     }
 }

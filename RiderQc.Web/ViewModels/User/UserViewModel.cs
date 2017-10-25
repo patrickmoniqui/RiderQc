@@ -12,7 +12,7 @@ namespace RiderQc.Web.ViewModels.User
         public DateTime? DateOfBirth { get; set; }
         public string Description { get; set; }
         public string DpUrl { get; set; }
-        public virtual ICollection<Entities.Moto> Motos { get; set; }
-        public virtual ICollection<Entities.Ride> Rides { get; set; }
+        public ICollection<ViewModels.Moto.MotoViewModel> Motos { get; set; }
+        public ICollection<ViewModels.Ride.RideViewModel> Rides { get; set; }
     }
 }

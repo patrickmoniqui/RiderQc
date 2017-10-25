@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.App_Start;
+﻿using Newtonsoft.Json;
+using RiderQc.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace RiderQc.Web
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
             config.MapHttpAttributeRoutes();
+            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
         }
     }
 }

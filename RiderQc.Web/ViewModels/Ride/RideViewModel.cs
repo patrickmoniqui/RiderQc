@@ -18,11 +18,10 @@ namespace RiderQc.Web.ViewModels.Ride
         public int LevelId { get; set; }
         public DateTime DateDepart { get; set; }
         public DateTime DateFin { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public RiderQc.Web.Entities.Level Level { get; set; }
-        public ICollection<UserRide> UserRides { get; set; }
-        public RiderQc.Web.Entities.Trajet Trajet { get; set; }
-        public RiderQc.Web.Entities.User User { get; set; }
+        public List<RiderQc.Web.ViewModels.Comment.CommentViewModel> Comments { get; set; }
+        public RiderQc.Web.ViewModels.Level.LevelViewModel Level { get; set; }
+        public RiderQc.Web.ViewModels.Trajet.TrajetViewModel Trajet { get; set; }
+        public RiderQc.Web.ViewModels.User.UserViewModel User { get; set; }
 
     }
 }

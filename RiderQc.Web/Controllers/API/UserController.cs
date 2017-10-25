@@ -90,15 +90,10 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpGet]
         [Route("list")]
-        [ResponseType(typeof(List<User>))]
+        [ResponseType(typeof(List<UserViewModel>))]
         public IHttpActionResult GetAllUsers()
         {
-            List<User> users = new List<User>();
-
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                users = ctx.Users.ToList();
-            }
+            List<UserViewModel> users = repo.GetAllUsers();
 
             return Ok(users);
         }

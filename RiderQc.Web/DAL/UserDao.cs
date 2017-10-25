@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using RiderQc.Web.Helpers;
 using RiderQc.Web.ViewModels.User;
+using System.Data.Entity;
 
 namespace RiderQc.Web.DAL
 {
@@ -67,17 +68,27 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Users.Find(userId);
+                User user = ctx.Users
+                     .Include(x => x.Motoes)
+                     .FirstOrDefault(x => x.UserID == userId);
+
+                if(user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
         public List<User> GetAllUsers()
         {
-
-
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var users = ctx.Users;
+                var users = ctx.Users
+                    .Include(u => u.Motoes);
 
                 if (users != null)
                 {
@@ -89,41 +100,7 @@ namespace RiderQc.Web.DAL
                 }
             }
         }
-
-        public List<Trajet> GetAllTrajets()
-        {
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                var trajets = ctx.Trajets;
-
-                if (trajets != null)
-                {
-                    return trajets.ToList();
-                }
-                else
-                {
-                    return new List<Trajet>();
-                }
-            }
-        }
-
-        public List<Ride> GetAllRides()
-        {
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                var rides = ctx.Rides;
-
-                if (rides != null)
-                {
-                    return rides.ToList();
-                }
-                else
-                {
-                    return new List<Ride>();
-                }
-            }
-        }
-
+        
         public bool CredentialsAreValid(string username, string password)
         {
             using (RiderQcContext ctx = new RiderQcContext())
@@ -144,9 +121,18 @@ namespace RiderQc.Web.DAL
             {
                 User user = null;
 
-                user = ctx.Users.FirstOrDefault(x => x.Username == username);
+                user = ctx.Users
+                    .Include(x => x.Motoes)
+                    .FirstOrDefault(x => x.Username == username);
 
-                return user;
+                if(user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
