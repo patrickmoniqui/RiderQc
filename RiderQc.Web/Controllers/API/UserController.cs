@@ -104,9 +104,9 @@ namespace RiderQc.Web.Controllers.API
         /// <param name="username"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{username}")]
+        [Route("")]
         [ResponseType(typeof(UserViewModel))]
-        public IHttpActionResult GetUserById(string username)
+        public IHttpActionResult GetUserById([FromUri] string username)
         {
             UserViewModel user = repo.GetUserByName(username);
 
