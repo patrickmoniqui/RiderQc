@@ -3,7 +3,7 @@
     <form class="login-form">
       <input name="username" type="text" placeholder="Username" [(ngModel)]="user.Username" (ngModelChange)="change()"/>
       <input name="password" type="password" placeholder="Password" [(ngModel)]="user.Password" (ngModelChange)="change()" />
-      <button (click)="Login()"> Login</button>
+      <button (click)="login(false)"> Login</button>
       <label id="errorLabel" style="color: red;">{{err}}</label>
       <p class="message">Not registered? <a [routerLink]="['/register']">Create an account</a></p>
     </form>

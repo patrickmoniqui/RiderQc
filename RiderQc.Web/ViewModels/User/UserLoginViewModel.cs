@@ -6,7 +6,7 @@ namespace RiderQc.Web.ViewModels.User
     {
         [Required]
         public string Username { get; set; }
-        [Required, MinLength(8), MaxLength(25)]
+        [Required, MinLength(6), MaxLength(100)]
         public string Password { get; set; }
     }
 }

@@ -14,7 +14,8 @@ import { User } from '../model/user';
 @Injectable()
 export class UserService {
    
-    baseUrl: string = "http://riderqc-api.azurewebsites.net";
+    baseUrl: string = "http://riderqc-api.azurewebsites.net"; //dev
+    //baseUrl: string = "http://localhost:50800"; //local
     constructor(public http: Http) { }
 
     //Web Services
@@ -35,8 +36,7 @@ export class UserService {
 
 
     Login(username: string, password: string){
-
-        
+     
         return this.http.get(`${this.baseUrl}/login`, { headers: this.getHeadersAUTH("Basic " + btoa(username + ":" + password)) })
             .map((response: Response) => {
                 if (response.status == 200) {
@@ -52,7 +52,7 @@ export class UserService {
         let body = JSON.stringify(jsonUser);
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'username': jsonUser.Username,
+            'username': btoa(jsonUser.Username),
             'password': jsonUser.Password
         });
         let options = new RequestOptions({ headers: headers });
@@ -67,9 +67,6 @@ export class UserService {
         localStorage.removeItem("username");
         localStorage.removeItem("token");
     }
-
-
-
 
 
     //Fonctions autres
