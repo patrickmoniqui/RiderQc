@@ -57,6 +57,9 @@ export class UserService {
         });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(`${this.baseUrl}/user/register`, body, options)
+            .map((response: Response) => {
+                                return response;
+                            }).catch(this.handleError);
             
     }
     logoff()
