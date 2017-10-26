@@ -1,39 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
-
-//services
+import { AuthService } from "angular4-social-login";
 import { UserService } from '../../services/user.service';
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 
-
-//models
+import { SocialUser } from "angular4-social-login";
 import { User } from '../../model/user';
 
-
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    providers: [UserService]
-
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService, UserService]
 })
 
 
 export class LoginComponent implements OnInit {
 
-    user: User;
-    token: string;
-    err: string;
+  private socialUser: SocialUser;
+  private loggedIn: boolean;
 
-    constructor(public userService: UserService, private router: Router, ) { }
+  user: User;
+  token: string;
+  err: string;
 
+  constructor(private authService: AuthService, public userService: UserService, private router: Router) { }
 
-    ngOnInit() {
-        this.user = new User("1", "", "");
-    }
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
 
-    /*Comment Utiliser le login :
+  signOut(): void {
+    this.authService.signOut();
+  }
+
+  ngOnInit() {
+    this.user = new User("1", "", "");
+    this.authService.authState.subscribe((socialUser) => {
+     this.socialUser = socialUser;
+     this.loggedIn = (socialUser != null);
+   });
+  }
+
+  /*Comment Utiliser le login :
       Commencer par valider les cookies :
        nous avons 2 cookies :
         -"token" sert pour mettre dans le header avec le tag Authorization

@@ -4,9 +4,20 @@
       <input name="username" type="text" placeholder="Username" [(ngModel)]="user.Username" (ngModelChange)="change()"/>
       <input name="password" type="password" placeholder="Password" [(ngModel)]="user.Password" (ngModelChange)="change()" />
       <button (click)="Login()"> Login</button>
+      <label id="errorLabel" style="color: red;">{{err}}</label>
       <p class="message">Not registered? <a [routerLink]="['/register']">Create an account</a></p>
     </form>
-    <label id="errorLabel" style="color: red;">{{err}}</label>
+    <p class="message">Or</p>
+    <div class="social-login">
+      <button (click)="signInWithGoogle()"><img src="../../../assets/googleLogin.png" /></button>
+      <button (click)="signInWithFB()"><img src="../../../assets/facebookLogin.png" /></button>
+    </div>
+    <div *ngIf="socialUser">
+      <img src="{{ socialUser.photoUrl }}">
+      <div>
+        <h4>{{ socialUser.name }}</h4>
+        <p>{{ socialUser.email }}</p>
+      </div>
+    </div>
   </div>
-
 </div>

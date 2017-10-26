@@ -1,4 +1,4 @@
-﻿@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
   width: 360px;
@@ -43,6 +43,15 @@
     transition: all 0.3 ease;
     cursor: pointer;
   }
+
+.social-login img {
+  width: 100%;
+}
+
+.social-login button {
+  padding: 0px;
+  margin-top: 15px;
+}
 
     .form button:hover, .form button:active, .form button:focus {
       background: #43A047;
