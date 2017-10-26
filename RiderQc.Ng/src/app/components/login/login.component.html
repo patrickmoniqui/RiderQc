@@ -1,4 +1,4 @@
-﻿<div class="login-page">
+<div class="login-page">
   <div class="form">
     <form class="login-form">
       <input type="text" placeholder="username" />
@@ -6,5 +6,18 @@
       <button>login</button>
       <p class="message">Not registered? <a href="/register">Create an account</a></p>
     </form>
+    <p class="message">Or</p>
+    <div class="social-login">
+      <button (click)="signInWithGoogle()"><img src="../../../assets/googleLogin.png" /></button>
+      <button (click)="signInWithFB()"><img src="../../../assets/facebookLogin.png" /></button>
+    </div>
+    <div *ngIf="user">
+      <img src="{{ user.photoUrl }}">
+      <div>
+        <h4>{{ user.name }}</h4>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
   </div>
 </div>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
