@@ -12,7 +12,7 @@
       <button (click)="signInWithGoogle()"><img src="../../../assets/googleLogin.png" /></button>
       <button (click)="signInWithFB()"><img src="../../../assets/facebookLogin.png" /></button>
     </div>
-    <div *ngIf="socialUser">
+    <div id="socialUserInfo" *ngIf="socialUser">
       <img src="{{ socialUser.photoUrl }}">
       <div>
         <h4>{{ socialUser.name }}</h4>
