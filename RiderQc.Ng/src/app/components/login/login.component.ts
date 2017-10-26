@@ -27,24 +27,37 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, public userService: UserService, private router: Router) { }
 
+  ngOnInit() {
+    this.user = new User("1", "", "");
+    this.authService.authState.subscribe((socialUser) => {
+      this.socialUser = socialUser;
+      this.loggedIn = (socialUser != null);
+    });
+  }
+
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    var googlePromise = this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    googlePromise.then((result) => {
+      this.convertUser();
+      this.login(true);
+    });
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    var facebookPromise = this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    facebookPromise.then((result) => {
+      this.convertUser();
+      this.login(true);
+    });
   }
 
   signOut(): void {
     this.authService.signOut();
   }
 
-  ngOnInit() {
-    this.user = new User("1", "", "");
-    this.authService.authState.subscribe((socialUser) => {
-     this.socialUser = socialUser;
-     this.loggedIn = (socialUser != null);
-   });
+  convertUser(): void {
+    this.user.Username = this.socialUser.email;
+    this.user.Password = this.socialUser.id;
   }
 
   /*Comment Utiliser le login :
@@ -59,54 +72,54 @@ export class LoginComponent implements OnInit {
 
     */
 
-    Login() {
-        console.log(this.user.Username + " " + this.user.Password)
+    login(isSocial: boolean): void {
         this.userService.Login(this.user.Username, this.user.Password).subscribe(
             (token) => {
-
-
                 this.setCookie(token.Token, this.user.Username);
                 this.router.navigate(['/']);
             },
-
             (err) => {
-                if (err.status == 401) {
+                if (isSocial) {
+                  this.userService.register({
+                    "Username": this.user.Username,
+                    "Password": this.user.Password
+                  }).subscribe(
+                    (response) => {
+                        this.login(false);
+                    },
+                    (err) => {
+                        //Here you can catch the error
+                        //this.errorlbl = err;
+                        alert(err) 
+                    }
+                  );
+                }else{
+                  if (err.status == 401) {
                     this.err = "Username or Password is incorrect";
-                }
-                if (err.status == 500) {
+                  }
+                  if (err.status == 500) {
                     this.err = "Fatal Error";
+                  }
                 }
+                
+                
             }
         );
     }
 
 
     //fonction pour Onchange sur le champs de message d'erreur'
-    change() {
+    change(): void {
         this.err = "";
     }
 
     private setCookie(token: string, username: string) {
         localStorage.setItem("token", "Bearer " + token);
         localStorage.setItem("username", username);
-
     }
 
     private removeCookie() {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-
     }
 }
-
-
-
- 
-
-
-
-
-
-
-
-

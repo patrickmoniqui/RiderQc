@@ -55,11 +55,14 @@ export class RegisterComponent implements OnInit
         this.registerForm = this.fb.group({
             'name': new FormControl(this.user.Name, [
                 Validators.required,
-                Validators.email
+                Validators.email,
+                Validators.minLength(4),
+                Validators.maxLength(37)
             ]),
             'password': new FormControl(this.user.Password, [
                 Validators.required,
-                Validators.minLength(6)
+                Validators.minLength(6),
+                Validators.maxLength(75)
             ]),
             'passwordConf': new FormControl(this.user.PasswordConf, [
                 Validators.required,
@@ -85,8 +88,8 @@ export class RegisterComponent implements OnInit
         this.errorlbl = "";
         
         this.userService.register({
-            "Username": btoa(this.registerForm.value.name),
-            "Password": btoa(this.registerForm.value.password),
+            "Username": this.registerForm.value.name,
+            "Password": this.registerForm.value.password,
             "Region": this.registerForm.value.region,
             "Ville": this.registerForm.value.ville,
             "DateOfBirth": this.registerForm.value.dateOfBirth + "T00:00:00.000Z",
@@ -100,10 +103,7 @@ export class RegisterComponent implements OnInit
             (err) => {
                 //Here you can catch the error
                 this.errorlbl = err;
-                //alert(err) 
-
-            },
-            () => { /*this.router.navigate(['rides'])*/ }
+            }
         );
 
     }
