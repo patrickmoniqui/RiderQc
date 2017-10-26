@@ -18,6 +18,7 @@ import { DirectionsMapDirective } from './components/trajet/direction.directive'
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 let config = new AuthServiceConfig([
   {
@@ -45,7 +46,8 @@ export function provideConfig() {
     DirectionsMapDirective,
     LoginComponent,
     UserComponent,
-    CommentComponent
+    CommentComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
