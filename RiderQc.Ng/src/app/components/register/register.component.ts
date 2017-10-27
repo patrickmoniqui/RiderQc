@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit
 {
     registerForm: FormGroup;
 
+    currDate: any = "";
     errorlbl: any = "";
     response: any = {};
 
@@ -75,7 +76,7 @@ export class RegisterComponent implements OnInit
             'dateOfBirth': new FormControl(this.user.DateOfBirth, [Validators.required]),
             'description': new FormControl(this.user.Description)
         }, {
-                validator: CustomValidation.MatchPassword
+            validators: [CustomValidation.MatchPassword, CustomValidation.CheckDateFormat(this.currDate)]
         });
     }
 
