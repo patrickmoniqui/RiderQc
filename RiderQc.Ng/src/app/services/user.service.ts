@@ -23,7 +23,7 @@ export class UserService {
 
     getUser(username:string): Observable<User>
     {
-        return this.http.get(`${this.baseUrl}/user/${username}`)
+        return this.http.get(`${this.baseUrl}/user?username=${username}`)
             .map(res => res.json());
         
     }

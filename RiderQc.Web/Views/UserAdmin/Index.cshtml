@@ -17,19 +17,15 @@
                 <i class="glyphicon glyphicon-user"></i>
                 @Html.DisplayNameFor(model => model.Username)
             </th>
-            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
-                <i class="glyphicon glyphicon-lock"></i>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
             <th class="col-sm-3 col-lg-3 col-md-3 text-center">
                 <i class="glyphicon glyphicon-info-sign"></i>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
                 <i class="glyphicon glyphicon-registration-mark"></i>
                 @Html.DisplayNameFor(model => model.Region)
             </th>
-            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+            <th class="col-sm-4 col-lg-4 col-md-4 text-center">
                 <i class="glyphicon glyphicon-cog"></i>
                 Options
             </th>
@@ -39,9 +35,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
