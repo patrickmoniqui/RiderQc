@@ -9,6 +9,7 @@ namespace RiderQc.Web.ViewModels.Ride
 {
     public class RideViewModel
     {
+        public int RideId { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }

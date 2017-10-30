@@ -9,13 +9,12 @@
     on {{Comment.TimeStamp}}
   </p>
 
-  <!--<div>
-    <textarea placeholder="Enter your message"></textarea>
+  <div>
+    <textarea [attr.data-textId]="Comment.CommentId" placeholder="Enter your message"></textarea>
   </div>
-  <button>Send</button>
+  <button [attr.data-commentId]="Comment.CommentId" [attr.data-rideId]="null" [attr.data-textId]="Comment.CommentId">Send</button>
 
   <div class="subComment" *ngFor="let subComment of Comment.Comment1">
     <app-comment [Comment]="subComment"></app-comment>
-  </div>-->
-
+  </div>
 </div>

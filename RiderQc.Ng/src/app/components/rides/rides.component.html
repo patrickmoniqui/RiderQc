@@ -1,4 +1,4 @@
-<div>
+﻿<div>
   <h1 class="text-center">Browse rides <span *ngIf="rides">({{rides.length}})</span></h1>
 
   <div style="padding-bottom:20px;" class="container text-center">
@@ -14,7 +14,7 @@
   <div class="ride-container" *ngFor="let ride of rides">
       <div class="container-fluid">
         <div class="riderqc-section">
-          <a href="/ride/{{ride.RideId}}">
+          <a [routerLink]="['/ride/'+ride.RideId]">
             {{ride.Title}} - {{ride.DateDepart}} by {{ride.User.Username}}
           </a>
           <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
@@ -35,14 +35,14 @@
             <hr />
 
             <div class="comments-container">
-              <div *ngFor="let comment of ride.Comments">
+              <div *ngFor="let comment of ride.Comments; let i = index">
                 <app-comment [Comment]="comment"></app-comment>
               </div>
 
               <div class="comment-container">
-                <textarea placeholder="Enter your message"></textarea>
+                <textarea [attr.data-textId]="'rideId_'+ride.RideId" placeholder="Enter your message"></textarea>
               </div>
-              <button>Send</button>
+              <button [attr.data-commentId]="null" [attr.data-rideId]="ride.RideId" [attr.data-textId]="'rideId_'+ride.RideId">Send</button>
             </div>
         </div>
       </div>

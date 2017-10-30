@@ -104,6 +104,7 @@ namespace RiderQc.Web.DAL
         private RideViewModel RideToRideViewMdodel(Ride ride)
         {
             RideViewModel rideViewModel = new RideViewModel();
+            rideViewModel.RideId = ride.RideId;
             rideViewModel.Title = ride.Title;
             rideViewModel.Description = ride.Description;
             rideViewModel.CreatorId = ride.CreatorId;
