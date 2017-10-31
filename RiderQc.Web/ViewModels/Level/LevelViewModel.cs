@@ -7,7 +7,7 @@ namespace RiderQc.Web.ViewModels.Level
 {
     public class LevelViewModel
     {
-        public int Id { get; set; }
+        public int LevelId { get; set; }
         public string Name { get; set; }
     }
 }

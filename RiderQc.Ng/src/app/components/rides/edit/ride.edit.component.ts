@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, Validators, NgForm } from '@angular/forms';
-import { RiderqcService } from '../../../services/riderqc.service';
+import { RideService } from '../../../services/ride.service';
 import { Ride } from '../../../model/ride';
 import { Level } from '../../../model/level';
 
@@ -9,7 +9,7 @@ import { Level } from '../../../model/level';
   selector: 'app-ride-edit',
   templateUrl: './ride.edit.component.html',
   styleUrls: ['./ride.edit.component.css'],
-  providers:[RiderqcService]
+  providers:[RideService]
 })
 export class RideEditComponent implements OnInit {
     ride: Ride;
@@ -19,7 +19,7 @@ export class RideEditComponent implements OnInit {
     response: any;
     rideForm: FormGroup;
 
-    constructor(public riderqcService: RiderqcService,
+    constructor(public riderqcService: RideService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private formBuilder: FormBuilder) {}

@@ -136,7 +136,7 @@ namespace RiderQc.Web.DAL
             }
         }
 
-        public AuthentificationTokenViewModel GenerateTokenForUser(string username)
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30)
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
@@ -151,7 +151,7 @@ namespace RiderQc.Web.DAL
                 Authentification authToken = new Authentification();
                 authToken.UserId = user.UserID;
                 authToken.IssueDate = DateTime.Now;
-                authToken.ExpirationDate = DateTime.Now.AddDays(30);
+                authToken.ExpirationDate = DateTime.Now.AddDays(expiresAfterNbDays);
                 authToken.Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 
                 user.Authentifications.Add(authToken);
@@ -205,7 +205,7 @@ namespace RiderQc.Web.DAL
             {
                 Authentification auth = ctx.Authentifications
                     .Include("User")
-                    .FirstOrDefault(x => x.Token == token && x.ExpirationDate < DateTime.Now);
+                    .FirstOrDefault(x => x.Token == token && x.ExpirationDate > DateTime.Now);
 
                 if (auth != null && auth.User != null)
                 {

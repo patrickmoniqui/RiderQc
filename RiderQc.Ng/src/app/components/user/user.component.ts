@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RiderqcService } from '../../services/riderqc.service';
+﻿import { Component, OnInit } from '@angular/core';
+import { RideService } from '../../services/ride.service';
 //service
 import { UserService } from '../../services/user.service';
 //class

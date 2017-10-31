@@ -13,7 +13,7 @@ namespace RiderQc.Web.DAL.Interface
         User GetByUsername(string username);
         User GetUserById(int user_id);
         List<User> GetAllUsers();
-        AuthentificationTokenViewModel GenerateTokenForUser(string username);
+        AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30);
         AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         User GetUserByTokenIsLastTokenIsValid(string token);
     }

@@ -119,5 +119,28 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest();
             }
         }
+
+        /// <summary>
+        /// Get User by Authorization token
+        /// </summary>
+        /// <param name="auth_token"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [Route("bytoken")]
+        [ResponseType(typeof(UserViewModel))]
+        public IHttpActionResult GetUserByAuthToken([FromUri] string auth_token)
+        {
+            UserViewModel user = repo.GetUserByTokenIfLastTokenIsValid(auth_token);
+
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

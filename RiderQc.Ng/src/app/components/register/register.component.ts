@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormControl, FormBuilder, Validators, ReactiveFormsModule  } from '@angular/forms';
-import { RiderqcService } from '../../services/riderqc.service';
+import { RideService } from '../../services/ride.service';
 import { UserService } from '../../services/user.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { EmailValidator } from '@angular/forms';
@@ -12,7 +12,7 @@ import { CustomValidation } from './customValidation';
     selector: 'app-register',
     templateUrl: './register.component.html',
 	  styleUrls: ['./register.component.css'],
-	  providers: [UserService, FormBuilder, RiderqcService]
+	  providers: [UserService, FormBuilder, RideService]
 })
 /** register component*/
 export class RegisterComponent implements OnInit
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit
     ];
     
     /** register constructor` */
-    constructor(private riderQcService: RiderqcService,
+    constructor(private riderQcService: RideService,
         private userService: UserService,
         private fb: FormBuilder,
         private router: Router)

@@ -2,9 +2,15 @@
   <a [routerLink]="['/']">Home</a>
   <a [routerLink]="['/myrides']">My rides</a>
   <a [routerLink]="['/rides']">Browse rides</a>
-  <div style="float:right">
+
+  <div *ngIf="!isLogged" style="float:right">
     <a [routerLink]="['/login']">Login</a>
     <a [routerLink]="['/register']">Register</a>
+  </div>
+
+  <div *ngIf="isLogged" style="float:right">
+    <a [routerLink]="['/user/edit/'+user.Username]">{{user.Username}}</a>
+    <a [routerLink]="['/logoff']">Logoff</a>
   </div>
   <a href="javascript:void(0);" class="icon" onclick="toggle()">&#9776;</a>
 </nav>

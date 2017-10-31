@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 
 //Model
 import { User } from '../../model/user';
@@ -17,17 +17,18 @@ export class NavbarComponent implements OnInit {
     user: User;
     username: string;
     token: string;
+    isLogged: Boolean;
 
-    constructor(private userService: UserService) { }
+    constructor(public userService: UserService) { }
 
     ngOnInit() {
-        this.username = localStorage.getItem("username");
-        this.token = localStorage.getItem("token");
-        this.userService.getUser(this.username).subscribe(
-            user => {
-                this.user = user
-            }
-        );
-  }
+        this.isLogged = this.userService.isLogged;
+        console.log("navbar:userlogged: " + this.isLogged);
 
+        if (this.isLogged)
+        {
+            this.token = this.userService.getAuthCookie();
+            this.userService.getUserByAuthToken(this.token).subscribe(x => this.user =  x);
+        }
+  }
 }

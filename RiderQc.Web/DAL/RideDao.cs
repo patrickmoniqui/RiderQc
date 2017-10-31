@@ -9,6 +9,7 @@ using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace RiderQc.Web.DAL
 {
@@ -113,7 +114,7 @@ namespace RiderQc.Web.DAL
             rideViewModel.DateFin = ride.DateFin;
 
             LevelViewModel levelViewModel = new LevelViewModel();
-            levelViewModel.Id = ride.Level.LevelId;
+            levelViewModel.LevelId = ride.Level.LevelId;
             levelViewModel.Name = ride.Level.Name;
             rideViewModel.Level = levelViewModel;
 
@@ -186,6 +187,14 @@ namespace RiderQc.Web.DAL
                         return false;
                     }
                 }
+            }
+        }
+
+        public bool Exist(int rideId)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                return ctx.Rides.Any(x => x.RideId == rideId);
             }
         }
     }

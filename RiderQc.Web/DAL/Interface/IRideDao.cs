@@ -8,6 +8,7 @@ namespace RiderQc.Web.DAL.Interface
     {
         bool Create(Ride ride);
         bool Delete(int rideId);
+        bool Exist(int rideId);
         RideViewModel Get(int rideId);
         List<RideViewModel> GetAllRides();
         bool UserIsCreator(int rideId, string username);

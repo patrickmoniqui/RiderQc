@@ -37,6 +37,11 @@ namespace RiderQc.Web.Repository
             return dao.Delete(rideId);
         }
 
+        public bool Exist(int rideId)
+        {
+            return dao.Exist(rideId);
+        }
+
         public RideViewModel Get(int rideId)
         {
             RideViewModel rideViewModel = dao.Get(rideId);

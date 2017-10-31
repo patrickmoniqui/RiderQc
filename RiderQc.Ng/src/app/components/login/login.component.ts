@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { AuthService } from "angular4-social-login";
@@ -72,11 +72,11 @@ export class LoginComponent implements OnInit {
 
     */
 
-    login(isSocial: boolean): void {
+  login(isSocial: boolean): void {
+      console.log("Logging in..");
         this.userService.Login(this.user.Username, this.user.Password).subscribe(
             (token) => {
-                this.setCookie(token.Token, this.user.Username);
-                this.router.navigate(['/']);
+                window.location.href = "/";
             },
             (err) => {
                 if (isSocial) {
@@ -111,15 +111,5 @@ export class LoginComponent implements OnInit {
     //fonction pour Onchange sur le champs de message d'erreur'
     change(): void {
         this.err = "";
-    }
-
-    private setCookie(token: string, username: string) {
-        localStorage.setItem("token", "Bearer " + token);
-        localStorage.setItem("username", username);
-    }
-
-    private removeCookie() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
     }
 }

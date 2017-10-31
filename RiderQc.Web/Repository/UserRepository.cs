@@ -72,7 +72,7 @@ namespace RiderQc.Web.Repository
             return dao.CredentialsAreValid(username, password);
         }
 
-        public AuthentificationTokenViewModel GenerateTokenForUser(string username)
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30)
         {
             return dao.GenerateTokenForUser(username);
         }
@@ -92,7 +92,16 @@ namespace RiderQc.Web.Repository
             }
             else
             {
-                return ToViewModel(user);
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.UserID = user.UserID;
+                userViewModel.Username = user.Username;
+                userViewModel.Region = user.Region;
+                userViewModel.Ville = user.Ville;
+                userViewModel.DateOfBirth = user.DateOfBirth;
+                userViewModel.Description = user.Description;
+                userViewModel.DpUrl = user.DpUrl;
+
+                return userViewModel;
             }
         }
 

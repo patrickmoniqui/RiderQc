@@ -22,7 +22,7 @@ namespace RiderQc.Web.Repository
             foreach(Level level in dao.GetLevelList())
             {
                 LevelViewModel l = new LevelViewModel();
-                l.Id = level.LevelId;
+                l.LevelId = level.LevelId;
                 l.Name = level.Name;
                 levels.Add(l);
             }
