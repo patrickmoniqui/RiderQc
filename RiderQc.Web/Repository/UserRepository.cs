@@ -4,6 +4,10 @@ using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Moto;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
+using RiderQc.Web.ViewModels.Ride;
+using RiderQc.Web.ViewModels.Level;
+using RiderQc.Web.ViewModels.Trajet;
+using System.Linq;
 
 namespace RiderQc.Web.Repository
 {
@@ -18,7 +22,7 @@ namespace RiderQc.Web.Repository
 
         public bool DeleteUser(string username)
         {
-            bool result = dao.DeleteUser(username);
+            bool result = dao.Delete(username);
             return result;
         }
 
@@ -103,6 +107,33 @@ namespace RiderQc.Web.Repository
 
                 return userViewModel;
             }
+        }
+
+        public List<RideViewModel> GetMyRides(string username)
+        {
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            List<Ride> rides = dao.GetMyRides(username);
+            List<RideViewModel> ridesViewModel = new List<RideViewModel>();
+
+            foreach(Ride ride in rides)
+            {
+                RideViewModel rideViewModel = new RideViewModel();
+                rideViewModel.RideId = ride.RideId;
+                rideViewModel.Title = ride.Title;
+                rideViewModel.Description = ride.Description;
+                rideViewModel.CreatorId = ride.CreatorId;
+                rideViewModel.TrajetId = ride.TrajetId;
+                rideViewModel.DateDepart = ride.DateDepart;
+                rideViewModel.DateFin = ride.DateFin;
+
+                ridesViewModel.Add(rideViewModel);
+            }
+
+            return ridesViewModel;
         }
 
         private UserViewModel ToViewModel(User user)

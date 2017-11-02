@@ -1,15 +1,15 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Ride } from '../model/ride';
 import { Level } from '../model/level';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RideService {
 
-    //private baseUrl: string = 'http://riderqc-api.azurewebsites.net'; //prod
-    private baseUrl: string = "http://localhost:50800"; //local
+  baseUrl: string = environment.BaseUrl;
 
     constructor(public http:Http) {}
 

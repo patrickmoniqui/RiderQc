@@ -225,62 +225,38 @@
     <Compile Include="DAL\RideDao.cs" />
     <Compile Include="DAL\TrajetDao.cs" />
     <Compile Include="DAL\UserDao.cs" />
-    <Compile Include="Entities\Authentification.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Comment.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Level.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Message.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Moto.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Ride.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Trajet.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\User.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserLevel.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserRating.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserRide.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Entities\Authentification.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Level.cs" />
+    <Compile Include="Entities\Message.cs" />
+    <Compile Include="Entities\Moto.cs" />
+    <Compile Include="Entities\Ride.cs" />
+    <Compile Include="Entities\RiderQcContext.cs" />
+    <Compile Include="Entities\sysdiagram.cs" />
+    <Compile Include="Entities\Trajet.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserLevel.cs" />
+    <Compile Include="Entities\UserRating.cs" />
+    <Compile Include="Entities\UserRide.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Helpers\EntityMapper.cs" />
+    <Compile Include="Helpers\ViewModelAnnotationValidation.cs" />
+    <Compile Include="Migrations\201711011759505_InitialCreate.cs" />
+    <Compile Include="Migrations\201711011759505_InitialCreate.Designer.cs">
+      <DependentUpon>201711011759505_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711011812500_AddUserPartipants.cs" />
+    <Compile Include="Migrations\201711011812500_AddUserPartipants.Designer.cs">
+      <DependentUpon>201711011812500_AddUserPartipants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711011844246_AddTrajetFields.cs" />
+    <Compile Include="Migrations\201711011844246_AddTrajetFields.Designer.cs">
+      <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="NinjectBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -298,28 +274,23 @@
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="ViewModels\Comment\CommentReplyViewModel.cs" />
     <Compile Include="ViewModels\Comment\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Level\LevelCreateViewModel.cs" />
     <Compile Include="ViewModels\Level\LevelViewModel.cs" />
     <Compile Include="ViewModels\Moto\MotoViewModel.cs" />
+    <Compile Include="ViewModels\Ride\RideCreateWithTrajetViewModel.cs" />
+    <Compile Include="ViewModels\Ride\RideCreateViewModel.cs" />
     <Compile Include="ViewModels\Ride\RideViewModel.cs" />
+    <Compile Include="ViewModels\Trajet\TrajetCreateViewModel.cs" />
     <Compile Include="ViewModels\Trajet\TrajetViewModel.cs" />
     <Compile Include="ViewModels\User\AuthentificationTokenViewModel.cs" />
     <Compile Include="ViewModels\User\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\User\UserRegisterViewModel.cs" />
+    <Compile Include="ViewModels\User\UserSimpleViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Entities\RiderQcContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-      <LastGenOutput>RiderQcContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\RiderQcContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-      <LastGenOutput>RiderQcContext.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -328,13 +299,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Entities\RiderQcContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RiderQcContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\RiderQcContext.edmx.diagram">
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\RiderQc-Api - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -406,6 +370,17 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711011759505_InitialCreate.resx">
+      <DependentUpon>201711011759505_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711011812500_AddUserPartipants.resx">
+      <DependentUpon>201711011812500_AddUserPartipants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711011844246_AddTrajetFields.resx">
+      <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

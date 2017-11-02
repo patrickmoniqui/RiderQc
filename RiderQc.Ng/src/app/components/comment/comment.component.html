@@ -1,4 +1,4 @@
-﻿<div class="comment-container">
+<div class="comment-container">
   <p>
     {{Comment.CommentText}}
   </p>
@@ -10,9 +10,8 @@
   </p>
 
   <div>
-    <textarea [(ngModel)]="textValue" *ngIf="isLogged" id="textId_{{Comment.CommentId}}" placeholder="Enter your message" ></textarea>
-    <input type="text" [(ngModel)]="textValue" placeholder="Enter your message" />
-    <div style="padding:10px" disabled *ngIf="!isLogged" id="textId_{{Comment.CommentId}}">
+    <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message" ></textarea>
+    <div style="padding:10px" disabled *ngIf="!isLogged" >
       <p>
         <a [routerLink]="['/login']">Login </a>
         or 
@@ -21,9 +20,9 @@
       </p>
     </div>
   </div>
-  <button *ngIf="isLogged" (click)="sendMessage($event)" [attr.data-commentId]="Comment.CommentId" [attr.data-rideId]="null" [attr.data-textId]="'textId_'+Comment.CommentId">Send</button>
+  <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
 
-  <div class="subComment" *ngFor="let subComment of Comment.Comment1">
+  <div class="subComment" *ngFor="let subComment of Comment.ChildComments">
     <app-comment [Comment]="subComment"></app-comment>
   </div>
 </div>

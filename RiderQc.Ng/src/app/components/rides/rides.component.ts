@@ -1,6 +1,14 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RideService } from '../../services/ride.service';
 import { Ride } from '../../model/ride';
+
+//Models
+import { CommentReply } from '../../model/commentReply';
+import { Comment } from '../../model/comment';
+
+//Services
+import { CommentService } from '../../services/comment.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-rides',
@@ -9,11 +17,21 @@ import { Ride } from '../../model/ride';
   providers:[RideService]
 })
 export class RidesComponent implements OnInit {
-    public rides: Ride[];
-    constructor(public riderqcSerice: RideService) {}
+  textValue: any;
+  public commentService: CommentService;
+  public userService: UserService;
+  public isLogged: Boolean;
+  public rides: Ride[];
+
+  constructor(public riderqcSerice: RideService, public _commentService: CommentService, public _userService: UserService) {
+    this.commentService = _commentService;
+    this.userService = _userService;
+    this.isLogged = this.userService.isLogged;
+  }
 
     ngOnInit() {
-        this.fetchAllRide();
+      this.fetchAllRide();
+
     }
     
     toggleRideContainer(element) {
@@ -51,6 +69,10 @@ export class RidesComponent implements OnInit {
         }
     }
 
+    sendMessage(event) {
+      var newComment = new CommentReply();
+    }
+  
     getTimes = function (n) {
         return new Array(n);
     };

@@ -22,7 +22,7 @@ namespace RiderQc.Web.DAL
                 Comment newComment = context.Comments.Add(comment);
                 int result = context.SaveChanges();
 
-                return result == 1 ? newComment.CommentId : -1;
+                return result >= 1 ? newComment.CommentId : -1;
             }
         }
     }

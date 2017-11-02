@@ -22,7 +22,7 @@ namespace RiderQc.Web.DAL
                 ctx.Rides.Add(ride);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
@@ -40,7 +40,7 @@ namespace RiderQc.Web.DAL
                 ctx.Rides.Remove(ride);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
@@ -56,10 +56,9 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Trajet)
                     .Include(x => x.Comments)
                     // include user information (creator)
-                    .Include("Comments.User")
+                    .Include(x => x.Comments.Select(y => y.User))
                     // include child comments of comment
-                    .Include("Comments.Comment1")
-                    .Include("Comments.Comment1.User")
+                    .Include(x => x.Comments.Select(y => y.ChildComments))
                     .AsNoTracking()
                     .SingleOrDefault(x => x.RideId == rideId);
             }
@@ -83,10 +82,9 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Trajet)
                     .Include(x => x.Comments)
                     // include user information (creator)
-                    .Include("Comments.User")
+                    .Include(x => x.Comments.Select(y => y.User))
                     // include child comments of comment
-                    .Include("Comments.Comment1")
-                    .Include("Comments.Comment1.User")
+                    .Include(x => x.Comments.Select(y => y.ChildComments))
                     .AsNoTracking()
                     .ToList();
             }
@@ -108,6 +106,7 @@ namespace RiderQc.Web.DAL
             rideViewModel.RideId = ride.RideId;
             rideViewModel.Title = ride.Title;
             rideViewModel.Description = ride.Description;
+            rideViewModel.LevelId = ride.LevelId;
             rideViewModel.CreatorId = ride.CreatorId;
             rideViewModel.TrajetId = ride.TrajetId;
             rideViewModel.DateDepart = ride.DateDepart;
@@ -120,14 +119,13 @@ namespace RiderQc.Web.DAL
 
             TrajetViewModel trajetViewModel = new TrajetViewModel();
             trajetViewModel.TrajetId = ride.Trajet.TrajetId;
-            trajetViewModel.CreatorId = ride.Trajet.CreatorId;
             trajetViewModel.GpsPoints = ride.Trajet.GoogleCo.Split(';').ToList();
             rideViewModel.Trajet = trajetViewModel;
 
-            UserViewModel userViewModel = new UserViewModel();
-            userViewModel.UserID = ride.User.UserID;
-            userViewModel.Username = ride.User.Username;
-            rideViewModel.User = userViewModel;
+            UserSimpleViewModel userSimpleViewModel = new UserSimpleViewModel();
+            userSimpleViewModel.UserID = ride.User.UserID;
+            userSimpleViewModel.Username = ride.User.Username;
+            rideViewModel.Creator = userSimpleViewModel;
 
             rideViewModel.Comments = new List<CommentViewModel>();
 
@@ -154,9 +152,9 @@ namespace RiderQc.Web.DAL
             commentViewModel.CommentText = comment.CommentText;
             commentViewModel.ChildComments = new List<CommentViewModel>();
 
-            if(comment.Comment1 != null)
+            if(comment.ChildComments != null)
             {
-                foreach(Comment comment2 in comment.Comment1)
+                foreach(Comment comment2 in comment.ChildComments)
                 {
                     commentViewModel.ChildComments.Add(CommentToCommentViewModel(comment2));
                 }
@@ -196,6 +194,74 @@ namespace RiderQc.Web.DAL
             {
                 return ctx.Rides.Any(x => x.RideId == rideId);
             }
+        }
+
+        public bool AddUserToParticipants(int rideId, string username)
+        {
+            int result = -1;
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Ride ride = ctx.Rides.FirstOrDefault(x => x.RideId == rideId);
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if (ride != null || user != null)
+                {
+                    if(!ride.Participants.Any(x => x == user))
+                    {
+                        ride.Participants.Add(user);
+                        result = ctx.SaveChanges();
+
+                        return result >= 1 ? true : false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public List<string> GetPartipants(int rideId)
+        {
+            List<string> participants = new List<string>();
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                if(!Exist(rideId))
+                {
+                    return null;
+                }
+
+                Ride ride = ctx.Rides
+                    .Include(x => x.Participants)
+                    .FirstOrDefault(y => y.RideId == rideId);
+
+                if(ride != null)
+                {
+                    participants = ride.Participants.Select(x => x.Username).ToList();
+                }
+            }
+
+            return participants;
+        }
+
+        public bool Update(Ride ride)
+        {
+            int result = -1;
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Ride _ride = ctx.Rides.FirstOrDefault(x => x.RideId == ride.RideId);
+                _ride = ride;
+                result = ctx.SaveChanges();
+            }
+
+            return result >= 1 ? true : false;
+
         }
     }
 }

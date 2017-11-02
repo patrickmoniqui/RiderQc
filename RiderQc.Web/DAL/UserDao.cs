@@ -11,7 +11,7 @@ namespace RiderQc.Web.DAL
 {
     public class UserDao : IUserDao
     {
-        public bool DeleteUser(string username)
+        public bool Delete(string username)
         {
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
@@ -20,7 +20,7 @@ namespace RiderQc.Web.DAL
                 result = ctx.SaveChanges();
             }
 
-            if (result == 1)
+            if (result >= 1)
             {
                 return true;
             }
@@ -33,6 +33,7 @@ namespace RiderQc.Web.DAL
         public bool RegisterUser(User user)
         {
             int result = -1;
+
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 user.Password = EncryptionHelper.HashToSHA256(user.Password);
@@ -40,7 +41,7 @@ namespace RiderQc.Web.DAL
                 result = ctx.SaveChanges();
             }
 
-            if (result == 1)
+            if (result <= 1)
             {
                 return true;
             }
@@ -216,6 +217,27 @@ namespace RiderQc.Web.DAL
                     return null;
                 }
             }
+        }
+
+        public List<Ride> GetMyRides(string username)
+        {
+            List<Ride> rides = null;
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                if(!CheckUserExistence(username))
+                {
+                    return null;
+                }
+
+                User user = ctx.Users
+                    .Include(x => x.MyRides)
+                    .FirstOrDefault(x => x.Username == username);
+
+                rides = user.MyRides.ToList();
+            }
+
+            return rides;
         }
     }
 }

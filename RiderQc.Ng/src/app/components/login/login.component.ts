@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { AuthService } from "angular4-social-login";
@@ -18,8 +18,8 @@ import { User } from '../../model/user';
 
 export class LoginComponent implements OnInit {
 
-  private socialUser: SocialUser;
-  private loggedIn: boolean;
+  public socialUser: SocialUser;
+  public loggedIn: boolean;
 
   user: User;
   token: string;

@@ -15,6 +15,7 @@ namespace RiderQc.Web.Repository.Interface
         UserViewModel GetUserById(int userId);
         UserViewModel GetUserByName(string username);
         List<UserViewModel> GetAllUsers();
+        List<RideViewModel> GetMyRides(string username);
         AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30);
         AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         UserViewModel GetUserByTokenIfLastTokenIsValid(string token);

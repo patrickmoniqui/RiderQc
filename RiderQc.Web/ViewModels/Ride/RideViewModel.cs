@@ -1,6 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 using RiderQc.Web.Entities;
+using RiderQc.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,7 @@ namespace RiderQc.Web.ViewModels.Ride
         public List<RiderQc.Web.ViewModels.Comment.CommentViewModel> Comments { get; set; }
         public RiderQc.Web.ViewModels.Level.LevelViewModel Level { get; set; }
         public RiderQc.Web.ViewModels.Trajet.TrajetViewModel Trajet { get; set; }
-        public RiderQc.Web.ViewModels.User.UserViewModel User { get; set; }
+        public UserSimpleViewModel Creator { get; set; }
 
     }
 }

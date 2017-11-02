@@ -13,10 +13,16 @@ namespace RiderQc.Web.Controllers.Api
     public class RideController : ApiController
     {
         private readonly IRideRepository repo;
+        private readonly IUserRepository userRepo;
+        private readonly ITrajetRepository trajetRepo;
+        private readonly ILevelRepository levelRepo;
 
-        public RideController(IRideRepository _repo)
+        public RideController(IRideRepository _repo, IUserRepository _userRepo, ITrajetRepository _trajetRepo, ILevelRepository _levelRepo)
         {
             repo = _repo;
+            userRepo = _userRepo;
+            trajetRepo = _trajetRepo;
+            levelRepo = _levelRepo;
         }
 
         /// <summary>
@@ -27,9 +33,11 @@ namespace RiderQc.Web.Controllers.Api
         [AuthTokenAuthorization]
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Create(RideViewModel rideViewModel)
+        public IHttpActionResult Create(RideCreateViewModel rideViewModel)
         {
-            if(!ModelState.IsValid)
+            ValidateLevel(rideViewModel.LevelId);
+
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -47,6 +55,67 @@ namespace RiderQc.Web.Controllers.Api
             {
                 return BadRequest("Error while creating ride.");
             }
+        }
+
+        /// <summary>
+        /// Create a ride with new trajet
+        /// </summary>
+        /// <param name="rideViewModel"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpPost]
+        [Route("withtrajet")]
+        public IHttpActionResult CreateWithTrajet(RideCreateWithTrajetViewModel rideViewModel)
+        {
+            ValidateLevel(rideViewModel.LevelId);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = (ApplicationUser)User;
+            rideViewModel.CreatorId = user.Id;
+            rideViewModel.Trajet.CreatorId = user.Id;
+            
+            bool result = repo.CreateWithTrajet(rideViewModel);
+
+            if (result)
+            {
+                return Ok("Ride and Trajet successfully created.");
+            }
+            else
+            {
+                return BadRequest("Error while creating ride and trajet.");
+            }
+        }
+
+        /// <summary>
+        /// Update a Ride.
+        /// </summary>
+        /// <param name="rideViewModel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("")]
+        [AuthTokenAuthorization]
+        public IHttpActionResult Update(RideCreateViewModel rideViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool result = repo.Update(rideViewModel);
+
+            if(result)
+            {
+                return Ok("Ride sucessfully updated");
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
 
         /// <summary>
@@ -112,8 +181,93 @@ namespace RiderQc.Web.Controllers.Api
         public IHttpActionResult GetAllRides()
         {
             List<RideViewModel> rides = repo.GetAllRides();
+
+            if (rides?.Count == 0)
+            {
+                return NotFound();
+            }
+            else if (rides.Count > 0)
+            {
+                return Ok(rides);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Participate to a ride
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("{rideId}/participate")]
+        [AuthTokenAuthorization]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult Participate(int rideId)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+
+            if(!repo.Exist(rideId))
+            {
+                ModelState.AddModelError("rideId", "Ride is not valid.");
+            }
+
+            if (!userRepo.CheckUserExistence(user.Username))
+            {
+                ModelState.AddModelError("username", "User is not valid.");
+            }
             
-            return Ok(rides);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Error adding user to ride's participants.");
+            }
+
+            bool result = repo.AddUserToParticipants(rideId, user.Username);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Get list of partipants username for a Ride.
+        /// </summary>
+        /// <param name="rideId"></param>
+        /// <returns></returns>
+        
+        [HttpGet]
+        [Route("participant/list")]
+        public IHttpActionResult GetParticipantsList(int rideId)
+        {
+            if(rideId <= 0 || !repo.Exist(rideId))
+            {
+                ModelState.AddModelError("rideId", "Ride is not valid.");
+                return BadRequest();
+            }
+
+            List<string> participants = repo.GetPartipants(rideId);
+
+            if(participants?.Count >= 0)
+            {
+                return Ok(participants);
+            }
+            else if(participants?.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        private bool ValidateLevel(int levelId)
+        {
+            if (levelId <= 0 || !levelRepo.Exist(levelId))
+            {
+                ModelState.AddModelError("LevelId", "Level is not valid.");
+                return false;
+            }
+            return true;
         }
     }
 }

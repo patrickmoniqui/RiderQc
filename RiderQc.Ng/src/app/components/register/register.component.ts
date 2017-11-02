@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormControl, FormBuilder, Validators, ReactiveFormsModule  } from '@angular/forms';
 import { RideService } from '../../services/ride.service';
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit
 {
     registerForm: FormGroup;
 
-    currDate: any = "";
+    currdate: any = "";
     errorlbl: any = "";
     response: any = {};
 
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit
             'dateOfBirth': new FormControl(this.user.DateOfBirth, [Validators.required]),
             'description': new FormControl(this.user.Description)
         }, {
-            validators: [CustomValidation.MatchPassword, CustomValidation.CheckDateFormat(this.currDate)]
+            validators: [CustomValidation.MatchPassword, CustomValidation.CheckDateFormat(this.currdate)]
         });
     }
 

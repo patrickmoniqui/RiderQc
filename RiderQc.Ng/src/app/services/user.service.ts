@@ -1,7 +1,7 @@
-﻿
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { environment } from '../../environments/environment';
 
 //Models
 import { Authentification } from '../model/Authentification';
@@ -17,8 +17,7 @@ import { User } from '../model/user';
 export class UserService {
     public isLogged: Boolean;
 
-    //baseUrl: string = "http://riderqc-api.azurewebsites.net"; //dev
-    baseUrl: string = "http://localhost:50800"; //local
+    baseUrl: string = environment.BaseUrl;
     token = "";
 
     constructor(public http: Http) {

@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 //Models
 import { CommentReply } from '../../model/commentReply';
@@ -32,13 +32,13 @@ export class CommentComponent implements OnInit {
 
   }
 
-  sendMessage(event, text)
+  sendMessage(event)
   {
-      var newComment = new CommentReply();
-      newComment.CommentText = text;
+    var newComment = new CommentReply();
+      newComment.CommentText = this.textValue;
       newComment.ParentId = this.Comment.CommentId;
 
-      if (text != "") {
+      if (newComment.CommentText != "") {
           //Send message to WebApi with service.
           console.log('sending comment ' + newComment.CommentText);
           var commentId = this.commentService.replyToComment(newComment);

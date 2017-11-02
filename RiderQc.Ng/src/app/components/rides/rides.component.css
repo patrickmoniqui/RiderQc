@@ -1,4 +1,4 @@
-﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 .no-padding {
   padding: 0 !important;
@@ -105,4 +105,31 @@ table, tr, td, th {
 
 .riderqc-section * {
   color: white;
+}
+
+.comment-container {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background: #fff;
+}
+
+  .comment-container::before {
+    top: 18px;
+    left: 78px;
+    width: 9px;
+    height: 9px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+  }
+
+.subComment {
+  margin-left: 50px;
 }

@@ -1,10 +1,9 @@
 ﻿using RiderQc.Web.App_Start;
-using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -48,14 +47,14 @@ namespace RiderQc.Web.Controllers.API
 
             if (result)
             {
-                return Ok("User successfully registered!");
+                return Ok("User '" + userViewModel.Username +"' successfully registered!");
             }
             else
             {
                 return BadRequest("Error while register user.");
             }
         }
-
+        
         /// <summary>
         /// Delete a user
         /// </summary>
@@ -96,6 +95,31 @@ namespace RiderQc.Web.Controllers.API
             List<UserViewModel> users = repo.GetAllUsers();
 
             return Ok(users);
+        }
+
+        /// <summary>
+        /// List all partipating rides of user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("myrides")]
+        [ResponseType(typeof(List<RideViewModel>))]
+        public IHttpActionResult GetMyRides([FromUri] string username)
+        {
+            List<RideViewModel> rides = repo.GetMyRides(username);
+
+            if (rides?.Count == 0)
+            {
+                return NotFound();
+            }
+            else if (rides?.Count > 0)
+            {
+                return Ok(rides);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>

@@ -1,17 +1,14 @@
-﻿using RiderQc.Web.Entities;
-using RiderQc.Web.ViewModels.Trajet;
-using System;
+﻿using RiderQc.Web.ViewModels.Trajet;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RiderQc.Web.Repository.Interface
 {
     public interface ITrajetRepository
     {
-        bool Create(TrajetViewModel trajetViewModel);
+        bool Create(TrajetCreateViewModel trajetViewModel);
+        bool Update(TrajetCreateViewModel trajetViewModel);
         bool Delete(int trajetId);
+        bool Exist(int trajetId);
         TrajetViewModel Get(int trajetId);
         List<TrajetViewModel> GetAllTrajets();
     }
