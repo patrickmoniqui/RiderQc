@@ -39,11 +39,17 @@ export class UserService {
     }
 
     getUserByAuthToken(authToken: string): Observable<User> {
-        return this.http.get(this.baseUrl + '/user/bytoken', { headers: this.getBearerAuthHeader() })
-            .map(res => res.json());
+      return this.http.get(this.baseUrl + '/user/bytoken', { headers: this.getBearerAuthHeader() })
+        .map((response: Response) => {
+          console.log("getUserByAuthToken status: " + response.status + " " + response.statusText);
+          if (response.status == 200) {
+            return response.json();
+          }
+          else if (response.status == 401) {
+            this.removeAuthCookie();
+          }
+        });
     }
-
-
     getUsers(): Observable<User[]> {
         return this.http.get(`${this.baseUrl}/user/list`, { headers: this.getHeaders() })
             .map(res => res.json());
@@ -57,6 +63,10 @@ export class UserService {
                     var token: Authentification = response.json();
                     this.setAuthCookie(token.Token);
                     console.log("token for " + username + " is: " + token);
+                }
+              else if (response.status == 401)
+                {
+                  this.removeAuthCookie();
                 }
             });
     }
@@ -77,7 +87,6 @@ export class UserService {
 
     }
     logoff() {
-        localStorage.removeItem("username");
         localStorage.removeItem("token");
     }
 
@@ -114,7 +123,9 @@ export class UserService {
     }
 
     public removeAuthCookie() {
-        localStorage.removeItem("auth_token");
+      localStorage.removeItem("auth_token");
+      this.isLogged = false;
+      console.log("removing cookie");
     }
 
     public getAuthCookie()

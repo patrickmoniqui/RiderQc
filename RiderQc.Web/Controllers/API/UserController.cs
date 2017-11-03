@@ -95,7 +95,18 @@ namespace RiderQc.Web.Controllers.API
         {
             List<UserViewModel> users = repo.GetAllUsers();
 
-            return Ok(users);
+            if(users == null)
+            {
+                return BadRequest();
+            }
+            else if(users.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(users);
+            }
         }
 
         /// <summary>
@@ -141,7 +152,7 @@ namespace RiderQc.Web.Controllers.API
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 

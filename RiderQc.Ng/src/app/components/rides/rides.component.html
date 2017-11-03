@@ -8,7 +8,11 @@
         <i class="fa fa-search"></i>
       </button>
     </div>
+  </div>
 
+  <!-- No rides -->
+  <div class="items-not-found" *ngIf="rides == null || rides.length == 0">
+    <h1>No rides found. :(</h1>
   </div>
 
   <div class="ride-container" *ngFor="let ride of rides">
