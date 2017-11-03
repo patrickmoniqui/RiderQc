@@ -25,6 +25,7 @@ import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LogoffComponent } from './components/logoff/logoff.component';
+import { NavbarLoginComponent } from './components/login/navbar-login/navbar-login.component';
 
 let config = new AuthServiceConfig([
   {
@@ -54,7 +55,8 @@ export function provideConfig() {
     UserComponent,
     CommentComponent,
     NavbarComponent,
-    LogoffComponent
+    LogoffComponent,
+    NavbarLoginComponent
   ],
   imports: [
     BrowserModule,

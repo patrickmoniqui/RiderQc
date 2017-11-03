@@ -22,11 +22,7 @@ export class UserService {
 
     constructor(public http: Http) {
         this.token = this.getAuthCookie();
-        console.log("auth_token: " + this.token);
-
         this.isLogged = this.token != null && this.token != "" ? true : false;
-
-        console.log("isLogged: " + this.isLogged);
     }
 
     //Web Services
@@ -41,7 +37,6 @@ export class UserService {
     getUserByAuthToken(authToken: string): Observable<User> {
       return this.http.get(this.baseUrl + '/user/bytoken', { headers: this.getBearerAuthHeader() })
         .map((response: Response) => {
-          console.log("getUserByAuthToken status: " + response.status + " " + response.statusText);
           if (response.status == 200) {
             return response.json();
           }
@@ -62,7 +57,6 @@ export class UserService {
                 if (response.status == 200) {
                     var token: Authentification = response.json();
                     this.setAuthCookie(token.Token);
-                    console.log("token for " + username + " is: " + token);
                 }
               else if (response.status == 401)
                 {
@@ -86,8 +80,9 @@ export class UserService {
             }).catch(this.handleError);
 
     }
+
     logoff() {
-        localStorage.removeItem("token");
+      this.removeAuthCookie();
     }
 
 

@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, public userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.user = new User("1", "", "");
+    this.user = new User();
     this.authService.authState.subscribe((socialUser) => {
       this.socialUser = socialUser;
       this.loggedIn = (socialUser != null);

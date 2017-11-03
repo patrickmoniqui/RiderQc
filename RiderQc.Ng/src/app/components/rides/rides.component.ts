@@ -16,6 +16,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./rides.component.css'],
   providers:[RideService]
 })
+
 export class RidesComponent implements OnInit {
   textValue: any;
   public commentService: CommentService;
