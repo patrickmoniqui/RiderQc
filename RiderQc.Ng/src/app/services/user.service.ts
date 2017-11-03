@@ -39,7 +39,7 @@ export class UserService {
     }
 
     getUserByAuthToken(authToken: string): Observable<User> {
-        return this.http.get(this.baseUrl + '/user/bytoken?auth_token=' + authToken, { headers: this.getBearerAuthHeader() })
+        return this.http.get(this.baseUrl + '/user/bytoken', { headers: this.getBearerAuthHeader() })
             .map(res => res.json());
     }
 

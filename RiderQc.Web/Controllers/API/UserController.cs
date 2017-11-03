@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.App_Start;
+using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
@@ -153,13 +154,15 @@ namespace RiderQc.Web.Controllers.API
         [HttpGet]
         [Route("bytoken")]
         [ResponseType(typeof(UserViewModel))]
-        public IHttpActionResult GetUserByAuthToken([FromUri] string auth_token)
+        public IHttpActionResult GetUserByAuthToken()
         {
-            UserViewModel user = repo.GetUserByTokenIfLastTokenIsValid(auth_token);
+            ApplicationUser user = (ApplicationUser)User;
 
-            if (user != null)
+            UserViewModel userViewModel = repo.GetUserByTokenIfLastTokenIsValid(user.Token);
+
+            if (userViewModel != null)
             {
-                return Ok(user);
+                return Ok(userViewModel);
             }
             else
             {

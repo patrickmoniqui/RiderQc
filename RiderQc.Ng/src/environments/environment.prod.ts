@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BaseUrl: "http://riderqc-api.azurewebsites.net/"
+  BaseUrl: "http://riderqc-api.azurewebsites.net"
 };

@@ -23,8 +23,9 @@ export class NavbarComponent implements OnInit {
     constructor(public userService: UserService) { }
 
     ngOnInit() {
-        this.isLogged = this.userService.isLogged;
-        console.log("navbar:userlogged: " + this.isLogged);
+      console.log("navbar component ngOnInit");
+      this.isLogged = this.userService.isLogged;
+      console.log("navbar:userlogged: " + this.isLogged);
 
         if (this.isLogged)
         {

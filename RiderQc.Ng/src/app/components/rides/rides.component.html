@@ -1,5 +1,5 @@
 <div>
-  <h1 class="text-center">Browse rides <span *ngIf="rides">({{rides.length}})</span></h1>
+  <h1 class="text-center">Browse rides <span style="font-size: 0.5em;" *ngIf="rides">({{rides.length}} availables)</span></h1>
 
   <div style="padding-bottom:20px;" class="container text-center">
     <div class="search">
@@ -15,7 +15,13 @@
     <div class="container-fluid">
       <div class="riderqc-section">
         <a [routerLink]="['/ride/'+ride.RideId]">
-          {{ride.Title}} - {{ride.DateDepart}} by {{ride.User?.Username}}
+          {{ride.Title}} - {{ride.DateDepart}}
+        </a>
+        <p style="display:inline-block">
+        by 
+        </p>
+        <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
+          {{ride.Creator.Username}}
         </a>
         <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
           <i class="fa fa-expand" aria-hidden="true"></i>
