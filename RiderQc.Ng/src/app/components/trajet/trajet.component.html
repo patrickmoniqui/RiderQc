@@ -12,8 +12,9 @@
   <button (click)="setCurrentPosition()" *ngIf="editable">Find current position</button>
 </div>
 
-<div *ngIf="showInstructions"  class="trajetInfo">
-  <section *ngIf="trajetInfo">
+<div *ngIf="showInstructions">
+  <app-instructions [trajetInfo]="trajetInfo"></app-instructions>
+  <!--<section *ngIf="trajetInfo">
     <table>
       <thead>
         <tr>
@@ -33,7 +34,7 @@
 
     <p>Total duration : {{trajetInfo.duration}}</p>
     <p>Total distance : {{trajetInfo.distance}}</p>
-  </section>
+  </section>-->
 </div>
 <div style="clear: both;"><br /><br /></div>
 

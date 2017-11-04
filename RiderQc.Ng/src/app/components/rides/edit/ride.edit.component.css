@@ -2,3 +2,15 @@
   display: flex;
   flex-flow: row wrap;
 }
+
+.control-label {
+  width: 12%;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.control-valid {
+  margin-top: 5px;
+  text-align: left;
+  vertical-align: middle;
+}

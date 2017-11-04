@@ -11,6 +11,7 @@ import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
 import { TrajetComponent } from './components/trajet/trajet.component';
+import { InstructionsComponent } from './components/trajet/instructions/instructions.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DirectionsMapDirective } from './components/trajet/direction.directive';
 import { LoginComponent } from './components/login/login.component';
@@ -24,6 +25,7 @@ import { CommentComponent } from './components/comment/comment.component';
         RideDetailsComponent,
         RideEditComponent,
         TrajetComponent,
+        InstructionsComponent,
         RegisterComponent,
         DirectionsMapDirective,
         LoginComponent,

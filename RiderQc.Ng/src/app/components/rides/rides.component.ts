@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RiderqcService } from '../../services/riderqc.service';
 import { Ride } from '../../model/ride';
 
@@ -20,20 +20,17 @@ export class RidesComponent implements OnInit {
 
     }
 
-    fetchAllRide()
-    {
+    fetchAllRide() {
         this.riderqcSerice.getRides().subscribe((rides) => {
             console.log(rides);
             this.rides = rides;
         });
     }
 
-    searchBar_OnChange(element)
-    {
+    searchBar_OnChange(element) {
         var value = element.srcElement.value;
 
-        if (value != "")
-        {
+        if (value != "") {
             var tmpRides: Ride[] = new Array();
 
             for (var i = 0, len = this.rides.length; i < len; i++) {
@@ -44,9 +41,7 @@ export class RidesComponent implements OnInit {
 
             this.rides = tmpRides;
 
-        }
-        else
-        {
+        } else {
             this.fetchAllRide();
         }
     }

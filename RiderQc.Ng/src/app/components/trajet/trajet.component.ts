@@ -17,6 +17,7 @@ export class TrajetComponent implements OnInit {
 
     constructor(private _httpService: Http, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
     @Input() editable = false;
+    @Input() showInstructions = false;
     @Input() waypoints;
     lat: number = 45.242396;
     lng: number = -74.135377;
@@ -144,17 +145,17 @@ export class TrajetComponent implements OnInit {
     }
 
     setGivenWaypoints() {
-        let lat: number = this.waypoints.split(";")[0].split(", ")[0];
-        let lng: number = this.waypoints.split(";")[0].split(", ")[1];
+        let lat: number = this.waypoints[0].split(", ")[0];
+        let lng: number = this.waypoints[0].split(", ")[1];
         console.log("Origin:", lat, ",", lng);
         this.trajetInfo.origin = { lng: +lng, lat: +lat };
-        lat = this.waypoints.split(";")[this.waypoints.split(";").length - 1].split(", ")[0];
-        lng = this.waypoints.split(";")[this.waypoints.split(";").length - 1].split(", ")[1];
+        lat = this.waypoints[this.waypoints.length - 1].split(", ")[0];
+        lng = this.waypoints[this.waypoints.length - 1].split(", ")[1];
         console.log("Destination:", lat, ",", lng);
         this.trajetInfo.destination = { lng: +lng, lat: +lat };
-        for (let i = 1; i <= this.waypoints.split(";").length - 2; i++) {
-            lat = this.waypoints.split(";")[i].split(", ")[0];
-            lng = this.waypoints.split(";")[i].split(", ")[1];
+        for (let i = 1; i <= this.waypoints.length - 2; i++) {
+            lat = this.waypoints[i].split(", ")[0];
+            lng = this.waypoints[i].split(", ")[1];
             if (lat != null && lng != null) {
                 this.trajetInfo.waypoints[i - 1] = {
                     location: lat + "," + lng,

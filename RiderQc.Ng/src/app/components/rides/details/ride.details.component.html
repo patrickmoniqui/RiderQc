@@ -3,17 +3,34 @@
     <section>
       <h2><b>Détails</b></h2>
       <ul>
-        <li><b>Id :</b> {{ride.RideId}}</li>
         <li><b>Title : </b> {{ride.Title}}</li>
         <li><b>Description : </b> {{ride.Description}}</li>
         <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
-        <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
-        <li><b>Level Id : </b> {{ride.LevelId}}</li>
+        <li><b>Level : </b> {{ride.Level.Name}}</li>
         <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
         <li><b>Date Fin : </b> {{ride.DateFin}}</li>
       </ul>
-      <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
-      <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+      <div class="comments-container">
+        <div *ngFor="let comment of ride.Comments">
+          <app-comment [Comment]="comment"></app-comment>
+          <a href="" ngClick="">Reply</a>
+          <div class="comment-container" [hidden]>
+            <textarea placeholder="Enter your message"></textarea>
+          </div>
+          <button>Send</button>
+        </div>
+
+        <div class="comment-container">
+          <textarea placeholder="Enter your message"></textarea>
+        </div>
+        <button>Send</button>
+      </div>
+     
+          <div class="ride-map">
+            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true"></app-trajet>
+          </div>
+            <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
+            <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
     </section>
   </section>
 </section>

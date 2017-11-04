@@ -29,9 +29,9 @@ export class RideEditComponent implements OnInit {
             let id = Number.parseInt(params['id']);
             this.riderqcService.levelList().subscribe(l => {
                 this.levels = l;
-                console.log(this.levels[0].Name);
+                console.log(this.levels[0].Id);
             })
-            if (id != null && id != 0) {
+            if (id) {
                 this.isModification = true;
                 console.log('getting ride with id: ', id);
                 this.riderqcService
@@ -56,5 +56,7 @@ export class RideEditComponent implements OnInit {
         });
     }
 
-    submitForm() {}
+    submitForm() {
+        console.log("you submitted value: ", this.rideForm.value);
+    }
 }

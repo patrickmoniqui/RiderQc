@@ -14,8 +14,8 @@
   <div class="ride-container" *ngFor="let ride of rides">
       <div class="container-fluid">
         <div class="riderqc-section">
-          <a href="/ride/{{ride.RideId}}">
-            {{ride.Title}} - {{ride.DateDepart}} by {{ride.User.Username}}
+          <a href="#" [routerLink]="['/rides/details', ride.RideId]">
+            {{ride.Title}} - {{ride.DateDepart}} by {{ride.Creator.Username}}
           </a>
           <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
             <i class="fa fa-expand" aria-hidden="true"></i>
@@ -23,11 +23,11 @@
         </div>
         <div class="aligned-row">
           <div class="col-md-4 ride-map">
-            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
+            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GpsPoints"></app-trajet>
           </div>
           <div class="col-md-8 ride-description bg-strip1">
             <p class="text-white">
-              <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-square" aria-hidden="true"> </i> 
+              <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle" style="margin-right: 2px;" aria-hidden="true"> </i> 
             </p>
             <p class="text-white">
               <strong>Description:</strong> {{ride.Description}}
@@ -38,11 +38,6 @@
               <div *ngFor="let comment of ride.Comments">
                 <app-comment [Comment]="comment"></app-comment>
               </div>
-
-              <div class="comment-container">
-                <textarea placeholder="Enter your message"></textarea>
-              </div>
-              <button>Send</button>
             </div>
         </div>
       </div>

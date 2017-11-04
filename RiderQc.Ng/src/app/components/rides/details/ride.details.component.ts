@@ -11,6 +11,7 @@ import { Ride } from '../../../model/ride';
 })
 export class RideDetailsComponent implements OnInit {
     public ride: Ride;
+    public rides: Ride[];
     sub: any;
 
     constructor(public riderqcSerice: RiderqcService,
