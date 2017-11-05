@@ -14,6 +14,7 @@ namespace RiderQc.Web.Repository.Interface
         RideViewModel Get(int rideId);
         List<RideViewModel> GetAllRides();
         bool AddUserToParticipants(int rideId, string username);
+        bool RemoveUserToParticipants(int rideId, string username);
         List<string> GetPartipants(int rideId);
     }
 }

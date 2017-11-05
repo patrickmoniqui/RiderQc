@@ -99,7 +99,7 @@ table, tr, td, th {
 .ride-map {
   min-height: 50vh;
 }
-.ride-description {
+.ride-description, .ride-map-container {
   padding: 20px;
 }
 

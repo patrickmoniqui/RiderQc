@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+.rounded-container {
+  border-radius:4px;
+  overflow:hidden;
+}
+
+*:not(i){
+  font-family: 'Open Sans';
+}
+
 /* ANGULAR MERGE */
 .btn-nostyle {
   background: none;

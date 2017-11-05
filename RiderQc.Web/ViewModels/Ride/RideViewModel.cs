@@ -24,6 +24,7 @@ namespace RiderQc.Web.ViewModels.Ride
         public RiderQc.Web.ViewModels.Level.LevelViewModel Level { get; set; }
         public RiderQc.Web.ViewModels.Trajet.TrajetViewModel Trajet { get; set; }
         public UserSimpleViewModel Creator { get; set; }
+        public List<string> Participants { get; set; }
 
     }
 }

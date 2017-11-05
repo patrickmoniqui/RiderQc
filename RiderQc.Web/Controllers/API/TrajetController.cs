@@ -142,7 +142,18 @@ namespace RiderQc.Web.Controllers.API
         {
             List<TrajetViewModel> trajets = repo.GetAllTrajets();
 
-            return Ok(trajets);
+            if(trajets?.Count == 0)
+            {
+                return NotFound();
+            }
+            else if(trajets?.Count > 0)
+            {
+                return Ok(trajets);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

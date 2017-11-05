@@ -1,18 +1,8 @@
-﻿agm-map {
-  height:100%;
-  width: 100%;
-}
-
-.google_map {
+:host {
   height: 100%;
   width: 100%;
 }
 
-.google_map agm-map {
-  width: 100%;
-}
-
-.trajetInfo {
-  width: 42%;
-  float: left;
+agm-map {
+  height: 50vh;
 }

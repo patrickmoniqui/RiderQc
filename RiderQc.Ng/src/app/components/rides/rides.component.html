@@ -1,5 +1,7 @@
 <div>
-  <h1 class="text-center">Browse rides <span style="font-size: 0.5em;" *ngIf="rides">({{rides.length}} availables)</span></h1>
+  <div style="padding: 20px; background-color: cadetblue;" class="container-shadow">
+    <h1 class="text-center">Browse rides <span class="badge"> {{rides.length}} </span></h1>
+  </div>
 
   <div style="padding-bottom:20px;" class="container text-center">
     <div class="search">
@@ -22,7 +24,7 @@
           {{ride.Title}} - {{ride.DateDepart}}
         </a>
         <p style="display:inline-block">
-        by 
+          by
         </p>
         <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
           {{ride.Creator.Username}}
@@ -31,36 +33,80 @@
           <i class="fa fa-expand" aria-hidden="true"></i>
         </button>
       </div>
-      <div class="aligned-row">
-        <div class="col-md-4 ride-map no-padding">
-          <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
-        </div>
-        <div class="col-md-8 ride-description bg-strip1">
-          <p class="text-white">
-            <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-square" aria-hidden="true"> </i>
-          </p>
-          <p class="text-white">
-            <strong>Description:</strong> {{ride.Description}}
-          </p>
-          <hr />
-
-          <div class="comment-container">
+      <div  class="row bg-strip1">
+        <div class="col-md-4 ride-map ride-map-container">
+          <div class="panel panel-danger">
+            <div class="panel-heading">Map</div>
             <div>
-              <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message"></textarea>
-              <div style="padding:10px" disabled *ngIf="!isLogged">
-                <p>
-                  <a [routerLink]="['/login']">Login </a>
-                  or
-                  <a [routerLink]="['/register']">Register </a>
-                  to comment.
-                </p>
+              <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 ride-description">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Info</div>
+            <div class="panel-body">
+              <p>
+                <strong>Title:</strong> {{ride.Title}}
+              </p>
+              <p>
+                <strong>Description:</strong> {{ride.Description}}
+              </p>
+              <p>
+                <strong>Niveau:</strong> {{ride.Level.Name}}
+              </p>
+            </div>
+          </div>
+          <div class="panel panel-info">
+            <div class="panel-heading">Comments</div>
+            <div class="panel-body">
+              <div class="comment-container">
+                <div>
+                  <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message"></textarea>
+                  <div style="padding:10px" disabled *ngIf="!isLogged">
+                    <p>
+                      <a [routerLink]="['/login']">Login </a>
+                      or
+                      <a [routerLink]="['/register']">Register </a>
+                      to comment.
+                    </p>
+                  </div>
+                </div>
+                <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
               </div>
             </div>
-            <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
+          </div>
+          <div *ngIf="ride.Participants.length > 0" class="panel panel-default">
+            <div class="panel-heading">
+              <p>Participants
+                <span class="badge">{{ride.Participants.length}}</span>
+              </p>
+            </div>
+            <div class="panel-body">
+
+              <div *ngIf="isLogged">
+                <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) > -1 ">
+                  <button class="btn btn-primary" (click)="cancelAttendRide(ride)">Cancel participation</button>
+                  You and {{ride.Participants.length-1}} person are attending this ride.
+                </div>
+                <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) < 0 ">
+                  <button class="btn btn-success" (click)="attendRide(ride)">Participate</button>
+                  {{ride.Participants.length}} persons are attending this ride.
+                </div>
+              </div>
+              <div *ngIf="!isLogged">
+                <div class="ride-attending-container">
+                  {{ride.Participants.length}} persons are attending this ride.
+                </div>
+              </div>
+              <hr />
+              <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
+                {{participant}}
+              </a>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

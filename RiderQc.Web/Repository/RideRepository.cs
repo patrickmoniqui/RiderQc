@@ -16,12 +16,7 @@ namespace RiderQc.Web.Repository
         {
             dao = _dao;
         }
-
-        public bool AddUserToParticipants(int rideId, string username)
-        {
-            return dao.AddUserToParticipants(rideId, username);
-        }
-
+        
         public bool Create(RideCreateViewModel rideViewModel)
         {
             //mapping
@@ -85,6 +80,16 @@ namespace RiderQc.Web.Repository
         public List<string> GetPartipants(int rideId)
         {
             return dao.GetPartipants(rideId);
+        }
+
+        public bool AddUserToParticipants(int rideId, string username)
+        {
+            return dao.AddUserToParticipants(rideId, username);
+        }
+
+        public bool RemoveUserToParticipants(int rideId, string username)
+        {
+            return dao.RemoveUserToParticipants(rideId, username);
         }
 
         public bool Update(RideCreateViewModel rideViewModel)

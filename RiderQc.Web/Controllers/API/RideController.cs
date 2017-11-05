@@ -200,7 +200,7 @@ namespace RiderQc.Web.Controllers.Api
         /// Participate to a ride
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("{rideId}/participate")]
         [AuthTokenAuthorization]
         [ResponseType(typeof(bool))]
@@ -229,11 +229,43 @@ namespace RiderQc.Web.Controllers.Api
         }
 
         /// <summary>
+        /// Remove participation to a ride
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{rideId}/participate")]
+        [AuthTokenAuthorization]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult RemoveParticipate(int rideId)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+
+            if (!repo.Exist(rideId))
+            {
+                ModelState.AddModelError("rideId", "Ride is not valid.");
+            }
+
+            if (!userRepo.CheckUserExistence(user.Username))
+            {
+                ModelState.AddModelError("username", "User is not valid.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Error removing user to ride's participants.");
+            }
+
+            bool result = repo.RemoveUserToParticipants(rideId, user.Username);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Get list of partipants username for a Ride.
         /// </summary>
         /// <param name="rideId"></param>
         /// <returns></returns>
-        
+
         [HttpGet]
         [Route("participant/list")]
         public IHttpActionResult GetParticipantsList(int rideId)

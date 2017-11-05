@@ -45,11 +45,23 @@ export class UserService {
           }
         });
     }
+
+    getLoggedUser(): Observable<User> {
+      return this.http.get(this.baseUrl + '/user/bytoken', { headers: this.getBearerAuthHeader() })
+        .map((response: Response) => {
+          if (response.status == 200) {
+            return response.json();
+          }
+          else if (response.status == 401) {
+            this.removeAuthCookie();
+          }
+        });
+    }
+  
     getUsers(): Observable<User[]> {
         return this.http.get(`${this.baseUrl}/user/list`, { headers: this.getHeaders() })
             .map(res => res.json());
     }
-
 
     Login(username: string, password: string) {
         return this.http.get(`${this.baseUrl}/login`, { headers: this.getHeadersAUTH("Basic " + btoa(username + ":" + password)) })
@@ -94,7 +106,7 @@ export class UserService {
         return headers;
     }
 
-    private getBearerAuthHeader()
+    public getBearerAuthHeader()
     {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this.token);

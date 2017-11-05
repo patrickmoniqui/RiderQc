@@ -85,6 +85,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Comments.Select(y => y.User))
                     // include child comments of comment
                     .Include(x => x.Comments.Select(y => y.ChildComments))
+                    .Include(x => x.Participants)
                     .AsNoTracking()
                     .ToList();
             }
@@ -111,6 +112,7 @@ namespace RiderQc.Web.DAL
             rideViewModel.TrajetId = ride.TrajetId;
             rideViewModel.DateDepart = ride.DateDepart;
             rideViewModel.DateFin = ride.DateFin;
+            rideViewModel.Participants = ride.Participants.Select(x => x.Username).ToList();
 
             LevelViewModel levelViewModel = new LevelViewModel();
             levelViewModel.LevelId = ride.Level.LevelId;
@@ -210,6 +212,36 @@ namespace RiderQc.Web.DAL
                     if(!ride.Participants.Any(x => x == user))
                     {
                         ride.Participants.Add(user);
+                        result = ctx.SaveChanges();
+
+                        return result >= 1 ? true : false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool RemoveUserToParticipants(int rideId, string username)
+        {
+            int result = -1;
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Ride ride = ctx.Rides.FirstOrDefault(x => x.RideId == rideId);
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if (ride != null || user != null)
+                {
+                    if (ride.Participants.Any(x => x == user))
+                    {
+                        ride.Participants.Remove(user);
                         result = ctx.SaveChanges();
 
                         return result >= 1 ? true : false;

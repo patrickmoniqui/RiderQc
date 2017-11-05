@@ -54,7 +54,18 @@ namespace RiderQc.Web.Controllers.API
         {
             List<LevelViewModel> levels = repo.GetLevelList();
 
-            return Ok(levels);
+            if(levels?. Count == 0)
+            {
+                return NotFound();
+            }
+            else if(levels?.Count > 0)
+            {
+                return Ok(levels);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

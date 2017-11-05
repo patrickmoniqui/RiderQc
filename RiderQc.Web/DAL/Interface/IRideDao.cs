@@ -14,6 +14,7 @@ namespace RiderQc.Web.DAL.Interface
         List<RideViewModel> GetAllRides();
         bool UserIsCreator(int rideId, string username);
         bool AddUserToParticipants(int rideId, string username);
+        bool RemoveUserToParticipants(int rideId, string username);
         List<string> GetPartipants(int rideId);
     }
 }
