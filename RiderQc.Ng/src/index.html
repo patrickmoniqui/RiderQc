@@ -11,6 +11,8 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body style="background: url(assets/main_bg.jpg);">
-  <app-root></app-root>
+  <app-root>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  </app-root>
 </body>
 </html>
