@@ -3,14 +3,12 @@
   <input placeholder="Destination" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #destinationSearch [formControl]="searchControl">
 </div>
 <br />
-<div class="google_map">
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-directions [origin]="trajetInfo.origin" [destination]="trajetInfo.destination" [waypoints]="trajetInfo.waypoints"></agm-directions>
-    <!--agm-marker [latitude]="lat" [longitude]="lng"></!--agm-marker-->
-  </agm-map>
-  <br />
-  <button (click)="setCurrentPosition()" *ngIf="editable">Find current position</button>
-</div>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-directions [origin]="trajetInfo.origin" [destination]="trajetInfo.destination" [waypoints]="trajetInfo.waypoints"></agm-directions>
+  <!--agm-marker [latitude]="lat" [longitude]="lng"></!--agm-marker-->
+</agm-map>
+<button (click)="setCurrentPosition()" *ngIf="editable">Find current position</button>
 
 <div *ngIf="showInstructions"  class="trajetInfo">
   <section *ngIf="trajetInfo">

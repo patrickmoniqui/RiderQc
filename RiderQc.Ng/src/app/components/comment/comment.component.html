@@ -1,4 +1,4 @@
-﻿<div class="comment-container">
+<div class="comment-container">
   <p>
     {{Comment.CommentText}}
   </p>
@@ -9,13 +9,20 @@
     on {{Comment.TimeStamp}}
   </p>
 
-  <!--<div>
-    <textarea placeholder="Enter your message"></textarea>
+  <div>
+    <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message" ></textarea>
+    <div style="padding:10px" disabled *ngIf="!isLogged" >
+      <p>
+        <a [routerLink]="['/login']">Login </a>
+        or 
+        <a [routerLink]="['/register']">Register </a>
+        to comment.
+      </p>
+    </div>
   </div>
-  <button>Send</button>
+  <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
 
-  <div class="subComment" *ngFor="let subComment of Comment.Comment1">
+  <div class="subComment" *ngFor="let subComment of Comment.ChildComments">
     <app-comment [Comment]="subComment"></app-comment>
-  </div>-->
-
+  </div>
 </div>

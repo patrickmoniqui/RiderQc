@@ -1,0 +1,84 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-user"></span>
+      <strong *ngIf="isLogged">{{user.Username}}</strong>
+      <strong *ngIf="!isLogged">Login</strong>
+
+      <span class="glyphicon glyphicon-chevron-down"></span>
+    </a>
+
+    <!-- If logged -->
+    <ul *ngIf="isLogged" id="login-dp" class="dropdown-menu">
+      <li>
+        <div class="navbar-login">
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="text-center">
+                <span class="glyphicon glyphicon-user icon-size"></span>
+              </p>
+            </div>
+            <div class="col-lg-8">
+              <p class="text-left"><strong>{{user.Username}}</strong></p>
+              <!--<p class="text-left small">correoElectronico@email.com</p>-->
+              <p class="text-left">
+                <a [routerLink]="['/user/edit/']" [queryParams]="{username:user.Username}" class="btn btn-primary btn-block btn-sm">Edit profile</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <div class="navbar-login navbar-login-session">
+          <div class="row">
+            <div class="col-lg-12">
+              <p>
+                <a [routerLink]="['/logoff']" class="btn btn-danger btn-block">Logoff</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- If not logged -->
+    <ul *ngIf="!isLogged" id="login-dp" class="dropdown-menu">
+      <li>
+        <div class="row">
+          <div class="col-md-12">
+            Login via
+            <div class="social-buttons">
+              <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+              <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+            </div>
+            or
+            <div class="form">
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                <input [(ngModel)]="user.Username"  type="text" class="form-control" id="username" placeholder="Username" required>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                <input [(ngModel)]="user.Password" type="password" class="form-control" id="password" placeholder="Password" required>
+                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+              </div>
+              <div class="form-group">
+                <button type="submit" (click)="login(false)" class="btn btn-primary btn-block">Sign in</button>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> keep me logged-in
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="bottom text-center">
+            <p class="message">Not registered? <a [routerLink]="['/register']">Create an account</a></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </li>
+</ul>

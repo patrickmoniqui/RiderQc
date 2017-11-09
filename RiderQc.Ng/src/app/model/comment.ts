@@ -11,7 +11,7 @@ export class Comment {
     public Blocked: boolean;
     public Vote: number;
     public TimeStamp: Date;
-    public Comment1: Comment[];
+    public ChildComments: Comment[];
     public Comment2: Comment;
     public Ride: Ride;
     public User: User;

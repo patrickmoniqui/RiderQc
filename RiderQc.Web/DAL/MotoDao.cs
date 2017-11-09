@@ -13,10 +13,10 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                ctx.Motos.Add(moto);
+                ctx.Motoes.Add(moto);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
@@ -31,7 +31,7 @@ namespace RiderQc.Web.DAL
 
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
@@ -39,29 +39,29 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                Moto moto = ctx.Motos.Find(motoId);
+                Moto moto = ctx.Motoes.Find(motoId);
 
                 if (moto == null)
                     return false;
 
-                ctx.Motos.Remove(moto);
+                ctx.Motoes.Remove(moto);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
         public Moto GetMoto(int motoId)
         {
             using (RiderQcContext ctx = new RiderQcContext())
-                return ctx.Motos.Find(motoId);
+                return ctx.Motoes.Find(motoId);
         }
 
         public List<Moto> GetAllMotos()
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var motos = ctx.Motos
+                var motos = ctx.Motoes
                     .Include(x => x.User);
 
                 if (motos != null)
@@ -75,7 +75,7 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                Moto moto = ctx.Motos.FirstOrDefault(x => x.MotoId == motoId);
+                Moto moto = ctx.Motoes.FirstOrDefault(x => x.MotoId == motoId);
                 User user = ctx.Users.FirstOrDefault(x => x.Username == username);
 
                 if (moto == null || user == null)

@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RiderqcService } from './services/riderqc.service';
+
+import { UserService } from './services/user.service';
+import { RideService } from './services/ride.service';
+import { CommentService } from './services/comment.service';
+
+import { LoadingModule } from 'ngx-loading';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
@@ -19,6 +24,8 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LogoffComponent } from './components/logoff/logoff.component';
+import { NavbarLoginComponent } from './components/login/navbar-login/navbar-login.component';
 
 let config = new AuthServiceConfig([
   {
@@ -47,13 +54,16 @@ export function provideConfig() {
     LoginComponent,
     UserComponent,
     CommentComponent,
-    NavbarComponent
+    NavbarComponent,
+    LogoffComponent,
+    NavbarLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     FormsModule,
+    LoadingModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       libraries: ["places"],
@@ -62,11 +72,13 @@ export function provideConfig() {
     SocialLoginModule
   ],
   providers: [
-    RiderqcService,
+    UserService,
+    RideService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

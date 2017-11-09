@@ -1,19 +1,49 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { RiderqcService } from '../../services/riderqc.service';
+import { Component, OnInit } from '@angular/core';
+
+//Models
+import { CommentReply } from '../../model/commentReply';
+import { Comment } from '../../model/comment';
+import { User } from '../../model/user';
 import { Ride } from '../../model/ride';
+
+//Services
+import { CommentService } from '../../services/comment.service';
+import { UserService } from '../../services/user.service';
+import { RideService } from '../../services/ride.service';
 
 @Component({
   selector: 'app-rides',
   templateUrl: './rides.component.html',
   styleUrls: ['./rides.component.css'],
-  providers:[RiderqcService]
+  providers:[RideService]
 })
+
 export class RidesComponent implements OnInit {
-    public rides: Ride[];
-    constructor(public riderqcSerice: RiderqcService) {}
+  textValue: any;
+  public commentService: CommentService;
+  public userService: UserService;
+  public isLogged: Boolean;
+  public user: User;
+  public rides: Ride[];
+
+  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
+    this.commentService = _commentService;
+    this.userService = _userService;
+    this.isLogged = this.userService.isLogged;
+
+    if (this.isLogged)
+    {
+      this.userService.getLoggedUser().subscribe(x => this.user = x);
+    }
+    else
+    {
+      this.user = null;
+    }
+  }
 
     ngOnInit() {
-        this.fetchAllRide();
+      this.fetchAllRide();
+
     }
     
     toggleRideContainer(element) {
@@ -22,7 +52,7 @@ export class RidesComponent implements OnInit {
 
     fetchAllRide()
     {
-        this.riderqcSerice.getRides().subscribe((rides) => {
+        this.rideService.getRides().subscribe((rides) => {
             console.log(rides);
             this.rides = rides;
         });
@@ -51,6 +81,21 @@ export class RidesComponent implements OnInit {
         }
     }
 
+    attendRide(ride: Ride) {
+      this.rideService.participate(ride.RideId).subscribe();
+      this.fetchAllRide();
+    }
+
+    cancelAttendRide(ride: Ride)
+    {
+      this.rideService.removeParticipate(ride.RideId).subscribe();
+      this.fetchAllRide();
+    }
+
+    sendMessage(event) {
+      var newComment = new CommentReply();
+    }
+  
     getTimes = function (n) {
         return new Array(n);
     };

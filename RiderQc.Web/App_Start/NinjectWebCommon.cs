@@ -74,6 +74,7 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<IMotoDao>().To<MotoDao>();
             kernel.Bind<ILevelDao>().To<LevelDao>();
             kernel.Bind<ITrajetDao>().To<TrajetDao>();
+            kernel.Bind<ICommentDao>().To<CommentDao>();
 
             //repos
             kernel.Bind<IRideRepository>().To<RideRepository>();
@@ -81,6 +82,7 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<IMotoRepository>().To<MotoRepository>();
             kernel.Bind<ILevelRepository>().To<LevelRepository>();
             kernel.Bind<ITrajetRepository>().To<TrajetRepository>();
+            kernel.Bind<ICommentRepository>().To<CommentRepository>();
         }        
     }
 }
