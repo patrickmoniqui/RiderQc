@@ -10,6 +10,7 @@ namespace RiderQc.Web.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        public string Token { get; set; }
 
         public IIdentity Identity { get; set; }
 

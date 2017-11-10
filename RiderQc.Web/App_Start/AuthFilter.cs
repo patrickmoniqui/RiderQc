@@ -47,6 +47,7 @@ namespace RiderQc.Web.App_Start
                 ApplicationUser AppUser = new ApplicationUser();
                 AppUser.Id = user.UserID;
                 AppUser.Username = user.Username;
+                AppUser.Token = token;
 
                 IPrincipal principal = AppUser;
                 actionContext.RequestContext.Principal = principal;

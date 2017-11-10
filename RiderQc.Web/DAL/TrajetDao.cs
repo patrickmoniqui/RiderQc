@@ -1,10 +1,8 @@
 ﻿using RiderQc.Web.DAL.Interface;
-using System;
+using RiderQc.Web.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using RiderQc.Web.ViewModels.Trajet;
-using RiderQc.Web.Entities;
+using System.Data.Entity;
 
 namespace RiderQc.Web.DAL
 {
@@ -18,7 +16,7 @@ namespace RiderQc.Web.DAL
                 ctx.Trajets.Add(trajet);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
             }
         }
 
@@ -36,7 +34,15 @@ namespace RiderQc.Web.DAL
                 ctx.Trajets.Remove(trajet);
                 int result = ctx.SaveChanges();
 
-                return result == 1 ? true : false;
+                return result >= 1 ? true : false;
+            }
+        }
+
+        public bool Exist(int trajetId)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                return ctx.Trajets.Any(x => x.TrajetId == trajetId);
             }
         }
 
@@ -44,7 +50,9 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Trajets.Find(trajetId);
+                return ctx.Trajets
+                    .Include(x => x.User)
+                    .FirstOrDefault(x => x.TrajetId == trajetId);
             }
         }
 
@@ -52,14 +60,31 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var trajets = ctx.Trajets;
+                List<Trajet> trajets = ctx.Trajets.Include(x => x.User).ToList();
 
-                if(trajets != null)
+                if(trajets == null)
                 {
-                    return ctx.Trajets.ToList();
+                    return null;
                 }
+                return trajets;
             }
-            return new List<Trajet>();
+        }
+
+        public bool Update(Trajet trajet)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Trajet _trajet = ctx.Trajets.FirstOrDefault(x => x.TrajetId == trajet.TrajetId);
+                _trajet.Title = trajet.Title;
+                _trajet.Description = trajet.Description;
+                _trajet.GoogleCo = trajet.GoogleCo;
+
+                ctx.Entry<Trajet>(_trajet).State = System.Data.Entity.EntityState.Modified;
+                
+                int result = ctx.SaveChanges();
+
+                return result >= 1 ? true : false;
+            }
         }
     }
 }

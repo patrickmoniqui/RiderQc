@@ -18,6 +18,7 @@ export class TrajetComponent implements OnInit {
     constructor(private _httpService: Http, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
     @Input() editable = false;
     @Input() waypoints;
+    public showInstructions: Boolean;
     lat: number = 45.242396;
     lng: number = -74.135377;
     directionsDisplay: any;

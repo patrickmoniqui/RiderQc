@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.Repository.Interface;
+﻿using RiderQc.Web.App_Start;
+using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Level;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -15,6 +16,34 @@ namespace RiderQc.Web.Controllers.API
             repo = _repo;
         }
 
+
+        /// <summary>
+        /// Create a level.
+        /// </summary>
+        /// <param name="levelViewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("")]
+        [AuthTokenAuthorization]
+        public IHttpActionResult Create(LevelCreateViewModel levelViewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            bool result = repo.Create(levelViewModel);
+
+            if(result)
+            {
+                return Ok("Level successfully created.");
+            }
+            else
+            {
+                return BadRequest("Error while creating Level.");
+            }
+        }
+
         /// <summary>
         /// Get list of levels.
         /// </summary>
@@ -25,7 +54,18 @@ namespace RiderQc.Web.Controllers.API
         {
             List<LevelViewModel> levels = repo.GetLevelList();
 
-            return Ok(levels);
+            if(levels?. Count == 0)
+            {
+                return NotFound();
+            }
+            else if(levels?.Count > 0)
+            {
+                return Ok(levels);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
