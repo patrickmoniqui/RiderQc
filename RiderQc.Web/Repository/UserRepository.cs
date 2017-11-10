@@ -4,6 +4,7 @@ using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Moto;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
+using RiderQc.Web.ViewModels.Admin;
 
 namespace RiderQc.Web.Repository
 {
@@ -128,6 +129,48 @@ namespace RiderQc.Web.Repository
             userViewModel.Motos = motosViewModel;
             
             return userViewModel;
+        }
+
+        private UserAdminViewModel ToAdminViewModel(User user)
+        {
+            UserAdminViewModel userViewModel = new UserAdminViewModel();
+            userViewModel.UserID = user.UserID;
+            userViewModel.Username = user.Username;
+            userViewModel.Password = user.Password;
+            userViewModel.Region = user.Region;
+            userViewModel.Ville = user.Ville;
+            userViewModel.DateOfBirth = user.DateOfBirth;
+            userViewModel.Description = user.Description;
+            userViewModel.DpUrl = user.DpUrl;
+
+            List<MotoViewModel> motosViewModel = new List<MotoViewModel>();
+
+            if (user.Motoes != null)
+            {
+                foreach (Moto moto in user.Motoes)
+                {
+                    MotoViewModel motoViewModel = new MotoViewModel();
+                    motoViewModel.MotoId = moto.MotoId;
+                    motoViewModel.Brand = moto.Brand;
+                    motoViewModel.Model = moto.Model;
+                    motoViewModel.Type = moto.Type;
+                    motoViewModel.Year = moto.Year;
+                    motoViewModel.UserId = moto.UserId;
+
+                    motosViewModel.Add(motoViewModel);
+                }
+            }
+
+            userViewModel.Motos = motosViewModel;
+
+            return userViewModel;
+        }
+
+        public UserAdminViewModel GetUserAdminById(int userId)
+        {
+            User user = dao.GetUserById(userId);
+
+            return user != null ? ToAdminViewModel(user) : null;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model RiderQc.Web.ViewModels.User.UserViewModel
+﻿@model RiderQc.Web.ViewModels.Admin.UserAdminViewModel
 @{
     ViewBag.Title = "DetailUser";
 }
@@ -68,6 +68,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |
+    @Html.ActionLink("Edit", "edit", new { controller = "admin/user", id = Model.UserID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

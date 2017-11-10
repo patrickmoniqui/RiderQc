@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RiderQc.Web.ViewModels
+namespace RiderQc.Web.ViewModels.Admin
 {
     public class UserAdminViewModel
     {
