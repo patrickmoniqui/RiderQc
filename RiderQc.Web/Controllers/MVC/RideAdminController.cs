@@ -49,7 +49,5 @@ namespace RiderQc.Web.Controllers
             RideViewModel ride = repo.Get(rideid);
             return View(ride);
         }
-
-
     }
 }
