@@ -2,22 +2,28 @@ import { Component, OnInit } from '@angular/core';
 
 //Model
 import { User } from '../../../model/user';
+import { SocialUser } from "angular4-social-login";
 
 //Service
 import { UserService } from '../../../services/user.service';
+import { AuthService } from "angular4-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 
 @Component({
   selector: 'app-navbar-login',
   templateUrl: './navbar-login.component.html',
-  styleUrls: ['./navbar-login.component.css']
+  styleUrls: ['./navbar-login.component.css'],
+  providers: [AuthService, UserService]
 })
 export class NavbarLoginComponent implements OnInit {
   public isLogged: Boolean;
+  public socialUser: SocialUser;
+
   user: User;
   token: string;
   err: string;
 
-  constructor(public userService: UserService) {
+  constructor(private authService: AuthService, public userService: UserService) {
     this.isLogged = this.userService.isLogged;
 
     if (this.isLogged) {
@@ -31,6 +37,31 @@ export class NavbarLoginComponent implements OnInit {
     {
       this.user = new User();
     }
+    this.authService.authState.subscribe((socialUser) => {
+      this.socialUser = socialUser;
+      //this.sociallyLoggedIn = (socialUser != null);
+    });
+  }
+
+  signInWithGoogle(): void {
+    var googlePromise = this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    googlePromise.then((result) => {
+      this.convertUser();
+      this.login(true);
+    });
+  }
+
+  signInWithFB(): void {
+    var facebookPromise = this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    facebookPromise.then((result) => {
+      this.convertUser();
+      this.login(true);
+    });
+  }
+
+  convertUser(): void {
+    this.user.Username = this.socialUser.email;
+    this.user.Password = this.socialUser.id;
   }
 
   login(isSocial: boolean): void {
