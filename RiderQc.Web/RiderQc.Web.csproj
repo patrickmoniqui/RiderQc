@@ -282,6 +282,7 @@
     <Compile Include="ViewModels\Ride\RideViewModel.cs" />
     <Compile Include="ViewModels\Trajet\TrajetCreateViewModel.cs" />
     <Compile Include="ViewModels\Trajet\TrajetViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UserAdminViewModel.cs" />
     <Compile Include="ViewModels\User\AuthentificationTokenViewModel.cs" />
     <Compile Include="ViewModels\User\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\User\UserRegisterViewModel.cs" />

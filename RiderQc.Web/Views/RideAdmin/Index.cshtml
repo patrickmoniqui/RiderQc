@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "create", new { controller = "admin/ride" })
 </p>
 <table class="table">
     <tr>
@@ -25,9 +25,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Level.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trajet.GoogleCo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Username)
@@ -53,16 +50,14 @@
             @Html.DisplayFor(modelItem => item.Level.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Trajet.GoogleCo)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.User.Username)
         </td>
-        <td>
+        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RideId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RideId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RideId })
-        </td>
+        </td>*@
     </tr>
 }
 

@@ -21,8 +21,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("User", "Index", "UserAdmin")</li>
-                    <li>@Html.ActionLink("Trajet", "ManageTrajet", "UserAdmin")</li>
-                    <li>@Html.ActionLink("Ride", "ManageRide", "UserAdmin")</li>
+                    <li>@Html.ActionLink("Trajet", "list", new { controller = "admin/trajet" })</li>
+                    <li>@Html.ActionLink("Ride", "list", new { controller = "admin/ride" })</li>
                 </ul>
             </div>
         </div>
