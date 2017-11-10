@@ -75,7 +75,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/ride" })'">Back to List</button>
         </div>
     }
 </div>

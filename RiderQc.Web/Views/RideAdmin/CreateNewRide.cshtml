@@ -80,5 +80,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/ride" })'">Back to List</button>
 </div>

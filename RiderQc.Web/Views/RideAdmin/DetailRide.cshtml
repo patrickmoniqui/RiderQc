@@ -70,6 +70,6 @@
 </div>
 <p>
     <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.RideId })*@ |
-    @Html.ActionLink("Back to List", "Index")
+    @*<button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/trajet", id = Model.RideId })'">Edit</button>*@
+    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/ride" })'">Back to List</button>
 </p>

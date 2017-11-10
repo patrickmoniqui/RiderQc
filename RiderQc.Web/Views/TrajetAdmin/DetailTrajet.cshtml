@@ -30,7 +30,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "edit", new { controller = "admin/trajet" })
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TrajetId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/trajet", id = Model.TrajetId })'">Edit</button>
+    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/trajet" })'">Back to List</button>
 </p>
