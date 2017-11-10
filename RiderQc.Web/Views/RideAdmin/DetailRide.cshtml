@@ -49,14 +49,14 @@
         <dd>
             @Html.DisplayFor(model => model.Level.Name)
         </dd>
-
-        <dt>
+        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
+        @*<dt>
             @Html.DisplayNameFor(model => model.Trajet.GoogleCo)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Trajet.GoogleCo)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.User.Username)
@@ -69,6 +69,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RideId }) |
+    <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.RideId })*@ |
     @Html.ActionLink("Back to List", "Index")
 </p>

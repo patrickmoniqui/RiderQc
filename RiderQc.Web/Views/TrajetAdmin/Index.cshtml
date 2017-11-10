@@ -7,13 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "create", new { controller = "admin/trajet" })
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GoogleCo)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.CreatorId)
         </th>
@@ -23,16 +20,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.GoogleCo)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.CreatorId)
         </td>
-        <td>
+        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TrajetId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TrajetId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TrajetId })
-        </td>
+        </td>*@
     </tr>
 }
 
