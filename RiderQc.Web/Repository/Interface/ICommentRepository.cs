@@ -1,13 +1,13 @@
 ﻿using RiderQc.Web.ViewModels.Comment;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace RiderQc.Web.Repository.Interface
 {
     public interface ICommentRepository
     {
+        CommentViewModel GetById(int commentId);
+        bool Delete(int commentId);
+        List<CommentViewModel> GetCommentsByUserId(int userId);
         bool Exist(int commentId);
         int ReplyToComment(CommentViewModel comment);
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, Params, RouterModule } from '@angular/router';
 
 //Model
 import { User } from '../../model/user';
@@ -19,8 +19,18 @@ export class NavbarComponent implements OnInit {
     username: string;
     token: string;
     isLogged: Boolean;
+    returnUrl: string;
 
-    constructor(public userService: UserService) { }
+    constructor(public userService: UserService, private router: Router) {
+
+      this.router
+        .routerState
+        .root.
+        queryParams
+        .subscribe(params => {
+          this.returnUrl = params['ReturnUrl'];
+        });
+    }
 
     ngOnInit() {
       this.isLogged = this.userService.isLogged;
@@ -29,7 +39,7 @@ export class NavbarComponent implements OnInit {
         {
             this.token = this.userService.getAuthCookie();
             this.userService.getUserByAuthToken(this.token).subscribe(x => this.user =  x);
-        }
+      }
     }
 
     toggle(): void {

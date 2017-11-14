@@ -11,6 +11,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './navbar-login.component.html',
   styleUrls: ['./navbar-login.component.css']
 })
+
 export class NavbarLoginComponent implements OnInit {
   public isLogged: Boolean;
   user: User;
@@ -18,15 +19,18 @@ export class NavbarLoginComponent implements OnInit {
   err: string;
 
   constructor(public userService: UserService) {
+    console.log("navbar login::constructor");
     this.isLogged = this.userService.isLogged;
 
     if (this.isLogged) {
       this.token = this.userService.getAuthCookie();
       this.userService.getUserByAuthToken(this.token).subscribe(x => this.user = x);
+      console.log("navbar user: " + this.user);
     }
   }
 
   ngOnInit() {
+    console.log("navbar login::ngOnInit");
     if (this.user == null)
     {
       this.user = new User();

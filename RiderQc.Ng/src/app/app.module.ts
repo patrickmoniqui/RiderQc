@@ -26,6 +26,8 @@ import { CommentComponent } from './components/comment/comment.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LogoffComponent } from './components/logoff/logoff.component';
 import { NavbarLoginComponent } from './components/login/navbar-login/navbar-login.component';
+import { MyridesComponent } from './components/rides/myrides/myrides.component';
+import { SingleComponent } from './components/rides/single/single.component';
 
 let config = new AuthServiceConfig([
   {
@@ -56,7 +58,9 @@ export function provideConfig() {
     CommentComponent,
     NavbarComponent,
     LogoffComponent,
-    NavbarLoginComponent
+    NavbarLoginComponent,
+    MyridesComponent,
+    SingleComponent
   ],
   imports: [
     BrowserModule,
