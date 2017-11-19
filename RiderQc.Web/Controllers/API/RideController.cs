@@ -96,9 +96,9 @@ namespace RiderQc.Web.Controllers.Api
         /// <param name="rideViewModel"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("")]
+        [Route("{rideId}")]
         [AuthTokenAuthorization]
-        public IHttpActionResult Update(RideCreateViewModel rideViewModel)
+        public IHttpActionResult Update(int rideId, RideCreateViewModel rideViewModel)
         {
             if (!ModelState.IsValid)
             {

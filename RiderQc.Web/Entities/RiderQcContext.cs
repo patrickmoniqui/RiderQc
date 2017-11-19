@@ -64,13 +64,13 @@ namespace RiderQc.Web.Entities
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Messages)
-                .WithRequired(e => e.User)
+                .WithRequired(e => e.Receiver)
                 .HasForeignKey(e => e.ReceiverId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.Messages1)
-                .WithRequired(e => e.User1)
+                .HasMany(e => e.SentMessages)
+                .WithRequired(e => e.Sender)
                 .HasForeignKey(e => e.SenderId)
                 .WillCascadeOnDelete(false);
 
