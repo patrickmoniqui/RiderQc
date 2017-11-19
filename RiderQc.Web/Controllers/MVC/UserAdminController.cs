@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Admin;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -27,7 +28,7 @@ namespace RiderQc.Web.Controllers
         [Route("edit/{userid}")]
         public ActionResult EditUser(int userid)
         {
-            UserViewModel user = repo.GetUserById(userid);
+            UserAdminViewModel user = repo.GetUserAdminById(userid);
             return View(user);
         }
 
@@ -47,7 +48,7 @@ namespace RiderQc.Web.Controllers
         [Route("detail/{userid}")]
         public ActionResult DetailUser(int userid)
         {
-            UserViewModel user = repo.GetUserById(userid);
+            UserAdminViewModel user = repo.GetUserAdminById(userid);
             return View(user);
         }
     }

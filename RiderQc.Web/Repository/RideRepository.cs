@@ -3,8 +3,6 @@ using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using System.Collections.Generic;
 using RiderQc.Web.ViewModels.Ride;
-using System;
-using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.Repository
 {

@@ -27,6 +27,10 @@ export class UserService {
 
     //Web Services
 
+    getMyRides(username: string) {
+      return this.http.get(`${this.baseUrl}/myrides?` + username)
+        .map(res => res.json());
+    }
 
     getUser(username: string): Observable<User> {
         return this.http.get(`${this.baseUrl}/user?username=${username}`)

@@ -59,6 +59,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Comments.Select(y => y.User))
                     // include child comments of comment
                     .Include(x => x.Comments.Select(y => y.ChildComments))
+                    .Include(x => x.Participants)
                     .AsNoTracking()
                     .SingleOrDefault(x => x.RideId == rideId);
             }
@@ -85,8 +86,8 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Comments.Select(y => y.User))
                     // include child comments of comment
                     .Include(x => x.Comments.Select(y => y.ChildComments))
+                    .Include(x => x.Comments.Select(y => y.ChildComments.Select(z => z.User)))
                     .Include(x => x.Participants)
-                    .AsNoTracking()
                     .ToList();
             }
 

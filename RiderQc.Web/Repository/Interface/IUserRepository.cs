@@ -1,6 +1,5 @@
-﻿using RiderQc.Web.Entities;
+﻿using RiderQc.Web.ViewModels.Admin;
 using RiderQc.Web.ViewModels.Ride;
-using RiderQc.Web.ViewModels.Trajet;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 
@@ -19,5 +18,6 @@ namespace RiderQc.Web.Repository.Interface
         AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30);
         AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         UserViewModel GetUserByTokenIfLastTokenIsValid(string token);
+        UserAdminViewModel GetUserAdminById(int userId);
     }
 }

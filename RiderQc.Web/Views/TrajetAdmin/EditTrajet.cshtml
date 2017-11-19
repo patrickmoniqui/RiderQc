@@ -23,14 +23,14 @@
                 @Html.ValidationMessageFor(model => model.CreatorId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
+        @*<div class="form-group">
             @Html.LabelFor(model => model.GoogleCo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.GoogleCo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GoogleCo, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -41,5 +41,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/trajet" })'">Back to List</button>
 </div>

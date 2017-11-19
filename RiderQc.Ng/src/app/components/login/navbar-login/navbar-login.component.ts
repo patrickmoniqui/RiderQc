@@ -15,6 +15,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-logi
   styleUrls: ['./navbar-login.component.css'],
   providers: [AuthService, UserService]
 })
+
 export class NavbarLoginComponent implements OnInit {
   public isLogged: Boolean;
   public socialUser: SocialUser;
@@ -23,16 +24,20 @@ export class NavbarLoginComponent implements OnInit {
   token: string;
   err: string;
 
+
   constructor(private authService: AuthService, public userService: UserService) {
+
     this.isLogged = this.userService.isLogged;
 
     if (this.isLogged) {
       this.token = this.userService.getAuthCookie();
       this.userService.getUserByAuthToken(this.token).subscribe(x => this.user = x);
+      console.log("navbar user: " + this.user);
     }
   }
 
   ngOnInit() {
+    console.log("navbar login::ngOnInit");
     if (this.user == null)
     {
       this.user = new User();

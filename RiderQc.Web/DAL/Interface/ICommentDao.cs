@@ -1,14 +1,13 @@
 ﻿using RiderQc.Web.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RiderQc.Web.DAL.Interface
 {
     public interface ICommentDao
     {
+        Comment GetById(int commentId);
+        List<Comment> GetCommentsByUserId(int userId);
+        bool Delete(int userId);
         int ReplyToComment(Comment comment);
         bool Exist(int commentId);
     }

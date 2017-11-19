@@ -1,4 +1,4 @@
-﻿@model RiderQc.Web.ViewModels.User.UserViewModel
+﻿@model RiderQc.Web.ViewModels.Admin.UserAdminViewModel
 
 @{
     ViewBag.Title = "CreateNewUser";
@@ -79,5 +79,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/user" })'">Back to List</button>
 </div>
