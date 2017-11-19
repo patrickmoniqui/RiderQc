@@ -53,11 +53,6 @@ namespace RiderQc.Web.Entities
                 .WithRequired(e => e.Ride)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Ride>()
-                .HasMany(e => e.Participants)
-                .WithMany(e => e.Rides1)
-                .Map(m => m.ToTable("RideUsers"));
-
             modelBuilder.Entity<Role>()
                 .Property(e => e.Description)
                 .IsUnicode(false);
@@ -130,7 +125,7 @@ namespace RiderQc.Web.Entities
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.UserLevels)
+                .HasMany(e => e.UserRoles)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }
