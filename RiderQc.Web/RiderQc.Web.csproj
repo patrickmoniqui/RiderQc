@@ -222,12 +222,14 @@
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\ITrajetDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
+    <Compile Include="DAL\Interface\IUserRoleDao.cs" />
     <Compile Include="DAL\LevelDao.cs" />
     <Compile Include="DAL\MessageDao.cs" />
     <Compile Include="DAL\MotoDao.cs" />
     <Compile Include="DAL\RideDao.cs" />
     <Compile Include="DAL\TrajetDao.cs" />
     <Compile Include="DAL\UserDao.cs" />
+    <Compile Include="DAL\UserRoleDao.cs" />
     <Compile Include="Entities\Authentification.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Level.cs" />
@@ -235,15 +237,18 @@
     <Compile Include="Entities\Moto.cs" />
     <Compile Include="Entities\Ride.cs" />
     <Compile Include="Entities\RiderQcContext.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\sysdiagram.cs" />
     <Compile Include="Entities\Trajet.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserLevel.cs" />
     <Compile Include="Entities\UserRating.cs" />
     <Compile Include="Entities\UserRide.cs" />
+    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Constant.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Helpers\EntityMapper.cs" />
     <Compile Include="Helpers\ViewModelAnnotationValidation.cs" />
@@ -258,6 +263,10 @@
     <Compile Include="Migrations\201711011844246_AddTrajetFields.cs" />
     <Compile Include="Migrations\201711011844246_AddTrajetFields.Designer.cs">
       <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711192221519_AddRoleAndUserRole.cs" />
+    <Compile Include="Migrations\201711192221519_AddRoleAndUserRole.Designer.cs">
+      <DependentUpon>201711192221519_AddRoleAndUserRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -388,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711011844246_AddTrajetFields.resx">
       <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711192221519_AddRoleAndUserRole.resx">
+      <DependentUpon>201711192221519_AddRoleAndUserRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
