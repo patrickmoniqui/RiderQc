@@ -280,12 +280,14 @@
     <Compile Include="Repository\Interface\ITrajetRepository.cs" />
     <Compile Include="Repository\Interface\IRideRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\Interface\IUserRoleRepository.cs" />
     <Compile Include="Repository\LevelRepository.cs" />
     <Compile Include="Repository\MessageRepository.cs" />
     <Compile Include="Repository\MotoRepository.cs" />
     <Compile Include="Repository\RideRepository.cs" />
     <Compile Include="Repository\TrajetRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\UserRoleRepository.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentReplyViewModel.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentViewModel.cs" />
     <Compile Include="ViewModels\Api\Level\LevelCreateViewModel.cs" />

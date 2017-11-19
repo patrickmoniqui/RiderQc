@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.App_Start;
+using RiderQc.Web.Helpers;
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Ride;
@@ -14,10 +15,12 @@ namespace RiderQc.Web.Controllers.API
     public class UserController : ApiController
     {
         private readonly IUserRepository repo;
+        private readonly IUserRoleRepository repo2;
 
-        public UserController(IUserRepository _repo)
+        public UserController(IUserRepository _repo, IUserRoleRepository _repo2)
         {
             repo = _repo;
+            repo2 = _repo2;
         }
 
         /// <summary>
@@ -48,6 +51,10 @@ namespace RiderQc.Web.Controllers.API
 
             if (result)
             {
+                result = repo2.CreateUserRole(
+                    repo.GetUserByName(userViewModel.Username).UserID,
+                    Constant.UserRole_User
+                    );
                 return Ok("User '" + userViewModel.Username +"' successfully registered!");
             }
             else
