@@ -39,14 +39,14 @@
     background-color: #496ebc
   }
 
-.btn-tw {
+.btn-go {
   color: #fff;
-  background-color: #55acee;
+  background-color: #dd4b39;
 }
 
-  .btn-tw:hover {
+  .btn-go:hover {
     color: #fff;
-    background-color: #59b5fa;
+    background-color: #E55555;
   }
 
 @media(max-width:768px) {
