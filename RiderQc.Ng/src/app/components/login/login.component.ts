@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
 
 import { AuthService } from "angular4-social-login";
 import { UserService } from '../../services/user.service';
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
   token: string;
   err: string;
 
-  constructor(private authService: AuthService, public userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, public userService: UserService) { }
 
   ngOnInit() {
     this.user = new User();
