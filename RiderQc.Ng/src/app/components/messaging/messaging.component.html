@@ -1,0 +1,22 @@
+<div>
+  <div class="tab">
+    <button class="tablinks" (click)="openCity('Inbox')" [ngStyle]="{'background-color': isInbox ? '#ccc' : 'inherit' }">Inbox</button>
+    <button class="tablinks" (click)="openCity('Outbox')" [ngStyle]="{'background-color': !isInbox ? '#ccc' : 'inherit' }">Outbox</button>
+  </div>
+  <div id="Inbox" class="tabcontent" [ngStyle]="{'display': isInbox ? 'block' : 'none' }" >
+    <h1>Inbox2del</h1>
+    <div class="preview" *ngFor="let message of inbox" [ngStyle]="{'backgroud-color': message.Read ? '#666666' : '#555555' }">
+      <h4>{{message.User.Username}}</h4>
+      <h3>{{message.Title}}</h3>
+      <span>{{message.TimeStamp}}</span>
+    </div>
+  </div>
+  <div id="Outbox" class="tabcontent" [ngStyle]="{'display': !isInbox ? 'block' : 'none' }" >
+    <h1>Outbox2del</h1>
+    <div class="preview" *ngFor="let message of outbox">
+      <h4>{{message.User1.Username}}</h4>
+      <h3>{{message.Title}}</h3>
+      <span>{{message.TimeStamp}}</span>
+    </div>
+  </div>
+</div>

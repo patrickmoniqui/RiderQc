@@ -8,6 +8,7 @@ import { MyridesComponent } from './components/rides/myrides/myrides.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoffComponent } from './components/logoff/logoff.component';
+import { MessagingComponent } from './components/messaging/messaging.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'rides', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: 'trajet', component: TrajetComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'logoff', component: LogoffComponent }
+    { path: 'logoff', component: LogoffComponent },
+    { path: 'messaging', component: MessagingComponent }
 ];
 
 @NgModule({
