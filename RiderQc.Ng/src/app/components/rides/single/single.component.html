@@ -47,27 +47,6 @@
           </p>
         </div>
       </div>
-      <div class="panel panel-info">
-        <div class="panel-heading">Comments</div>
-        <div class="panel-body">
-          <app-comment *ngFor="let comment of ride.Comments" [Comment]="comment">
-          </app-comment>
-          <div class="comment-container">
-            <div>
-              <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message"></textarea>
-              <div style="padding:10px" disabled *ngIf="!isLogged">
-                <p>
-                  <a [routerLink]="['/login']">Login </a>
-                  or
-                  <a [routerLink]="['/register']">Register </a>
-                  to comment.
-                </p>
-              </div>
-            </div>
-            <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
-          </div>
-        </div>
-      </div>
       <div class="panel panel-default">
         <div class="panel-heading">
           <p>

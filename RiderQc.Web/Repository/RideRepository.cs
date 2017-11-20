@@ -71,7 +71,7 @@ namespace RiderQc.Web.Repository
         public List<RideViewModel> GetAllRides()
         {
             List<RideViewModel> rides = dao.GetAllRides();
-
+                
             return rides;
         }
 
@@ -111,6 +111,18 @@ namespace RiderQc.Web.Repository
                 return false;
             }
             return dao.UserIsCreator(rideId, username);
+        }
+
+        public List<RideViewModel> MyRidesForUser(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            List<RideViewModel> ridesViewModel = dao.MyRidesForUser(username);
+
+            return ridesViewModel;
         }
     }
 }

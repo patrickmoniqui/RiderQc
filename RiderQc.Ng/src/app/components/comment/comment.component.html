@@ -10,15 +10,7 @@
   </p>
 
   <div>
-    <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message" ></textarea>
-    <div style="padding:10px" disabled *ngIf="!isLogged" >
-      <p>
-        <a [routerLink]="['/login']">Login </a>
-        or 
-        <a [routerLink]="['/register']">Register </a>
-        to comment.
-      </p>
-    </div>
+    <textarea *ngIf="isLogged" [(ngModel)]="textValue" (keydown.enter)="sendMessage(); false"  placeholder="Enter your message" ></textarea>
   </div>
   <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
 
