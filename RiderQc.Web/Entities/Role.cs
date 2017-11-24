@@ -13,7 +13,6 @@
             UserRoles = new HashSet<UserRole>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RoleId { get; set; }
 
         [Required]

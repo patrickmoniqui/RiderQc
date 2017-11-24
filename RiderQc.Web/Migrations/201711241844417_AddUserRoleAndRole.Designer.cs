@@ -7,13 +7,13 @@ namespace RiderQc.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddRoleAndUserRole : IMigrationMetadata
+    public sealed partial class AddUserRoleAndRole : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRoleAndUserRole));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddUserRoleAndRole));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711192221519_AddRoleAndUserRole"; }
+            get { return "201711241844417_AddUserRoleAndRole"; }
         }
         
         string IMigrationMetadata.Source

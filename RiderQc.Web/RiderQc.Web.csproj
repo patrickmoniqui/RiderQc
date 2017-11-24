@@ -264,9 +264,9 @@
     <Compile Include="Migrations\201711011844246_AddTrajetFields.Designer.cs">
       <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711192221519_AddRoleAndUserRole.cs" />
-    <Compile Include="Migrations\201711192221519_AddRoleAndUserRole.Designer.cs">
-      <DependentUpon>201711192221519_AddRoleAndUserRole.cs</DependentUpon>
+    <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.cs" />
+    <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.Designer.cs">
+      <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -382,7 +382,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -400,8 +402,8 @@
     <EmbeddedResource Include="Migrations\201711011844246_AddTrajetFields.resx">
       <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711192221519_AddRoleAndUserRole.resx">
-      <DependentUpon>201711192221519_AddRoleAndUserRole.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711241844417_AddUserRoleAndRole.resx">
+      <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

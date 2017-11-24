@@ -5,7 +5,6 @@
     [Table("UserRole")]
     public partial class UserRole
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserRoleId { get; set; }
 
         public int RoleId { get; set; }
