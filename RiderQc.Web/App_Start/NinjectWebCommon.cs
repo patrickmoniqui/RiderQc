@@ -76,6 +76,7 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<ITrajetDao>().To<TrajetDao>();
             kernel.Bind<ICommentDao>().To<CommentDao>();
             kernel.Bind<IMessageDao>().To<MessageDao>();
+            kernel.Bind<IUserRoleDao>().To<UserRoleDao>();
 
             //repos
             kernel.Bind<IRideRepository>().To<RideRepository>();
@@ -85,6 +86,7 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<ITrajetRepository>().To<TrajetRepository>();
             kernel.Bind<ICommentRepository>().To<CommentRepository>();
             kernel.Bind<IMessageRepository>().To<MessageRepository>();
+            kernel.Bind<IUserRoleRepository>().To<UserRoleRepository>();
         }        
     }
 }
