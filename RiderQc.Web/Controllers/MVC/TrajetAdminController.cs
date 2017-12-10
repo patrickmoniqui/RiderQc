@@ -23,33 +23,60 @@ namespace RiderQc.Web.Controllers
         [Route("list")]
         public ActionResult Index()
         {
-            List<TrajetViewModel> trajets = repo.GetAllTrajets();
-            return View(trajets);
+            if (Authenticate())
+            {
+                List<TrajetViewModel> trajets = repo.GetAllTrajets();
+                return View(trajets);
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("edit/{trajetid}")]
         public ActionResult Edittrajet(int trajetid)
         {
-            TrajetViewModel trajet = repo.Get(trajetid);
-            return View(trajet);
+            if (Authenticate())
+            {
+                TrajetViewModel trajet = repo.Get(trajetid);
+                return View(trajet);
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("delete/{trajetid}")]
         public ActionResult DeleteTrajet(int trajetid)
         {
-            repo.Delete(trajetid);
-            return View();
+            if (Authenticate())
+            {
+                repo.Delete(trajetid);
+                return View();
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("create")]
         public ActionResult CreateNewTrajet()
         {
-            return View();
+            if (Authenticate())
+            {
+                return View();
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("detail/{trajetid}")]
         public ActionResult DetailTrajet(int trajetid)
         {
-            TrajetViewModel trajet = repo.Get(trajetid);
-            return View(trajet);
+            if (Authenticate())
+            {
+                TrajetViewModel trajet = repo.Get(trajetid);
+                return View(trajet);
+            }
+            return Redirect("/admin/account/login");
         }
-
-
+        public bool Authenticate()
+        {
+            if (Session != null)
+            {
+                if (Session["Username"] != null)
+                    return true; ;
+            }
+            return false;
+        }
     }
 }

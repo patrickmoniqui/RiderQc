@@ -209,6 +209,7 @@
     <Compile Include="Controllers\API\MotoController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
+    <Compile Include="Controllers\MVC\Admin\AccountController.cs" />
     <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
     <Compile Include="Controllers\MVC\RideAdminController.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AdminAuthentication.cs" />
     <Compile Include="Helpers\Constant.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
     <Compile Include="Helpers\EntityMapper.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Repository\TrajetRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\UserRoleRepository.cs" />
+    <Compile Include="ViewModels\Admin\AdminLoginViewModel.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentReplyViewModel.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentViewModel.cs" />
     <Compile Include="ViewModels\Api\Level\LevelCreateViewModel.cs" />
@@ -363,6 +366,7 @@
     <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
     <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
     <Content Include="Views\RideAdmin\DetailRide.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -23,6 +23,11 @@
                     <li>@Html.ActionLink("User", "Index", "UserAdmin")</li>
                     <li>@Html.ActionLink("Trajet", "list", new { controller = "admin/trajet" })</li>
                     <li>@Html.ActionLink("Ride", "list", new { controller = "admin/ride" })</li>
+                    @if (Session["Username"] != null)
+                    {
+                        <li>@Html.ActionLink("Logged in as " + Session["Username"].ToString(), "", null, new { onclick = "javascript:return false;", style = "color:white" })</li>
+                        <li>@Html.ActionLink("Log Out", "logout", new { controller = "admin/account" })</li>
+                    }
                 </ul>
             </div>
         </div>
