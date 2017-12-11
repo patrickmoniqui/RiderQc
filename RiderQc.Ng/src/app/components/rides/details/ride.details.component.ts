@@ -12,6 +12,7 @@ import { Ride } from '../../../model/ride';
 export class RideDetailsComponent implements OnInit {
     public ride: Ride;
     public rides: Ride[];
+    participants: string[] = [];
     sub: any;
 
     constructor(public riderqcSerice: RiderqcService,
@@ -22,12 +23,29 @@ export class RideDetailsComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             let id = Number.parseInt(params['id']);
             console.log('getting ride with id: ', id);
-            this.riderqcSerice
+            this.riderqcSerice.getRides().subscribe((rides) => {
+                console.log(rides);
+                this.ride = rides[0];
+            });
+            this.riderqcSerice.getRidesParticipants(id).subscribe((participants) => {
+                console.log("particpants: " + participants);
+                this.participants = participants;
+            });
+            /*this.riderqcSerice
                 .details(id)
                 .subscribe(
                 p => {
                     this.ride = p;
-                });
+                });*/
         });
-  }
+    }
+
+    participate() {
+        this.riderqcSerice.participate(this.ride.RideId).subscribe((participant) => {
+        });
+    }
+
+    getTimes = function (n) {
+        return new Array(n);
+    };
 }

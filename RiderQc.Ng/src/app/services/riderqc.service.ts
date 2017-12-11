@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Ride } from '../model/ride';
+import { User } from '../model/user';
 import { Level } from '../model/level';
 import 'rxjs/add/operator/map';
 
@@ -15,6 +16,18 @@ export class RiderqcService {
     getRides() {
         return this.http.get(`${this.baseUrl}/ride/list`)
             .map(res => res.json());
+    }
+
+    getRidesParticipants(rideId: number) {
+        let headers = new Headers();
+        console.log("rideId, participants: " + rideId);
+        headers.append('rideId', rideId + '');
+        return this.http.get(`${this.baseUrl}/ride/participant/list`, {headers: headers})
+            .map(res => res.json());
+    }
+
+    participate(rideId: number) {
+        return this.http.get(`${this.baseUrl}/ride/${rideId}/participate`, {headers: this.getHeadersPOST()});
     }
 
     details(id: number): Observable<Ride> {
@@ -34,6 +47,12 @@ export class RiderqcService {
     private getHeaders() {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
+        return headers;
+    }
+
+    private getHeadersPOST() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
         return headers;
     }
 }

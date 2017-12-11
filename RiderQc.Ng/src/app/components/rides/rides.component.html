@@ -23,11 +23,11 @@
         </div>
         <div class="aligned-row">
           <div class="col-md-4 ride-map">
-            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GpsPoints"></app-trajet>
+            <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="false" [height]="50"></app-map>
           </div>
           <div class="col-md-8 ride-description bg-strip1">
             <p class="text-white">
-              <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle" style="margin-right: 2px;" aria-hidden="true"> </i> 
+              <strong>Niveau:</strong> {{ride.Level.Name}} <i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol" aria-hidden="true"> </i> 
             </p>
             <p class="text-white">
               <strong>Description:</strong> {{ride.Description}}

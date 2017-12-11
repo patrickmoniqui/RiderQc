@@ -1,12 +1,11 @@
-<br />
 <div class="trajetInfo">
   <section *ngIf="trajetInfo">
-    <table>
+    <table class="table table-hover">
       <thead>
         <tr>
-          <th>Instructions</th>
-          <th>Duration</th>
-          <th>Distance</th>
+          <th>Instructions <i class="fa fa-list-ol"></i></th>
+          <th>Duration <i class="fa fa-clock-o"></i></th>
+          <th>Distance <i class="fa fa-road"></i></th>
         </tr>
       </thead>
       <tbody>
@@ -17,8 +16,5 @@
         </tr>
       </tbody>
     </table>
-
-    <p><b>Total duration :</b> {{trajetInfo.duration}}</p>
-    <p><b>Total distance :</b> {{trajetInfo.distance}}</p>
   </section>
 </div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TrajetComponent } from './components/trajet/trajet.component';
+import { TrajetDetailsComponent } from './components/trajet/details/trajet.details.component';
+import { TrajetEditComponent } from './components/trajet/edit/trajet.edit.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
@@ -13,7 +14,9 @@ const routes: Routes = [
     { path: 'rides/details/:id', component: RideDetailsComponent },
     { path: 'rides/edit', component: RideEditComponent },
     { path: 'rides/edit/:id', component: RideEditComponent },
-    { path: 'trajet', component: TrajetComponent },
+    { path: 'trajet/details/:id', component: TrajetDetailsComponent },
+    { path: 'trajet/edit', component: TrajetEditComponent },
+    { path: 'trajet/edit/:id', component: TrajetEditComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent }
 ];

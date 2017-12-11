@@ -1,0 +1,106 @@
+<div [ngClass]="{'container': showInstructions}">
+  <div class="form-group row coordinateSearch" *ngIf="editable">
+    <div class="col-md-6">
+      <input placeholder="Origin" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #originSearch [formControl]="searchControl">
+    </div>
+    <div class="col-md-6">
+      <input placeholder="Destination" autocorrect="on" autocapitalize="off" spellcheck="off" type="text" class="form-control" #destinationSearch [formControl]="searchControl">
+    </div>
+  </div>
+  <div class="row map-container">
+    <div [ngStyle]="google_map_style" [ngClass]="{'col-md-6': showInstructions, 'col-md-12': !showInstructions}">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+        <agm-directions [origin]="trajetInfo.origin" [destination]="trajetInfo.destination" [waypoints]="trajetInfo.waypoints"></agm-directions>
+      </agm-map>
+      <br />
+    </div>
+
+    <div *ngIf="showInstructions" class="col-md-6 bg-strip1 instructions" [ngStyle]="instructions_style">
+      <app-instructions [trajetInfo]="trajetInfo"></app-instructions>
+    </div>
+
+    <div class="row col-md-12 buttonsRow">
+      <div class="col-md-6">
+        <button (click)="setCurrentPosition()" *ngIf="editable" class="btn btn-primary">Find current position</button>
+      </div>
+      <div *ngIf="showExpansion" class="col-md-6">
+        <button (click)="toggleInstructions()" class="btn-nostyle" style="float:right">
+          <i class="fa fa-expand" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 row buttonsRow" *ngIf="showExpansion">
+    <p><b>Total duration :</b> {{trajetInfo.duration}}</p>
+    <p><b>Total distance :</b> {{trajetInfo.distance}}</p>
+  </div>
+
+  <div class="col-md-12 row waypointsTable">
+    <table *ngIf="trajetInfo.waypoints?.length > 0 && editable" class="table table-striped">
+      <thead class="thead-black">
+        <tr>
+          <th>Number</th>
+          <th>Location</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let w of trajetInfo.waypoints; let i = index" class="table-danger">
+          <td>{{i+1}}</td>
+          <td>{{w.location}}</td>
+          <td><i (click)="deleteWaypoint(i)" class="fa fa-times"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="placeInfoOrigin != null && placeInfoDestination != null && trajetInfo.origin != null && trajetInfo.destination != null && editable" class="row col-md-12 extraInfo">
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Origin</div>
+        <ul class="list-group">
+          <li class="list-group-item"><b>Place Id :</b> {{placeInfoOrigin.placeId}}</li>
+          <li class="list-group-item"><b>Street Number :</b> {{placeInfoOrigin.street_number}}</li>
+          <li class="list-group-item"><b>Route :</b> {{placeInfoOrigin.route}}</li>
+          <li class="list-group-item"><b>Locality :</b> {{placeInfoOrigin.locality}}</li>
+          <li class="list-group-item"><b>Postal Code :</b> {{placeInfoOrigin.postalCode}}</li>
+          <li class="list-group-item"><b>Address :</b> {{placeInfoOrigin.address}}</li>
+          <li class="list-group-item"><b>Phone Format :</b> {{placeInfoOrigin.phoneFormat}}</li>
+          <li class="list-group-item"><b>The latitude :</b> {{placeInfoOrigin.lat}}</li>
+          <li class="list-group-item"><b>The longitude :</b> {{placeInfoOrigin.lng}}</li>
+          <li class="list-group-item"><b>The country :</b> {{placeInfoOrigin.country}}</li>
+          <li class="list-group-item"><b>The city :</b> {{placeInfoOrigin.city}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Destination</div>
+        <ul class="list-group">
+          <li class="list-group-item"><b>Place Id :</b> {{placeInfoDestination.placeId}}</li>
+          <li class="list-group-item"><b>Street Number :</b> {{placeInfoDestination.street_number}}</li>
+          <li class="list-group-item"><b>Route :</b> {{placeInfoDestination.route}}</li>
+          <li class="list-group-item"><b>Locality :</b> {{placeInfoDestination.locality}}</li>
+          <li class="list-group-item"><b>Postal Code :</b> {{placeInfoDestination.postalCode}}</li>
+          <li class="list-group-item"><b>Address :</b> {{placeInfoDestination.address}}</li>
+          <li class="list-group-item"><b>Phone Format :</b> {{placeInfoDestination.phoneFormat}}</li>
+          <li class="list-group-item"><b>The latitude :</b> {{placeInfoDestination.lat}}</li>
+          <li class="list-group-item"><b>The longitude :</b> {{placeInfoDestination.lng}}</li>
+          <li class="list-group-item"><b>The country :</b> {{placeInfoDestination.country}}</li>
+          <li class="list-group-item"><b>The city :</b> {{placeInfoDestination.city}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Coordinates</div>
+        <ul class="list-group">
+          <li class="list-group-item"><b>This origin :</b> {{trajetInfo.origin.lat}}, {{trajetInfo.origin.lng}}</li>
+          <li class="list-group-item"><b>This destination :</b> {{trajetInfo.destination.lat}}, {{trajetInfo.destination.lng}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

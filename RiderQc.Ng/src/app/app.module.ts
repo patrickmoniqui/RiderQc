@@ -10,10 +10,12 @@ import { AppComponent } from './app.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
-import { TrajetComponent } from './components/trajet/trajet.component';
-import { InstructionsComponent } from './components/trajet/instructions/instructions.component';
+import { TrajetDetailsComponent } from './components/trajet/details/trajet.details.component';
+import { TrajetEditComponent } from './components/trajet/edit/trajet.edit.component';
+import { MapComponent } from './components/map/map.component';
+import { InstructionsComponent } from './components/map/instructions/instructions.component';
 import { RegisterComponent } from './components/register/register.component';
-import { DirectionsMapDirective } from './components/trajet/direction.directive';
+import { DirectionsMapDirective } from './components/map/direction.directive';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
@@ -24,7 +26,9 @@ import { CommentComponent } from './components/comment/comment.component';
         RidesComponent,
         RideDetailsComponent,
         RideEditComponent,
-        TrajetComponent,
+        TrajetDetailsComponent,
+        TrajetEditComponent,
+        MapComponent,
         InstructionsComponent,
         RegisterComponent,
         DirectionsMapDirective,

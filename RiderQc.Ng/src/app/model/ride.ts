@@ -1,6 +1,7 @@
 import { Comment } from '../model/comment';
 import { User } from '../model/user';
 import { Level } from '../model/level';
+import { Trajet } from '../model/trajet';
 
 export class Ride {
   RideId: number;
@@ -13,6 +14,7 @@ export class Ride {
   DateFin: Date; 
   Creator: User;
   Level: Level;
+  Trajet: Trajet;
   Comments: Comment[];
 
   constructor(RideId?: number, Title?: string, Description?: string, CreatorId?: number, TrajetId?: number, LevelId?: number, DateDepart?: Date, DateFin?: Date) {

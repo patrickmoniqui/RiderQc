@@ -1,36 +1,81 @@
 <section>
   <section *ngIf="ride">
     <section>
-      <h2><b>Détails</b></h2>
-      <ul>
-        <li><b>Title : </b> {{ride.Title}}</li>
-        <li><b>Description : </b> {{ride.Description}}</li>
-        <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
-        <li><b>Level : </b> {{ride.Level.Name}}</li>
-        <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
-        <li><b>Date Fin : </b> {{ride.DateFin}}</li>
-      </ul>
-      <div class="comments-container">
-        <div *ngFor="let comment of ride.Comments">
-          <app-comment [Comment]="comment"></app-comment>
-          <a href="" ngClick="">Reply</a>
-          <div class="comment-container" [hidden]>
-            <textarea placeholder="Enter your message"></textarea>
+      <div class="container">
+        <h2><b>Détails</b></h2>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tab-content">
+              <div id="Summery" class="tab-pane fade in active">
+                <div class="table-responsive">
+                  <table class="table-condensed">
+                    <tbody>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-book"></i> Title</td>
+                        <td>{{ride.Title}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-align-justify"></i> Description</td>
+                        <td>{{ride.Description}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-user"></i> Creator</td>
+                        <td>{{ride.Creator.Username}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-exclamation-triangle"></i> Level</td>
+                        <td>{{ride.Level.Name}}<i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol"></i></td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-calendar"></i> Date départ</td>
+                        <td>{{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-success"><i class="fa fa-calendar"></i> Date fin</td>
+                        <td>{{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
-          <button>Send</button>
+          <div class="col-md-6">
+            <h3>Participants ({{participants.length}}) :</h3>
+            <ul>
+              <li *ngFor="let participant of participants ">participant</li>
+            </ul>
+            <button (click)="participate()" type="button" class="btn btn-primary">Participate</button>
+          </div>
         </div>
 
-        <div class="comment-container">
-          <textarea placeholder="Enter your message"></textarea>
-        </div>
-        <button>Send</button>
-      </div>
-     
-          <div class="ride-map">
-            <app-trajet [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true"></app-trajet>
+        <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="55"></app-map>
+
+        <br />
+
+        <div class="row">
+          <div class="comments-container">
+            <div *ngFor="let comment of ride.Comments">
+              <app-comment [Comment]="comment"></app-comment>
+              <a href="" ngClick="">Reply</a>
+              <div class="comment-container" [hidden]>
+                <textarea placeholder="Enter your message"></textarea>
+              </div>
+              <button>Send</button>
+            </div>
+
+            <div class="comment-container">
+              <textarea placeholder="Enter your message"></textarea>
+            </div>
+            <button>Send</button>
           </div>
-            <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
-            <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+        </div>
+
+        <div class="row">
+          <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
+          <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+        </div>
+      </div>
     </section>
   </section>
 </section>

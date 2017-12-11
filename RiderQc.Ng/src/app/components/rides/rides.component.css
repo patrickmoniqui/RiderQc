@@ -95,11 +95,17 @@ table, tr, td, th {
 
 .ride-map {
   min-height: 50vh;
+  margin-top: 10px;
 }
+
 .ride-description {
   padding: 20px;
 }
 
 .riderqc-section * {
   color: white;
+}
+
+.levelSymbol {
+  margin-right: 2px;
 }
