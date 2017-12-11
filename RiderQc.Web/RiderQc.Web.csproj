@@ -281,7 +281,9 @@
     <Compile Include="ViewModels\Api\Comment\CommentViewModel.cs" />
     <Compile Include="ViewModels\Api\Level\LevelCreateViewModel.cs" />
     <Compile Include="ViewModels\Api\Level\LevelViewModel.cs" />
+    <Compile Include="ViewModels\Api\Message\OutboxMessageViewModel.cs" />
     <Compile Include="ViewModels\Api\Message\MessageConversationViewModel.cs" />
+    <Compile Include="ViewModels\Api\Message\InboxMessageViewModel.cs" />
     <Compile Include="ViewModels\Api\Message\SendMessageViewModel.cs" />
     <Compile Include="ViewModels\Api\Moto\MotoViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideCreateWithTrajetViewModel.cs" />
