@@ -209,6 +209,7 @@
     <Compile Include="Controllers\API\MotoController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
+    <Compile Include="Controllers\MVC\Admin\AccountController.cs" />
     <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
     <Compile Include="Controllers\MVC\RideAdminController.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="Repository\TrajetRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\UserRoleRepository.cs" />
+    <Compile Include="ViewModels\Admin\AdminLoginViewModel.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentReplyViewModel.cs" />
     <Compile Include="ViewModels\Api\Comment\CommentViewModel.cs" />
     <Compile Include="ViewModels\Api\Level\LevelCreateViewModel.cs" />
@@ -360,6 +362,7 @@
     <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
     <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
     <Content Include="Views\RideAdmin\DetailRide.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Redoc.cshtml" />
   </ItemGroup>
   <ItemGroup>

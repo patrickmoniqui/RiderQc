@@ -208,5 +208,11 @@ namespace RiderQc.Web.Repository
 
             return user != null ? ToAdminViewModel(user) : null;
         }
+
+        public User GetUserByNameAdmin(string username)
+        {
+            User user = dao.GetByUsername(username);
+            return user;
+        }
     }
 }
