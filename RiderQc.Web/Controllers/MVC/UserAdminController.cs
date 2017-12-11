@@ -35,38 +35,28 @@ namespace RiderQc.Web.Controllers
         [Route("list")]
         public ActionResult Index()
         {
-
-
-            //try
-            /*Level, ride, trajet, user, comment*/
-            List<SelectListItem> listtrajet = new List<SelectListItem>();
-            List<SelectListItem> listride = new List<SelectListItem>();
-            List<SelectListItem> listlevel = new List<SelectListItem>();
-            List<SelectListItem> listcomment = new List<SelectListItem>();
-
-            userList = repo.GetAllUsers();
-
-            
-            //
-            List<UserViewModel> users = repo.GetAllUsers();
-            return View(users);
-        }
             if (Authenticate())
             {
+                //try
+                /*Level, ride, trajet, user, comment*/
+                List<SelectListItem> listtrajet = new List<SelectListItem>();
+                List<SelectListItem> listride = new List<SelectListItem>();
+                List<SelectListItem> listlevel = new List<SelectListItem>();
+                List<SelectListItem> listcomment = new List<SelectListItem>();
+
+                userList = repo.GetAllUsers();
+
+
+                //
                 List<UserViewModel> users = repo.GetAllUsers();
                 return View(users);
             }
-
             return Redirect("/admin/account/login");
         }
 
         [Route("edit/{userid}")]
         public ActionResult EditUser(int userid)
         {
-            
-            UserAdminViewModel user = repo.GetUserAdminById(userid);
-            return View(user);
-        }
             if (Authenticate())
             {
                 UserAdminViewModel user = repo.GetUserAdminById(userid);
@@ -116,10 +106,6 @@ namespace RiderQc.Web.Controllers
                     return true; ;
             }
             return false;
-        }
-
-            UserAdminViewModel user = repo.GetUserAdminById(userid);
-            return View(user);
         }
     }
 }

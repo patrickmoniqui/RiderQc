@@ -16,8 +16,6 @@ namespace RiderQc.Web.ViewModels.User
         public ICollection<ViewModels.Ride.RideViewModel> Rides { get; set; }
         public ICollection<ViewModels.Level.LevelViewModel> Levels { get; set; }
         public ICollection<ViewModels.Comment.CommentViewModel> Comments { get; set; }
-        public ICollection<ViewModels.Message.MessageViewModel> Messages { get; set; }
-
-
+        //public ICollection<ViewModels.Message.MessageViewModel> Messages { get; set; }
     }
 }
