@@ -30,8 +30,7 @@ export class NavbarLoginComponent implements OnInit {
     this.isLogged = this.userService.isLogged;
 
     if (this.isLogged) {
-      this.token = this.userService.getAuthCookie();
-      this.userService.getUserByAuthToken(this.token).subscribe(x => this.user = x);
+      this.userService.getLoggedUser().subscribe(x => this.user = x);
       console.log("navbar user: " + this.user);
     }
   }
@@ -42,10 +41,12 @@ export class NavbarLoginComponent implements OnInit {
     {
       this.user = new User();
     }
+
     this.authService.authState.subscribe((socialUser) => {
       this.socialUser = socialUser;
       //this.sociallyLoggedIn = (socialUser != null);
     });
+    console.log("navbar user: " + this.user);
   }
 
   signInWithGoogle(): void {

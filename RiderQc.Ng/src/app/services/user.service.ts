@@ -28,7 +28,7 @@ export class UserService {
     //Web Services
 
     getMyRides(username: string) {
-      return this.http.get(`${this.baseUrl}/myrides?` + username)
+      return this.http.get(`${this.baseUrl}/user/myrides?username=` + username)
         .map(res => res.json());
     }
 
