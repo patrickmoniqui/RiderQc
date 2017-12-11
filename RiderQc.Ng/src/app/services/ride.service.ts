@@ -29,6 +29,11 @@ export class RideService {
         return this.http.get(`${this.baseUrl}/ride/list`)
             .map(res => res.json());
     }
+
+    getMyRides(username: string) {
+      return this.http.get(`${this.baseUrl}/ride/myrides?username=` + username)
+        .map(res => res.json());
+    }
   
     details(id: number): Observable<Ride> {
         let ride$ = this.http

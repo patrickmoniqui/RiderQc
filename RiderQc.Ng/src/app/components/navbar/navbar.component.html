@@ -36,6 +36,12 @@
             Create ride
           </a>
         </li>
+        <li *ngIf="isLogged" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/messaging']">
+            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            Chat
+          </a>
+        </li>
       </ul>
       <app-navbar-login></app-navbar-login>
     </div>
