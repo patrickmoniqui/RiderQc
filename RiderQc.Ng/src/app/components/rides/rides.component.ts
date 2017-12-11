@@ -34,6 +34,7 @@ export class RidesComponent implements OnInit {
     if (this.isLogged)
     {
       this.userService.getLoggedUser().subscribe(x => this.user = x);
+      console.log(this.user);
     }
     else
     {
@@ -43,7 +44,6 @@ export class RidesComponent implements OnInit {
 
     ngOnInit() {
       this.fetchAllRide();
-
     }
     
     toggleRideContainer(element) {
@@ -80,23 +80,4 @@ export class RidesComponent implements OnInit {
             this.fetchAllRide();
         }
     }
-
-    attendRide(ride: Ride) {
-      this.rideService.participate(ride.RideId).subscribe();
-      this.fetchAllRide();
-    }
-
-    cancelAttendRide(ride: Ride)
-    {
-      this.rideService.removeParticipate(ride.RideId).subscribe();
-      this.fetchAllRide();
-    }
-
-    sendMessage(event) {
-      var newComment = new CommentReply();
-    }
-  
-    getTimes = function (n) {
-        return new Array(n);
-    };
 }

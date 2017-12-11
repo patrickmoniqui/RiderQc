@@ -24,6 +24,8 @@ namespace RiderQc.Web.Entities
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserRating> UserRatings { get; set; }
         public virtual DbSet<UserRide> UserRides { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -64,13 +66,13 @@ namespace RiderQc.Web.Entities
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Messages)
-                .WithRequired(e => e.User)
+                .WithRequired(e => e.Receiver)
                 .HasForeignKey(e => e.ReceiverId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.Messages1)
-                .WithRequired(e => e.User1)
+                .HasMany(e => e.SentMessages)
+                .WithRequired(e => e.Sender)
                 .HasForeignKey(e => e.SenderId)
                 .WillCascadeOnDelete(false);
 
@@ -110,6 +112,20 @@ namespace RiderQc.Web.Entities
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.UserLevels)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Role>()
+                .Property(e => e.Description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Role>()
+                .HasMany(e => e.UserRoles)
+                .WithRequired(e => e.Role)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.UserRoles)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
         }

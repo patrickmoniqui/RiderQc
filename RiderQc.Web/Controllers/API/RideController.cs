@@ -96,9 +96,9 @@ namespace RiderQc.Web.Controllers.Api
         /// <param name="rideViewModel"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("")]
+        [Route("{rideId}")]
         [AuthTokenAuthorization]
-        public IHttpActionResult Update(RideCreateViewModel rideViewModel)
+        public IHttpActionResult Update(int rideId, RideCreateViewModel rideViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -181,6 +181,38 @@ namespace RiderQc.Web.Controllers.Api
         public IHttpActionResult GetAllRides()
         {
             List<RideViewModel> rides = repo.GetAllRides();
+
+            if (rides?.Count == 0)
+            {
+                return NotFound();
+            }
+            else if (rides.Count > 0)
+            {
+                return Ok(rides);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        
+        /// <summary>
+        /// Get attending rides of user.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("myrides")]
+        [ResponseType(typeof(List<RideViewModel>))]
+        public IHttpActionResult GetMyRidesForUser([FromUri] string username)
+        {
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                ModelState.AddModelError("username", "username is required.");
+                return BadRequest(ModelState);
+            }
+
+            List<RideViewModel> rides = repo.MyRidesForUser(username);
 
             if (rides?.Count == 0)
             {

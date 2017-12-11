@@ -41,7 +41,18 @@ export class CommentComponent implements OnInit {
       if (newComment.CommentText != "") {
           //Send message to WebApi with service.
           console.log('sending comment ' + newComment.CommentText);
-          var commentId = this.commentService.replyToComment(newComment);
+          var commentId: number;
+          this.commentService.replyToComment(newComment).subscribe(x => commentId = x);
+
+          if (commentId != null) {
+            var comment: Comment;
+            comment.CommentId = commentId;
+            comment.RideId = newComment.RideId;
+            comment.CommentText = newComment.CommentText;
+
+            this.Comment.ChildComments.push(comment);
+
+          }
       }
   }
 }

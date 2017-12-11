@@ -15,7 +15,7 @@ namespace RiderQc.Web.Entities
             Authentifications = new HashSet<Authentification>();
             Comments = new HashSet<Comment>();
             Messages = new HashSet<Message>();
-            Messages1 = new HashSet<Message>();
+            SentMessages = new HashSet<Message>();
             Motoes = new HashSet<Moto>();
             CreatedRides = new HashSet<Ride>();
             Trajets = new HashSet<Trajet>();
@@ -23,6 +23,7 @@ namespace RiderQc.Web.Entities
             UserRatings1 = new HashSet<UserRating>();
             UserRides = new HashSet<UserRide>();
             UserLevels = new HashSet<UserLevel>();
+            UserRoles = new HashSet<UserRole>();
         }
 
         public int UserID { get; set; }
@@ -57,7 +58,7 @@ namespace RiderQc.Web.Entities
         public virtual ICollection<Message> Messages { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> Messages1 { get; set; }
+        public virtual ICollection<Message> SentMessages { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Moto> Motoes { get; set; }
@@ -83,6 +84,7 @@ namespace RiderQc.Web.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLevel> UserLevels { get; set; }
 
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

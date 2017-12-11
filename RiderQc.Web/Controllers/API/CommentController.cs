@@ -2,6 +2,7 @@
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Comment;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace RiderQc.Web.Controllers.API
@@ -16,6 +17,69 @@ namespace RiderQc.Web.Controllers.API
         {
             repo = _repo;
             rideRepo = _rideRepo;
+        }
+
+        /// <summary>
+        /// Get Comment by Id
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{commentId}")]
+        public IHttpActionResult GetById(int commentId)
+        {
+            CommentViewModel commentViewModel = repo.GetById(commentId);
+
+            if(commentViewModel == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(commentViewModel);
+            }
+        }
+
+        /// <summary>
+        /// Delete comment by id
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{commentId}")]
+        public IHttpActionResult Delete(int commentId)
+        {
+            bool result = repo.Delete(commentId);
+
+            if(result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Get Comments for User by Id
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("byuser/{userId}")]
+        public IHttpActionResult GetCommentsByUserId(int userId)
+        {
+            List<CommentViewModel> commentsViewModel = repo.GetCommentsByUserId(userId);
+
+            if (commentsViewModel == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(commentsViewModel);
+            }
         }
 
         /// <summary>

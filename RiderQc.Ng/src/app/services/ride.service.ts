@@ -18,11 +18,23 @@ export class RideService {
 
     constructor(public http:Http, public UserService:UserService) {}
 
+    getRideById(id: number): Observable<Ride> {
+      let ride$ = this.http
+        .get(`${this.baseUrl}/ride/${id}`)
+        .map(res => res.json());
+      return ride$;
+    }
+
     getRides() {
         return this.http.get(`${this.baseUrl}/ride/list`)
             .map(res => res.json());
     }
 
+    getMyRides(username: string) {
+      return this.http.get(`${this.baseUrl}/ride/myrides?username=` + username)
+        .map(res => res.json());
+    }
+  
     details(id: number): Observable<Ride> {
         let ride$ = this.http
             .get(`${this.baseUrl}/ride/${id}`)
