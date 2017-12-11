@@ -1,4 +1,5 @@
 ﻿using RiderQc.Web.ViewModels.Admin;
+using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 

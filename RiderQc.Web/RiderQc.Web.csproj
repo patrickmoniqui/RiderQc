@@ -276,7 +276,9 @@
     <Compile Include="ViewModels\Comment\CommentViewModel.cs" />
     <Compile Include="ViewModels\Level\LevelCreateViewModel.cs" />
     <Compile Include="ViewModels\Level\LevelViewModel.cs" />
+    <Compile Include="ViewModels\Message\MessageViewModel.cs" />
     <Compile Include="ViewModels\Moto\MotoViewModel.cs" />
+    <Compile Include="ViewModels\Parameter\ParameterViewModel.cs" />
     <Compile Include="ViewModels\Ride\RideCreateWithTrajetViewModel.cs" />
     <Compile Include="ViewModels\Ride\RideCreateViewModel.cs" />
     <Compile Include="ViewModels\Ride\RideViewModel.cs" />
@@ -350,7 +352,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Comment\" />
+    <Folder Include="Views\MessageViewModel\" />
     <Folder Include="Views\Moto\" />
+    <Folder Include="Views\ParameterViewModel\" />
     <Folder Include="Views\Ride\" />
     <Folder Include="Views\Trajet\" />
   </ItemGroup>
