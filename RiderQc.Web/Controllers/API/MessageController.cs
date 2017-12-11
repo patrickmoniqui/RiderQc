@@ -55,7 +55,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [AuthTokenAuthorization]
         [HttpGet]
-        [Route("message/inbox")]
+        [Route("inbox")]
         public IHttpActionResult GetInbox(int fetch = -1)
         {
             ApplicationUser user = (ApplicationUser)User;
@@ -83,7 +83,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [AuthTokenAuthorization]
         [HttpGet]
-        [Route("message/outbox")]
+        [Route("outbox")]
         public IHttpActionResult GetOutbox(int fetch = -1)
         {
             ApplicationUser user = (ApplicationUser)User;
