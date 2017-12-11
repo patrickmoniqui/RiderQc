@@ -1,0 +1,134 @@
+.no-padding {
+  padding: 0 !important;
+}
+
+.bg-strip1 {
+  background: repeating-linear-gradient(45deg,#222,#222 10px,#333 10px,#333 20px);
+}
+
+.text-white {
+  color: white;
+}
+
+.full-screen-element {
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+}
+
+.text-black {
+  color: black;
+}
+
+tr {
+  text-align: left;
+}
+
+table, tr, td, th {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+.search {
+  width: 100%;
+  position: relative
+}
+
+.searchTerm {
+  float: left;
+  width: 100%;
+  border: 3px solid #00B4CC;
+  padding: 5px;
+  border-radius: 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+  .searchTerm:focus {
+    color: #00B4CC;
+  }
+
+.searchButton {
+  position: absolute;
+  right: -50px;
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  transform: translate(-50%, -50%);
+}
+
+/*Resize the wrap to see the search bar change!*/
+
+.aligned-row::before {
+  display: block;
+}
+
+.ride-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+  .ride-container > .panel-heading * {
+    color: white;
+  }
+
+.riderqc-section {
+  background-color: rgba(51,122,183,.8);
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.ride-map {
+  min-height: 50vh;
+}
+
+.ride-description, .ride-map-container {
+  padding: 20px;
+}
+
+.riderqc-section * {
+  color: white;
+}
+
+.comment-container {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background: #fff;
+}
+
+  .comment-container::before {
+    top: 18px;
+    left: 78px;
+    width: 9px;
+    height: 9px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+  }
+
+.subComment {
+  margin-left: 50px;
+}

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using RiderQc.Web.Helpers;
+using RiderQc.Web.ViewModels.User;
+using System.Data.Entity;
 
 namespace RiderQc.Web.DAL
 {
     public class UserDao : IUserDao
     {
-        public bool DeleteUser(string username)
+        public bool Delete(string username)
         {
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
@@ -18,7 +20,7 @@ namespace RiderQc.Web.DAL
                 result = ctx.SaveChanges();
             }
 
-            if (result == 1)
+            if (result >= 1)
             {
                 return true;
             }
@@ -31,13 +33,15 @@ namespace RiderQc.Web.DAL
         public bool RegisterUser(User user)
         {
             int result = -1;
+
             using (RiderQcContext ctx = new RiderQcContext())
             {
+                user.Password = EncryptionHelper.HashToSHA256(user.Password);
                 ctx.Users.Add(user);
                 result = ctx.SaveChanges();
             }
 
-            if (result == 1)
+            if (result <= 1)
             {
                 return true;
             }
@@ -65,17 +69,27 @@ namespace RiderQc.Web.DAL
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                return ctx.Users.Find(userId);
+                User user = ctx.Users
+                     .Include(x => x.Motoes)
+                     .FirstOrDefault(x => x.UserID == userId);
+
+                if(user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
-        public List<User> GetAllUsers() 
+        public List<User> GetAllUsers()
         {
-
-
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                var users = ctx.Users;
+                var users = ctx.Users
+                    .Include(u => u.Motoes);
 
                 if (users != null)
                 {
@@ -87,42 +101,8 @@ namespace RiderQc.Web.DAL
                 }
             }
         }
-
-        public List<Trajet> GetAllTrajets()
-        {
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                var trajets = ctx.Trajets;
-
-                if (trajets != null)
-                {
-                    return trajets.ToList();
-                }
-                else
-                {
-                    return new List<Trajet>();
-                }
-            }
-        }
-
-        public List<Ride> GetAllRides()
-        {
-            using (RiderQcContext ctx = new RiderQcContext())
-            {
-                var rides = ctx.Rides;
-
-                if (rides != null)
-                {
-                    return rides.ToList();
-                }
-                else
-                {
-                    return new List<Ride>();
-                }
-            }
-        }
-
-        public bool LoginIsValid(string username, string password)
+        
+        public bool CredentialsAreValid(string username, string password)
         {
             using (RiderQcContext ctx = new RiderQcContext())
             {
@@ -142,10 +122,122 @@ namespace RiderQc.Web.DAL
             {
                 User user = null;
 
-                user = ctx.Users.FirstOrDefault(x => x.Username == username);
+                user = ctx.Users
+                    .Include(x => x.Motoes)
+                    .FirstOrDefault(x => x.Username == username);
 
-                return user;
+                if(user != null)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
             }
+        }
+
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                // If user not existing
+                if (user == null)
+                {
+                    return null;
+                }
+
+                Authentification authToken = new Authentification();
+                authToken.UserId = user.UserID;
+                authToken.IssueDate = DateTime.Now;
+                authToken.ExpirationDate = DateTime.Now.AddDays(expiresAfterNbDays);
+                authToken.Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                
+                user.Authentifications.Add(authToken);
+                ctx.SaveChanges();
+
+                AuthentificationTokenViewModel tokenViewModel = new AuthentificationTokenViewModel();
+                tokenViewModel.Token = authToken.Token;
+                tokenViewModel.IssueDate = authToken.IssueDate;
+                tokenViewModel.ExpirationDate = authToken.ExpirationDate;
+
+                return tokenViewModel;
+            }
+        }
+
+        public AuthentificationTokenViewModel GetLastValidTokenByUsername(string username)
+        {
+            AuthentificationTokenViewModel token = null;
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User user = ctx.Users
+                    .Include("Authentifications")
+                    .FirstOrDefault(x => x.Username == username);
+
+                if (user != null)
+                {
+                    var listToken = user.Authentifications.OrderByDescending(x => x.IssueDate);
+
+                    if (listToken?.Count() >= 1)
+                    {
+                        Authentification lastToken = listToken.FirstOrDefault();
+
+                        //Token still good
+                        if (lastToken.ExpirationDate > DateTime.Now)
+                        {
+                            token = new AuthentificationTokenViewModel();
+                            token.Token = lastToken.Token;
+                            token.IssueDate = lastToken.IssueDate;
+                            token.ExpirationDate = lastToken.ExpirationDate;
+                        }
+                    }
+                }
+            }
+
+            return token;
+        }
+
+        public User GetUserByTokenIsLastTokenIsValid(string token)
+        {
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                Authentification auth = ctx.Authentifications
+                    .Include("User")
+                    .FirstOrDefault(x => x.Token == token && x.ExpirationDate > DateTime.Now);
+
+                if (auth != null && auth.User != null)
+                {
+                    return auth.User;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public List<Ride> GetMyRides(string username)
+        {
+            List<Ride> rides = null;
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                if(!CheckUserExistence(username))
+                {
+                    return null;
+                }
+
+                User user = ctx.Users
+                    .Include(x => x.MyRides)
+                    .FirstOrDefault(x => x.Username == username);
+
+                rides = user.MyRides.ToList();
+            }
+
+            return rides;
         }
     }
 }

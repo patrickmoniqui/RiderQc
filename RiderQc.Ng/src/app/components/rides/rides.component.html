@@ -38,6 +38,11 @@
               <div *ngFor="let comment of ride.Comments">
                 <app-comment [Comment]="comment"></app-comment>
               </div>
+
+              <div class="comment-container">
+                <textarea placeholder="Enter your message"></textarea>
+              </div>
+              <button>Send</button>
             </div>
         </div>
       </div>

@@ -48,6 +48,9 @@
     <DocumentationFile>bin\RiderQc.Web.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -199,110 +202,116 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\AuthentificationController.cs" />
+    <Compile Include="Controllers\API\CommentController.cs" />
     <Compile Include="Controllers\API\LevelController.cs" />
+    <Compile Include="Controllers\API\MessageController.cs" />
     <Compile Include="Controllers\API\MotoController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
+    <Compile Include="Controllers\MVC\Admin\AccountController.cs" />
     <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Controllers\API\RideController.cs" />
     <Compile Include="Controllers\MVC\RideAdminController.cs" />
     <Compile Include="Controllers\MVC\TrajetAdminController.cs" />
+    <Compile Include="DAL\CommentDao.cs" />
+    <Compile Include="DAL\Interface\ICommentDao.cs" />
     <Compile Include="DAL\Interface\ILevelDao.cs" />
     <Compile Include="Controllers\MVC\UserAdminController.cs" />
+    <Compile Include="DAL\Interface\IMessageDao.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\ITrajetDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
+    <Compile Include="DAL\Interface\IUserRoleDao.cs" />
     <Compile Include="DAL\LevelDao.cs" />
+    <Compile Include="DAL\MessageDao.cs" />
     <Compile Include="DAL\MotoDao.cs" />
     <Compile Include="DAL\RideDao.cs" />
     <Compile Include="DAL\TrajetDao.cs" />
     <Compile Include="DAL\UserDao.cs" />
-    <Compile Include="Entities\Comment.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Level.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Message.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Moto.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Ride.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\RiderQcContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Trajet.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\User.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserLevel.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserRating.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\UserRide.cs">
-      <DependentUpon>RiderQcContext.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DAL\UserRoleDao.cs" />
+    <Compile Include="Entities\Authentification.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Level.cs" />
+    <Compile Include="Entities\Message.cs" />
+    <Compile Include="Entities\Moto.cs" />
+    <Compile Include="Entities\Ride.cs" />
+    <Compile Include="Entities\RiderQcContext.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\sysdiagram.cs" />
+    <Compile Include="Entities\Trajet.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserLevel.cs" />
+    <Compile Include="Entities\UserRating.cs" />
+    <Compile Include="Entities\UserRide.cs" />
+    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Constant.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
+    <Compile Include="Helpers\EntityMapper.cs" />
+    <Compile Include="Helpers\ViewModelAnnotationValidation.cs" />
+    <Compile Include="Migrations\201711011759505_InitialCreate.cs" />
+    <Compile Include="Migrations\201711011759505_InitialCreate.Designer.cs">
+      <DependentUpon>201711011759505_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711011812500_AddUserPartipants.cs" />
+    <Compile Include="Migrations\201711011812500_AddUserPartipants.Designer.cs">
+      <DependentUpon>201711011812500_AddUserPartipants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711011844246_AddTrajetFields.cs" />
+    <Compile Include="Migrations\201711011844246_AddTrajetFields.Designer.cs">
+      <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.cs" />
+    <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.Designer.cs">
+      <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="NinjectBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CommentRepository.cs" />
+    <Compile Include="Repository\Interface\ICommentRepository.cs" />
     <Compile Include="Repository\Interface\ILevelRepository.cs" />
+    <Compile Include="Repository\Interface\IMessageRepository.cs" />
     <Compile Include="Repository\Interface\IMotoRepository.cs" />
     <Compile Include="Repository\Interface\ITrajetRepository.cs" />
     <Compile Include="Repository\Interface\IRideRepository.cs" />
     <Compile Include="Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Repository\Interface\IUserRoleRepository.cs" />
     <Compile Include="Repository\LevelRepository.cs" />
+    <Compile Include="Repository\MessageRepository.cs" />
     <Compile Include="Repository\MotoRepository.cs" />
     <Compile Include="Repository\RideRepository.cs" />
     <Compile Include="Repository\TrajetRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="ViewModels\Level\LevelViewModel.cs" />
-    <Compile Include="ViewModels\Moto\MotoViewModel.cs" />
-    <Compile Include="ViewModels\Ride\RideViewModel.cs" />
-    <Compile Include="ViewModels\Trajet\TrajetViewModel.cs" />
-    <Compile Include="ViewModels\User\UserRegisterViewModel.cs" />
-    <Compile Include="ViewModels\User\UserViewModel.cs" />
+    <Compile Include="Repository\UserRoleRepository.cs" />
+    <Compile Include="ViewModels\Admin\AdminLoginViewModel.cs" />
+    <Compile Include="ViewModels\Api\Comment\CommentReplyViewModel.cs" />
+    <Compile Include="ViewModels\Api\Comment\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Api\Level\LevelCreateViewModel.cs" />
+    <Compile Include="ViewModels\Api\Level\LevelViewModel.cs" />
+    <Compile Include="ViewModels\Api\Message\MessageConversationViewModel.cs" />
+    <Compile Include="ViewModels\Api\Message\SendMessageViewModel.cs" />
+    <Compile Include="ViewModels\Api\Moto\MotoViewModel.cs" />
+    <Compile Include="ViewModels\Api\Ride\RideCreateWithTrajetViewModel.cs" />
+    <Compile Include="ViewModels\Api\Ride\RideCreateViewModel.cs" />
+    <Compile Include="ViewModels\Api\Ride\RideViewModel.cs" />
+    <Compile Include="ViewModels\Api\Trajet\TrajetCreateViewModel.cs" />
+    <Compile Include="ViewModels\Api\Trajet\TrajetViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UserAdminViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\AuthentificationTokenViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\UserLoginViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\UserRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\UserSimpleViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Entities\RiderQcContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-      <LastGenOutput>RiderQcContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\RiderQcContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
-      <LastGenOutput>RiderQcContext.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -311,13 +320,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Entities\RiderQcContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RiderQcContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\RiderQcContext.edmx.diagram">
-      <DependentUpon>RiderQcContext.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\RiderQc-Api - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -344,10 +346,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Redoc.cshtml" />
     <Content Include="Views\UserAdmin\Index.cshtml" />
     <Content Include="Views\UserAdmin\CreateNewUser.cshtml" />
     <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
@@ -363,10 +362,13 @@
     <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
     <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
     <Content Include="Views\RideAdmin\DetailRide.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\Redoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Comment\" />
     <Folder Include="Views\Moto\" />
     <Folder Include="Views\Ride\" />
     <Folder Include="Views\Trajet\" />
@@ -381,13 +383,29 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711011759505_InitialCreate.resx">
+      <DependentUpon>201711011759505_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711011812500_AddUserPartipants.resx">
+      <DependentUpon>201711011812500_AddUserPartipants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711011844246_AddTrajetFields.resx">
+      <DependentUpon>201711011844246_AddTrajetFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711241844417_AddUserRoleAndRole.resx">
+      <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

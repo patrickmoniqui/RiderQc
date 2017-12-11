@@ -1,81 +1,102 @@
-<section>
-  <section *ngIf="ride">
-    <section>
-      <div class="container">
-        <h2><b>Détails</b></h2>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="tab-content">
-              <div id="Summery" class="tab-pane fade in active">
-                <div class="table-responsive">
-                  <table class="table-condensed">
-                    <tbody>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-book"></i> Title</td>
-                        <td>{{ride.Title}}</td>
-                      </tr>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-align-justify"></i> Description</td>
-                        <td>{{ride.Description}}</td>
-                      </tr>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-user"></i> Creator</td>
-                        <td>{{ride.Creator.Username}}</td>
-                      </tr>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-exclamation-triangle"></i> Level</td>
-                        <td>{{ride.Level.Name}}<i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol"></i></td>
-                      </tr>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-calendar"></i> Date départ</td>
-                        <td>{{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}</td>
-                      </tr>
-                      <tr>
-                        <td class="text-success"><i class="fa fa-calendar"></i> Date fin</td>
-                        <td>{{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h3>Participants ({{participants.length}}) :</h3>
-            <ul>
-              <li *ngFor="let participant of participants ">participant</li>
-            </ul>
-            <button (click)="participate()" type="button" class="btn btn-primary">Participate</button>
-          </div>
-        </div>
+<div class="panel panel-primary ride-container">
+  <div class="panel-heading text-center">
+    <a [routerLink]="['/rides/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
+      {{ride.Title}} - {{ride.DateDepart}}
+    </a>
+    <p style="display:inline-block">
+      by
+    </p>
+    <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
+      {{ride.Creator.Username}}
+    </a>
+    <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
+      <i class="fa fa-expand" aria-hidden="true"></i>
+    </button>
 
-        <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="55"></app-map>
-
-        <br />
-
-        <div class="row">
-          <div class="comments-container">
-            <div *ngFor="let comment of ride.Comments">
-              <app-comment [Comment]="comment"></app-comment>
-              <a href="" ngClick="">Reply</a>
-              <div class="comment-container" [hidden]>
-                <textarea placeholder="Enter your message"></textarea>
-              </div>
-              <button>Send</button>
-            </div>
-
-            <div class="comment-container">
-              <textarea placeholder="Enter your message"></textarea>
-            </div>
-            <button>Send</button>
-          </div>
-        </div>
-
-        <div class="row">
-          <a href="#" [routerLink]="['/rides/edit/', ride.RideId]">Edit</a><br />
-          <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+    <a [routerLink]="['/rides/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-4 ride-map ride-map-container">
+      <div class="panel panel-danger">
+        <div class="panel-heading">Map</div>
+        <div>
+          <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="55"></app-map>
         </div>
       </div>
-    </section>
-  </section>
-</section>
+    </div>
+    <div class="col-md-8 ride-description">
+      <div class="panel panel-success">
+        <div class="panel-heading">Info</div>
+        <div class="panel-body">
+          <p>
+            <strong>Title:</strong> {{ride.Title}}
+          </p>
+          <p>
+            <strong>Description:</strong> {{ride.Description}}
+          </p>
+          <p>
+            <strong>Niveau:</strong> {{ride.Level.Name}}
+          </p>
+          <p>
+            <strong>Start:</strong> {{ride.DateDepart}}
+          </p>
+          <p *ngIf="ride.DateFin != null">
+            <strong>End:</strong> {{ride.DateFin}}
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">Comments</div>
+        <div class="panel-body">
+          <app-comment *ngFor="let comment of ride.Comments" [Comment]="comment">
+          </app-comment>
+          <div class="comment-container">
+            <div>
+              <textarea *ngIf="isLogged" [(ngModel)]="textValue" (keydown.enter)="sendMessage(); false" placeholder="Enter your message"></textarea>
+              <div style="padding:10px" disabled *ngIf="!isLogged">
+                <p>
+                  <a [routerLink]="['/login']">Login </a>
+                  or
+                  <a [routerLink]="['/register']">Register </a>
+                  to comment.
+                </p>
+              </div>
+            </div>
+            <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <p>
+            Participants
+            <span class="badge">{{ride.Participants.length}}</span>
+          </p>
+        </div>
+        <div class="panel-body">
+          <div *ngIf="isLogged">
+            <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) > -1 ">
+              <button class="btn btn-primary" (click)="cancelAttendRide(ride)">Cancel participation</button>
+              You and {{ride.Participants.length-1}} person are attending this ride.
+            </div>
+            <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) < 0 ">
+              <button class="btn btn-success" (click)="attendRide(ride)">Participate</button>
+              {{ride.Participants.length}} persons are attending this ride.
+            </div>
+          </div>
+          <div *ngIf="!isLogged">
+            <div class="ride-attending-container">
+              {{ride.Participants.length}} persons are attending this ride.
+            </div>
+          </div>
+          <hr />
+          <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
+            {{participant}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

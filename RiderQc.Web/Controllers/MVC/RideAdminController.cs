@@ -23,33 +23,61 @@ namespace RiderQc.Web.Controllers
         [Route("list")]
         public ActionResult Index()
         {
-            List<RideViewModel> rides = repo.GetAllRides();
-            return View(rides);
+            if (Authenticate())
+            {
+                List<RideViewModel> rides = new List<RideViewModel>();
+                return View(rides);
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("edit/{rideid}")]
         public ActionResult EditRide(int rideid)
         {
-            RideViewModel ride = repo.Get(rideid);
-            return View(ride);
+            if (Authenticate())
+            {
+                RideViewModel ride = repo.Get(rideid);
+                return View(ride);
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("delete/{rideid}")]
         public ActionResult DeleteRide(int rideid)
         {
-            repo.Delete(rideid);
-            return View();
+            if (Authenticate())
+            {
+                repo.Delete(rideid);
+                return View();
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("create")]
         public ActionResult CreateNewRide()
         {
-            return View();
+            if (Authenticate())
+            {
+                return View();
+            }
+            return Redirect("/admin/account/login");
         }
         [Route("detail/{rideid}")]
         public ActionResult DetailRide(int rideid)
         {
-            RideViewModel ride = repo.Get(rideid);
-            return View(ride);
+            if (Authenticate())
+            {
+                RideViewModel ride = repo.Get(rideid);
+                return View(ride);
+            }
+            return Redirect("/admin/account/login");
         }
 
-
+        public bool Authenticate()
+        {
+            if (Session != null)
+            {
+                if (Session["Username"] != null)
+                    return true; ;
+            }
+            return false;
+        }
     }
 }

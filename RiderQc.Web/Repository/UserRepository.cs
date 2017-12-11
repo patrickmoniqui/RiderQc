@@ -1,10 +1,12 @@
 ﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
-using RiderQc.Web.ViewModels.Ride;
-using RiderQc.Web.ViewModels.Trajet;
+using RiderQc.Web.ViewModels.Moto;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
+using RiderQc.Web.ViewModels.Admin;
+using RiderQc.Web.ViewModels.Ride;
+using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.Repository
 {
@@ -19,7 +21,7 @@ namespace RiderQc.Web.Repository
 
         public bool DeleteUser(string username)
         {
-            bool result = dao.DeleteUser(username);
+            bool result = dao.Delete(username);
             return result;
         }
 
@@ -27,7 +29,6 @@ namespace RiderQc.Web.Repository
         {
             //map viewmodel to entity
             User user = new User();
-            user.UserID = userViewModel.UserID;
             user.Username = userViewModel.Username;
             user.Password = userViewModel.Password;
             user.Region = userViewModel.Region;
@@ -35,9 +36,7 @@ namespace RiderQc.Web.Repository
             user.DateOfBirth = userViewModel.DateOfBirth;
             user.DpUrl = userViewModel.DpUrl;
 
-            bool result = dao.RegisterUser(user);
-
-            return result;
+            return dao.RegisterUser(user);
         }
 
         public bool CheckUserExistence(string username)
@@ -47,88 +46,173 @@ namespace RiderQc.Web.Repository
 
         public List<UserViewModel> GetAllUsers()
         {
-            List<UserViewModel> list = new List<UserViewModel>();
-
             List<User> users = dao.GetAllUsers();
+            List<UserViewModel> usersViewModel = new List<UserViewModel>();
 
-            foreach (User user in users)
+            users.ForEach(x => usersViewModel.Add(ToViewModel(x)));
+            
+            return usersViewModel;
+        }
+        
+        public UserViewModel GetUserById(int userId)
+        {
+            User user = dao.GetUserById(userId);
+
+            return user != null ? ToViewModel(user) : null;
+        }
+
+        public UserViewModel GetUserByName(string username)
+        {
+            User user = dao.GetByUsername(username);
+
+            return user != null ? ToViewModel(user) : null;
+        }
+
+        public bool CredentialsAreValid(string username, string password)
+        {
+            return dao.CredentialsAreValid(username, password);
+        }
+
+        public AuthentificationTokenViewModel GenerateTokenForUser(string username, int expiresAfterNbDays = 30)
+        {
+            return dao.GenerateTokenForUser(username);
+        }
+
+        public AuthentificationTokenViewModel GetLastValidTokenByUsername(string username)
+        {
+            return dao.GetLastValidTokenByUsername(username);
+        }
+
+        public UserViewModel GetUserByTokenIfLastTokenIsValid(string token)
+        {
+            User user = dao.GetUserByTokenIsLastTokenIsValid(token);
+
+            if (user == null)
+            {
+                return null;
+            }
+            else
             {
                 UserViewModel userViewModel = new UserViewModel();
                 userViewModel.UserID = user.UserID;
                 userViewModel.Username = user.Username;
                 userViewModel.Region = user.Region;
+                userViewModel.Ville = user.Ville;
                 userViewModel.DateOfBirth = user.DateOfBirth;
                 userViewModel.Description = user.Description;
                 userViewModel.DpUrl = user.DpUrl;
-                userViewModel.Motos = user.Motoes;
-                userViewModel.Rides = user.Rides;
-                userViewModel.Ville = user.Ville;
-                list.Add(userViewModel);
-            }
 
-            return list;
+                return userViewModel;
+            }
         }
 
-        public List<RideViewModel> GetAllRides()
+        public List<RideViewModel> GetMyRides(string username)
         {
-            List<RideViewModel> list = new List<RideViewModel>();
-            List<Ride> rides = dao.GetAllRides();
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
 
-            foreach (Ride ride in rides)
+            List<Ride> rides = dao.GetMyRides(username);
+            List<RideViewModel> ridesViewModel = new List<RideViewModel>();
+
+            foreach(Ride ride in rides)
             {
                 RideViewModel rideViewModel = new RideViewModel();
+                rideViewModel.RideId = ride.RideId;
+                rideViewModel.Title = ride.Title;
+                rideViewModel.Description = ride.Description;
                 rideViewModel.CreatorId = ride.CreatorId;
+                rideViewModel.TrajetId = ride.TrajetId;
                 rideViewModel.DateDepart = ride.DateDepart;
                 rideViewModel.DateFin = ride.DateFin;
-                rideViewModel.Description = ride.Description;
-                rideViewModel.LevelId = ride.LevelId;
-                rideViewModel.Title = ride.Title;
-                rideViewModel.TrajetId = ride.TrajetId;
-                list.Add(rideViewModel);
+
+                ridesViewModel.Add(rideViewModel);
             }
-            return list;
+
+            return ridesViewModel;
         }
 
-        public List<TrajetViewModel> GetAllTrajets()
-        {
-            {
-                List<TrajetViewModel> list = new List<TrajetViewModel>();
-
-                List<Trajet> trajets = dao.GetAllTrajets();
-
-                foreach (Trajet trajet in trajets)
-                {
-                    TrajetViewModel trajetViewModel = new TrajetViewModel();
-                    trajetViewModel.TrajetId = trajet.TrajetId;
-                    trajetViewModel.GpsPoints = new List<string>();
-
-                    var gpsPoints = trajet.GoogleCo.Split(';');
-
-                    trajetViewModel.GpsPoints.AddRange(gpsPoints);
-
-                    list.Add(trajetViewModel);
-                }
-
-                return list;
-            }
-        }
-
-        public UserViewModel GetUserById(int userId)
+        private UserViewModel ToViewModel(User user)
         {
             UserViewModel userViewModel = new UserViewModel();
-            User user = dao.GetUserById(userId);
             userViewModel.UserID = user.UserID;
             userViewModel.Username = user.Username;
             userViewModel.Region = user.Region;
+            userViewModel.Ville = user.Ville;
             userViewModel.DateOfBirth = user.DateOfBirth;
             userViewModel.Description = user.Description;
             userViewModel.DpUrl = user.DpUrl;
-            userViewModel.Motos = user.Motoes;
-            userViewModel.Rides = user.Rides;
-            userViewModel.Ville = user.Ville;
+
+            List<MotoViewModel> motosViewModel = new List<MotoViewModel>();
+
+            if(user.Motoes != null)
+            {
+                foreach (Moto moto in user.Motoes)
+                {
+                    MotoViewModel motoViewModel = new MotoViewModel();
+                    motoViewModel.MotoId = moto.MotoId;
+                    motoViewModel.Brand = moto.Brand;
+                    motoViewModel.Model = moto.Model;
+                    motoViewModel.Type = moto.Type;
+                    motoViewModel.Year = moto.Year;
+                    motoViewModel.UserId = moto.UserId;
+
+                    motosViewModel.Add(motoViewModel);
+                }
+            }
+            
+            userViewModel.Motos = motosViewModel;
+            
             return userViewModel;
         }
 
-        
+        private UserAdminViewModel ToAdminViewModel(User user)
+        {
+            UserAdminViewModel userViewModel = new UserAdminViewModel();
+            userViewModel.UserID = user.UserID;
+            userViewModel.Username = user.Username;
+            userViewModel.Password = user.Password;
+            userViewModel.Region = user.Region;
+            userViewModel.Ville = user.Ville;
+            userViewModel.DateOfBirth = user.DateOfBirth;
+            userViewModel.Description = user.Description;
+            userViewModel.DpUrl = user.DpUrl;
+
+            List<MotoViewModel> motosViewModel = new List<MotoViewModel>();
+
+            if (user.Motoes != null)
+            {
+                foreach (Moto moto in user.Motoes)
+                {
+                    MotoViewModel motoViewModel = new MotoViewModel();
+                    motoViewModel.MotoId = moto.MotoId;
+                    motoViewModel.Brand = moto.Brand;
+                    motoViewModel.Model = moto.Model;
+                    motoViewModel.Type = moto.Type;
+                    motoViewModel.Year = moto.Year;
+                    motoViewModel.UserId = moto.UserId;
+
+                    motosViewModel.Add(motoViewModel);
+                }
+            }
+
+            userViewModel.Motos = motosViewModel;
+
+            return userViewModel;
+        }
+
+        public UserAdminViewModel GetUserAdminById(int userId)
+        {
+            User user = dao.GetUserById(userId);
+
+            return user != null ? ToAdminViewModel(user) : null;
+        }
+
+        public User GetUserByNameAdmin(string username)
+        {
+            User user = dao.GetByUsername(username);
+            return user;
+        }
     }
 }

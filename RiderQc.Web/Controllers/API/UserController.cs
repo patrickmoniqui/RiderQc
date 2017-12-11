@@ -1,11 +1,11 @@
 ﻿using RiderQc.Web.App_Start;
-using RiderQc.Web.Entities;
 using RiderQc.Web.Helpers;
+using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -15,10 +15,12 @@ namespace RiderQc.Web.Controllers.API
     public class UserController : ApiController
     {
         private readonly IUserRepository repo;
+        private readonly IUserRoleRepository repo2;
 
-        public UserController(IUserRepository _repo)
+        public UserController(IUserRepository _repo, IUserRoleRepository _repo2)
         {
             repo = _repo;
+            repo2 = _repo2;
         }
 
         /// <summary>
@@ -37,20 +39,8 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            if (!EncryptionHelper.IsBase64(userViewModel.Username) || !(EncryptionHelper.IsBase64(userViewModel.Password)))
-                return BadRequest("An error has occured");
-
-
-            string username = EncryptionHelper.Base64Decode(userViewModel.Username);
-
-            if (repo.CheckUserExistence(username))
+            if (repo.CheckUserExistence(userViewModel.Username))
                 return BadRequest("That username is already taken.");
-
-            userViewModel.Username = username;
-
-            string password = EncryptionHelper.Base64Decode(userViewModel.Password);
-
-            userViewModel.Password = EncryptionHelper.HashToSHA256(password);
 
             DateTime? userDOB = userViewModel.DateOfBirth;
             string region = userViewModel.Region;
@@ -61,14 +51,18 @@ namespace RiderQc.Web.Controllers.API
 
             if (result)
             {
-                return Ok("User successfully registered!");
+                result = repo2.CreateUserRole(
+                    repo.GetUserByName(userViewModel.Username).UserID,
+                    Constant.UserRole_User
+                    );
+                return Ok("User '" + userViewModel.Username +"' successfully registered!");
             }
             else
             {
                 return BadRequest("Error while register user.");
             }
         }
-
+        
         /// <summary>
         /// Delete a user
         /// </summary>
@@ -76,7 +70,7 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpDelete]
         [Route("{username}")]
-        [BasicAuthorization]
+        [AuthTokenAuthorization]
         [ResponseType(typeof(string))]
         public IHttpActionResult DeleteUser(string username)
         {
@@ -103,19 +97,95 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpGet]
         [Route("list")]
-        [ResponseType(typeof(List<User>))]
+        [ResponseType(typeof(List<UserViewModel>))]
         public IHttpActionResult GetAllUsers()
         {
-            List<User> users = new List<User>();
+            List<UserViewModel> users = repo.GetAllUsers();
 
-            using (RiderQcContext ctx = new RiderQcContext())
+            if(users == null)
             {
-                users = ctx.Users.ToList();
+                return BadRequest();
             }
+            else if(users.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(users);
+            }
+        }
 
-            return Ok(users);
-        } 
-        
+        /// <summary>
+        /// List all partipating rides of user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("myrides")]
+        [ResponseType(typeof(List<RideViewModel>))]
+        public IHttpActionResult GetMyRides([FromUri] string username)
+        {
+            List<RideViewModel> rides = repo.GetMyRides(username);
 
+            if (rides?.Count == 0)
+            {
+                return NotFound();
+            }
+            else if (rides?.Count > 0)
+            {
+                return Ok(rides);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Get User by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("")]
+        [ResponseType(typeof(UserViewModel))]
+        public IHttpActionResult GetUserById([FromUri] string username)
+        {
+            UserViewModel user = repo.GetUserByName(username);
+
+            if(user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Get User by Authorization token
+        /// </summary>
+        /// <param name="auth_token"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [Route("bytoken")]
+        [ResponseType(typeof(UserViewModel))]
+        public IHttpActionResult GetUserByAuthToken()
+        {
+            ApplicationUser user = (ApplicationUser)User;
+
+            UserViewModel userViewModel = repo.GetUserByTokenIfLastTokenIsValid(user.Token);
+
+            if (userViewModel != null)
+            {
+                return Ok(userViewModel);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using RiderQc.Web.Helpers;
 using System.Web.Mvc;
 
 namespace RiderQc.Web.Controllers
@@ -10,26 +7,19 @@ namespace RiderQc.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Authenticate())
+                return View();
+            return Redirect("/admin/account/login");
         }
 
-        public ActionResult About()
+        public bool Authenticate()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Redoc()
-        {
-            return View();
+            if (Session != null)
+            {
+                if (Session["Username"] != null)
+                    return true; ;
+            }
+            return false;
         }
     }
 }

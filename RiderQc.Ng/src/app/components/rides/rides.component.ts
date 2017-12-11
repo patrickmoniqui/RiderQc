@@ -1,36 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { RiderqcService } from '../../services/riderqc.service';
+
+//Models
+import { CommentReply } from '../../model/commentReply';
+import { Comment } from '../../model/comment';
+import { User } from '../../model/user';
 import { Ride } from '../../model/ride';
+
+//Services
+import { CommentService } from '../../services/comment.service';
+import { UserService } from '../../services/user.service';
+import { RideService } from '../../services/ride.service';
 
 @Component({
   selector: 'app-rides',
   templateUrl: './rides.component.html',
   styleUrls: ['./rides.component.css'],
-  providers:[RiderqcService]
+  providers:[RideService]
 })
+
 export class RidesComponent implements OnInit {
-    public rides: Ride[];
-    constructor(public riderqcSerice: RiderqcService) {}
+  textValue: any;
+  public commentService: CommentService;
+  public userService: UserService;
+  public isLogged: Boolean;
+  public user: User;
+  public rides: Ride[];
+
+  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
+    this.commentService = _commentService;
+    this.userService = _userService;
+    this.isLogged = this.userService.isLogged;
+
+    if (this.isLogged)
+    {
+      this.userService.getLoggedUser().subscribe(x => this.user = x);
+      console.log(this.user);
+    }
+    else
+    {
+      this.user = null;
+    }
+  }
 
     ngOnInit() {
-        this.fetchAllRide();
+      this.fetchAllRide();
     }
     
     toggleRideContainer(element) {
 
     }
 
-    fetchAllRide() {
-        this.riderqcSerice.getRides().subscribe((rides) => {
+    fetchAllRide()
+    {
+        this.rideService.getRides().subscribe((rides) => {
             console.log(rides);
             this.rides = rides;
         });
     }
 
-    searchBar_OnChange(element) {
+    searchBar_OnChange(element)
+    {
         var value = element.srcElement.value;
 
-        if (value != "") {
+        if (value != "")
+        {
             var tmpRides: Ride[] = new Array();
 
             for (var i = 0, len = this.rides.length; i < len; i++) {
@@ -41,7 +74,9 @@ export class RidesComponent implements OnInit {
 
             this.rides = tmpRides;
 
-        } else {
+        }
+        else
+        {
             this.fetchAllRide();
         }
     }

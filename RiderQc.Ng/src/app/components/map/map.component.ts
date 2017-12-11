@@ -3,7 +3,7 @@ import { GoogleMapsAPIWrapper } from '@agm/core/services/google-maps-api-wrapper
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { Http } from '@angular/http';
 import { DirectionsMapDirective } from './direction.directive';
-import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { TrajetInfo } from "../../model/trajetinfo";
 import { PlaceInfo } from "../../model/placeinfo";
 declare var google: any;

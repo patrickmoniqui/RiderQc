@@ -16,6 +16,7 @@ export class Ride {
   Level: Level;
   Trajet: Trajet;
   Comments: Comment[];
+  Participants: string[];
 
   constructor(RideId?: number, Title?: string, Description?: string, CreatorId?: number, TrajetId?: number, LevelId?: number, DateDepart?: Date, DateFin?: Date) {
       this.RideId = RideId;

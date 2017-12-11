@@ -15,6 +15,30 @@ namespace RiderQc.Web.Repository
             dao = _dao;
         }
 
+        public bool Create(LevelCreateViewModel levelViewModel)
+        {
+            Level level  = new Level();
+            level.Name = levelViewModel.Name;
+
+            return dao.Create(level);
+        }
+
+        public bool Exist(int levelId)
+        {
+            return dao.Exist(levelId);
+        }
+
+        public LevelViewModel Get(int levelId)
+        {
+            LevelViewModel levelViewModel = new LevelViewModel();
+            Level level = dao.Get(levelId);
+
+            levelViewModel.LevelId = level.LevelId;
+            levelViewModel.Name = level.Name;
+
+            return levelViewModel;
+        }
+
         public List<LevelViewModel> GetLevelList()
         {
             List<LevelViewModel> levels = new List<LevelViewModel>();
@@ -22,7 +46,7 @@ namespace RiderQc.Web.Repository
             foreach(Level level in dao.GetLevelList())
             {
                 LevelViewModel l = new LevelViewModel();
-                l.Id = level.LevelId;
+                l.LevelId = level.LevelId;
                 l.Name = level.Name;
                 levels.Add(l);
             }

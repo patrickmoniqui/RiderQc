@@ -3,7 +3,6 @@ using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
 using System.Collections.Generic;
 using RiderQc.Web.ViewModels.Ride;
-using System;
 
 namespace RiderQc.Web.Repository
 {
@@ -15,8 +14,8 @@ namespace RiderQc.Web.Repository
         {
             dao = _dao;
         }
-
-        public bool Create(RideViewModel rideViewModel)
+        
+        public bool Create(RideCreateViewModel rideViewModel)
         {
             //mapping
             Ride ride = new Ride();
@@ -31,43 +30,78 @@ namespace RiderQc.Web.Repository
             return dao.Create(ride);
         }
 
+        public bool CreateWithTrajet(RideCreateWithTrajetViewModel rideViewModel)
+        {
+            //mapping
+            Trajet trajet = new Trajet();
+            trajet.Title = rideViewModel.Trajet.Title;
+            trajet.Description = rideViewModel.Trajet.Description;
+            trajet.CreatorId = rideViewModel.Trajet.CreatorId;
+            string googleCo = string.Join(";", rideViewModel.Trajet.GpsPoints);
+            trajet.GoogleCo = googleCo;
+            
+            Ride ride = new Ride();
+            ride.Title = rideViewModel.Title;
+            ride.Description = rideViewModel.Description;
+            ride.CreatorId = rideViewModel.CreatorId;
+            ride.LevelId = rideViewModel.LevelId;
+            ride.DateDepart = rideViewModel.DateDepart;
+            ride.DateFin = rideViewModel.DateFin;
+            ride.Trajet = trajet;
+
+            return dao.Create(ride);
+        }
+
         public bool Delete(int rideId)
         {
             return dao.Delete(rideId);
         }
 
+        public bool Exist(int rideId)
+        {
+            return dao.Exist(rideId);
+        }
+
         public RideViewModel Get(int rideId)
         {
-            RideViewModel rideViewModel = new RideViewModel();
-            Ride ride = dao.Get(rideId);
-            rideViewModel.CreatorId = ride.CreatorId;
-            rideViewModel.DateDepart = ride.DateDepart;
-            rideViewModel.DateFin = ride.DateFin;
-            rideViewModel.Description = ride.Description;
-            rideViewModel.LevelId = ride.LevelId;
-            rideViewModel.Title = ride.Title;
-            rideViewModel.TrajetId = ride.TrajetId;
+            RideViewModel rideViewModel = dao.Get(rideId);
             return rideViewModel;
         }
 
         public List<RideViewModel> GetAllRides()
         {
-            List<RideViewModel> list = new List<RideViewModel>();
-            List<Ride> rides = dao.GetAllRides();
+            List<RideViewModel> rides = dao.GetAllRides();
+                
+            return rides;
+        }
 
-            foreach (Ride ride in rides)
-            {
-                RideViewModel rideViewModel = new RideViewModel();
-                rideViewModel.CreatorId = ride.CreatorId;
-                rideViewModel.DateDepart = ride.DateDepart;
-                rideViewModel.DateFin = ride.DateFin;
-                rideViewModel.Description = ride.Description;
-                rideViewModel.LevelId = ride.LevelId;
-                rideViewModel.Title = ride.Title;
-                rideViewModel.TrajetId = ride.TrajetId;
-                list.Add(rideViewModel);
-            }
-            return list;
+        public List<string> GetPartipants(int rideId)
+        {
+            return dao.GetPartipants(rideId);
+        }
+
+        public bool AddUserToParticipants(int rideId, string username)
+        {
+            return dao.AddUserToParticipants(rideId, username);
+        }
+
+        public bool RemoveUserToParticipants(int rideId, string username)
+        {
+            return dao.RemoveUserToParticipants(rideId, username);
+        }
+
+        public bool Update(RideCreateViewModel rideViewModel)
+        {
+            Ride ride = new Ride();
+            ride.RideId = rideViewModel.RideId;
+            ride.Title = rideViewModel.Title;
+            ride.Description = rideViewModel.Description;
+            ride.CreatorId = rideViewModel.CreatorId;
+            ride.LevelId = rideViewModel.LevelId;
+            ride.DateDepart = rideViewModel.DateDepart;
+            ride.DateFin = rideViewModel.DateFin;
+
+            return dao.Update(ride);
         }
 
         public bool UserIsCreator(int rideId, string username)
@@ -77,6 +111,18 @@ namespace RiderQc.Web.Repository
                 return false;
             }
             return dao.UserIsCreator(rideId, username);
+        }
+
+        public List<RideViewModel> MyRidesForUser(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            List<RideViewModel> ridesViewModel = dao.MyRidesForUser(username);
+
+            return ridesViewModel;
         }
     }
 }

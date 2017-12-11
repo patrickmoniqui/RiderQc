@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormControl, FormBuilder, Validators, ReactiveFormsModule  } from '@angular/forms';
-import { RiderqcService } from '../../services/riderqc.service';
+import { RideService } from '../../services/ride.service';
 import { UserService } from '../../services/user.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { EmailValidator } from '@angular/forms';
@@ -12,13 +12,14 @@ import { CustomValidation } from './customValidation';
     selector: 'app-register',
     templateUrl: './register.component.html',
 	  styleUrls: ['./register.component.css'],
-	  providers: [UserService, FormBuilder, RiderqcService]
+	  providers: [UserService, FormBuilder, RideService]
 })
 /** register component*/
 export class RegisterComponent implements OnInit
 {
     registerForm: FormGroup;
 
+    currdate: any = "";
     errorlbl: any = "";
     response: any = {};
 
@@ -38,7 +39,7 @@ export class RegisterComponent implements OnInit
     ];
     
     /** register constructor` */
-    constructor(private riderQcService: RiderqcService,
+    constructor(private riderQcService: RideService,
         private userService: UserService,
         private fb: FormBuilder,
         private router: Router)
@@ -55,11 +56,14 @@ export class RegisterComponent implements OnInit
         this.registerForm = this.fb.group({
             'name': new FormControl(this.user.Name, [
                 Validators.required,
-                Validators.email
+                Validators.email,
+                Validators.minLength(4),
+                Validators.maxLength(37)
             ]),
             'password': new FormControl(this.user.Password, [
                 Validators.required,
-                Validators.minLength(6)
+                Validators.minLength(6),
+                Validators.maxLength(75)
             ]),
             'passwordConf': new FormControl(this.user.PasswordConf, [
                 Validators.required,
@@ -72,7 +76,7 @@ export class RegisterComponent implements OnInit
             'dateOfBirth': new FormControl(this.user.DateOfBirth, [Validators.required]),
             'description': new FormControl(this.user.Description)
         }, {
-                validator: CustomValidation.MatchPassword
+            validators: [CustomValidation.MatchPassword, CustomValidation.CheckDateFormat(this.currdate)]
         });
     }
 
@@ -85,8 +89,8 @@ export class RegisterComponent implements OnInit
         this.errorlbl = "";
         
         this.userService.register({
-            "Username": btoa(this.registerForm.value.name),
-            "Password": btoa(this.registerForm.value.password),
+            "Username": this.registerForm.value.name,
+            "Password": this.registerForm.value.password,
             "Region": this.registerForm.value.region,
             "Ville": this.registerForm.value.ville,
             "DateOfBirth": this.registerForm.value.dateOfBirth + "T00:00:00.000Z",
@@ -100,10 +104,7 @@ export class RegisterComponent implements OnInit
             (err) => {
                 //Here you can catch the error
                 this.errorlbl = err;
-                //alert(err) 
-
-            },
-            () => { /*this.router.navigate(['rides'])*/ }
+            }
         );
 
     }

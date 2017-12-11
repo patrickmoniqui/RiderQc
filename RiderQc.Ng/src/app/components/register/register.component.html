@@ -1,5 +1,6 @@
 <div class="login-page">
     <form [formGroup]="registerForm" class="form" novalidatee>
+      <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
       <input id="username" type="email" placeholder="email" class="form-control" formControlName="name" />
       <input id="password" type="password" placeholder="password" class="form-control" formControlName="password" />
       <input id="passwordConf" type="password" placeholder="confirm password" class="form-control" formControlName="passwordConf" />
@@ -8,9 +9,8 @@
         <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
       </select>
       <input id="description" placeholder="description" class="form-control" formControlName="description" />
-      <input id="dateOfBirth" type="date" min="1900-01-01" onkeydown="return false" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" />
+      <input id="dateOfBirth" type="date" min="1900-01-01" onkeydown="return false" placeholder="Date de naissance" class="form-control" formControlName="dateOfBirth" [(ngModel)]="currdate" />
       <button id="submitRegistration" (click)="register()" [disabled]="registerForm.invalid">Register</button>
       <p class="message">Already registered? <a href="/login">Sign In</a></p>
-    </form>
-    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
+    </form> 
 </div>
