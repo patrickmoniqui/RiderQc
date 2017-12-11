@@ -58,7 +58,7 @@
           <label for="Level" class="col-md-1 control-label">Level :</label>
           <div class="col-md-2">
             <select formControlName="levelid" [(ngModel)]="ride.LevelId" class="form-control">
-              <option *ngFor="let level of levels" value={{level.Id}}>{{level.Name}}</option>
+              <option *ngFor="let level of levels" value={{level.LevelId}}>{{level.Name}}</option>
             </select>
           </div>
           <span [hidden]="rideForm.controls.levelid.valid" class="col-md-3 control-valid">(Le Level est requis)</span>
@@ -86,7 +86,8 @@
         <button type="submit" [disabled]="!rideForm.valid" class="btn btn-primary">Submit</button>
       </form>
     </section>
-    <section id="right">
+    <!--
+    <section>
       <ul>
         <li><b>Id :</b> {{ride.RideId}}</li>
         <li><b>Title : </b> {{ride.title}}</li>
@@ -99,6 +100,7 @@
         <li><b>Levels : </b> <ul><li *ngFor="let level of levels">{{level.Name}}</li></ul></li>
       </ul>
     </section>
+    -->
   </section>
   <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
 </section>
