@@ -26,6 +26,7 @@ namespace RiderQc.Web.Entities
         public virtual DbSet<UserRide> UserRides { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<RideRating> RideRatings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -127,6 +128,20 @@ namespace RiderQc.Web.Entities
             modelBuilder.Entity<User>()
                 .HasMany(e => e.UserRoles)
                 .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RideRating>()
+                .Property(e => e.RatingMessage)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.RatedRides)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Ride>()
+                .HasMany(e => e.RideRatings)
+                .WithRequired(e => e.Ride)
                 .WillCascadeOnDelete(false);
         }
     }
