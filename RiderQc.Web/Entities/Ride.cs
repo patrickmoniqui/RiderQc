@@ -14,6 +14,7 @@ namespace RiderQc.Web.Entities
         {
             Comments = new HashSet<Comment>();
             UserRides = new HashSet<UserRide>();
+            RideRatings = new HashSet<RideRating>();
         }
 
         public int RideId { get; set; }
@@ -46,8 +47,12 @@ namespace RiderQc.Web.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Participants { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RideRating> RideRatings { get; set; }
+
         public virtual Trajet Trajet { get; set; }
 
         public virtual User User { get; set; }
+
     }
 }

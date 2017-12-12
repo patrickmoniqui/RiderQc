@@ -207,6 +207,7 @@
     <Compile Include="Controllers\API\LevelController.cs" />
     <Compile Include="Controllers\API\MessageController.cs" />
     <Compile Include="Controllers\API\MotoController.cs" />
+    <Compile Include="Controllers\API\RatingController.cs" />
     <Compile Include="Controllers\API\TrajetController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\MVC\Admin\AccountController.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Controllers\MVC\UserAdminController.cs" />
     <Compile Include="DAL\Interface\IMessageDao.cs" />
     <Compile Include="DAL\Interface\IMotoDao.cs" />
+    <Compile Include="DAL\Interface\IRatingDao.cs" />
     <Compile Include="DAL\Interface\IRideDao.cs" />
     <Compile Include="DAL\Interface\ITrajetDao.cs" />
     <Compile Include="DAL\Interface\IUserDao.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="DAL\LevelDao.cs" />
     <Compile Include="DAL\MessageDao.cs" />
     <Compile Include="DAL\MotoDao.cs" />
+    <Compile Include="DAL\RatingDao.cs" />
     <Compile Include="DAL\RideDao.cs" />
     <Compile Include="DAL\TrajetDao.cs" />
     <Compile Include="DAL\UserDao.cs" />
@@ -237,6 +240,7 @@
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\Moto.cs" />
     <Compile Include="Entities\Ride.cs" />
+    <Compile Include="Entities\RideRating.cs" />
     <Compile Include="Entities\RiderQcContext.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\sysdiagram.cs" />
@@ -268,6 +272,10 @@
     <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.cs" />
     <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.Designer.cs">
       <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712122238443_AddRiderRating.cs" />
+    <Compile Include="Migrations\201712122238443_AddRiderRating.Designer.cs">
+      <DependentUpon>201712122238443_AddRiderRating.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -407,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711241844417_AddUserRoleAndRole.resx">
       <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712122238443_AddRiderRating.resx">
+      <DependentUpon>201712122238443_AddRiderRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
