@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
-import { MessageService } from '../../services/message.service';
+import { MessagerieService } from '../../services/messagerie.service';
 
 @Component({
   selector: 'app-messaging',
@@ -18,7 +18,7 @@ export class MessagingComponent {
 
   //// userService.getBearerAuthHeader();
 
-  constructor(public messageService: MessageService, public userService: UserService) {
+  constructor(public messageService: MessagerieService, public userService: UserService) {
     this.fetchAllMessage();
   }
 

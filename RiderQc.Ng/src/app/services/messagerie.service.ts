@@ -6,7 +6,8 @@ import { UserService } from '../services/user.service';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class MessageService {
+export class MessagerieService {
+
   baseUrl: string = environment.BaseUrl;
 
   constructor(public http: Http, public userService: UserService) { }
@@ -42,4 +43,5 @@ export class MessageService {
     console.error(error.json());
     return Observable.throw(error.json().Message || 'Server error');
   }
+
 }
