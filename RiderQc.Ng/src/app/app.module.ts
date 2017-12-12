@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { UserService } from './services/user.service';
 import { RideService } from './services/ride.service';
 import { CommentService } from './services/comment.service';
-import { MessagerieService } from './services/messaging.service';
+import { MessagerieService } from './services/messagerie.service';
 
 import { LoadingModule } from 'ngx-loading';
 import { HttpModule } from '@angular/http';
@@ -86,7 +86,7 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     CommentService,
-    MessageService
+    MessagerieService
   ],
   bootstrap: [AppComponent]
 })

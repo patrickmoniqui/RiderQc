@@ -17,6 +17,16 @@ export class MessagerieService {
       .map(res => res.json());
   }
 
+  getInbox() {
+    return this.http.get(`${this.baseUrl}/message/inbox`)
+      .map(res => res.json());
+  }
+
+  getOutbox() {
+    return this.http.get(`${this.baseUrl}/message/outbox`)
+      .map(res => res.json());
+  }
+
   sendMessage(jsonMessage) {
     let body = JSON.stringify(jsonMessage);
     let options = new RequestOptions({ headers: this.getSpecialHeaders() });
