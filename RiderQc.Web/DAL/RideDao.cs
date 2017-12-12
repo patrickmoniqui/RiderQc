@@ -70,6 +70,38 @@ namespace RiderQc.Web.DAL
             return rideViewModel;
         }
 
+        public List<RideViewModel> MyRidesForUser(string username)
+        {
+            List<Ride> rides = new List<Ride>();
+            
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                ctx.Configuration.ProxyCreationEnabled = false;
+                ctx.Configuration.LazyLoadingEnabled = false;
+
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                rides = ctx.Rides
+                    .Include(x => x.User)
+                    .Include(x => x.Level)
+                    .Include(x => x.Trajet)
+                    .Include(x => x.Participants)
+                    .Where(x => x.Participants.Select(y => y.UserID).Contains(user.UserID))
+                    .ToList();
+            }
+
+            List<RideViewModel> ridesViewModel = new List<RideViewModel>();
+
+            foreach (Ride ride in rides)
+            {
+                RideViewModel rideViewModel = RideToRideViewMdodel(ride);
+                ridesViewModel.Add(rideViewModel);
+            }
+
+            return ridesViewModel;
+        }
+
         public List<RideViewModel> GetAllRides()
         {
             List<Ride> rides = new List<Ride>();

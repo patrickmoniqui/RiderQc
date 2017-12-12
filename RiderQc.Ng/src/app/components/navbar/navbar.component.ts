@@ -55,8 +55,6 @@ export class NavbarComponent implements OnInit {
       var element = document.getElementById("login-dp");
       var topnav = document.getElementById("myTopnav");
 
-      console.log("login visible b4: " + element.style.display);
-
       if (element.style.display == "none")
       {
         element.style.display = "visible";
@@ -67,7 +65,5 @@ export class NavbarComponent implements OnInit {
         element.style.display = "none";
         topnav.style.overflow = "hidden";
       }
-
-      console.log("login visible after: " + element.style.display);
     }
 }
