@@ -35,7 +35,7 @@
             <i class="fa fa-align-justify infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
           </p>
           <p>
-            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}
+            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}<i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol"></i>
           </p>
           <p>
             <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}

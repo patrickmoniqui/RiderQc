@@ -80,8 +80,7 @@ export class SingleComponent implements OnInit {
     return new Array(n);
   };
 
-  refreshRide()
-  {
+  refreshRide() {
     this.ride = this.rideService.getRideById(this.ride.RideId);
   }
 
