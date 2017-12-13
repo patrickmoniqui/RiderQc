@@ -1,7 +1,7 @@
 <section *ngIf="ride">
   <div class="panel panel-primary ride-container">
     <div class="panel-heading text-center">
-      <a [routerLink]="['/rides/details/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
+      <a [routerLink]="['/ride/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
         <span style="font-weight:bold">{{ride.Title}} </span><i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
       </a>
       <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
@@ -12,14 +12,14 @@
         <i class="fa fa-expand" aria-hidden="true"></i>
       </button>
 
-      <a [routerLink]="['/rides/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+      <a [routerLink]="['/ride/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </a>
     </div>
     <div class="panel-body">
       <div class="col-md-4 ride-map ride-map-container">
         <div class="panel panel-danger">
-          <div class="panel-heading">Map</div>
+          <div class="panel-heading">Map <a style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit</a></div>
           <div>
             <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="50"></app-map>
           </div>
@@ -74,7 +74,7 @@
           <div class="panel-heading">
             <p>
               Participants
-              <span class="badge">{{ride.Participants.length}}</span>
+              <span style="font-size:0.6em" class="badge">{{ride.Participants.length}}</span>
             </p>
           </div>
           <div class="panel-body">

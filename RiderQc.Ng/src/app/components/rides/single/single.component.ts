@@ -43,13 +43,26 @@ export class SingleComponent implements OnInit {
   }
 
   attendRide(ride: Ride) {
-    this.rideService.participate(ride.RideId).subscribe();
-    this.refreshRide()
+    this.rideService.participate(ride.RideId).subscribe(() => {
+      var ride: Ride = this.ride;
+      ride.Participants.push(this.user.Username);
+
+      this.ride = ride;
+    });
   }
 
   cancelAttendRide(ride: Ride) {
-    this.rideService.removeParticipate(ride.RideId).subscribe();
-    this.refreshRide()
+    this.rideService.removeParticipate(ride.RideId).subscribe(() => {
+      var ride: Ride = this.ride;
+
+      const index: number = ride.Participants.indexOf(this.user.Username);
+
+      if (index !== -1) {
+        ride.Participants.splice(index, 1);
+      }
+
+      this.ride = ride;
+    });
   }
 
   sendMessage(event) {
