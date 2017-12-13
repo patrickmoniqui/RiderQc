@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+//Models
 import { TrajetInfo } from "../../../model/trajetinfo";
 
 @Component({

@@ -54,6 +54,8 @@ export function provideConfig() {
     RidesComponent,
     RideDetailsComponent,
     RideEditComponent,
+    MapComponent,
+    InstructionsComponent,
     TrajetDetailsComponent,
     TrajetEditComponent,
     RegisterComponent,

@@ -17,14 +17,10 @@ const routes: Routes = [
     { path: 'rides/details/:id', component: RideDetailsComponent },
     { path: 'rides/edit', component: RideEditComponent },
     { path: 'rides/edit/:id', component: RideEditComponent },
-<<<<<<< HEAD
     { path: 'trajet/details/:id', component: TrajetDetailsComponent },
     { path: 'trajet/edit', component: TrajetEditComponent },
     { path: 'trajet/edit/:id', component: TrajetEditComponent },
-=======
     { path: 'myrides', component: MyridesComponent },
-    { path: 'trajet', component: TrajetComponent },
->>>>>>> develop
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logoff', component: LogoffComponent },

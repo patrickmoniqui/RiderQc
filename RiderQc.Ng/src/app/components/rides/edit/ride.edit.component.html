@@ -1,91 +1,97 @@
-<section class="container">
-  <section *ngIf="ride">
-    <section *ngIf="ride.RideId">
-      <h2 *ngIf="isModification">Vous avez selectionné : {{ride.Title}}</h2>
-    </section>
-    <section>
-      <br />
-      <h3>{{isModification ? 'Modification' : 'Ajouter'}}</h3>
-      <form (ngSubmit)="submitForm()" [formGroup]="rideForm" class="form-horizontal">
-        <div class="form-group">
-          <label for="RideId" class="col-md-1 control-label">Id :</label>
-          <div class="col-md-6">
-            <input type="number" max="9999999999" formControlName="rideid" [(ngModel)]="ride.RideId" placeholder="Id" class="form-control">
-          </div>
-          <span [hidden]="rideForm.controls.rideid.valid" class="col-md-3 control-valid">(Le rideid est requis)</span><br />
-          <div class="col-md-2"></div>
-        </div>
+<section *ngIf="ride" class="container">
+  <div class="panel panel-primary ride-container">
+    <div class="panel-heading text-center">
+      <h3 style="display:inline-block">
+        {{isModification ? 'Modification d\'une ride' : 'Ajout d\'une ride'}}
+      </h3>
+      <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </button>
+    </div>
+      <div class="col-md-12 ride-description">
+        <div class="panel-body">
+          <section *ngIf="ride.RideId">
+            <h2 *ngIf="isModification">Vous avez selectionné : {{ride.Title}}</h2>
+          </section>
+          <section>
+            <br />
 
-        <div class="form-group">
-          <label for="Title" class="col-md-1 control-label">Title :</label>
-          <div class="col-md-6">
-            <input type="text" maxlength="50" formControlName="title" [(ngModel)]="ride.Title" placeholder="Title" class="form-control">
-          </div>
-          <span [hidden]="rideForm.controls.title.valid" class="col-md-3 control-valid">(Le title est requis)</span>
-          <div class="col-md-2"></div>
-        </div>
+            <form (ngSubmit)="submitForm()" [formGroup]="rideForm" class="form-horizontal">
+              <input type="hidden" max="9999999999" formControlName="creatorid" [(ngModel)]="ride.Creator" placeholder="CreatorId" class="form-control">
 
-        <div class="form-group">
-          <label for="Description" class="col-md-1 control-label">Description :</label>
-          <div class="col-md-6">
-            <textarea maxlength="50" formControlName="description" [(ngModel)]="ride.Description" placeholder="Description" class="form-control"></textarea>
-          </div>
-          <span [hidden]="rideForm.controls.description.valid" class="col-md-3 control-valid">(La description est requise)</span>
-          <div class="col-md-2"></div>
-        </div>
+              <div class="form-group">
+                <label for="RideId" class="col-md-4 control-label">Id :</label>
+                <div class="col-md-6">
+                  <input type="number" max="9999999999" formControlName="rideid" [(ngModel)]="ride.RideId" placeholder="Id" class="form-control">
+                </div>
+                <span [hidden]="rideForm.controls.rideid.valid" class="col-md-3 control-valid">(Le rideid est requis)</span><br />
+                <div class="col-md-2"></div>
+              </div>
 
-        <div class="form-group">
-          <label for="CreatorId" class="col-md-1 control-label">Creator Id :</label>
-          <div class="col-md-6">
-            <input type="number" max="9999999999" formControlName="creatorid" [(ngModel)]="ride.CreatorId" placeholder="CreatorId" class="form-control">
-          </div>
-          <span [hidden]="rideForm.controls.creatorid.valid" class="col-md-3 control-valid">(Le creatorid est requis)</span>
-          <div class="col-md-2"></div>
-        </div>
+              <div class="form-group">
+                <label for="Title" class="col-md-4 control-label">Title :</label>
+                <div class="col-md-6">
+                  <input type="text" maxlength="50" formControlName="title" [(ngModel)]="ride.Title" placeholder="Title" class="form-control">
+                </div>
+                <span [hidden]="rideForm.controls.title.valid" class="col-md-3 control-valid">(Le title est requis)</span>
+                <div class="col-md-2"></div>
+              </div>
 
-        <div class="form-group">
-          <label for="TrajetId" class="col-md-1 control-label">Trajet Id :</label>
-          <div class="col-md-2">
-            <select formControlName="trajetid" [(ngModel)]="ride.TrajetId" class="form-control">
-              <option *ngFor="let trajet of trajets" value={{trajet.TrajetId}}>{{trajet.TrajetId}} - {{trajet.Title}}</option>
-            </select>
-          </div>
-          <span [hidden]="rideForm.controls.trajetid.valid" class="col-md-3 control-valid">(Le trajetid est requis)</span>
-          <div class="col-md-6"></div>
-        </div>
+              <div class="form-group">
+                <label for="Description" class="col-md-4 control-label">Description :</label>
+                <div class="col-md-6">
+                  <textarea maxlength="50" formControlName="description" [(ngModel)]="ride.Description" placeholder="Description" class="form-control"></textarea>
+                </div>
+                <div class="col-md-2"></div>
+              </div>
 
-        <div class="form-group">
-          <label for="Level" class="col-md-1 control-label">Level :</label>
-          <div class="col-md-2">
-            <select formControlName="levelid" [(ngModel)]="ride.LevelId" class="form-control">
-              <option *ngFor="let level of levels" value={{level.LevelId}}>{{level.Name}}</option>
-            </select>
-          </div>
-          <span [hidden]="rideForm.controls.levelid.valid" class="col-md-3 control-valid">(Le Level est requis)</span>
-          <div class="col-md-6"></div>
-        </div>
+              <div class="form-group">
+                <label for="TrajetId" class="col-md-4 control-label">Trajet Id :</label>
+                <div class="col-md-3">
+                  <select formControlName="trajetid" [(ngModel)]="ride.TrajetId" class="form-control">
+                    <option *ngFor="let trajet of trajets" value={{trajet.TrajetId}}>{{trajet.TrajetId}} - {{trajet.Title}}</option>
+                  </select>
+                </div>
+                <div class="col-md-5"></div>
+              </div>
 
-        <div class="form-group">
-          <label for="DateDepart" class="col-md-1 control-label">Date Depart :</label>
-          <div class="col-md-3">
-            <input type="datetime-local" formControlName="datedepart" [(ngModel)]="ride.DateDepart" placeholder="DateDepart" class="form-control">
-          </div>
-          <span [hidden]="rideForm.controls.datedepart.valid" class="col-md-3 control-valid">(La Date Depart est requise)</span>
-          <div class="col-md-5"></div>
-        </div>
+              <div class="form-group">
+                <label for="Level" class="col-md-4 control-label">Level :</label>
+                <div class="col-md-3">
+                  <select formControlName="levelid" [(ngModel)]="ride.LevelId" class="form-control">
+                    <option *ngFor="let level of levels" value={{level.LevelId}}>{{level.Name}}</option>
+                  </select>
+                </div>
+                <span [hidden]="rideForm.controls.levelid.valid" class="col-md-3 control-valid">(Le Level est requis)</span>
+                <div class="col-md-5"></div>
+              </div>
 
-        <div class="form-group">
-          <label for="DateFin" class="col-md-1 control-label">Date Fin :</label>
-          <div class="col-md-3">
-            <input type="datetime-local" formControlName="datefin" [(ngModel)]="ride.DateFin" placeholder="DateFin" class="form-control">
-          </div>
-          <span [hidden]="rideForm.controls.datefin.valid" class="col-md-3 control-valid">(La Date Fin est requise)</span>
-          <div class="col-md-5"></div>
-        </div>
+              <div class="form-group">
+                <label for="DateDepart" class="col-md-4 control-label">Date Depart :</label>
+                <div class="col-md-4">
+                  <input type="datetime-local" formControlName="datedepart" [(ngModel)]="ride.DateDepart" placeholder="DateDepart" class="form-control">
+                </div>
+                <span [hidden]="rideForm.controls.datedepart.valid" class="col-md-3 control-valid">(La Date Depart est requise)</span>
+                <div class="col-md-4"></div>
+              </div>
 
-        <button type="submit" [disabled]="!rideForm.valid" class="btn btn-primary">Submit</button>
-      </form>
-    </section>
+              <div class="form-group">
+                <label for="DateFin" class="col-md-4 control-label">Date Fin :</label>
+                <div class="col-md-4">
+                  <input type="datetime-local" formControlName="datefin" [(ngModel)]="ride.DateFin" placeholder="DateFin" class="form-control">
+                </div>
+                <span [hidden]="rideForm.controls.datefin.valid" class="col-md-3 control-valid">(La Date Fin est requise)</span>
+                <div class="col-md-4"></div>
+              </div>
+
+              <p [hidden]="rideForm.controls.creatorid.valid" class="control-valid">(Le creatorid est requis)</p>
+
+              <button type="submit" [disabled]="!rideForm.valid" class="btn btn-primary">Submit</button>
+            </form>
+          </section>
+        </div>
+        <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+      </div>
     <!--
     <section>
       <ul>
@@ -101,6 +107,5 @@
       </ul>
     </section>
     -->
-  </section>
-  <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+  </div>
 </section>

@@ -1,7 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, Validators, NgForm } from '@angular/forms';
+
+//Services
 import { TrajetService } from '../../../services/trajet.service';
+
+//Models
 import { Trajet } from "../../../model/trajet";
 
 @Component({

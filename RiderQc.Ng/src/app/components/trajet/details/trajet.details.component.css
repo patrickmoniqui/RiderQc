@@ -1,32 +1,55 @@
-map-container {
-  width: 100%;
-  display: inline-block;
+.no-padding {
+  padding: 0 !important;
+}
+
+.bg-strip1 {
+  background: repeating-linear-gradient(45deg,#222,#222 10px,#333 10px,#333 20px);
+}
+
+.text-white {
+  color: white;
+}
+
+.full-screen-element {
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+}
+
+.text-black {
+  color: black;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  transform: translate(-50%, -50%);
+}
+
+/*Resize the wrap to see the search bar change!*/
+
+.aligned-row::before {
+  display: block;
+}
+
+.trajet-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.trajet-container > .panel-heading * {
+  color: white;
 }
 
 .ride-map {
-  height: 60vh;
-  width: 45%;
+  width: 75%;
 }
 
-.instructions {
-  max-height: 65vh;
-  overflow: auto;
-  width: 55%;
+.trajet-description, .ride-map-container {
+  padding: 20px;
 }
 
-.instructions agm-map {
-  display: none !important;
-}
-
-.table-condensed * {
-  border: none;
-}
-
-.levelSymbol:first-child {
-  margin-left: 5px;
-  margin-right: 2px;
-}
-
-.levelSymbol {
-  margin-right: 2px;
+.infoSymbol {
+  margin-right: 7px;
 }

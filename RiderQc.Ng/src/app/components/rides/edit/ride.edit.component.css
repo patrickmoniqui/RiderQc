@@ -14,3 +14,14 @@
   text-align: left;
   vertical-align: middle;
 }
+
+.ride-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.ride-container > .panel-heading * {
+  color: white;
+}

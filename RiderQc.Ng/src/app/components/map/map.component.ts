@@ -2,10 +2,14 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, Input, Output, EventE
 import { GoogleMapsAPIWrapper } from '@agm/core/services/google-maps-api-wrapper';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { Http } from '@angular/http';
-import { DirectionsMapDirective } from './direction.directive';
 import { FormControl } from "@angular/forms";
+
+import { DirectionsMapDirective } from './direction.directive';
+
+//Models
 import { TrajetInfo } from "../../model/trajetinfo";
 import { PlaceInfo } from "../../model/placeinfo";
+
 declare var google: any;
 
 @Component({
