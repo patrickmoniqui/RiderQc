@@ -22,7 +22,7 @@
       <div class="panel panel-danger">
         <div class="panel-heading">Map</div>
         <div>
-          <app-map [editable]="false" [waypoints]="ride.Trajet.GoogleCo" [showInstructions]="false" [height]="50"></app-map>
+          <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="false" [height]="50"></app-map>
         </div>
       </div>
     </div>
@@ -31,19 +31,19 @@
         <div class="panel-heading">Info</div>
         <div class="panel-body">
           <p>
-            <strong>Title:</strong> {{ride.Title}}
+            <strong>Title :</strong> {{ride.Title}}
           </p>
           <p>
-            <strong>Description:</strong> {{ride.Description}}
+            <i class="fa fa-book infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
           </p>
           <p>
-            <strong>Niveau:</strong> {{ride.Level.Name}}
+            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}
           </p>
           <p>
-            <strong>Start:</strong> {{ride.DateDepart}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart}}
           </p>
           <p *ngIf="ride.DateFin != null">
-            <strong>End:</strong> {{ride.DateFin}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin}}
           </p>
         </div>
       </div>
@@ -74,6 +74,27 @@
           <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
             {{participant}}
           </a>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">Comments</div>
+        <div class="panel-body">
+          <app-comment *ngFor="let comment of ride.Comments" [Comment]="comment">
+
+          </app-comment>
+          <div class="comment-container">
+            <div>
+              <textarea *ngIf="isLogged" [(ngModel)]="textValue" (keydown.enter)="sendMessage(); false" placeholder="Enter your message"></textarea>
+              <div style="padding:10px" disabled *ngIf="!isLogged">
+                <p>
+                  <a [routerLink]="['/login']">Login </a>or
+                  <a [routerLink]="['/register']">Register </a>to comment.
+                </p>
+              </div>
+            </div>
+            <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
+          </div>
+          <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
         </div>
       </div>
     </div>
