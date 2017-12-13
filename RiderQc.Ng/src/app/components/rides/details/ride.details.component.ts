@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RideService } from '../../../services/ride.service';
-import { CommentService } from "../../../services/comment.service";
-import { UserService } from "../../../services/user.service";
 
 //Models
 import { CommentReply } from '../../../model/commentReply';
 import { Comment } from '../../../model/comment';
 import { Ride } from '../../../model/ride';
 import { User } from '../../../model/user';
+
+//Services
+import { RideService } from '../../../services/ride.service';
+import { CommentService } from "../../../services/comment.service";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-ride-details',
@@ -106,4 +108,9 @@ export class RideDetailsComponent implements OnInit {
         });
       }
     }
+
+    getTimes = function (n) {
+        return new Array(n);
+    };
+
 }
