@@ -16,7 +16,7 @@ import { UserService } from '../../services/user.service';
 export class CommentComponent implements OnInit {
 
     @Input() Comment: Comment;
-    textValue: any;
+    textValue: string;
     public commentService: CommentService;
     public userService: UserService;
     public isLogged: Boolean;
@@ -28,8 +28,13 @@ export class CommentComponent implements OnInit {
         this.isLogged = this.userService.isLogged;
     }
 
-  ngOnInit() {
+    ngOnInit() {
+    }
 
+  getData()
+  {
+    var commentId = this.Comment.CommentId;
+    this.commentService.getById(commentId).subscribe(x => this.Comment = x);
   }
 
   sendMessage(event)
@@ -42,17 +47,24 @@ export class CommentComponent implements OnInit {
           //Send message to WebApi with service.
           console.log('sending comment ' + newComment.CommentText);
           var commentId: number;
-          this.commentService.replyToComment(newComment).subscribe(x => commentId = x);
-
-          if (commentId != null) {
-            var comment: Comment;
-            comment.CommentId = commentId;
-            comment.RideId = newComment.RideId;
-            comment.CommentText = newComment.CommentText;
-
-            this.Comment.ChildComments.push(comment);
-
-          }
+          this.commentService.replyToComment(newComment).subscribe((x) => {
+            commentId = x;
+            this.textValue = "";
+            this.getData();
+          });
       }
+  }
+
+  deleteMessage()
+  {
+    var result: Boolean;
+    this.commentService.deleteById(this.Comment.CommentId).subscribe((x) => {
+      result = x;
+      if (result)
+      {
+        this.Comment = null;
+        this.getData();
+      }
+    });
   }
 }

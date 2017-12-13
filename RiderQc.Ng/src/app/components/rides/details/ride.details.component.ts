@@ -56,8 +56,7 @@ export class RideDetailsComponent implements OnInit {
                 });
         });
     }
-
-
+  
     attendRide(ride: Ride) {
       this.rideService.participate(ride.RideId).subscribe();
       this.refreshRide()

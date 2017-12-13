@@ -10,6 +10,46 @@ namespace RiderQc.Web.DAL
 {
     public class MessageDao : IMessageDao
     {
+        public List<Message> GetInboxMesages(string me, int fetchNb)
+        {
+            List<Message> messages = new List<Message>();
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User _me = ctx.Users.FirstOrDefault(x => x.Username == me);
+
+                if (_me != null)
+                {
+                    messages =
+                        ctx.Messages
+                        .Include(x => x.Sender)
+                        .Include(x => x.Receiver)
+                        .Where(x => x.ReceiverId == _me.UserID).OrderBy(y => y.TimeStamp).ToList();
+                }
+            }
+            return messages;
+        }
+
+        public List<Message> GetOutboxMesages(string me, int fetchNb)
+        {
+            List<Message> messages = new List<Message>();
+
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User _me = ctx.Users.FirstOrDefault(x => x.Username == me);
+
+                if (_me != null)
+                {
+                    messages =
+                        ctx.Messages
+                        .Include(x => x.Sender)
+                        .Include(x => x.Receiver)
+                        .Where(x => x.SenderId == _me.UserID).OrderBy(y => y.TimeStamp).ToList();
+                }
+            }
+            return messages;
+        }
+
         public List<Message> ConversationMessageList(string me, string receiver)
         {
             List<Message> messages = new List<Message>();
