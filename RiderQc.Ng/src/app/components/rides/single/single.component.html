@@ -29,19 +29,19 @@
         <div class="panel-heading">Info</div>
         <div class="panel-body">
           <p>
-            <strong>Title :</strong> {{ride.Title}}
+            <i class="fa fa-book infoSymbol"></i><strong>Title :</strong> {{ride.Title}}
           </p>
           <p>
-            <i class="fa fa-book infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
+            <i class="fa fa-align-justify infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
           </p>
           <p>
-            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}
+            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}<i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol"></i>
           </p>
           <p>
-            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart | date:"fullDate"}} at {{ride.DateDepart | date:"hh:MM"}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}
           </p>
           <p *ngIf="ride.DateFin != null">
-            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin | date:"fullDate"}} at {{ride.DateDepart | date:"hh:MM"}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}
           </p>
         </div>
       </div>
