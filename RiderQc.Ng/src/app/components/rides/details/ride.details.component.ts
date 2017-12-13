@@ -18,9 +18,10 @@ import { UserService } from "../../../services/user.service";
   styleUrls: ['./ride.details.component.css'],
   providers:[RideService]
 })
+
 export class RideDetailsComponent implements OnInit {
   public ride: Ride;
-  textValue: any;
+  textValue: string;
   public user: User;
   public isLogged: Boolean;
   public Comment: Comment;
@@ -47,7 +48,6 @@ export class RideDetailsComponent implements OnInit {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = Number.parseInt(params['id']);
-            console.log('getting ride with id: ', id);
             this.rideService
                 .details(id)
                 .subscribe(
@@ -58,13 +58,26 @@ export class RideDetailsComponent implements OnInit {
     }
   
     attendRide(ride: Ride) {
-      this.rideService.participate(ride.RideId).subscribe();
-      this.refreshRide()
+      this.rideService.participate(ride.RideId).subscribe(() => {
+        var ride: Ride = this.ride;
+        ride.Participants.push(this.user.Username);
+
+        this.ride = ride;
+      });
     }
 
     cancelAttendRide(ride: Ride) {
-      this.rideService.removeParticipate(ride.RideId).subscribe();
-      this.refreshRide()
+      this.rideService.removeParticipate(ride.RideId).subscribe(() => {
+        var ride: Ride = this.ride;
+
+        const index: number = ride.Participants.indexOf(this.user.Username);
+
+        if (index !== -1) {
+          ride.Participants.splice(index, 1);
+        }
+
+        this.ride = ride;
+      });
     }
 
     sendMessage(event) {
@@ -73,25 +86,27 @@ export class RideDetailsComponent implements OnInit {
       newComment.RideId = this.ride.RideId;
 
       if (newComment.CommentText != "") {
-        //Send message to WebApi with service.
-        console.log('sending comment ' + newComment.CommentText);
+
         var commentId: number;
 
-        this._commentService.replyToRide(newComment).subscribe(x => commentId = x);
+        this._commentService.replyToRide(newComment).subscribe((x) => {
+          commentId = x;
 
-        if (commentId != null) {
-          var comment: Comment;
-          comment.CommentId = commentId;
-          comment.RideId = newComment.RideId;
+          var comment = new Comment();
+
           comment.CommentText = newComment.CommentText;
+          comment.User = this.user;
+          comment.TimeStamp = new Date();
+          comment.RideId = newComment.RideId;
+          comment.CommentId = commentId;
 
-          this.ride.Comments.push(comment);
-        }
+          var ride: Ride = this.ride;
+          ride.Comments.push(comment);
+          this.ride = ride;
+          
+          this.textValue = "";
+        });
       }
-    }
-
-    refreshRide() {
-
     }
 
     getTimes = function (n) {
