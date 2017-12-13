@@ -1,38 +1,74 @@
-@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.bg-strip1 {
+  background: repeating-linear-gradient(45deg,#222,#222 10px,#333 10px,#333 20px);
+}
+
+.text-white {
+  color: white;
+}
+
+.full-screen-element {
+  height:100vh;
+  width: 100vw;
+  z-index:99;
+}
+
+.text-black {
+  color: black;
+}
+
+tr {
+  text-align: left;
+}
+
+table, tr, td, th {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+.aligned-row {
+  display: flex;
+  flex-flow: row wrap;
+}
 
 .search {
   width: 100%;
-  position: relative;
+  position: relative
 }
 
-  .search:before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-family: 'FontAwesome';
-    content: '\f002';
-    background: #8FC357;
-    text-align: center;
-    color: #fff;
-    border-radius: 5px;
-    -webkit-font-smoothing: subpixel-antialiased;
-    font-smooth: always;
-  }
+.search:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-family: 'FontAwesome';
+  content: '\f002';
+  background: #8FC357;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smooth: always;
+}
 
 .searchTerm {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  float: left;
   width: 100%;
-  border: 2px solid #8FC357;
+  border: 3px solid #00B4CC;
   padding: 5px;
   height: 40px;
   border-radius: 5px;
   outline: none;
+  color: #9DBFAF;
 }
+
+  .searchTerm:focus {
+    color: #00B4CC;
+  }
 
 .searchButton {
   position: absolute;
@@ -42,4 +78,53 @@
   height: 40px;
   opacity: 0;
   cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  transform: translate(-50%, -50%);
+}
+
+/*Resize the wrap to see the search bar change!*/
+
+.aligned-row::before {
+  display: block;
+}
+
+.ride-container {
+  padding-bottom:20px;
+  border-radius: 5px;
+  overflow:hidden;
+}
+
+.riderqc-section {
+  background-color: rgba(51,122,183,.8);
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.ride-map {
+  min-height: 50vh;
+  margin-top: 10px;
+}
+
+.ride-description {
+  padding: 20px;
+}
+
+.riderqc-section * {
+  color: white;
+}
+
+.levelSymbol {
+  margin-left: 7px;
+}
+
+.infoSymbol {
+  margin-right: 7px;
 }
