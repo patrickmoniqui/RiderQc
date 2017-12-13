@@ -12,5 +12,6 @@ namespace RiderQc.Web.Repository.Interface
         bool RateRide(RideRating rateRide);
         List<UserRatingViewModel> GetUserRatings(int userId);
         List<RideRatingViewModel> GetRideRatings(int rideId);
+        bool CheckIfAlreadyRated(int typesId, int userId, string type);
     }
 }

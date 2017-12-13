@@ -30,7 +30,7 @@ namespace RiderQc.Web.Repository
             foreach (UserRating r in dao.GetAllUserRatings(userId))
             {
                 UserRatingViewModel rating = new UserRatingViewModel();
-                rating.Username = r.User.Username;
+                rating.Username = r.User1.Username;
                 rating.RatingMessage = r.RatingMessage;
                 rating.Rate = r.Rate;
                 ratings.Add(rating);
@@ -68,6 +68,40 @@ namespace RiderQc.Web.Repository
         public float GetRideRatingByRideId(int rideId)
         {
             return dao.GetRideRatingByRideId(rideId);
+        }
+
+        public bool CheckIfAlreadyRated(int typesId, int userId, string type)
+        {
+            switch (type)
+            {
+                case "user":
+                    var list = dao.GetAllUserRatings(typesId);
+                    if (list.Count == 0)
+                        return false;
+                    foreach (UserRating u in list)
+                    {
+                        if(u.RaterId == userId)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                case "ride":
+                    var listR = dao.GetAllRideRatings(typesId);
+                    if (listR.Count == 0)
+                        return false;
+                    foreach (RideRating u in listR)
+                    {
+                        if (u.RaterId == userId)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                default:
+                    //fail safe if unsure
+                    return true;
+            }
         }
     }
 }

@@ -14,6 +14,6 @@ namespace RiderQc.Web.DAL.Interface
         bool RateUser(UserRating userRating);
         bool RateRide(RideRating rideRating);
         List<UserRating> GetAllUserRatings(int userId);
-        List<RideRating> GetAllRideRatings(int userId);
+        List<RideRating> GetAllRideRatings(int rideId);
     }
 }

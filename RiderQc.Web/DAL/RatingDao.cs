@@ -83,7 +83,7 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 List<UserRating> ratings;
-                ratings = ctx.UserRatings.Where(x => x.RatedId == userId).Include(x => x.User).ToList();
+                ratings = ctx.UserRatings.Where(x => x.RatedId == userId).Include(x => x.User1).ToList();
 
                 if (ratings != null)
                 {

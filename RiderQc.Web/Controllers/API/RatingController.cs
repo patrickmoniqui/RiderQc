@@ -6,6 +6,7 @@ using System.Web.Http.Description;
 using RiderQc.Web.Models;
 using RiderQc.Web.Entities;
 using RiderQc.Web.ViewModels.User;
+using System.Collections.Generic;
 
 namespace RiderQc.Web.Controllers.API
 {
@@ -31,6 +32,9 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest("Invalid parameters (rideId, ratingNb(between 0-5))");
 
             ApplicationUser user = (ApplicationUser)User;
+
+            if (repo.CheckIfAlreadyRated(rideId, user.Id, "ride"))
+                return BadRequest("Cannot rate this ride more than once.");
 
             RideRating rRating = new RideRating();
             rRating.Rate = ratingNb;
@@ -60,6 +64,9 @@ namespace RiderQc.Web.Controllers.API
 
             if (ratedUser == null || ratedUser.UserID == user.Id)
                 return BadRequest("Invalid user to rate/Cannot rate yourself.");
+
+            if (repo.CheckIfAlreadyRated(ratedUser.UserID, user.Id, "user"))
+                return BadRequest("Cannot rate this user more than once.");
 
             UserRating uRating = new UserRating();
             uRating.Rate = ratingNb;
@@ -93,5 +100,22 @@ namespace RiderQc.Web.Controllers.API
             return Ok(repo.GetRideRatingByRideId(rideId));
         }
 
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [ResponseType(typeof(List<RideRatingViewModel>))]
+        [Route("ride/list/{rideId}")]
+        public IHttpActionResult GetRideRatingsListByRideId(int rideId)
+        {
+            return Ok(repo.GetRideRatings(rideId));
+        }
+
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [ResponseType(typeof(List<UserRatingViewModel>))]
+        [Route("user/list/{userId}")]
+        public IHttpActionResult GetUserRatingsListByUserId(int userId)
+        {
+            return Ok(repo.GetUserRatings(userId));
+        }
     }
 }
