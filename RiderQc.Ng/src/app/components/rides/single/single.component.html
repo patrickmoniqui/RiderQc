@@ -1,6 +1,6 @@
 <div class="panel panel-primary ride-container">
   <div class="panel-heading text-center">
-    <a [routerLink]="['/rides/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
+    <a [routerLink]="['/rides/details/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
       {{ride.Title}} <i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
     </a>
     <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
@@ -29,19 +29,19 @@
         <div class="panel-heading">Info</div>
         <div class="panel-body">
           <p>
-            <strong>Title :</strong> {{ride.Title}}
+            <i class="fa fa-book infoSymbol"></i><strong>Title :</strong> {{ride.Title}}
           </p>
           <p>
-            <i class="fa fa-book infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
+            <i class="fa fa-align-justify infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
           </p>
           <p>
             <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}
           </p>
           <p>
-            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}
           </p>
           <p *ngIf="ride.DateFin != null">
-            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}
           </p>
         </div>
       </div>
@@ -72,27 +72,6 @@
           <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
             {{participant}}
           </a>
-        </div>
-      </div>
-      <div class="panel panel-info">
-        <div class="panel-heading">Comments</div>
-        <div class="panel-body">
-          <app-comment *ngFor="let comment of ride.Comments" [Comment]="comment">
-
-          </app-comment>
-          <div class="comment-container">
-            <div>
-              <textarea *ngIf="isLogged" [(ngModel)]="textValue" (keydown.enter)="sendMessage(); false" placeholder="Enter your message"></textarea>
-              <div style="padding:10px" disabled *ngIf="!isLogged">
-                <p>
-                  <a [routerLink]="['/login']">Login </a>or
-                  <a [routerLink]="['/register']">Register </a>to comment.
-                </p>
-              </div>
-            </div>
-            <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
-          </div>
-          <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
         </div>
       </div>
     </div>
