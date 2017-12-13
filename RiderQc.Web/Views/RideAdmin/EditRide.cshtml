@@ -1,5 +1,9 @@
 ﻿@model RiderQc.Web.ViewModels.Ride.RideViewModel
 
+
+
+@{ Parameter param = (Parameter)HttpContext.Current.Session["SondageNonClients.SessionParameters"];}
+
 @{
     ViewBag.Title = "EditRide";
 }

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { UserService } from './services/user.service';
 import { RideService } from './services/ride.service';
 import { CommentService } from './services/comment.service';
+import { MessagerieService } from './services/messagerie.service';
 
 import { LoadingModule } from 'ngx-loading';
 import { HttpModule } from '@angular/http';
@@ -11,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+import { StarRatingModule } from 'angular-star-rating';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,7 +83,8 @@ export function provideConfig() {
       libraries: ["places"],
       apiKey: 'AIzaSyCrXlv7ZZWk5yoav8hM-afN6NvDOiKSpuM'
     }),
-    SocialLoginModule
+    SocialLoginModule,
+    StarRatingModule.forRoot()
   ],
   providers: [
     UserService,
@@ -90,7 +93,8 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    CommentService
+    CommentService,
+    MessagerieService
   ],
   bootstrap: [AppComponent]
 })

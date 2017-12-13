@@ -49,6 +49,62 @@ namespace RiderQc.Web.Controllers.API
         }
 
         /// <summary>
+        /// Get receveived messages
+        /// </summary>
+        /// <param name="fetch"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [Route("inbox")]
+        public IHttpActionResult GetInbox(int fetch = -1)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+
+            List<InboxMessageViewModel> messages = repo.GetInboxMessages(user.Username, fetch);
+
+            if (messages.Count > 0)
+            {
+                return Ok(messages);
+            }
+            else if (messages.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Get sent messages
+        /// </summary>
+        /// <param name="fetch"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpGet]
+        [Route("outbox")]
+        public IHttpActionResult GetOutbox(int fetch = -1)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+
+            List<OutboxMessageViewModel> messages = repo.GetOutboxMessages(user.Username, fetch);
+
+            if (messages.Count > 0)
+            {
+                return Ok(messages);
+            }
+            else if (messages.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
         /// Get messages from a conversation with a user.
         /// </summary>
         /// <param name="username"></param>

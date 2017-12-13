@@ -34,6 +34,7 @@ namespace RiderQc.Web.Repository
             user.Region = userViewModel.Region;
             user.Ville = userViewModel.Ville;
             user.DateOfBirth = userViewModel.DateOfBirth;
+            user.Description = userViewModel.Description;
             user.DpUrl = userViewModel.DpUrl;
 
             return dao.RegisterUser(user);

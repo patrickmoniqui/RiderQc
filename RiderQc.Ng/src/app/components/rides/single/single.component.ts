@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { OnClickEvent, OnRatingChangeEven, OnHoverRatingChangeEvent } from 'angular-star-rating/star-rating-struct'
+
 
 //Models
 import { CommentReply } from '../../../model/commentReply';
