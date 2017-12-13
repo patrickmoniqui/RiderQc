@@ -1,12 +1,13 @@
-<div class="comment-container">
+<div *ngIf="Comment != null" class="comment-container">
   <p>
     {{Comment.CommentText}}
+    <button (click)="deleteMessage()" class="btn-nostyle" style="float:right"><i class="fa fa-trash" aria-hidden="true"></i></button>
   </p>
   <p class="ride-comment-header">
     <a href="/user/{{Comment.User.Username}}">
       {{Comment.User.Username}}
     </a>
-    on {{Comment.TimeStamp}}
+    <span style="font-size:0.8em">on {{Comment.TimeStamp | date:"dd/MM/yy hh:mm"}}</span>
   </p>
 
   <div>

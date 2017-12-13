@@ -26,9 +26,18 @@ namespace RiderQc.Web.Controllers.API
         /// <returns></returns>
         [HttpGet]
         [Route("{commentId}")]
-        public IHttpActionResult GetById(int commentId)
+        public IHttpActionResult GetById(int commentId, bool includeChildComments = true)
         {
-            CommentViewModel commentViewModel = repo.GetById(commentId);
+            CommentViewModel commentViewModel;
+
+            if(includeChildComments)
+            {
+                commentViewModel = repo.GetCommentAndChildCommentsById(commentId);
+            }
+            else
+            {
+                commentViewModel =repo.GetById(commentId);
+            }
 
             if(commentViewModel == null)
             {
@@ -37,27 +46,6 @@ namespace RiderQc.Web.Controllers.API
             else
             {
                 return Ok(commentViewModel);
-            }
-        }
-
-        /// <summary>
-        /// Delete comment by id
-        /// </summary>
-        /// <param name="commentId"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("{commentId}")]
-        public IHttpActionResult Delete(int commentId)
-        {
-            bool result = repo.Delete(commentId);
-
-            if(result)
-            {
-                return Ok();
-            }
-            else
-            {
-                return NotFound();
             }
         }
 
@@ -121,6 +109,40 @@ namespace RiderQc.Web.Controllers.API
             else
             {
                 return BadRequest(ModelState);
+            }
+        }
+
+        /// <summary>
+        /// Delete a comment
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpDelete]
+        [Route("{commentId}")]
+        public IHttpActionResult DeleteComment(int commentId)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+            
+            if(!repo.IsCreator(user.Id, commentId))
+            {
+                return BadRequest("You can not delete this comment.");
+            }
+
+            if (commentId <= 0)
+            {
+                return BadRequest("commmentId is invalid.");
+            }
+
+            bool result = repo.Delete(commentId);
+
+            if (result)
+            {
+                return Ok("Comment successfully deleted");
+            }
+            else
+            {
+                 return BadRequest("Error while deleting comment.");
             }
         }
 

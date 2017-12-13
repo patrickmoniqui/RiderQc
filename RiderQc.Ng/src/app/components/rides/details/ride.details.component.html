@@ -1,14 +1,12 @@
 <div class="panel panel-primary ride-container">
   <div class="panel-heading text-center">
     <a [routerLink]="['/rides/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
-      {{ride.Title}} - {{ride.DateDepart}}
+      <span style="font-weight:bold">{{ride.Title}} </span><i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
     </a>
-    <p style="display:inline-block">
-      by
-    </p>
-    <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
-      {{ride.Creator.Username}}
+    <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
+      <i class="fa fa-user" aria-hidden="true"></i> by {{ride.Creator.Username}}
     </a>
+    <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating-comp>
     <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
       <i class="fa fa-expand" aria-hidden="true"></i>
     </button>
