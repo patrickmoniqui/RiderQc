@@ -9,6 +9,10 @@
     <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
       {{ride.Creator.Username}}
     </a>
+    <p style="display:inline-block">
+      <star-rating-comp [starType]="'svg'" [rating]="4" [disabled]="true"></star-rating-comp>
+    </p>
+    
     <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
       <i class="fa fa-expand" aria-hidden="true"></i>
     </button>
