@@ -1,19 +1,17 @@
 <div class="panel panel-primary ride-container">
   <div class="panel-heading text-center">
-    <a [routerLink]="['/rides/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
-      {{ride.Title}} - {{ride.DateDepart}}
+    <a [routerLink]="['/ride/details/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
+      {{ride.Title}} <i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
     </a>
-    <p style="display:inline-block">
-      by
-    </p>
-    <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
-      {{ride.Creator.Username}}
+    <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
+      <i class="fa fa-user" aria-hidden="true"></i> by {{ride.Creator.Username}}
     </a>
+    <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating-comp>
     <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
       <i class="fa fa-expand" aria-hidden="true"></i>
     </button>
 
-    <a [routerLink]="['/rides/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+    <a [routerLink]="['/ride/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
     </a>
   </div>
@@ -22,7 +20,7 @@
       <div class="panel panel-danger">
         <div class="panel-heading">Map</div>
         <div>
-          <app-trajet [editable]="false" [waypoints]="ride.Trajet.GoogleCo"></app-trajet>
+          <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="false" [height]="50"></app-map>
         </div>
       </div>
     </div>
@@ -31,19 +29,19 @@
         <div class="panel-heading">Info</div>
         <div class="panel-body">
           <p>
-            <strong>Title:</strong> {{ride.Title}}
+            <i class="fa fa-book infoSymbol"></i><strong>Title :</strong> {{ride.Title}}
           </p>
           <p>
-            <strong>Description:</strong> {{ride.Description}}
+            <i class="fa fa-align-justify infoSymbol"></i><strong>Description :</strong> {{ride.Description}}
           </p>
           <p>
-            <strong>Niveau:</strong> {{ride.Level.Name}}
+            <i class="fa fa-exclamation-triangle infoSymbol"></i><strong>Niveau :</strong> {{ride.Level.Name}}<i *ngFor="let n of getTimes(ride.Level.LevelId)" class="fa fa-motorcycle levelSymbol"></i>
           </p>
           <p>
-            <strong>Start:</strong> {{ride.DateDepart}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>Start :</strong> {{ride.DateDepart  | date:'fullDate'}}, {{ride.DateDepart  | date:'shortTime'}}
           </p>
           <p *ngIf="ride.DateFin != null">
-            <strong>End:</strong> {{ride.DateFin}}
+            <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}
           </p>
         </div>
       </div>
@@ -51,7 +49,7 @@
         <div class="panel-heading">
           <p>
             Participants
-            <span class="badge">{{ride.Participants.length}}</span>
+            <span style="font-size:0.6em" class="badge">{{ride.Participants.length}}</span>
           </p>
         </div>
         <div class="panel-body">

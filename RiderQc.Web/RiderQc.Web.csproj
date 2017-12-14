@@ -322,6 +322,8 @@
     <Compile Include="ViewModels\Api\User\UserRegisterViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserSimpleViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserViewModel.cs" />
+    <Compile Include="ViewModels\Api\Message\MessageViewModel.cs" />
+    <Compile Include="ViewModels\Parameter\ParameterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -381,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\Message\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="Views\MessageViewModel\" />

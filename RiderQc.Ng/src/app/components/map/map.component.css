@@ -1,0 +1,62 @@
+.coordinateSearch {
+  margin-top: 10px;
+}
+
+agm-map {
+  height: 100%;
+  width: 100%;
+}
+
+map-container {
+  width: 100%;
+  display: inline-block;
+}
+
+.instructions {
+  overflow: auto;
+}
+
+.google_map agm-map {
+  width: 100%;
+}
+
+.trajetInfo {
+  width: 42%;
+  float: left;
+}
+
+.panel-heading {
+  font-weight: bold;
+  font-size: large;
+}
+
+li {
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+.buttonsRow {
+  margin-top: 10px;
+}
+
+.waypointsTable {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table {
+  background-color: #333333;
+  border-radius: 10px;
+}
+
+tr:nth-child(even), thead tr {
+  color: #fff;
+}
+
+.fa-times:hover {
+  color: red;
+}
+
+.extraInfo {
+  padding: 0;
+}
