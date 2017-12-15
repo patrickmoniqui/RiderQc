@@ -24,7 +24,7 @@ namespace RiderQc.Web.DAL
                         ctx.Messages
                         .Include(x => x.Sender)
                         .Include(x => x.Receiver)
-                        .Where(x => x.ReceiverId == _me.UserID).OrderBy(y => y.TimeStamp).ToList();
+                        .Where(x => x.ReceiverId == _me.UserID).OrderByDescending(y => y.TimeStamp).ToList();
                 }
             }
             return messages;
@@ -44,7 +44,7 @@ namespace RiderQc.Web.DAL
                         ctx.Messages
                         .Include(x => x.Sender)
                         .Include(x => x.Receiver)
-                        .Where(x => x.SenderId == _me.UserID).OrderBy(y => y.TimeStamp).ToList();
+                        .Where(x => x.SenderId == _me.UserID).OrderByDescending(y => y.TimeStamp).ToList();
                 }
             }
             return messages;

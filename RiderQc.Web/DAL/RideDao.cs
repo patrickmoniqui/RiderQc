@@ -151,7 +151,8 @@ namespace RiderQc.Web.DAL
             rideViewModel.DateDepart = ride.DateDepart;
             rideViewModel.DateFin = ride.DateFin;
             rideViewModel.Participants = ride.Participants.Select(x => x.Username).ToList();
-            rideViewModel.RideRating = (float)ride.RideRatings.Select(x => x.Rate).Average();
+            var listRatting = ride.RideRatings.Select(x => x.Rate);
+            rideViewModel.RideRating = listRatting?.Count() > 0 ? listRatting.Average() : 0;
 
             LevelViewModel levelViewModel = new LevelViewModel();
             levelViewModel.LevelId = ride.Level.LevelId;

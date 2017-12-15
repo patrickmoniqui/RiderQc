@@ -35,6 +35,8 @@ import { NavbarLoginComponent } from './components/login/navbar-login/navbar-log
 import { MyridesComponent } from './components/rides/myrides/myrides.component';
 import { SingleComponent } from './components/rides/single/single.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 let config = new AuthServiceConfig([
   {
@@ -72,7 +74,9 @@ export function provideConfig() {
     NavbarLoginComponent,
     MyridesComponent,
     SingleComponent,
-    MessagingComponent
+    MessagingComponent,
+    UserEditComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

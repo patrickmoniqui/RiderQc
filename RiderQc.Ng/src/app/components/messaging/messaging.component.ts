@@ -22,9 +22,9 @@ export class MessagingComponent {
   focusedMsg: Message;
   destinataire: User = null;
   destinataireName = "";
+  destinataireNameError: string;
+  messageSent: string;
   nTxtAreaDisabled = false;
-
-  //// userService.getBearerAuthHeader();
 
   constructor(public messageService: MessagerieService, public userService: UserService) {
     this.fetchAllMessage();
@@ -52,17 +52,14 @@ export class MessagingComponent {
   }
 
   checkDestinateur() {
-    console.log("INNNN");
     this.userService.getUser(this.destinataireName).subscribe(
       (daUser) => {
         this.destinataire = daUser;
-        console.log("gotem " + JSON.stringify(daUser));
       },
       (err) => {
         this.destinataire = null;
       }
     );
-
   }
 
   reply() {
@@ -110,14 +107,37 @@ export class MessagingComponent {
   }
 
   sendMessage() {
-    console.log(JSON.stringify(this.destinataire) + " " + this.currMsg);
-    if (this.destinataire != null && this.currMsg != "") {
-      let jsonBody = {
-        'Receiver': this.destinataireName,/*this.destinataire.UserID.toString(),*/
-        'MessageText': this.currMsg
+    this.userService.getUser(this.destinataireName).subscribe(
+      (daUser) => {
+        this.destinataire = daUser;
+        
+        if (this.destinataire != null && this.textValue != "") {
+          let jsonBody = {
+            'Receiver': this.destinataireName,
+            'MessageText': this.textValue
+          }
+          if (this.messageService.sendMessage(jsonBody))
+          {
+            this.messageSent = "Successfully sent.";
+          }
+          else {
+            this.messageSent = "Error."
+          }
+        }
+        else
+        {
+          this.messageSent = "Error."
+        }
+      },
+      (err) => {
+        this.destinataireNameError = "Invalid user.";
+        this.destinataire = null;
       }
-      this.messageService.sendMessage(jsonBody);
-    }
+    );
+  }
 
+  refresh()
+  {
+    this.fetchAllMessage();
   }
 }

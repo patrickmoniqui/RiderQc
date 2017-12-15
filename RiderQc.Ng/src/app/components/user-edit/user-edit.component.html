@@ -1,0 +1,29 @@
+<div id="container">
+  <!--<form [formGroup]="InfoGroup" class="form" novalidatee>-->
+    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
+
+    <input id="ville" placeholder="ville" class="form-control" [(ngModel)]="user.Ville"  />
+    <select class="form-control" >
+      <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
+    </select>
+    <textarea id="description" placeholder="Description" class="form-control" type="text" [(ngModel)]="user.Description"></textarea>
+    <input id="dateOfBirth" type="date" min="1900-01-01" onkeydown="return false" placeholder="Date de Naissance" class="form-control"  [(ngModel)]="currdate" />
+
+    
+
+
+  <!--</form>-->
+  
+  <form>
+    <div *ngIf="!showPass">
+      <a (click) ="ShowPass()">Change Password</a>
+    </div>
+    <div *ngIf="showPass">
+      <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
+      <input id="password" type="password" placeholder="Password" class="form-control"  />
+      <input id="passwordConf" type="password" placeholder="Confirm Password" class="form-control"  />
+      <button name="changePass" (click)="ChangePass('Hello')">Change Password</button>
+      <button name="hidePass" (click)="hidePass()">Clear and Hide</button>
+    </div>
+   </form>
+</div>

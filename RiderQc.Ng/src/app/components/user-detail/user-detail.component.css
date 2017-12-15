@@ -1,0 +1,36 @@
+#userInfo {
+  background-color: #337ab7;
+  width: 40%;
+  border-radius: 10px;
+  padding: 0%;
+}
+
+.motoBox {
+  border-radius: 10px;
+  margin-left: 22.5%;
+  margin-right: 22.5%;
+  background-color: aliceblue;
+  padding: 0.5%;
+}
+
+#userDetails {
+  padding-left:25%;
+  padding-right:25%;
+}
+
+#moto {
+  background-color: lightgray;
+  border-radius: 5px;
+  padding: 1%;
+}
+
+.no-overflow-text {
+  word-wrap: break-word;
+}
+
+#titleSection {
+  margin-top: 1%;
+}
+.cardClass{
+  background-color:white;
+}

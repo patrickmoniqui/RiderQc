@@ -83,3 +83,7 @@
   margin-right: 7px;
 }
 
+.checkbox {
+  display: inline-block;
+}
+
