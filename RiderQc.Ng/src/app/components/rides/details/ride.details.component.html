@@ -17,7 +17,7 @@
       </a>
     </div>
     <div class="panel-body">
-      <div class="col-md-4 ride-map ride-map-container">
+      <div class="col-md-12 ride-map ride-map-container">
         <div class="panel panel-danger">
           <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <a style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit</a></div>
           <div>
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8 ride-description">
+      <div class="col-md-12 ride-description">
         <div class="panel panel-success">
           <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Info</div>
           <div class="panel-body">
@@ -48,7 +48,8 @@
               <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}
             </p>
             <p>
-              Rate this ride
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+              Rate this ride: 
               <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [readOnly]="false"
                                 (onClick)="onClick($event)" 
                                 (onRatingChange)="onRatingChange($event)"

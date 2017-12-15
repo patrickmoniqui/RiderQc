@@ -21,11 +21,11 @@ export class MapComponent implements OnInit {
 
     constructor(private _httpService: Http, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
     @Input() editable = false;
-    @Input() showInstructions = false;
+    @Input() showInstructions;
     @Input() waypoints;
     @Input() height;
     @Output() trajetUpdated = new EventEmitter();
-    showExpansion: boolean = false;
+    showExpansion: boolean;
     google_map_style: any;
     instructions_style: any;
     lat: number = 45.242396;
@@ -42,8 +42,12 @@ export class MapComponent implements OnInit {
 
     ngOnInit() {
         if (this.showInstructions) {
-            this.showExpansion = true;
+            this.showExpansion = false;
         }
+        else {
+          this.showExpansion = true;
+        }
+      
         this.google_map_style = {
             'height': this.height + "vh"
         };
@@ -137,7 +141,8 @@ export class MapComponent implements OnInit {
     }
     
     toggleInstructions() {
-        this.showInstructions = !this.showInstructions;
+      this.showInstructions = !this.showInstructions;
+      this.showExpansion = !this.showInstructions;
         this.vc.ngOnInit();
     }
 

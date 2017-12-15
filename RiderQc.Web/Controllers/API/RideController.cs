@@ -104,7 +104,8 @@ namespace RiderQc.Web.Controllers.Api
             {
                 return BadRequest(ModelState);
             }
-
+            
+            rideViewModel.RideId = rideId;
             bool result = repo.Update(rideViewModel);
 
             if(result)
