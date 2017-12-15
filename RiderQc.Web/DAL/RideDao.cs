@@ -62,6 +62,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Comments.Select(y => y.ChildComments))
                     .Include(x => x.Comments.Select(y => y.ChildComments.Select(z => z.User)))
                     .Include(x => x.Participants)
+                    .Include(x => x.RideRatings)
                     .SingleOrDefault(x => x.RideId == rideId);
 
                 rideViewModel = RideToRideViewMdodel(ride);
@@ -87,6 +88,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Level)
                     .Include(x => x.Trajet)
                     .Include(x => x.Participants)
+                    .Include(x => x.RideRatings)
                     .Where(x => x.Participants.Select(y => y.UserID).Contains(user.UserID))
                     .ToList();
             }
@@ -149,6 +151,7 @@ namespace RiderQc.Web.DAL
             rideViewModel.DateDepart = ride.DateDepart;
             rideViewModel.DateFin = ride.DateFin;
             rideViewModel.Participants = ride.Participants.Select(x => x.Username).ToList();
+            rideViewModel.RideRating = (float)ride.RideRatings.Select(x => x.Rate).Average();
 
             LevelViewModel levelViewModel = new LevelViewModel();
             levelViewModel.LevelId = ride.Level.LevelId;
@@ -164,6 +167,8 @@ namespace RiderQc.Web.DAL
             userSimpleViewModel.UserID = ride.User.UserID;
             userSimpleViewModel.Username = ride.User.Username;
             rideViewModel.Creator = userSimpleViewModel;
+
+
 
             rideViewModel.Comments = new List<CommentViewModel>();
 

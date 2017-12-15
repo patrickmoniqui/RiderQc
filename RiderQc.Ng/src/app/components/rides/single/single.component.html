@@ -6,7 +6,7 @@
     <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
       <i class="fa fa-user" aria-hidden="true"></i> by {{ride.Creator.Username}}
     </a>
-    <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating-comp>
+    <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [size]="'small'" [labelPosition]="'right'" [rating]="ride.RideRating" [readOnly]="true"></star-rating-comp>
     <button class="btn-nostyle" style="float:right">
       <i class="fa fa-expand" aria-hidden="true"></i>
     </button>
@@ -17,16 +17,16 @@
   </div>
   <div class="panel-body">
     <div class="col-md-4 ride-map ride-map-container">
-      <div class="panel panel-danger">
-        <div class="panel-heading">Map</div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i> Map</div>
         <div>
           <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="false" [height]="50"></app-map>
         </div>
       </div>
     </div>
     <div class="col-md-8 ride-description">
-      <div class="panel panel-success">
-        <div class="panel-heading">Info</div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Info</div>
         <div class="panel-body">
           <p>
             <i class="fa fa-book infoSymbol"></i><strong>Title :</strong> {{ride.Title}}
@@ -48,7 +48,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <p>
-            Participants
+            <i class="fa fa-users" aria-hidden="true"></i> Participants
             <span style="font-size:0.6em" class="badge">{{ride.Participants.length}}</span>
           </p>
         </div>
