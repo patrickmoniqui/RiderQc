@@ -34,7 +34,6 @@ export class RidesComponent implements OnInit {
     if (this.isLogged)
     {
       this.userService.getLoggedUser().subscribe(x => this.user = x);
-      console.log(this.user);
     }
     else
     {
@@ -53,7 +52,6 @@ export class RidesComponent implements OnInit {
     fetchAllRide()
     {
         this.rideService.getRides().subscribe((rides) => {
-            console.log(rides);
             this.rides = rides;
         });
     }
