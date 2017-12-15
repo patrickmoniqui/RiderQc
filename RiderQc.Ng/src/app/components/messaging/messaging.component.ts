@@ -13,6 +13,7 @@ import { Message } from '../../model/Message/Message';
 /** messaging component*/
 export class MessagingComponent {
 
+  textValue: string;
   isInbox = true;
   Receiver = "";
   inbox = [];
