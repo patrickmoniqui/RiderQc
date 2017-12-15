@@ -25,7 +25,7 @@
       </div>
       <div *ngIf="showExpansion" class="col-md-6">
         <button (click)="toggleInstructions()" class="btn-nostyle" style="float:right">
-          <i class="fa fa-expand" aria-hidden="true"></i>
+          <i class="fa" [ngClass]="{'fa-toggle-on': showInstructions, 'fa-toggle-off': !showInstructions}" aria-hidden="true"></i> Show instructions
         </button>
       </div>
     </div>

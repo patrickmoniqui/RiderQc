@@ -20,8 +20,6 @@ export class DirectionsMapDirective {
             var directionsService = new google.maps.DirectionsService;
             this.directionsDisplay.setMap(map);
             var directionsDisplay = this.directionsDisplay;
-            console.log("directive origin:", this.origin);
-            console.log("directive destination:", this.destination);
             directionsService.route({
                 origin: this.origin,
                 destination: this.destination,

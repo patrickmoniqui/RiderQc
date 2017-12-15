@@ -82,8 +82,6 @@ export class TrajetEditComponent {
     handleTrajetUpdated(trajet) {
         this.trajetForm.patchValue({ GpsPoints: trajet });
         this.trajet.GpsPoints = trajet;
-        console.log("gps points: ", this.trajet.GpsPoints);
-        console.log("updated value: ", this.trajetForm.value);
     }
 
     submitForm() {
@@ -92,13 +90,11 @@ export class TrajetEditComponent {
               this.trajet.Creator = this.user;
               this.trajetForm.patchValue({ creatorid: this.user.UserID });
               if (this.isModification) {
-                console.log("Update put");
                 this.trajetService
                     .update(this.trajetForm.value)
                     .subscribe(p => {
                         this.response = p;
                         alert(this.response);
-                        console.log("trajet title", this.trajet.Title);
                     });
               } else {
                   console.log("Add trajet");
@@ -107,13 +103,10 @@ export class TrajetEditComponent {
                       .subscribe(p => {
                           this.response = p;
                           alert(this.response);
-                          console.log("trajet title", this.trajet.Title);
                       });
               }
-              console.log("you submitted value: ", this.trajetForm.value);
             }
         } else {
-            console.log("no user");
         }
     }
 }

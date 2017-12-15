@@ -35,7 +35,6 @@ export class TrajetDetailsComponent {
 
         if (this.isLogged) {
             this.userService.getLoggedUser().subscribe(x => this.user = x);
-            console.log(this.user);
         }
         else {
             this.user = null;
@@ -46,7 +45,6 @@ export class TrajetDetailsComponent {
         this.sub = this.route.params.subscribe(params => {
             let id = Number.parseInt(params['id']);
             if (id) {
-                console.log('getting trajet with id: ', id);
                 this.trajetService
                     .details(id)
                     .subscribe(trajet => {

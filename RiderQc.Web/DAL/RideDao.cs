@@ -330,7 +330,11 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 Ride _ride = ctx.Rides.FirstOrDefault(x => x.RideId == ride.RideId);
-                _ride = ride;
+                _ride.DateDepart = ride.DateDepart;
+                _ride.DateFin = ride.DateFin;
+                _ride.Description = ride.Description;
+                _ride.Level = ride.Level;
+                _ride.Title = ride.Title;
                 result = ctx.SaveChanges();
             }
 

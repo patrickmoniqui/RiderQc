@@ -1,6 +1,7 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form">
+      <h2 class="text-center">Login</h2>
       <input name="username" type="text" placeholder="Username" [(ngModel)]="user.Username" (ngModelChange)="change()"/>
       <input name="password" type="password" placeholder="Password" [(ngModel)]="user.Password" (ngModelChange)="change()" />
       <button (click)="login(false)"> Login</button>

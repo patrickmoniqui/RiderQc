@@ -8,24 +8,20 @@
         <i class="fa fa-user" aria-hidden="true"></i> by {{ride.Creator.Username}}
       </a>
       <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [size]="'small'" [labelPosition]="'right'" [rating]="ride.RideRating" [readOnly]="true"></star-rating-comp>
-      <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
-        <i class="fa fa-expand" aria-hidden="true"></i>
-      </button>
-
       <a [routerLink]="['/ride/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'ride/details/' + ride.RideId}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </a>
     </div>
     <div class="panel-body">
-      <div class="col-md-4 ride-map ride-map-container">
+      <div class="col-md-12 ride-map ride-map-container">
         <div class="panel panel-danger">
-          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <a style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit</a></div>
+          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <a *ngIf="isLogged" style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]" [queryParams]="{ReturnUrl:'ride/details/'+ride.RideId}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit</a></div>
           <div>
             <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="50"></app-map>
           </div>
         </div>
       </div>
-      <div class="col-md-8 ride-description">
+      <div class="col-md-12 ride-description">
         <div class="panel panel-success">
           <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Info</div>
           <div class="panel-body">
@@ -48,7 +44,8 @@
               <i class="fa fa-calendar infoSymbol"></i><strong>End :</strong> {{ride.DateFin  | date:'fullDate'}}, {{ride.DateFin  | date:'shortTime'}}
             </p>
             <p>
-              Rate this ride
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+              Rate this ride: 
               <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [readOnly]="false"
                                 (onClick)="onClick($event)" 
                                 (onRatingChange)="onRatingChange($event)"
@@ -88,24 +85,33 @@
           </div>
           <div class="panel-body">
             <div *ngIf="isLogged">
+              <!-- 0 users participating -->
+              <div class="ride-attending-container" *ngIf="ride.Participants.length <= 0">
+                <button class="btn btn-success" (click)="attendRide(ride)">Participate</button>
+                Be the first to participate.
+              </div>
+              <!-- You are participating -->
               <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) > -1 ">
                 <button class="btn btn-primary" (click)="cancelAttendRide(ride)">Cancel participation</button>
-                You and {{ride.Participants.length-1}} person are attending this ride.
+                <a href="#" [attr.data-tooltip]='ride.Participants.join("\n")'>You and {{ride.Participants.length-1}} persons </a>
+                are attending this ride.
               </div>
-              <div class="ride-attending-container" *ngIf="ride.Participants.indexOf(user?.Username) < 0 ">
+
+              <div class="ride-attending-container" *ngIf="ride.Participants.length > 0 && ride.Participants.indexOf(user?.Username) < 0 ">
                 <button class="btn btn-success" (click)="attendRide(ride)">Participate</button>
-                {{ride.Participants.length}} persons are attending this ride.
+                <a href="#" [attr.data-tooltip]='ride.Participants.join("\n")'>{{ride.Participants.length}} persons </a>
+                are attending this ride.
               </div>
             </div>
-            <div *ngIf="!isLogged">
+            <div *ngIf="!isLogged && ride.Participants.length > 0">
               <div class="ride-attending-container">
-                {{ride.Participants.length}} persons are attending this ride.
+                <a href="#" [attr.data-tooltip]='ride.Participants.join("\n")'>{{ride.Participants.length}} persons </a>
+                are attending this ride.
               </div>
             </div>
-            <hr />
-            <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
-              {{participant}}
-            </a>
+            <div class="ride-attending-container" *ngIf="!isLogged && ride.Participants.length <= 0">
+              There is no participants to this ride.
+            </div>
           </div>
         </div>
       </div>
