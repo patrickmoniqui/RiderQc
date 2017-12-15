@@ -224,6 +224,8 @@ namespace RiderQc.Web.Repository
         public bool EditUser(UserViewModel userViewModel)
         {
             User user = new User();
+            user.UserID = userViewModel.UserID;
+            user.Username = userViewModel.Username;
             user.DateOfBirth = userViewModel.DateOfBirth;
             user.Description = userViewModel.Description;
             user.DpUrl = userViewModel.DpUrl;

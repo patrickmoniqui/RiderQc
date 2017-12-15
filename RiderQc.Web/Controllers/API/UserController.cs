@@ -159,19 +159,16 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            if(user.Username == editUserViewModel.Username)
-            {
-                UserViewModel userViewModel = new UserViewModel();
-                userViewModel.UserID = user.Id;
-                userViewModel.Username = user.Username;
-                userViewModel.DateOfBirth = editUserViewModel.DateOfBirth;
-                userViewModel.Description = editUserViewModel.Description;
-                userViewModel.DpUrl = editUserViewModel.DpUrl;
-                userViewModel.Region = editUserViewModel.Region;
-                userViewModel.Ville = editUserViewModel.Ville;
+            UserViewModel userViewModel = new UserViewModel();
+            userViewModel.UserID = user.Id;
+            userViewModel.Username = user.Username;
+            userViewModel.DateOfBirth = editUserViewModel.DateOfBirth;
+            userViewModel.Description = editUserViewModel.Description;
+            userViewModel.DpUrl = editUserViewModel.DpUrl;
+            userViewModel.Region = editUserViewModel.Region;
+            userViewModel.Ville = editUserViewModel.Ville;
 
-                result = repo.EditUser(userViewModel);
-            }
+            result = repo.EditUser(userViewModel);
 
             if(result)
             {

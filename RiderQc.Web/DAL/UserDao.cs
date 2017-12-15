@@ -56,8 +56,20 @@ namespace RiderQc.Web.DAL
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                ctx.Entry(user).State = EntityState.Modified;
-                result = ctx.SaveChanges();
+                User _user = ctx.Users.FirstOrDefault(x => x.UserID == user.UserID);
+
+                if(_user != null)
+                {
+                    _user.DateOfBirth = user.DateOfBirth;
+                    _user.Description = user.Description;
+                    _user.DpUrl = user.DpUrl;
+                    _user.Region = user.Region;
+                    _user.Ville = user.Ville;
+
+                    ctx.Entry(_user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
+                
             }
 
             if (result <= 1)

@@ -4,7 +4,6 @@ namespace RiderQc.Web.ViewModels.Api.User
 {
     public class EditUserViewModel
     {
-        public string Username { get; set; }
         public string Region { get; set; }
         public string Ville { get; set; }
         public DateTime? DateOfBirth { get; set; }
