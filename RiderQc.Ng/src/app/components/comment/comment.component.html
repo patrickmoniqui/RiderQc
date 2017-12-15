@@ -1,24 +1,17 @@
-<div class="comment-container">
+<div *ngIf="Comment != null" class="comment-container">
   <p>
     {{Comment.CommentText}}
+    <button (click)="deleteMessage()" class="btn-nostyle" style="float:right"><i class="fa fa-trash" aria-hidden="true"></i></button>
   </p>
   <p class="ride-comment-header">
     <a (click)="redirectToUser(Comment.User.Username)">
       {{Comment.User.Username}}
     </a>
-    on {{Comment.TimeStamp}}
+    <span style="font-size:0.8em">on {{Comment.TimeStamp | date:"dd/MM/yy hh:mm"}}</span>
   </p>
 
   <div>
-    <textarea [(ngModel)]="textValue" *ngIf="isLogged" placeholder="Enter your message" ></textarea>
-    <div style="padding:10px" disabled *ngIf="!isLogged" >
-      <p>
-        <a [routerLink]="['/login']">Login </a>
-        or 
-        <a [routerLink]="['/register']">Register </a>
-        to comment.
-      </p>
-    </div>
+    <textarea *ngIf="isLogged" [(ngModel)]="textValue" (keydown.enter)="sendMessage(); false"  placeholder="Enter your message" ></textarea>
   </div>
   <button *ngIf="isLogged" (click)="sendMessage($event)">Send</button>
 

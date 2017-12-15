@@ -24,7 +24,7 @@ export class RidesComponent implements OnInit {
   public userService: UserService;
   public isLogged: Boolean;
   public user: User;
-  public rides: Ride[];
+  public rides: Ride[] = [];
 
   constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
     this.commentService = _commentService;
@@ -80,4 +80,8 @@ export class RidesComponent implements OnInit {
             this.fetchAllRide();
         }
     }
+
+    getTimes = function (n) {
+        return new Array(n);
+    };
 }

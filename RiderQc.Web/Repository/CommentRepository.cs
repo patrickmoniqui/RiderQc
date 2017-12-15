@@ -3,6 +3,7 @@ using RiderQc.Web.Entities;
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Comment;
+using RiderQc.Web.ViewModels.User;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +30,7 @@ namespace RiderQc.Web.Repository
 
         public CommentViewModel GetById(int commentId)
         {
-            Comment comment = dao.GetById(commentId);
+            Comment comment = dao.GetSingleCommentById(commentId);
 
             if(comment == null)
             {
@@ -46,6 +47,18 @@ namespace RiderQc.Web.Repository
             commentViewModel.Vote = comment.Vote;
             commentViewModel.Blocked = comment.Blocked;
 
+            return commentViewModel;
+        }
+
+        public CommentViewModel GetCommentAndChildCommentsById(int commentId)
+        {
+            CommentViewModel commentViewModel = dao.GetCommentAndChildCommentsById(commentId);
+
+            if (commentViewModel == null)
+            {
+                return null;
+            }
+            
             return commentViewModel;
         }
 
@@ -76,6 +89,11 @@ namespace RiderQc.Web.Repository
             }
 
             return commentsViewModel;
+        }
+
+        public bool IsCreator(int userId, int commentId)
+        {
+            return dao.IsCreator(userId, commentId);
         }
 
         public int ReplyToComment(CommentViewModel commentViewModel)

@@ -25,6 +25,6 @@ namespace RiderQc.Web.ViewModels.Ride
         public RiderQc.Web.ViewModels.Trajet.TrajetViewModel Trajet { get; set; }
         public UserSimpleViewModel Creator { get; set; }
         public List<string> Participants { get; set; }
-
+        public double RideRating { get; set; }
     }
 }

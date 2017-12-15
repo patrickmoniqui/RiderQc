@@ -1,22 +1,201 @@
-<div>
-  <div class="tab">
-    <button class="tablinks" (click)="openCity('Inbox')" [ngStyle]="{'background-color': isInbox ? '#ccc' : 'inherit' }">Inbox</button>
-    <button class="tablinks" (click)="openCity('Outbox')" [ngStyle]="{'background-color': !isInbox ? '#ccc' : 'inherit' }">Outbox</button>
-  </div>
-  <div id="Inbox" class="tabcontent" [ngStyle]="{'display': isInbox ? 'block' : 'none' }" >
-    <h1>Inbox2del</h1>
-    <div class="preview" *ngFor="let message of inbox" [ngStyle]="{'backgroud-color': message.Read ? '#666666' : '#555555' }">
-      <h4>{{message.User.Username}}</h4>
-      <h3>{{message.Title}}</h3>
-      <span>{{message.TimeStamp}}</span>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 col-md-2">
+      <div class="btn-group">
+      </div>
+    </div>
+    <div class="col-sm-9 col-md-10">
+      <!-- Split button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default">
+          <div class="checkbox" style="margin: 0;">
+            <label>
+              <input type="checkbox">
+            </label>
+          </div>
+        </button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">All</a></li>
+          <li><a href="#">None</a></li>
+          <li><a href="#">Read</a></li>
+          <li><a href="#">Unread</a></li>
+        </ul>
+      </div>
+      <button (click)="refresh" type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+      <!-- Single button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          More <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Mark all as read</a></li>
+          <li class="divider"></li>
+          <li class="text-center"><small class="text-muted">Select messages to see more actions</small></li>
+        </ul>
+      </div>
+      <div class="pull-right">
+        <span class="text-muted"><b>1</b>–<b>50</b> of <b>277</b></span>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="Outbox" class="tabcontent" [ngStyle]="{'display': !isInbox ? 'block' : 'none' }" >
-    <h1>Outbox2del</h1>
-    <div class="preview" *ngFor="let message of outbox">
-      <h4>{{message.User1.Username}}</h4>
-      <h3>{{message.Title}}</h3>
-      <span>{{message.TimeStamp}}</span>
+  <hr />
+  <div class="row">
+    <div class="col-sm-3 col-md-2">
+      <a data-toggle="tab" href="#compose" class="btn btn-danger btn-sm btn-block" role="button">COMPOSE</a>
+      <hr />
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active">
+          <a data-toggle="tab" href="#inbox"><span class="badge pull-right">{{inbox.length}}</span> Inbox </a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#outbox"><span class="badge pull-right">{{outbox.length}}</span> Sent Mail</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-md-10">
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- INBOX -->
+        <div class="tab-pane fade in active" id="inbox">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Inbox</div>
+            <div class="panel-body">
+              <div class="list-group">
+                <div *ngFor="let message of inbox">
+                  <a href="#" class="list-group-item">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox">
+                      </label>
+                    </div>
+                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
+                                        display: inline-block;"><strong>{{message.Receiver.Username}}</strong></span>
+                    <span class="text-muted" style="font-size: 11px;">{{message.MessageText}}</span> <span class="badge">{{message.TimeStamp | date:"dd/MM/yyyy HH:mm"}}</span> <span class="pull-right">
+                      <span *ngIf="message.HasAttachment" class="glyphicon glyphicon-paperclip">
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUTBOX -->
+        <div class="tab-pane fade" id="outbox">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Sent message</div>
+            <div class="panel-body">
+              <div *ngFor="let message of outbox">
+                <div class="list-group">
+                  <a href="#" class="list-group-item">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox">
+                      </label>
+                    </div>
+                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
+                                        display: inline-block;"><strong>{{message.Receiver.Username}}</strong></span>
+                    <span class="text-muted" style="font-size: 11px;">{{message.MessageText}}</span> <span class="badge">{{message.TimeStamp | date:"dd/MM/yyyy HH:mm"}}</span> <span class="pull-right">
+                      <span *ngIf="message.HasAttachment" class="glyphicon glyphicon-paperclip">
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- COMPOSE NEW EMAIL -->
+        <div class="tab-pane fade" id="compose">
+          <div class="panel panel-danger">
+            <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Compose</div>
+            <div class="panel-body message">
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label for="to" class="col-sm-1 control-label">To:</label>
+                  <div class="col-sm-11">
+                    <input type="email" class="form-control select2-offscreen" id="to" placeholder="Type email" tabindex="-1">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cc" class="col-sm-1 control-label">CC:</label>
+                  <div class="col-sm-11">
+                    <input type="email" class="form-control select2-offscreen" id="cc" placeholder="Type email" tabindex="-1">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="bcc" class="col-sm-1 control-label">BCC:</label>
+                  <div class="col-sm-11">
+                    <input type="email" class="form-control select2-offscreen" id="bcc" placeholder="Type email" tabindex="-1">
+                  </div>
+                </div>
+              </form>
+              <div class="col-sm-11 col-sm-offset-1">
+
+                <div class="btn-toolbar" role="toolbar">
+
+                  <div class="btn-group">
+                    <button class="btn btn-default"><span class="fa fa-bold"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-italic"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-underline"></span></button>
+                  </div>
+
+                  <div class="btn-group">
+                    <button class="btn btn-default"><span class="fa fa-align-left"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-align-right"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-align-center"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-align-justify"></span></button>
+                  </div>
+
+                  <div class="btn-group">
+                    <button class="btn btn-default"><span class="fa fa-indent"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-outdent"></span></button>
+                  </div>
+
+                  <div class="btn-group">
+                    <button class="btn btn-default"><span class="fa fa-list-ul"></span></button>
+                    <button class="btn btn-default"><span class="fa fa-list-ol"></span></button>
+                  </div>
+                  <button class="btn btn-default"><span class="fa fa-trash-o"></span></button>
+                  <button class="btn btn-default"><span class="fa fa-paperclip"></span></button>
+                  <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-tags"></span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">add label <span class="label label-danger"> Home</span></a></li>
+                      <li><a href="#">add label <span class="label label-info">Job</span></a></li>
+                      <li><a href="#">add label <span class="label label-success">Clients</span></a></li>
+                      <li><a href="#">add label <span class="label label-warning">News</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <br>
+
+                <div class="form-group">
+                  <textarea class="form-control" id="message" name="body" rows="12" placeholder="Click here to reply"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success">Send</button>
+                  <button type="submit" class="btn btn-danger">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

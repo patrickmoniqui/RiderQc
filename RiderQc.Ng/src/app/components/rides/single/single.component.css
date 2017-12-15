@@ -80,9 +80,9 @@ table, tr, td, th {
   overflow: hidden;
 }
 
-  .ride-container > .panel-heading * {
-    color: white;
-  }
+.ride-container > .panel-heading * {
+  color: white;
+}
 
 .riderqc-section {
   background-color: rgba(51,122,183,.8);
@@ -114,21 +114,29 @@ table, tr, td, th {
   background: #fff;
 }
 
-  .comment-container::before {
-    top: 18px;
-    left: 78px;
-    width: 9px;
-    height: 9px;
-    border-width: 0 0 1px 1px;
-    border-style: solid;
-    border-color: #e5e5e5;
-    background: #fff;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-  }
+.comment-container::before {
+  top: 18px;
+  left: 78px;
+  width: 9px;
+  height: 9px;
+  border-width: 0 0 1px 1px;
+  border-style: solid;
+  border-color: #e5e5e5;
+  background: #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
 
 .subComment {
   margin-left: 50px;
+}
+
+.levelSymbol {
+  margin-left: 7px;
+}
+
+.infoSymbol {
+  margin-right: 7px;
 }
