@@ -1,32 +1,54 @@
-<div id="container" *ngIf="user">
-  <h1>
-    {{user.Username}}
-  </h1>
-  <p>
-    Description : {{user.Description}}
-  </p>
-  <p *ngIf="user.Region">
-   Region : {{user.Region}}
-  </p>
-  <p *ngIf="date">
-    Date of Birth : {{displayDate}}
-  </p>
-  <div *ngIf="user.Motos.Brand">
-    <h3>
-      Motos :
-    </h3>
-    <p *ngFor="let moto of user.Motos">
-        Brand : {{moto.Brand}}
+<div id="userInfo" class="container" *ngIf="user">
+  <div class="card cardClass">
+    <div class="card-header text-center no-overflow-text" id="titleSection">
+      <h1>{{user.Username}}</h1>
+      <hr />
+    </div>
+    <div id="userDetails" class="card-block">
+      <p class="no-overflow-text">
+        <label>
+          Description :
+        </label>
+        {{user.Description}}
+      </p>
+      <p *ngIf="user.Region" class="no-overflow-text">
+        <label>
+          Region : 
+        </label>
+        {{user.Region}}
+      </p>
+      <p *ngIf="user.Ville" class="no-overflow-text">
+        <label>
+          Ville : 
+        </label>
+        {{user.Ville}}
+      </p>
+      <p *ngIf="user.DateOfBirth" class="no-overflow-text">
+        <label>
+          Date of Birth : 
+        </label>
+        {{displayDate}}
+      </p>
+    </div>
+    <div class="motoBox">
+      <h3 >
+        Motos :
+      </h3>
+      <p *ngFor="let moto of user.Motos" id="moto">
+        <label>Brand : </label>
+        {{moto.Brand}}
         <br />
-        Model : {{moto.Model}}
+        <label>Model : </label>
+        {{moto.Model}}
         <br />
-        Year : {{moto.Year}}     
-    </p>
-    
+        <label>Year : </label>
+        {{moto.Year}}
+      </p>
+    </div>
+    <hr />
   </div>
-
 </div>
-<div *ngIf="!user">
+<div class="container" *ngIf="!user">
   <h1>
     User not Found
   </h1>
