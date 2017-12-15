@@ -31,12 +31,10 @@ export class NavbarLoginComponent implements OnInit {
 
     if (this.isLogged) {
       this.userService.getLoggedUser().subscribe(x => this.user = x);
-      console.log("navbar user: " + this.user);
     }
   }
 
   ngOnInit() {
-    console.log("navbar login::ngOnInit");
     if (this.user == null)
     {
       this.user = new User();
@@ -44,9 +42,7 @@ export class NavbarLoginComponent implements OnInit {
 
     this.authService.authState.subscribe((socialUser) => {
       this.socialUser = socialUser;
-      //this.sociallyLoggedIn = (socialUser != null);
     });
-    console.log("navbar user: " + this.user);
   }
 
   signInWithGoogle(): void {
@@ -71,7 +67,6 @@ export class NavbarLoginComponent implements OnInit {
   }
 
   login(isSocial: boolean): void {
-    console.log("Logging in..");
     this.userService.Login(this.user.Username, this.user.Password).subscribe(
       (token) => {
         window.location.href = "/";
@@ -99,10 +94,7 @@ export class NavbarLoginComponent implements OnInit {
             this.err = "Fatal Error";
           }
         }
-
-
       }
     );
   }
-
 }

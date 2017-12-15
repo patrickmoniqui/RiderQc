@@ -30,18 +30,15 @@ export class MessagerieService {
   }
 
   sendMessage(jsonMessage) {
-    //let body = JSON.stringify(jsonMessage);
     let options = new RequestOptions({ headers: this.getSpecialHeaders() });
     options.body = jsonMessage;
-    console.log(JSON.stringify(jsonMessage) + JSON.stringify(options));
     return this.http.post(`${this.baseUrl}/message/send`, jsonMessage, options)
       .subscribe(
       res => {
-        console.log("gucci");
-        return res;
+        return true;
       },
       err => {
-        console.log("fail xd");
+        console.log("Error while sending message.");
       }
       );
   }
@@ -62,5 +59,4 @@ export class MessagerieService {
     console.error(error.json());
     return Observable.throw(error.json().Message || 'Server error');
   }
-
 }

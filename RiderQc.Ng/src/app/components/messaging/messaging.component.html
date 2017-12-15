@@ -70,7 +70,7 @@
       <div class="tab-content">
         <!-- INBOX -->
         <div class="tab-pane fade in active" id="inbox">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Inbox</div>
             <div class="panel-body">
               <div class="list-group">
@@ -82,7 +82,7 @@
                       </label>
                     </div>
                     <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                        display: inline-block;"><strong>{{message.Receiver.Username}}</strong></span>
+                                        display: inline-block;"><strong>{{message.Sender.Username}}</strong></span>
                     <span class="text-muted" style="font-size: 11px;">{{message.MessageText}}</span> <span class="badge">{{message.TimeStamp | date:"dd/MM/yyyy HH:mm"}}</span> <span class="pull-right">
                       <span *ngIf="message.HasAttachment" class="glyphicon glyphicon-paperclip">
                       </span>
@@ -95,7 +95,7 @@
         </div>
         <!-- OUTBOX -->
         <div class="tab-pane fade" id="outbox">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Sent message</div>
             <div class="panel-body">
               <div *ngFor="let message of outbox">
@@ -120,33 +120,18 @@
         </div>
         <!-- COMPOSE NEW EMAIL -->
         <div class="tab-pane fade" id="compose">
-          <div class="panel panel-danger">
+          <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Compose</div>
             <div class="panel-body message">
-              <form class="form-horizontal" role="form">
-                <div class="form-group">
+                <div>
                   <label for="to" class="col-sm-1 control-label">To:</label>
                   <div class="col-sm-11">
-                    <input type="email" class="form-control select2-offscreen" id="to" placeholder="Type email" tabindex="-1">
+                    <input [(ngModel)]="destinataireName"  type="email" class="form-control select2-offscreen" id="to" placeholder="Type email" tabindex="-1">
+                    <p [(ngModel)]="destinataireNameError" class="error-label">{{destinataireNameError}}</p>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="cc" class="col-sm-1 control-label">CC:</label>
-                  <div class="col-sm-11">
-                    <input type="email" class="form-control select2-offscreen" id="cc" placeholder="Type email" tabindex="-1">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="bcc" class="col-sm-1 control-label">BCC:</label>
-                  <div class="col-sm-11">
-                    <input type="email" class="form-control select2-offscreen" id="bcc" placeholder="Type email" tabindex="-1">
-                  </div>
-                </div>
-              </form>
               <div class="col-sm-11 col-sm-offset-1">
-
                 <div class="btn-toolbar" role="toolbar">
-
                   <div class="btn-group">
                     <button class="btn btn-default"><span class="fa fa-bold"></span></button>
                     <button class="btn btn-default"><span class="fa fa-italic"></span></button>
@@ -182,14 +167,12 @@
                   </div>
                 </div>
                 <br>
-
                 <div class="form-group">
-                  <textarea class="form-control" id="message" name="body" rows="12" placeholder="Click here to reply"></textarea>
+                  <textarea [(ngModel)]="textValue" class="form-control" id="message" name="body" rows="12" placeholder="Click here to reply"></textarea>
                 </div>
-
                 <div class="form-group">
-                  <button type="submit" class="btn btn-success">Send</button>
-                  <button type="submit" class="btn btn-danger">Cancel</button>
+                  <button (click)="sendMessage()" type="submit" class="btn btn-success">Send</button>
+                  <p [(ngModel)]="messageSent" class="error-label">{{messageSent}}</p>
                 </div>
               </div>
             </div>
