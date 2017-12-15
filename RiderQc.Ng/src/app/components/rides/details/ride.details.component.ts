@@ -11,12 +11,16 @@ import { User } from '../../../model/user';
 import { RideService } from '../../../services/ride.service';
 import { CommentService } from "../../../services/comment.service";
 import { UserService } from "../../../services/user.service";
+import { TrajetService } from "../../../services/trajet.service";
 
 @Component({
   selector: 'app-ride-details',
   templateUrl: './ride.details.component.html',
   styleUrls: ['./ride.details.component.css'],
-  providers:[RideService]
+  providers: [
+      RideService,
+      TrajetService
+  ]
 })
 
 export class RideDetailsComponent implements OnInit {
@@ -32,7 +36,8 @@ export class RideDetailsComponent implements OnInit {
       private router: Router,
       public rideService: RideService,
       public _commentService: CommentService,
-      public _userService: UserService
+      public _userService: UserService,
+      public trajetService: TrajetService,
     )
     {
       this.isLogged = _userService.isLogged;
@@ -53,6 +58,12 @@ export class RideDetailsComponent implements OnInit {
                 .subscribe(
                 p => {
                     this.ride = p;
+                    this.trajetService
+                        .details(this.ride.TrajetId)
+                        .subscribe(
+                        t => {
+                            this.ride.Trajet = t;
+                        });
                 });
         });
     }
