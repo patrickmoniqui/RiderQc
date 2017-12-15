@@ -1,0 +1,34 @@
+<div id="container" *ngIf="user">
+  <h1>
+    {{user.Username}}
+  </h1>
+  <p>
+    Description : {{user.Description}}
+  </p>
+  <p *ngIf="user.Region">
+   Region : {{user.Region}}
+  </p>
+  <p *ngIf="date">
+    Date of Birth : {{displayDate}}
+  </p>
+  <div *ngIf="user.Motos.Brand">
+    <h3>
+      Motos :
+    </h3>
+    <p *ngFor="let moto of user.Motos">
+        Brand : {{moto.Brand}}
+        <br />
+        Model : {{moto.Model}}
+        <br />
+        Year : {{moto.Year}}     
+    </p>
+    
+  </div>
+
+</div>
+<div *ngIf="!user">
+  <h1>
+    User not Found
+  </h1>
+</div>
+
