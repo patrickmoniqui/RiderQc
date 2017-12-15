@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TrajetComponent } from './components/trajet/trajet.component';
+import { TrajetDetailsComponent } from './components/trajet/details/trajet.details.component';
+import { TrajetEditComponent } from './components/trajet/edit/trajet.edit.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
@@ -15,10 +16,13 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 const routes: Routes = [
     { path: '', redirectTo: 'rides', pathMatch: 'full' },
     { path: 'rides', component: RidesComponent },
-    { path: 'rides/:id', component: RideDetailsComponent },
-    { path: 'rides/edit/:id', component: RideEditComponent },
+    { path: 'ride/details/:id', component: RideDetailsComponent },
+    { path: 'ride/create', component: RideEditComponent },
+    { path: 'ride/edit/:id', component: RideEditComponent },
+    { path: 'trajet/details/:id', component: TrajetDetailsComponent },
+    { path: 'trajet/create', component: TrajetEditComponent },
+    { path: 'trajet/edit/:id', component: TrajetEditComponent },
     { path: 'myrides', component: MyridesComponent },
-    { path: 'trajet', component: TrajetComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logoff', component: LogoffComponent },

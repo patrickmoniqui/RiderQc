@@ -1,7 +1,16 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RideService } from '../../../services/ride.service';
+
+//Models
+import { CommentReply } from '../../../model/commentReply';
+import { Comment } from '../../../model/comment';
 import { Ride } from '../../../model/ride';
+import { User } from '../../../model/user';
+
+//Services
+import { RideService } from '../../../services/ride.service';
+import { CommentService } from "../../../services/comment.service";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-ride-details',
@@ -9,24 +18,99 @@ import { Ride } from '../../../model/ride';
   styleUrls: ['./ride.details.component.css'],
   providers:[RideService]
 })
+
 export class RideDetailsComponent implements OnInit {
-    public ride: Ride;
+  public ride: Ride;
+  textValue: string;
+  public user: User;
+  public isLogged: Boolean;
+  public Comment: Comment;
     sub: any;
 
-    constructor(public riderqcSerice: RideService,
-                private route: ActivatedRoute,
-                private router: Router) {}
+    constructor (
+      private route: ActivatedRoute,
+      private router: Router,
+      public rideService: RideService,
+      public _commentService: CommentService,
+      public _userService: UserService
+    )
+    {
+      this.isLogged = _userService.isLogged;
+
+      if (this.isLogged) {
+        this._userService.getLoggedUser().subscribe(x => this.user = x);
+      }
+      else {
+        this.user = null;
+      }
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = Number.parseInt(params['id']);
-            console.log('getting ride with id: ', id);
-            this.riderqcSerice
+            this.rideService
                 .details(id)
                 .subscribe(
                 p => {
                     this.ride = p;
                 });
         });
-  }
+    }
+  
+    attendRide(ride: Ride) {
+      this.rideService.participate(ride.RideId).subscribe(() => {
+        var ride: Ride = this.ride;
+        ride.Participants.push(this.user.Username);
+
+        this.ride = ride;
+      });
+    }
+
+    cancelAttendRide(ride: Ride) {
+      this.rideService.removeParticipate(ride.RideId).subscribe(() => {
+        var ride: Ride = this.ride;
+
+        const index: number = ride.Participants.indexOf(this.user.Username);
+
+        if (index !== -1) {
+          ride.Participants.splice(index, 1);
+        }
+
+        this.ride = ride;
+      });
+    }
+
+    sendMessage(event) {
+      var newComment = new CommentReply();
+      newComment.CommentText = this.textValue;
+      newComment.RideId = this.ride.RideId;
+
+      if (newComment.CommentText != "") {
+
+        var commentId: number;
+
+        this._commentService.replyToRide(newComment).subscribe((x) => {
+          commentId = x;
+
+          var comment = new Comment();
+
+          comment.CommentText = newComment.CommentText;
+          comment.User = this.user;
+          comment.TimeStamp = new Date();
+          comment.RideId = newComment.RideId;
+          comment.CommentId = commentId;
+
+          var ride: Ride = this.ride;
+          ride.Comments.push(comment);
+          this.ride = ride;
+          
+          this.textValue = "";
+        });
+      }
+    }
+
+    getTimes = function (n) {
+        return new Array(n);
+    };
+
 }

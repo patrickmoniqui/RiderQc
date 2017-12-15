@@ -1,0 +1,85 @@
+.no-padding {
+  padding: 0 !important;
+}
+
+.bg-strip1 {
+  background: repeating-linear-gradient(45deg,#222,#222 10px,#333 10px,#333 20px);
+}
+
+.text-white {
+  color: white;
+}
+
+.full-screen-element {
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+}
+
+.text-black {
+  color: black;
+}
+
+.aligned-row::before {
+  display: block;
+}
+
+.ride-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.ride-container > .panel-heading * {
+  color: white;
+}
+
+.ride-map {
+  min-height: 50vh;
+  width: 75%;
+}
+
+.ride-description, .ride-map-container {
+  padding: 20px;
+}
+
+.riderqc-section * {
+  color: white;
+}
+
+.comment-container {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.comment-container::before {
+  top: 18px;
+  left: 78px;
+  width: 9px;
+  height: 9px;
+  border-width: 0 0 1px 1px;
+  border-style: solid;
+  border-color: #e5e5e5;
+  background: #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.subComment {
+  margin-left: 50px;
+}
+
+.levelSymbol {
+  margin-left: 7px;
+}
+
+.infoSymbol {
+  margin-right: 7px;
+}
+

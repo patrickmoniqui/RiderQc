@@ -31,9 +31,15 @@
           </a>
         </li>
         <li *ngIf="isLogged" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/ride/create']">
+          <a [routerLink]="['/rides/create']">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Create ride
+          </a>
+        </li>
+        <li *ngIf="isLogged" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/messaging']">
+            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            Chat
           </a>
         </li>
       </ul>

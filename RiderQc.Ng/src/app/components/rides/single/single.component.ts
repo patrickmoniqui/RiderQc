@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { OnClickEvent, OnRatingChangeEven, OnHoverRatingChangeEvent } from 'angular-star-rating/star-rating-struct'
+
 
 //Models
 import { CommentReply } from '../../../model/commentReply';
@@ -26,7 +27,7 @@ export class SingleComponent implements OnInit {
   public isLogged: Boolean;
   public Comment: Comment;
 
-  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
     this.isLogged = _userService.isLogged;
 
     if (this.isLogged) {
@@ -42,13 +43,26 @@ export class SingleComponent implements OnInit {
   }
 
   attendRide(ride: Ride) {
-    this.rideService.participate(ride.RideId).subscribe();
-    this.refreshRide()
+    this.rideService.participate(ride.RideId).subscribe(() => {
+      var ride: Ride = this.ride;
+      ride.Participants.push(this.user.Username);
+
+      this.ride = ride;
+    });
   }
 
   cancelAttendRide(ride: Ride) {
-    this.rideService.removeParticipate(ride.RideId).subscribe();
-    this.refreshRide()
+    this.rideService.removeParticipate(ride.RideId).subscribe(() => {
+      var ride: Ride = this.ride;
+
+      const index: number = ride.Participants.indexOf(this.user.Username);
+
+      if (index !== -1) {
+        ride.Participants.splice(index, 1);
+      }
+
+      this.ride = ride;
+    });
   }
 
   sendMessage(event) {
@@ -79,19 +93,8 @@ export class SingleComponent implements OnInit {
     return new Array(n);
   };
 
-  refreshRide()
-  {
+  refreshRide() {
     this.ride = this.rideService.getRideById(this.ride.RideId);
-  }
-
-  redirectToUser(participant: string)
-  {
-      console.log("Redirect from user");
-      console.log(participant);
-
-     
-      this.router.navigate(['/user'], { queryParams: { username: participant}});
-     
   }
 
 }

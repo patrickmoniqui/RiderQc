@@ -18,41 +18,42 @@ import { RideService } from '../../../services/ride.service';
 })
 export class MyridesComponent implements OnInit {
 
-  public isLogged: Boolean;
+  public isLogged: Boolean = true;
   user: User;
   public rides: Ride[];
-
-  public commentService: CommentService;
-  public userService: UserService;
-
-  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
-    this.commentService = _commentService;
-    this.userService = _userService;
-    this.isLogged = this.userService.isLogged;
-
-    if (this.isLogged) {
-      var token = this.userService.getAuthCookie();
-      this.userService.getUserByAuthToken(token).subscribe(x => this.user = x);
-      console.log("user: " + this.user);
-
-    }
-    else {
-      this.user = null;
-    }
+  isLoading: Boolean;
+  
+  constructor(public rideService: RideService, public commentService: CommentService, public userService: UserService) {
   }
 
   ngOnInit() {
-    this.GetMyRidesForLoggedUser();
+    this.isLoading = true;
+
+    this.user = new User();
+    this.user.Username = "Loading user..";
+
+    this.isLogged = this.userService.isLogged;
+
+    if (this.isLogged) {
+      this.userService.getLoggedUser().subscribe((user) => {
+        this.user = user;
+        this.GetMyRidesForLoggedUser();
+        this.isLoading = false;
+      });
+    }
+  }
+
+  ngAfterViewInit() {
+
   }
 
   GetMyRidesForLoggedUser() {
     if (this.isLogged)
     {
-      let username = this.user.Username;
-      this.userService.getMyRides(username).subscribe((rides) => {
+      this.rideService.getMyRides(this.user.Username).subscribe((rides) => {
         this.rides = rides;
+        console.log(this.rides);
       });
-      console.log(this.rides);
     }
   }
 }
