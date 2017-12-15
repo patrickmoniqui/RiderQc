@@ -11,6 +11,7 @@ import { MessagerieService } from '../../services/messagerie.service';
 /** messaging component*/
 export class MessagingComponent {
 
+  textValue: string;
   isInbox = true;
   inbox = [];
   outbox = [];
