@@ -1,31 +1,34 @@
-<div>
+
+<div class="root">
   <div class="tab">
     <button class="tablinks" (click)="openCity('Inbox')" [ngStyle]="{'background-color': isInbox ? '#ccc' : 'inherit' }">Inbox</button>
     <button class="tablinks" (click)="openCity('Outbox')" [ngStyle]="{'background-color': !isInbox ? '#ccc' : 'inherit' }">Outbox</button>
   </div>
-  <div id="Inbox" class="tabcontent" [ngStyle]="{'display': isInbox ? 'block' : 'none' }" >
-    <h1>Inbox2del</h1>
-    <div class="preview" *ngFor="let message of inbox" [ngStyle]="{'backgroud-color': message.Read ? '#666666' : '#555555' }">
-      <h4>{{message.User.Username}}</h4>
-      <h3>{{message.Title}}</h3>
+  <div id="Inbox" class="tabcontent" [ngStyle]="{'display': isInbox ? 'block' : 'none' }">
+    <div class="preview" *ngFor="let message of inbox" [ngStyle]="setBg(message.Read)" (click)="msgSelect(message)">
+      <!--<h4>{{message.User.Username}}</h4>-->
+      <h3>{{message.MessageText}}</h3>
       <span>{{message.TimeStamp}}</span>
     </div>
   </div>
-  <div id="Outbox" class="tabcontent" [ngStyle]="{'display': !isInbox ? 'block' : 'none' }" >
-    <h1>Outbox2del</h1>
-    <div class="preview" *ngFor="let message of outbox">
-      <h4>{{message.User1.Username}}</h4>
-      <h3>{{message.Title}}</h3>
+  <div id="Outbox" class="tabcontent" [ngStyle]="{'display': !isInbox ? 'block' : 'none' }">
+    <div class="preview" *ngFor="let message of outbox" (click)="msgSelect(message)">
+      <!--<h4>{{message.User1.Username}}</h4>-->
+      <h3>{{message.MessageText}}</h3>
       <span>{{message.TimeStamp}}</span>
     </div>
   </div>
+  <div class="destinataire">
+    <label>Destinataire: </label>
+    <input [(ngModel)]="destinataireName" (ngModelChange)="checkDestinateur()" [ngStyle]="getStyle()" />
+    <button (click)="sendMessage()" [disabled]="nTxtAreaDisabled">Envoyer</button>
+    <button (click)="reply()" [disabled]="!nTxtAreaDisabled" *ngIf="isInbox">Repondre</button>
+    <button (click)="newMsg()">Nouveau</button>
+  </div>
+  <div class="message-content">
+    <textarea id="msgArea" [(ngModel)]="currMsg" [disabled]="nTxtAreaDisabled"></textarea>
+  </div>
 </div>
-<div class="buttons">
-  <button>Envoyer</button>
-  <button>Repondre</button>
-</div>
-<div class="message-content">
-   <textarea [(ngModel)]="textValue"></textarea>
-</div>
-  
+
+
 

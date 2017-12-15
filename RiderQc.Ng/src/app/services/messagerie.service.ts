@@ -18,23 +18,32 @@ export class MessagerieService {
   }
 
   getInbox() {
-    return this.http.get(`${this.baseUrl}/message/inbox`)
+    let options = new RequestOptions({ headers: this.getSpecialHeaders() });
+    return this.http.get(`${this.baseUrl}/message/inbox`, options)
       .map(res => res.json());
   }
 
   getOutbox() {
-    return this.http.get(`${this.baseUrl}/message/outbox`)
+    let options = new RequestOptions({ headers: this.getSpecialHeaders() });
+    return this.http.get(`${this.baseUrl}/message/outbox`, options)
       .map(res => res.json());
   }
 
   sendMessage(jsonMessage) {
-    let body = JSON.stringify(jsonMessage);
+    //let body = JSON.stringify(jsonMessage);
     let options = new RequestOptions({ headers: this.getSpecialHeaders() });
-    return this.http.post(`${this.baseUrl}/message/send`, body, options)
-      .map((response: Response) => {
-        return response;
-      }).catch(this.handleError);
-
+    options.body = jsonMessage;
+    console.log(JSON.stringify(jsonMessage) + JSON.stringify(options));
+    return this.http.post(`${this.baseUrl}/message/send`, jsonMessage, options)
+      .subscribe(
+      res => {
+        console.log("gucci");
+        return res;
+      },
+      err => {
+        console.log("fail xd");
+      }
+      );
   }
 
   private getHeaders() {
