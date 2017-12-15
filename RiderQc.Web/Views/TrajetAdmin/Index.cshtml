@@ -12,7 +12,8 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CreatorId)
+            @Html.DisplayNameFor(model => model.Creator)
+
         </th>
         <th></th>
     </tr>
@@ -20,9 +21,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatorId)
+            <h5>Creator name:</h5>
+            @Html.DisplayFor(modelItem => item.Creator)
+            <h5>Trajet title:</h5>
+            @Html.DisplayFor(modelItem => item.Title)
+            <h5>GpsPoints:</h5>
+            @Html.DisplayFor(modelItem => item.GpsPoints)
+            <h5>Description:</h5>
+            @Html.DisplayFor(modelItem => item.Description)
+            <h5>Trajet Id:</h5>
+            @Html.DisplayFor(modelItem => item.TrajetId)
+
+
         </td>
-        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TrajetId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TrajetId }) |

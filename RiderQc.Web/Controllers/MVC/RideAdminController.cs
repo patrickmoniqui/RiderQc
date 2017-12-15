@@ -25,7 +25,7 @@ namespace RiderQc.Web.Controllers
         {
             if (Authenticate())
             {
-                List<RideViewModel> rides = new List<RideViewModel>();
+                List<RideViewModel> rides = repo.GetAllRides();
                 return View(rides);
             }
             return Redirect("/admin/account/login");
