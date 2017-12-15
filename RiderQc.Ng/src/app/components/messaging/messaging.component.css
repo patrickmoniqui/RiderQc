@@ -1,84 +1,79 @@
-div.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+
+
+:host() {
+  display: block;
+  background-color: white !important;
+  
+  padding-top:20px;
+  padding-bottom:20px;
+  min-height:100vh;
 }
 
-  /* Style the buttons inside the tab */
-  div.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
+.panel-body {
+  padding: 0 !important;
+}
+
+.nav-tabs .glyphicon:not(.no-margin) {
+  margin-right: 10px;
+}
+
+.tab-pane .list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.tab-pane .list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.tab-pane .list-group .checkbox {
+  display: inline-block;
+  margin: 0px;
+}
+
+.tab-pane .list-group input[type="checkbox"] {
+  margin-top: 2px;
+}
+
+.tab-pane .list-group .glyphicon {
+  margin-right: 5px;
+}
+
+  .tab-pane .list-group .glyphicon:hover {
+    color: #FFBC00;
   }
 
-.root {
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  margin-top: 5em;
+a.list-group-item.read {
+  color: #222;
+  background-color: #F3F3F3;
 }
 
-.destinataire {
-  margin-top: 1.5em;
-  margin-bottom: .3em;
-  background: rgba(200, 200, 200, .5);
+hr {
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
-  .destinataire * {
-    display: inline;
+.nav-pills > li > a {
+  padding: 5px 10px;
+}
+
+.ad {
+  padding: 5px;
+  background: #F5F5F5;
+  color: #222;
+  font-size: 80%;
+  border: 1px solid #E5E5E5;
+}
+
+  .ad a.title {
+    color: #15C;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 110%;
   }
 
-
-
-label {
-}
-
-.message-content {
-  text-align: center;
-}
-
-textarea {
-  resize: none;
-  width: 100%;
-  height: 200px;
-  background: rgba(200, 200, 200, .5);
-}
-
-input {
-  opacity: 0.5;
-  width: 50%;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-  -webkit-animation: fadeEffect 1s;
-  animation: fadeEffect 0.5s;
-}
-
-@-webkit-keyframes fadeEffect {
-  from {
-    opacity: 0;
+  .ad a.url {
+    color: #093;
+    text-decoration: none;
   }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeEffect {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}

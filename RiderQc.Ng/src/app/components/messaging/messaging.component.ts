@@ -120,4 +120,9 @@ export class MessagingComponent {
     }
 
   }
+
+  refresh()
+  {
+    this.fetchAllMessage();
+  }
 }
