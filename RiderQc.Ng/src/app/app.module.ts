@@ -16,6 +16,7 @@ import { StarRatingModule } from 'angular-star-rating';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccesComponent } from './components/acces/acces.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
@@ -53,6 +54,7 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
+    AccesComponent,
     RidesComponent,
     RideDetailsComponent,
     RideEditComponent,

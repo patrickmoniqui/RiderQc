@@ -273,9 +273,9 @@
     <Compile Include="Migrations\201711241844417_AddUserRoleAndRole.Designer.cs">
       <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712122238443_AddRiderRating.cs" />
-    <Compile Include="Migrations\201712122238443_AddRiderRating.Designer.cs">
-      <DependentUpon>201712122238443_AddRiderRating.cs</DependentUpon>
+    <Compile Include="Migrations\201712132210272_AddRideRatingFix.cs" />
+    <Compile Include="Migrations\201712132210272_AddRideRatingFix.Designer.cs">
+      <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -309,6 +309,8 @@
     <Compile Include="ViewModels\Api\Message\InboxMessageViewModel.cs" />
     <Compile Include="ViewModels\Api\Message\SendMessageViewModel.cs" />
     <Compile Include="ViewModels\Api\Moto\MotoViewModel.cs" />
+    <Compile Include="ViewModels\Api\Rating\RideRatingViewModel.cs" />
+    <Compile Include="ViewModels\Api\Rating\UserRatingViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideCreateWithTrajetViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideCreateViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideViewModel.cs" />
@@ -423,8 +425,8 @@
     <EmbeddedResource Include="Migrations\201711241844417_AddUserRoleAndRole.resx">
       <DependentUpon>201711241844417_AddUserRoleAndRole.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712122238443_AddRiderRating.resx">
-      <DependentUpon>201712122238443_AddRiderRating.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712132210272_AddRideRatingFix.resx">
+      <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

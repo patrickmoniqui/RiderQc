@@ -1,18 +1,29 @@
-<div class="jumbotron-fluid">
-   <div class="container">
-     <h1 class="text-center">Browse rides <span class="badge"> {{!!rides?.length ? rides.length : 0}} </span></h1>
-     <div style="padding-bottom:20px;" class="container text-center">
-       <form class="search">
-         <input (change)="searchBar_OnChange($event)" class="searchTerm" type="text" name="search" placeholder="Search rides..">
-         <input class="searchButton" type="submit" />
-       </form>
-     </div>
-  </div>
-
-  <div *ngFor="let ride of rides">
-    <app-ride-single [ride]="ride">Loading ride...</app-ride-single>
-    <!-- No rides -->
-    <div class="items-not-found" *ngIf="rides == null || rides.length == 0">
-      <h1>No rides found. :(</h1>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="text-center">Browse rides <span class="badge"> {{!!rides?.length ? rides.length : 0}} </span></h1>
+    <div style="padding-bottom:20px;" class="container text-center">
+      <form class="search">
+        <input (change)="searchBar_OnChange($event)" class="searchTerm" type="text" name="search" placeholder="Search rides..">
+        <input class="searchButton" type="submit" />
+      </form>
     </div>
+  </div>
+</div>
+
+<div *ngFor="let ride of rides">
+  <app-ride-single [ride]="ride">Loading ride...</app-ride-single>
+</div>
+
+<div *ngIf="isLoading">
+  <h1 class="text-center">
+    Loading...
+  </h1>
+</div>
+
+<!-- No rides -->
+<div class="items-not-found" *ngIf="rides?.length == 0">
+  <h1>
+    <i class="fa fa-times" aria-hidden="true"></i>
+    No rides found.
+  </h1>
 </div>

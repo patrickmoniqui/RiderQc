@@ -9,8 +9,11 @@ namespace RiderQc.Web.DAL.Interface
 {
     public interface IRatingDao
     {
-        double GetUserRatingByUserId(int userId);
+        float GetUserRatingByUserId(int userId);
+        float GetRideRatingByRideId(int rideId);
         bool RateUser(UserRating userRating);
         bool RateRide(RideRating rideRating);
+        List<UserRating> GetAllUserRatings(int userId);
+        List<RideRating> GetAllRideRatings(int rideId);
     }
 }
