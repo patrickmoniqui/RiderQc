@@ -6,40 +6,71 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "create", new { controller = "admin/trajet" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Creator)
+<div class="col-sm-12 col-lg-12 col-md-12">
 
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <h2 class="page-header alert-dismissable">User Management</h2>
+        <button class="btn-success btn" style="margin-bottom:1%;" onclick="location.href='@Url.Action("create", new { controller = "admin/trajet"})'"><i class="glyphicon glyphicon-plus-sign"></i> Create a User</button>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <h5>Creator name:</h5>
-            @Html.DisplayFor(modelItem => item.Creator)
-            <h5>Trajet title:</h5>
-            @Html.DisplayFor(modelItem => item.Title)
-            <h5>GpsPoints:</h5>
-            @Html.DisplayFor(modelItem => item.GpsPoints)
-            <h5>Description:</h5>
-            @Html.DisplayFor(modelItem => item.Description)
-            <h5>Trajet Id:</h5>
-            @Html.DisplayFor(modelItem => item.TrajetId)
-
-
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TrajetId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TrajetId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TrajetId })
-        </td>*@
-    </tr>
-}
-
-</table>
+    <table class="table-responsive table-striped table-bordered table table-hover">
+        <tr>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-user"></i>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-user"></i>
+                @Html.DisplayNameFor(model => model.Creator.UserID)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-info-sign"></i>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.GpsPoints)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.TrajetId)
+            </th>
+            <th class="col-sm-4 col-lg-4 col-md-4 text-center">
+                <i class="glyphicon glyphicon-cog"></i>
+                Options
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GpsPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrajetId)
+                </td>
+                <td class="text-center">
+                    <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/trajet", id = item.TrajetId })'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                    <button class="btn-info btn" onclick="location.href='@Url.Action("detail", new { controller = "admin/trajet", id = item.TrajetId })'"><i class="glyphicon glyphicon-book"></i> Details</button>
+                    <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/trajet", id = item.TrajetId })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

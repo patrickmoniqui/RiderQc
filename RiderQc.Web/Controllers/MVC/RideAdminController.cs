@@ -30,7 +30,7 @@ namespace RiderQc.Web.Controllers
             }
             return Redirect("/admin/account/login");
         }
-        [Route("edit/{rideid}")]
+        [Route("pimp/{rideid}")]
         public ActionResult EditRide(int rideid)
         {
             if (Authenticate())
