@@ -162,6 +162,8 @@ namespace RiderQc.Web.Controllers.API
             if(user.Username == editUserViewModel.Username)
             {
                 UserViewModel userViewModel = new UserViewModel();
+                userViewModel.UserID = user.Id;
+                userViewModel.Username = user.Username;
                 userViewModel.DateOfBirth = editUserViewModel.DateOfBirth;
                 userViewModel.Description = editUserViewModel.Description;
                 userViewModel.DpUrl = editUserViewModel.DpUrl;
