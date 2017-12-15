@@ -25,6 +25,16 @@
                 <i class="glyphicon glyphicon-registration-mark"></i>
                 @Html.DisplayNameFor(model => model.Region)
             </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Ville)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+           
+
             <th class="col-sm-4 col-lg-4 col-md-4 text-center">
                 <i class="glyphicon glyphicon-cog"></i>
                 Options
@@ -42,8 +52,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Region)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ville)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
                 <td class="text-center">
-                    <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/user", id = item.UserID})'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                    <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
                     <button class="btn-info btn" onclick="location.href='@Url.Action("detail", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-book"></i> Details</button>
                     <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/user", id = item.Username })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
                 </td>

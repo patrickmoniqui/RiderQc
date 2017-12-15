@@ -4,61 +4,114 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="col-sm-12 col-lg-12 col-md-12">
 
-<p>
-    @Html.ActionLink("Create New", "create", new { controller = "admin/ride" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateDepart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateFin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Level.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Creator.Username)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <h2 class="page-header alert-dismissable">Index Ride</h2>
+        <button class="btn-success btn" style="margin-bottom:1%;" onclick="location.href='@Url.Action("create", new { controller = "admin/ride"})'"><i class="glyphicon glyphicon-plus-sign"></i> Create a User</button>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateDepart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Level.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Creator.Username)
-        </td>
-        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RideId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RideId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RideId })
-        </td>*@
-    </tr>
-}
-
-</table>
+    <table class="table-responsive table-striped table-bordered table table-hover">
+        <tr>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-user"></i>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th class="col-sm-2 col-lg-2 col-md-2 text-center">
+                <i class="glyphicon glyphicon-user"></i>
+                @Html.DisplayNameFor(model => model.CreatorId)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-info-sign"></i>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Trajet)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.TrajetId)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.DateDepart)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.DateFin)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.LevelId)
+            </th>
+            <th class="col-sm-3 col-lg-3 col-md-3 text-center">
+                <i class="glyphicon glyphicon-registration-mark"></i>
+                @Html.DisplayNameFor(model => model.Participants)
+            </th>
+            
+            <th class="col-sm-4 col-lg-4 col-md-4 text-center">
+                <i class="glyphicon glyphicon-cog"></i>
+                Options
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trajet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrajetId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDepart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LevelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Participants)
+                </td>
+                <td class="text-center">
+                    <button class="btn-primary btn" onclick="location.href='@Url.Action("pimp", new { controller = "admin/ride", id = item.RideId })'"><i class="glyphicon glyphicon-edit"></i> Pimp</button>
+                    <button class="btn-info btn" onclick="location.href='@Url.Action("detail", new { controller = "admin/ride", id = item.RideId })'"><i class="glyphicon glyphicon-book"></i> Details</button>
+                    <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/ride", id = item.RideId })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

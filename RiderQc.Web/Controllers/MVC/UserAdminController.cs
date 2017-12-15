@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.Helpers;
+﻿using RiderQc.Web.Entities;
+using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Admin;
 using RiderQc.Web.ViewModels.Comment;
@@ -65,6 +66,35 @@ namespace RiderQc.Web.Controllers
 
             return Redirect("/admin/account/login");
         }
+
+        [HttpPost]
+        [Route("edit/{userid}")]
+        public ActionResult EditUser(UserAdminViewModel user)
+        {
+            if (Authenticate())
+            {
+                if(ModelState.IsValid)
+                {
+                    User rawUser = repo.GetRawUserById(user.UserID);
+                    if(rawUser != null)
+                    {
+                        rawUser.Username = user.Username;
+                        rawUser.DateOfBirth = user.DateOfBirth;
+                        rawUser.Description = user.Description;
+                        rawUser.Password = user.Password;
+                        rawUser.Region = user.Region;
+                        rawUser.Ville = user.Ville;
+                        rawUser.DpUrl = user.DpUrl;
+                        repo.EditUser(rawUser);
+                    }
+                    
+                }
+                return View(user);
+            }
+
+            return Redirect("/admin/account/login");
+        }
+
 
         [Route("delete/{username}")]
         public ActionResult DeleteUser(string username)

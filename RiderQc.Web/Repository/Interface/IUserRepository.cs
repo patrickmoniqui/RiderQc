@@ -12,6 +12,7 @@ namespace RiderQc.Web.Repository.Interface
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
         bool CredentialsAreValid(string username, string password);
+        bool EditUser(User user);
         UserViewModel GetUserById(int userId);
         UserViewModel GetUserByName(string username);
         User GetUserByNameAdmin(string username);
@@ -21,5 +22,6 @@ namespace RiderQc.Web.Repository.Interface
         AuthentificationTokenViewModel GetLastValidTokenByUsername(string username);
         UserViewModel GetUserByTokenIfLastTokenIsValid(string token);
         UserAdminViewModel GetUserAdminById(int userId);
+        User GetRawUserById(int userId);
     }
 }

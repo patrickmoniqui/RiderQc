@@ -215,5 +215,15 @@ namespace RiderQc.Web.Repository
             User user = dao.GetByUsername(username);
             return user;
         }
+
+        public bool EditUser(User user)
+        {
+            return dao.EditUser(user);
+        }
+
+        public User GetRawUserById(int userId)
+        {
+            return dao.GetUserById(userId);
+        }
     }
 }

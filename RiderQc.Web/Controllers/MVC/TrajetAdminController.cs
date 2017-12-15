@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Admin;
+using RiderQc.Web.ViewModels.Comment;
+using RiderQc.Web.ViewModels.Level;
+using RiderQc.Web.ViewModels.Ride;
+using RiderQc.Web.ViewModels.Trajet;
+using RiderQc.Web.ViewModels.User;
 using System.Web.Mvc;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
@@ -15,11 +22,13 @@ namespace RiderQc.Web.Controllers
     {
         // GET: TrajetAdmin
         private readonly ITrajetRepository repo;
-
-        public TrajetAdminController(ITrajetRepository _repo)
+        private readonly IUserRepository repo2;
+        public TrajetAdminController(ITrajetRepository _repo, IUserRepository _repo2)
         {
             repo = _repo;
+            repo2 = _repo2;
         }
+
         [Route("list")]
         public ActionResult Index()
         {
@@ -36,6 +45,8 @@ namespace RiderQc.Web.Controllers
             if (Authenticate())
             {
                 TrajetViewModel trajet = repo.Get(trajetid);
+                List<UserViewModel> users = repo2.GetAllUsers();
+                ViewBag.Edittrajet = users;
                 return View(trajet);
             }
             return Redirect("/admin/account/login");
@@ -55,6 +66,7 @@ namespace RiderQc.Web.Controllers
         {
             if (Authenticate())
             {
+                
                 return View();
             }
             return Redirect("/admin/account/login");
