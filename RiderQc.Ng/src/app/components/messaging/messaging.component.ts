@@ -21,7 +21,7 @@ export class MessagingComponent {
   currMsg = "";
   focusedMsg: Message;
   destinataire: User = null;
-  destinataireName = "";
+  destinataireName: string;
   destinataireNameError: string;
   messageSent: string;
   nTxtAreaDisabled = false;

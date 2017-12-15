@@ -25,6 +25,7 @@ export class RidesComponent implements OnInit {
   public isLogged: Boolean;
   public user: User;
   public rides: Ride[] = [];
+  public finishedLoading: Boolean = false;
 
   constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
     this.commentService = _commentService;
@@ -51,9 +52,19 @@ export class RidesComponent implements OnInit {
 
     fetchAllRide()
     {
+      this.finishedLoading = false;
         this.rideService.getRides().subscribe((rides) => {
-            this.rides = rides;
-        });
+          this.rides = rides;
+          this.finishedLoading = true;
+        },
+          error => {
+            this.finishedLoading = true;
+          },
+          () => {
+            // 'onCompleted' callback.
+            this.finishedLoading = true;
+          }
+        );
     }
 
     searchBar_OnChange(element)

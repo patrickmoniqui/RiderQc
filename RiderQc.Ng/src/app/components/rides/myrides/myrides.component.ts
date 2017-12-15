@@ -22,6 +22,7 @@ export class MyridesComponent implements OnInit {
   user: User;
   public rides: Ride[];
   isLoading: Boolean;
+  public finishedLoading: Boolean = false;
   
   constructor(public rideService: RideService, public commentService: CommentService, public userService: UserService) {
   }
@@ -48,12 +49,21 @@ export class MyridesComponent implements OnInit {
   }
 
   GetMyRidesForLoggedUser() {
+    this.finishedLoading = false;
     if (this.isLogged)
     {
       this.rideService.getMyRides(this.user.Username).subscribe((rides) => {
         this.rides = rides;
-        console.log(this.rides);
-      });
+        this.finishedLoading = true;
+      },
+        error => {
+          this.finishedLoading = true;
+        },
+        () => {
+          // 'onCompleted' callback.
+          this.finishedLoading = true;
+        }
+        );
     }
   }
 }

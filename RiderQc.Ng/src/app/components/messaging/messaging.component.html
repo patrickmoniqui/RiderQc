@@ -39,7 +39,7 @@
         </ul>
       </div>
       <div class="pull-right">
-        <span class="text-muted"><b>1</b>–<b>50</b> of <b>277</b></span>
+        <span class="text-muted"><b>1</b>–<b>50</b> of <b>50</b></span>
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -73,9 +73,9 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Inbox</div>
             <div class="panel-body">
-              <div>
+              <div id="accordion">
                 <div *ngFor="let message of inbox">
-                  <a href="#" class="list-group-item">
+                  <a data-toggle="collapse" data-parent="#accordion" href='#messageid_{{message.MessageId}}' class="list-group-item">
                     <div class="checkbox">
                       <label>
                         <input type="checkbox">
@@ -88,6 +88,11 @@
                       </span>
                     </span>
                   </a>
+                  <div id='#messageid_{{message.MessageId}}' class="panel-collapse collapse">
+                    <div class="panel-body">
+                      {{message.MessageText}}
+                    </div>
+                  </div>
                 </div>
                 <!-- No messages -->
                 <div *ngIf="inbox.length == 0">
@@ -104,7 +109,7 @@
             <div class="panel-body">
               <div *ngFor="let message of outbox">
                 <div>
-                  <a href="#" class="list-group-item">
+                  <a href="javascript:void" class="list-group-item">
                     <div class="checkbox">
                       <label>
                         <input type="checkbox">
