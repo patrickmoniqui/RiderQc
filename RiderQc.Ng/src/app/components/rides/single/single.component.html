@@ -3,7 +3,11 @@
     <a [routerLink]="['/ride/details/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
       {{ride.Title}} <i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
     </a>
+<<<<<<< HEAD
     <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
+=======
+    <a style="display:inline-block; font-size:0.8em" (click)="redirectToUser(ride.Creator.Username)">
+>>>>>>> 7ebd39bee64d905e0df40270f230ee620c4b9dee
       <i class="fa fa-user" aria-hidden="true"></i> by {{ride.Creator.Username}}
     </a>
     <star-rating-comp style="display:inline-block; vertical-align: middle;" [starType]="'svg'" [size]="'small'" [labelPosition]="'right'" [rating]="ride.RideRating" [readOnly]="true"></star-rating-comp>

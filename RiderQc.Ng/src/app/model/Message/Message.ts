@@ -1,4 +1,4 @@
-import { User } from "../user";
+import { SimpleUser } from "../simple_user"
 
 export class Message {
   public Me: boolean;
@@ -6,6 +6,6 @@ export class Message {
   public MessageText: string;
   public TimeStamp: Date;
   public Read: Date;
-  public Receiver: User;
-  public Sender: User;
+  public Receiver: SimpleUser;
+  public Sender: SimpleUser;
 }

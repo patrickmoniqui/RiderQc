@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
+=======
+import { ActivatedRoute, Router } from '@angular/router';
+>>>>>>> 7ebd39bee64d905e0df40270f230ee620c4b9dee
 import { OnClickEvent, OnRatingChangeEven, OnHoverRatingChangeEvent } from 'angular-star-rating/star-rating-struct'
 
 

@@ -6,9 +6,7 @@ using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
 using RiderQc.Web.ViewModels.Admin;
 using RiderQc.Web.ViewModels.Ride;
-using RiderQc.Web.ViewModels.Level;
-using RiderQc.Web.ViewModels.Trajet;
-using System.Linq;
+using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.Repository
 {
@@ -36,11 +34,10 @@ namespace RiderQc.Web.Repository
             user.Region = userViewModel.Region;
             user.Ville = userViewModel.Ville;
             user.DateOfBirth = userViewModel.DateOfBirth;
+            user.Description = userViewModel.Description;
             user.DpUrl = userViewModel.DpUrl;
 
-            bool result = dao.RegisterUser(user);
-
-            return result;
+            return dao.RegisterUser(user);
         }
 
         public bool CheckUserExistence(string username)
@@ -211,6 +208,12 @@ namespace RiderQc.Web.Repository
             User user = dao.GetUserById(userId);
 
             return user != null ? ToAdminViewModel(user) : null;
+        }
+
+        public User GetUserByNameAdmin(string username)
+        {
+            User user = dao.GetByUsername(username);
+            return user;
         }
     }
 }

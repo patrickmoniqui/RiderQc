@@ -119,5 +119,13 @@ export class MessagingComponent {
       this.messageService.sendMessage(jsonBody);
     }
 
+<<<<<<< HEAD
+=======
+  }
+
+  refresh()
+  {
+    this.fetchAllMessage();
+>>>>>>> 7ebd39bee64d905e0df40270f230ee620c4b9dee
   }
 }

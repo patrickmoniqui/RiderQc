@@ -52,7 +52,23 @@ export class CommentComponent implements OnInit {
             this.textValue = "";
             this.getData();
           });
+<<<<<<< HEAD
+=======
       }
+  }
+
+  deleteMessage()
+  {
+    var result: Boolean;
+    this.commentService.deleteById(this.Comment.CommentId).subscribe((x) => {
+      result = x;
+      if (result)
+      {
+        this.Comment = null;
+        this.getData();
+>>>>>>> 7ebd39bee64d905e0df40270f230ee620c4b9dee
+      }
+    });
   }
 
   deleteMessage()

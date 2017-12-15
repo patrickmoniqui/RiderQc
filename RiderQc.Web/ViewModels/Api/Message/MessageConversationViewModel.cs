@@ -6,7 +6,6 @@ namespace RiderQc.Web.ViewModels.Api.Message
 {
     public class MessageConversationViewModel
     {
-
         public bool Me { get; set; }
         public int MessageId { get; set; }
 
