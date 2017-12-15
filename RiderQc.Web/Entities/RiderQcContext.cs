@@ -143,6 +143,16 @@ namespace RiderQc.Web.Entities
                 .HasMany(e => e.RideRatings)
                 .WithRequired(e => e.Ride)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RideRating>()
+                .HasRequired(e => e.User)
+                .WithMany(e => e.RatedRides)
+                .HasForeignKey(e => e.RaterId);
+
+            modelBuilder.Entity<RideRating>()
+                .HasRequired(e => e.Ride)
+                .WithMany(e => e.RideRatings)
+                .HasForeignKey(e => e.RatedRideId);
         }
     }
 }

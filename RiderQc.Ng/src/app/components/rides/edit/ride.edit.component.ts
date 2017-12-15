@@ -29,7 +29,6 @@ export class RideEditComponent implements OnInit {
     trajets: Trajet[];
     public user: User;
     public isLogged: Boolean;
-    public userService: UserService;
     isModification: boolean = false;
     sub: any;
     response: any;
@@ -37,9 +36,20 @@ export class RideEditComponent implements OnInit {
 
     constructor(public rideService: RideService,
                 private trajetService: TrajetService,
+                private userService: UserService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private formBuilder: FormBuilder) {}
+                private formBuilder: FormBuilder) {
+        this.isLogged = this.userService.isLogged;
+
+        if (this.isLogged) {
+            this.userService.getLoggedUser().subscribe(x => this.user = x);
+            console.log(this.user);
+        }
+        else {
+            this.user = null;
+        }
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {

@@ -3,7 +3,7 @@ namespace RiderQc.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddRiderRating : DbMigration
+    public partial class AddRideRatingFix : DbMigration
     {
         public override void Up()
         {
@@ -20,17 +20,17 @@ namespace RiderQc.Web.Migrations
                 .PrimaryKey(t => t.RideRatingId)
                 .ForeignKey("dbo.Ride", t => t.RatedRideId)
                 .ForeignKey("dbo.User", t => t.RaterId)
-                .Index(t => t.RatedRideId)
-                .Index(t => t.RaterId);
+                .Index(t => t.RaterId)
+                .Index(t => t.RatedRideId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.RideRating", "User_UserID", "dbo.User");
-            DropForeignKey("dbo.RideRating", "Ride_RideId", "dbo.Ride");
-            DropIndex("dbo.RideRating", new[] { "User_UserID" });
-            DropIndex("dbo.RideRating", new[] { "Ride_RideId" });
+            DropForeignKey("dbo.RideRating", "RaterId", "dbo.User");
+            DropForeignKey("dbo.RideRating", "RatedRideId", "dbo.Ride");
+            DropIndex("dbo.RideRating", new[] { "RatedRideId" });
+            DropIndex("dbo.RideRating", new[] { "RaterId" });
             DropTable("dbo.RideRating");
         }
     }

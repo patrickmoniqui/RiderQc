@@ -8,7 +8,7 @@
         by
       </p>
       <a style="display:inline-block" [routerLink]="['/user/'+trajet.Creator.Username]">
-        {{trajet.Creator.Username}}
+        <i class="fa fa-user" aria-hidden="true"></i> by {{trajet.Creator.Username}}
       </a>
       <button (click)="toggleTrajetContainer(this)" class="btn-nostyle" style="float:right">
         <i class="fa fa-expand" aria-hidden="true"></i>

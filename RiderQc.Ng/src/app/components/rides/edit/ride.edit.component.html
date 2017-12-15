@@ -1,18 +1,16 @@
 <section *ngIf="ride" class="container">
-  <div class="panel panel-primary ride-container">
-    <div class="panel-heading text-center">
-      <h3 style="display:inline-block">
-        {{isModification ? 'Modification d\'une ride' : 'Ajout d\'une ride'}}
-      </h3>
-      <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
-        <i class="fa fa-expand" aria-hidden="true"></i>
-      </button>
-    </div>
-      <div class="col-md-12 ride-description">
+  <section *ngIf="user && ((isModification && (ride.Creator.UserID == user.UserID)) || !isModification)">
+    <div class="panel panel-primary ride-container">
+      <div class="panel-heading text-center">
+        <h3 style="display:inline-block">
+          {{isModification ? 'Modification de ' + ride.Title : 'Ajout d\'une ride'}}
+        </h3>
+        <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
+          <i class="fa fa-expand" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="col-md-12">
         <div class="panel-body">
-          <section *ngIf="ride.RideId">
-            <h2 *ngIf="isModification">Vous avez selectionné : {{ride.Title}}</h2>
-          </section>
           <section>
             <br />
 
@@ -92,20 +90,24 @@
         </div>
         <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
       </div>
-    <!--
-    <section>
-      <ul>
-        <li><b>Id :</b> {{ride.RideId}}</li>
-        <li><b>Title : </b> {{ride.title}}</li>
-        <li><b>Description : </b> {{ride.description}}</li>
-        <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
-        <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
-        <li><b>Level Id : </b> {{ride.LevelId}}</li>
-        <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
-        <li><b>Date Fin : </b> {{ride.DateFin}}</li>
-        <li><b>Levels : </b> <ul><li *ngFor="let level of levels">{{level.Name}}</li></ul></li>
-      </ul>
-    </section>
-    -->
-  </div>
+      <!--
+      <section>
+        <ul>
+          <li><b>Id :</b> {{ride.RideId}}</li>
+          <li><b>Title : </b> {{ride.title}}</li>
+          <li><b>Description : </b> {{ride.description}}</li>
+          <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
+          <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
+          <li><b>Level Id : </b> {{ride.LevelId}}</li>
+          <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
+          <li><b>Date Fin : </b> {{ride.DateFin}}</li>
+          <li><b>Levels : </b> <ul><li *ngFor="let level of levels">{{level.Name}}</li></ul></li>
+        </ul>
+      </section>
+      -->
+    </div>
+  </section>
+  <section *ngIf="!(user && ((isModification && (ride.Creator.UserID == user.UserID)) || !isModification))">
+    <app-acces></app-acces>
+  </section>
 </section>

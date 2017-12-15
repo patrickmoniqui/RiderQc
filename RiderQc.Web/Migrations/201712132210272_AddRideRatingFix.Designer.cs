@@ -7,13 +7,13 @@ namespace RiderQc.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddRiderRating : IMigrationMetadata
+    public sealed partial class AddRideRatingFix : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRiderRating));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRideRatingFix));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712122238443_AddRiderRating"; }
+            get { return "201712132210272_AddRideRatingFix"; }
         }
         
         string IMigrationMetadata.Source

@@ -122,6 +122,7 @@ namespace RiderQc.Web.DAL
                     .Include(x => x.Comments.Select(y => y.ChildComments))
                     .Include(x => x.Comments.Select(y => y.ChildComments.Select(z => z.User)))
                     .Include(x => x.Participants)
+                    .Include(x => x.RideRatings)
                     .ToList();
             }
 

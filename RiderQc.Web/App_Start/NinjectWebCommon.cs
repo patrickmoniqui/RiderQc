@@ -77,6 +77,7 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<ICommentDao>().To<CommentDao>();
             kernel.Bind<IMessageDao>().To<MessageDao>();
             kernel.Bind<IUserRoleDao>().To<UserRoleDao>();
+            kernel.Bind<IRatingDao>().To<RatingDao>();
 
             //repos
             kernel.Bind<IRideRepository>().To<RideRepository>();
@@ -87,6 +88,8 @@ namespace RiderQc.Web.App_Start
             kernel.Bind<ICommentRepository>().To<CommentRepository>();
             kernel.Bind<IMessageRepository>().To<MessageRepository>();
             kernel.Bind<IUserRoleRepository>().To<UserRoleRepository>();
+            kernel.Bind<IRatingRepository>().To<RatingRepository>();
+
         }        
     }
 }
