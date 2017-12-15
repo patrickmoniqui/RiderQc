@@ -31,12 +31,17 @@ export class TrajetService {
         return ride$;
     }
 
-    add(trajet: Trajet): Observable<number> {
+    add(trajet: any): Observable<number> {
         var trajetId = this.http.post(this.baseUrl + '/trajet', trajet, { headers: this.userService.getBearerAuthHeader() })
             .map(x => x.json());
         return trajetId;
     }
-
+    
+    update(trajet: any): Observable<number> {
+        var trajetId = this.http.put(this.baseUrl + '/trajet/' + trajet.trajetid, trajet, { headers: this.userService.getBearerAuthHeader() })
+            .map(x => x.json());
+        return trajetId;
+    }
 
     private getHeaders() {
         let headers = new Headers();

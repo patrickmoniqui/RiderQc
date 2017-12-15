@@ -73,7 +73,7 @@ export class RideEditComponent implements OnInit {
                 this.ride = new Ride();
             }
             this.rideForm = this.formBuilder.group({
-                rideid: ['', Validators.required],
+                rideid: [''],
                 title: ['', Validators.required],
                 description: [''],
                 creatorid: ['', Validators.required],
@@ -81,17 +81,51 @@ export class RideEditComponent implements OnInit {
                 levelid: ['', Validators.required],
                 datedepart: ['', Validators.required],
                 datefin: ['', Validators.required]
-            });
+            }, { validator: this.endDateAfterOrEqualValidator }
+            );
 
         });
     }
 
+    endDateAfterOrEqualValidator(formGroup): any {
+        var startDateTimestamp, endDateTimestamp;
+        for (var controlName in formGroup.controls) {
+            if (controlName.indexOf("datedepart") !== -1) {
+                startDateTimestamp = Date.parse(formGroup.controls[controlName].value);
+            }
+            if (controlName.indexOf("datefin") !== -1) {
+                endDateTimestamp = Date.parse(formGroup.controls[controlName].value);
+            }
+        }
+        return (endDateTimestamp < startDateTimestamp) ? { endDateLessThanStartDate: true } : null;
+    }
+
     submitForm() {
         if (this.user) {
-            this.ride.Creator = this.user;
-            this.rideForm.patchValue({ creatorid: this.user.UserID });
-            this.rideService.add(this.ride);
-            console.log("you submitted value: ", this.rideForm.value);
+            if (this.rideForm.valid) {
+                this.ride.Creator = this.user;
+                this.rideForm.patchValue({ creatorid: this.user.UserID });
+                if (this.isModification) {
+                  console.log("Update put");
+                  this.rideService
+                      .update(this.rideForm.value)
+                      .subscribe(p => {
+                          this.response = p;
+                          alert(this.response);
+                          console.log("ride title", this.ride.Title);
+                      });
+                } else {
+                    console.log("Add ride");
+                    this.rideService
+                        .add(this.rideForm.value)
+                        .subscribe(p => {
+                            this.response = p;
+                            alert(this.response);
+                            console.log("ride title", this.ride.Title);
+                        });
+                }
+                console.log("you submitted value: ", this.rideForm.value);
+            }
         } else {
             console.log("no user");
         }

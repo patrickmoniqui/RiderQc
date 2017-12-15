@@ -155,9 +155,11 @@ export class MapComponent implements OnInit {
         lng = this.waypoints[this.waypoints.length - 1].split(", ")[1];
         console.log("Destination:", lat, ",", lng);
         this.trajetInfo.destination = { lng: +lng, lat: +lat };
+        console.log("Waypoints length Given Waypoints :", this.waypoints.length);
         for (let i = 1; i <= this.waypoints.length - 2; i++) {
-            lat = this.waypoints[i].split(", ")[0];
-            lng = this.waypoints[i].split(", ")[1];
+            console.log("Waypoints length Given Waypoints :", this.waypoints.length);
+            lat = this.waypoints[i].split(",")[0];
+            lng = this.waypoints[i].split(",")[1];
             if (lat != null && lng != null) {
                 this.trajetInfo.waypoints[i - 1] = {
                     location: lat + "," + lng,
