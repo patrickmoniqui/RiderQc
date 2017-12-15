@@ -30,20 +30,20 @@
   border-bottom-left-radius: 0px;
 }
 
-.tab-pane .list-group .checkbox {
+.tab-pane .checkbox {
   display: inline-block;
   margin: 0px;
 }
 
-.tab-pane .list-group input[type="checkbox"] {
+.tab-pane input[type="checkbox"] {
   margin-top: 2px;
 }
 
-.tab-pane .list-group .glyphicon {
+.tab-pane  .glyphicon {
   margin-right: 5px;
 }
 
-  .tab-pane .list-group .glyphicon:hover {
+  .tab-pane .glyphicon:hover {
     color: #FFBC00;
   }
 

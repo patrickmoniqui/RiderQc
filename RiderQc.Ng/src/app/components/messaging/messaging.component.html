@@ -73,7 +73,7 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Inbox</div>
             <div class="panel-body">
-              <div class="list-group">
+              <div>
                 <div *ngFor="let message of inbox">
                   <a href="#" class="list-group-item">
                     <div class="checkbox">
@@ -89,6 +89,10 @@
                     </span>
                   </a>
                 </div>
+                <!-- No messages -->
+                <div *ngIf="inbox.length == 0">
+                  You have no messages! Come back later.
+                </div>
               </div>
             </div>
           </div>
@@ -99,7 +103,7 @@
             <div class="panel-heading"><i class="fa fa-info-circle" aria-hidden="true"></i> Sent message</div>
             <div class="panel-body">
               <div *ngFor="let message of outbox">
-                <div class="list-group">
+                <div>
                   <a href="#" class="list-group-item">
                     <div class="checkbox">
                       <label>
@@ -114,6 +118,10 @@
                     </span>
                   </a>
                 </div>
+              </div>
+              <!-- No messages -->
+              <div *ngIf="outbox.length == 0">
+                You have no messages! Come back later.
               </div>
             </div>
           </div>
