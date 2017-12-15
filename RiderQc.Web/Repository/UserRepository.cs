@@ -1,12 +1,12 @@
 ﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Admin;
+using RiderQc.Web.ViewModels.Api.User;
 using RiderQc.Web.ViewModels.Moto;
+using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System.Collections.Generic;
-using RiderQc.Web.ViewModels.Admin;
-using RiderQc.Web.ViewModels.Ride;
-using RiderQc.Web.Helpers;
 
 namespace RiderQc.Web.Repository
 {
@@ -27,6 +27,11 @@ namespace RiderQc.Web.Repository
 
         public bool RegisterUser(UserRegisterViewModel userViewModel)
         {
+            if(dao.CheckUserExistence(userViewModel.Username))
+            {
+                return false;
+            }
+            
             //map viewmodel to entity
             User user = new User();
             user.Username = userViewModel.Username;
@@ -216,8 +221,15 @@ namespace RiderQc.Web.Repository
             return user;
         }
 
-        public bool EditUser(User user)
+        public bool EditUser(EditUserViewModel userViewModel)
         {
+            User user = new User();
+            user.DateOfBirth = userViewModel.DateOfBirth;
+            user.Description = userViewModel.Description;
+            user.DpUrl = userViewModel.DpUrl;
+            user.Region = userViewModel.Region;
+            user.Ville = userViewModel.Ville;
+            
             return dao.EditUser(user);
         }
 

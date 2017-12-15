@@ -318,6 +318,7 @@
     <Compile Include="ViewModels\Api\Trajet\TrajetViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserAdminViewModel.cs" />
     <Compile Include="ViewModels\Api\User\AuthentificationTokenViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\EditUserViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserRegisterViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserSimpleViewModel.cs" />

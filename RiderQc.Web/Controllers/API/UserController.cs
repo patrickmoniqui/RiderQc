@@ -2,6 +2,7 @@
 using RiderQc.Web.Helpers;
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Api.User;
 using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System;
@@ -138,6 +139,38 @@ namespace RiderQc.Web.Controllers.API
             else
             {
                 return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Edit user
+        /// </summary>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpPut]
+        [Route("")]
+        public IHttpActionResult EditUser(EditUserViewModel userViewModel)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+            bool result = false;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(user.Username == userViewModel.Username)
+            {
+                result = repo.EditUser(userViewModel);
+            }
+
+            if(result)
+            {
+                return Ok("User successfully edited");
+            }
+            else
+            {
+                return BadRequest("Error while editing user.");
             }
         }
 
