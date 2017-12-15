@@ -6,7 +6,7 @@
     <p style="display:inline-block">
       by
     </p>
-    <a style="display:inline-block" [routerLink]="['/user/'+ride.Creator.Username]">
+    <a style="display:inline-block" (click)="redirectToUser(ride.Creator.Username)">
       {{ride.Creator.Username}}
     </a>
     <button (click)="toggleRideContainer(this)" class="btn-nostyle" style="float:right">
@@ -92,9 +92,12 @@
             </div>
           </div>
           <hr />
-          <a *ngFor="let participant of ride.Participants" [routerLink]="['/user?username='+participant]">
-            {{participant}}
-          </a>
+          <span *ngFor="let participant of ride.Participants" >
+            <a (click)="redirectToUser(participant)">
+              {{participant}}
+            </a>
+          </span>
+          
         </div>
       </div>
     </div>

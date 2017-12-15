@@ -3,7 +3,7 @@
     {{Comment.CommentText}}
   </p>
   <p class="ride-comment-header">
-    <a href="/user/{{Comment.User.Username}}">
+    <a (click)="redirectToUser(Comment.User.Username)">
       {{Comment.User.Username}}
     </a>
     on {{Comment.TimeStamp}}

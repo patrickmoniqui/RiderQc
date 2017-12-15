@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 //Models
 import { CommentReply } from '../../model/commentReply';
@@ -22,7 +23,7 @@ export class CommentComponent implements OnInit {
     public isLogged: Boolean;
 
 
-    constructor(public _commentService: CommentService, public _userService: UserService) {
+    constructor(public _commentService: CommentService, public _userService: UserService, private route: ActivatedRoute, private router: Router) {
         this.commentService = _commentService;
         this.userService = _userService;
         this.isLogged = this.userService.isLogged;
@@ -54,5 +55,9 @@ export class CommentComponent implements OnInit {
 
           }
       }
+  }
+  redirectToUser(username:string)
+  {
+      this.router.navigate(['/user'], { queryParams: { username: username } });
   }
 }

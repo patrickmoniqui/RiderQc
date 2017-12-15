@@ -8,10 +8,13 @@
   <p *ngIf="user.Region">
    Region : {{user.Region}}
   </p>
-  <p *ngIf="date">
+  <p *ngIf="user.Ville">
+    Ville : {{user.Ville}}
+  </p>
+  <p *ngIf="user.DateOfBirth">
     Date of Birth : {{displayDate}}
   </p>
-  <div *ngIf="user.Motos.Brand">
+  <div>
     <h3>
       Motos :
     </h3>
@@ -22,11 +25,9 @@
         <br />
         Year : {{moto.Year}}     
     </p>
-    
   </div>
-
 </div>
-<div *ngIf="!user">
+<div id="container" *ngIf="!user">
   <h1>
     User not Found
   </h1>

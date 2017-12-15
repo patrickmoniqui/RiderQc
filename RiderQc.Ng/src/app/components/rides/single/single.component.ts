@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 //Models
 import { CommentReply } from '../../../model/commentReply';
@@ -25,7 +26,7 @@ export class SingleComponent implements OnInit {
   public isLogged: Boolean;
   public Comment: Comment;
 
-  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService) {
+  constructor(public rideService: RideService, public _commentService: CommentService, public _userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.isLogged = _userService.isLogged;
 
     if (this.isLogged) {
@@ -81,6 +82,16 @@ export class SingleComponent implements OnInit {
   refreshRide()
   {
     this.ride = this.rideService.getRideById(this.ride.RideId);
+  }
+
+  redirectToUser(participant: string)
+  {
+      console.log("Redirect from user");
+      console.log(participant);
+
+     
+      this.router.navigate(['/user'], { queryParams: { username: participant}});
+     
   }
 
 }
