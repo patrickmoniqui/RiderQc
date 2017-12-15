@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace RiderQc.Web.ViewModels.User
@@ -7,6 +8,8 @@ namespace RiderQc.Web.ViewModels.User
     {
         public int UserID { get; set; }
         public string Username { get; set; }
+        [JsonIgnore]
+        public string Password { get; set; }
         public string Region { get; set; }
         public string Ville { get; set; }
         public DateTime? DateOfBirth { get; set; }

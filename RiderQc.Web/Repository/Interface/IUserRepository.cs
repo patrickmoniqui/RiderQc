@@ -13,7 +13,7 @@ namespace RiderQc.Web.Repository.Interface
         bool DeleteUser(string username);
         bool CheckUserExistence(string username);
         bool CredentialsAreValid(string username, string password);
-        bool EditUser(EditUserViewModel user);
+        bool EditUser(UserViewModel user);
         UserViewModel GetUserById(int userId);
         UserViewModel GetUserByName(string username);
         User GetUserByNameAdmin(string username);

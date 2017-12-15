@@ -75,18 +75,15 @@ namespace RiderQc.Web.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    User rawUser = repo.GetRawUserById(user.UserID);
-                    if(rawUser != null)
-                    {
-                        rawUser.Username = user.Username;
-                        rawUser.DateOfBirth = user.DateOfBirth;
-                        rawUser.Description = user.Description;
-                        rawUser.Password = user.Password;
-                        rawUser.Region = user.Region;
-                        rawUser.Ville = user.Ville;
-                        rawUser.DpUrl = user.DpUrl;
-                        repo.EditUser(rawUser);
-                    }
+                    UserViewModel rawUser = new UserViewModel();
+                    rawUser.Username = user.Username;
+                    rawUser.DateOfBirth = user.DateOfBirth;
+                    rawUser.Description = user.Description;
+                    rawUser.Password = user.Password;
+                    rawUser.Region = user.Region;
+                    rawUser.Ville = user.Ville;
+                    rawUser.DpUrl = user.DpUrl;
+                    repo.EditUser(rawUser);
                     
                 }
                 return View(user);

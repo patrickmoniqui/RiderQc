@@ -221,7 +221,7 @@ namespace RiderQc.Web.Repository
             return user;
         }
 
-        public bool EditUser(EditUserViewModel userViewModel)
+        public bool EditUser(UserViewModel userViewModel)
         {
             User user = new User();
             user.DateOfBirth = userViewModel.DateOfBirth;

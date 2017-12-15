@@ -149,7 +149,7 @@ namespace RiderQc.Web.Controllers.API
         [AuthTokenAuthorization]
         [HttpPut]
         [Route("")]
-        public IHttpActionResult EditUser(EditUserViewModel userViewModel)
+        public IHttpActionResult EditUser(EditUserViewModel editUserViewModel)
         {
             ApplicationUser user = (ApplicationUser)User;
             bool result = false;
@@ -159,8 +159,15 @@ namespace RiderQc.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            if(user.Username == userViewModel.Username)
+            if(user.Username == editUserViewModel.Username)
             {
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.DateOfBirth = editUserViewModel.DateOfBirth;
+                userViewModel.Description = editUserViewModel.Description;
+                userViewModel.DpUrl = editUserViewModel.DpUrl;
+                userViewModel.Region = editUserViewModel.Region;
+                userViewModel.Ville = editUserViewModel.Ville;
+
                 result = repo.EditUser(userViewModel);
             }
 
