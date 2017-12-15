@@ -1,7 +1,7 @@
 <section *ngIf="ride">
   <div class="panel panel-primary ride-container">
     <div class="panel-heading text-center">
-      <a [routerLink]="['/ride/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
+      <a [routerLink]="['/ride/details/'+ ride.RideId]" [queryParams]="{ReturnUrl:'rides'}">
         <span style="font-weight:bold">{{ride.Title}} </span><i class="fa fa-calendar" aria-hidden="true"></i> {{ride.DateDepart | date:"fullDate"}}
       </a>
       <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+ride.Creator.Username]">
@@ -12,7 +12,7 @@
         <i class="fa fa-expand" aria-hidden="true"></i>
       </button>
 
-      <a [routerLink]="['/ride/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'rides'}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+      <a [routerLink]="['/ride/edit/'+ride.RideId]" [queryParams]="{ReturnUrl:'ride/details/' + ride.RideId}" *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </a>
     </div>

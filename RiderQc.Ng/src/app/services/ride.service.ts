@@ -43,8 +43,14 @@ export class RideService {
         return ride$;
     }
 
-    add(ride: Ride): Observable<number> {
+    add(ride: any): Observable<number> {
         var rideId = this.http.post(this.baseUrl + '/ride', ride, { headers: this.userService.getBearerAuthHeader() })
+            .map(x => x.json());
+        return rideId;
+    }
+
+    update(ride: any): Observable<number> {
+        var rideId = this.http.put(this.baseUrl + '/ride/' + ride.rideid, ride, { headers: this.userService.getBearerAuthHeader() })
             .map(x => x.json());
         return rideId;
     }
