@@ -1,0 +1,49 @@
+<section class="container" *ngIf="trajet">
+  <section *ngIf="user && ((isModification && (trajet.Creator.UserID == user.UserID)) || !isModification)">
+    <div class="panel panel-primary trajet-container">
+      <div class="panel-heading text-center">
+        <h3 style="display:inline-block">
+          {{isModification ? 'Modification de ' + trajet.Title : 'Ajout d\'un trajet'}}
+        </h3>
+        <button (click)="toggleTrajetContainer(this)" class="btn-nostyle" style="float:right">
+          <i class="fa fa-expand" aria-hidden="true"></i>
+        </button>
+      </div>
+      <section>
+        <br />
+        <form (ngSubmit)="submitForm()" [formGroup]="trajetForm" class="form-horizontal">
+
+          <input type="hidden" max="9999999999" formControlName="trajetid" [(ngModel)]="trajet.TrajetId" placeholder="Id" class="form-control">
+          <input type="hidden" max="9999999999" formControlName="creatorid" [(ngModel)]="user.UserID" placeholder="Id" class="form-control">
+
+          <div class="form-group">
+            <label for="Title" class="col-md-1 control-label">Title :</label>
+            <div class="col-md-6">
+              <input type="text" maxlength="50" formControlName="title" [(ngModel)]="trajet.Title" placeholder="Title" class="form-control">
+            </div>
+            <span [hidden]="trajetForm.controls.title.valid" class="col-md-3 control-valid">(Le title est requis)</span>
+            <div class="col-md-2"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="Description" class="col-md-1 control-label">Description :</label>
+            <div class="col-md-6">
+              <textarea maxlength="50" formControlName="description" [(ngModel)]="trajet.Description" placeholder="Description" class="form-control"></textarea>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          <span [hidden]="trajetForm.controls.gpsPoints.valid" class="col-md-3 control-valid">(Les gps points sont requis)</span><br />
+          <app-map [editable]="true" [waypoints]="trajet.GpsPoints" [showInstructions]="true" [height]="50" (trajetUpdated)="handleTrajetUpdated($event)"></app-map>
+
+          <p [hidden]="trajetForm.controls.creatorid.valid" class="control-valid">(Le creatorid est requis)</p>
+          <button type="submit" [disabled]="!trajetForm.valid" class="btn btn-primary">Submit</button>
+        </form>
+      </section>
+      <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
+    </div>
+  </section>
+  <section *ngIf="!(user && ((isModification && (trajet.Creator.UserID == user.UserID)) || !isModification))">
+    <app-acces></app-acces>
+  </section>
+</section>

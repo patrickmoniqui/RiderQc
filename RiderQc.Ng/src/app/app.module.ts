@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { UserService } from './services/user.service';
 import { RideService } from './services/ride.service';
 import { CommentService } from './services/comment.service';
+import { MessagerieService } from './services/messagerie.service';
 
 import { LoadingModule } from 'ngx-loading';
 import { HttpModule } from '@angular/http';
@@ -11,15 +12,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+import { StarRatingModule } from 'angular-star-rating';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccesComponent } from './components/acces/acces.component';
 import { RidesComponent } from './components/rides/rides.component';
 import { RideDetailsComponent } from './components/rides/details/ride.details.component';
 import { RideEditComponent } from './components/rides/edit/ride.edit.component';
-import { TrajetComponent } from './components/trajet/trajet.component';
+import { TrajetDetailsComponent } from './components/trajet/details/trajet.details.component';
+import { TrajetEditComponent } from './components/trajet/edit/trajet.edit.component';
+import { MapComponent } from './components/map/map.component';
+import { InstructionsComponent } from './components/map/instructions/instructions.component';
 import { RegisterComponent } from './components/register/register.component';
-import { DirectionsMapDirective } from './components/trajet/direction.directive';
+import { DirectionsMapDirective } from './components/map/direction.directive';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { CommentComponent } from './components/comment/comment.component';
@@ -48,10 +54,14 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
+    AccesComponent,
     RidesComponent,
     RideDetailsComponent,
     RideEditComponent,
-    TrajetComponent,
+    MapComponent,
+    InstructionsComponent,
+    TrajetDetailsComponent,
+    TrajetEditComponent,
     RegisterComponent,
     DirectionsMapDirective,
     LoginComponent,
@@ -75,7 +85,8 @@ export function provideConfig() {
       libraries: ["places"],
       apiKey: 'AIzaSyCrXlv7ZZWk5yoav8hM-afN6NvDOiKSpuM'
     }),
-    SocialLoginModule
+    SocialLoginModule,
+    StarRatingModule.forRoot()
   ],
   providers: [
     UserService,
@@ -84,7 +95,8 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    CommentService
+    CommentService,
+    MessagerieService
   ],
   bootstrap: [AppComponent]
 })

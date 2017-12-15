@@ -1,0 +1,20 @@
+<div class="trajetInfo">
+  <section *ngIf="trajetInfo">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Instructions <i class="fa fa-list-ol"></i></th>
+          <th>Duration <i class="fa fa-clock-o"></i></th>
+          <th>Distance <i class="fa fa-road"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ti of trajetInfo.steps; let i = index">
+          <td><b>{{i+1}}</b> - <span [innerHTML]="ti.instructions"></span></td>
+          <td>{{ti.duration}}</td>
+          <td>{{ti.distance}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

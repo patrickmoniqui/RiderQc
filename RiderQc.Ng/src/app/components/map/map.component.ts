@@ -1,24 +1,33 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services/google-maps-api-wrapper';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { Http } from '@angular/http';
-import { DirectionsMapDirective } from './direction.directive';
 import { FormControl } from "@angular/forms";
+
+import { DirectionsMapDirective } from './direction.directive';
+
+//Models
 import { TrajetInfo } from "../../model/trajetinfo";
 import { PlaceInfo } from "../../model/placeinfo";
+
 declare var google: any;
 
 @Component({
-    selector: 'app-trajet',
-    templateUrl: './trajet.component.html',
-    styleUrls: ['./trajet.component.css']
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css']
 })
-export class TrajetComponent implements OnInit {
+export class MapComponent implements OnInit {
 
     constructor(private _httpService: Http, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
     @Input() editable = false;
+    @Input() showInstructions = false;
     @Input() waypoints;
-    public showInstructions: Boolean;
+    @Input() height;
+    @Output() trajetUpdated = new EventEmitter();
+    showExpansion: boolean = false;
+    google_map_style: any;
+    instructions_style: any;
     lat: number = 45.242396;
     lng: number = -74.135377;
     directionsDisplay: any;
@@ -31,34 +40,21 @@ export class TrajetComponent implements OnInit {
     @ViewChild("destinationSearch") destinationSearchElementRef: ElementRef;
     @ViewChild(DirectionsMapDirective) vc: DirectionsMapDirective;
 
-    markers: marker[] = [
-        {
-            lat: 45.242396,
-            lng: -74.135377,
-            label: '1',
-            draggable: true
-        },
-        {
-            lat: 45.256173,
-            lng: -74.137887,
-            label: '2',
-            draggable: true
-        },
-        {
-            lat: 45.269456,
-            lng: -74.165114,
-            label: '3',
-            draggable: true
-        }
-    ]
-
     ngOnInit() {
+        if (this.showInstructions) {
+            this.showExpansion = true;
+        }
+        this.google_map_style = {
+            'height': this.height + "vh"
+        };
+        this.instructions_style = {
+            'max-height': this.height + "vh"
+        };
         this.searchControl = new FormControl();
-        if (this.waypoints) {
+        if (this.waypoints && this.waypoints.length > 0) {
             this.setGivenWaypoints();
         } else {
-            this.trajetInfo.origin = { lng: this.lng, lat: this.lat };
-            this.trajetInfo.destination = { lng: this.markers[2].lng, lat: this.markers[2].lat };
+            this.setCurrentPosition();
         }
         var gmapsApi: GoogleMapsAPIWrapper;
         if (this.vc.directionsDisplay === undefined) {
@@ -73,6 +69,7 @@ export class TrajetComponent implements OnInit {
                     self.setWaypoints(self.vc.directionsDisplay.directions.request.waypoints);
                     self.setOrigin(self.vc.directionsDisplay.directions.request.origin);
                     self.setDestination(self.vc.directionsDisplay.directions.request.destination);
+                    self.emitValues();
                     console.log(self.vc.directionsDisplay.directions.routes[0].legs[0]);
                 });
 
@@ -138,6 +135,11 @@ export class TrajetComponent implements OnInit {
             });
         }
     }
+    
+    toggleInstructions() {
+        this.showInstructions = !this.showInstructions;
+        this.vc.ngOnInit();
+    }
 
     deleteWaypoint(index: number) {
         this.trajetInfo.waypoints.splice(index, 1);
@@ -145,17 +147,17 @@ export class TrajetComponent implements OnInit {
     }
 
     setGivenWaypoints() {
-        let lat: number = this.waypoints.split(";")[0].split(", ")[0];
-        let lng: number = this.waypoints.split(";")[0].split(", ")[1];
+        let lat: number = this.waypoints[0].split(", ")[0];
+        let lng: number = this.waypoints[0].split(", ")[1];
         console.log("Origin:", lat, ",", lng);
         this.trajetInfo.origin = { lng: +lng, lat: +lat };
-        lat = this.waypoints.split(";")[this.waypoints.split(";").length - 1].split(", ")[0];
-        lng = this.waypoints.split(";")[this.waypoints.split(";").length - 1].split(", ")[1];
+        lat = this.waypoints[this.waypoints.length - 1].split(", ")[0];
+        lng = this.waypoints[this.waypoints.length - 1].split(", ")[1];
         console.log("Destination:", lat, ",", lng);
         this.trajetInfo.destination = { lng: +lng, lat: +lat };
-        for (let i = 1; i <= this.waypoints.split(";").length - 2; i++) {
-            lat = this.waypoints.split(";")[i].split(", ")[0];
-            lng = this.waypoints.split(";")[i].split(", ")[1];
+        for (let i = 1; i <= this.waypoints.length - 2; i++) {
+            lat = this.waypoints[i].split(", ")[0];
+            lng = this.waypoints[i].split(", ")[1];
             if (lat != null && lng != null) {
                 this.trajetInfo.waypoints[i - 1] = {
                     location: lat + "," + lng,
@@ -223,6 +225,17 @@ export class TrajetComponent implements OnInit {
         }
     }
 
+    emitValues() {
+        var array = [];
+        array.push(this.trajetInfo.origin.lat + ", " + this.trajetInfo.origin.lng);
+        this.trajetInfo.waypoints.forEach(eachObj => {
+            array.push(eachObj.location);
+        });
+        array.push(this.trajetInfo.destination.lat + ", " + this.trajetInfo.destination.lng);
+        console.log(array);
+        this.trajetUpdated.emit(array);
+    }
+
 
     private getAddressComponentByPlace(place) {
         var components = place.address_components;
@@ -263,11 +276,4 @@ export class TrajetComponent implements OnInit {
         this.placeInfo.route = route;
         this.placeInfo.locality = locality;
     }
-}
-
-interface marker {
-    lat: number;
-    lng: number;
-    label?: string;
-    draggable: boolean;
 }

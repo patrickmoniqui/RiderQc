@@ -7,8 +7,9 @@ import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-//Import Model
+//Models
 import { CommentReply } from '../model/commentReply';
+import { Comment } from '../model/comment';
 
 //Service
 import { UserService } from '../services/user.service';
@@ -32,5 +33,17 @@ export class CommentService {
       var commentId = this.http.post(this.baseUrl + '/comment/reply', comment, { headers: this.userService.getBearerAuthHeader() })
         .map(x => x.json());
       return commentId;
+    }
+
+    getById(commentId: number): Observable<Comment> {
+      var comment = this.http.get(this.baseUrl + '/comment/' + commentId, { headers: this.userService.getBearerAuthHeader() })
+        .map(x => x.json());
+      return comment;
+    }
+
+    deleteById(commentId: number): Observable<Boolean> {
+      var result = this.http.delete(this.baseUrl + '/comment/' + commentId, { headers: this.userService.getBearerAuthHeader() })
+        .map(x => x.json());
+      return result;
     }
 }

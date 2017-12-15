@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RiderQc.Web.ViewModels.Message
+namespace RiderQc.Web.ViewModels.Api.Message
 {
     public class MessageViewModel
     {

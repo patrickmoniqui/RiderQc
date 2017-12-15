@@ -1,0 +1,45 @@
+<section *ngIf="trajet">
+  <div class="panel panel-primary trajet-container">
+    <div class="panel-heading text-center">
+      <a [routerLink]="['/trajet/details'+ trajet.TrajetId]" [queryParams]="{ReturnUrl:'trajet'}">
+        {{trajet.Title}}
+      </a>
+      <p style="display:inline-block">
+        by
+      </p>
+      <a style="display:inline-block" [routerLink]="['/user/'+trajet.Creator.Username]">
+        <i class="fa fa-user" aria-hidden="true"></i> by {{trajet.Creator.Username}}
+      </a>
+      <button (click)="toggleTrajetContainer(this)" class="btn-nostyle" style="float:right">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </button>
+
+      <a [routerLink]="['/trajet/edit/'+trajet.TrajetId]" [queryParams]="{ReturnUrl:'trajet'}" *ngIf="isLogged && trajet.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-4 ride-map ride-map-container">
+        <div class="panel panel-danger">
+          <div class="panel-heading">Map</div>
+          <div>
+            <app-map [editable]="false" [waypoints]="trajet.GpsPoints" [showInstructions]="true" [height]="50"></app-map>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 trajet-description">
+        <div class="panel panel-success">
+          <div class="panel-heading">Info</div>
+          <div class="panel-body">
+            <p>
+              <i class="fa fa-book infoSymbol"></i><strong>Title :</strong> {{trajet.Title}}
+            </p>
+            <p>
+              <i class="fa fa-align-justify infoSymbol"></i><strong>Description :</strong> {{trajet.Description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
