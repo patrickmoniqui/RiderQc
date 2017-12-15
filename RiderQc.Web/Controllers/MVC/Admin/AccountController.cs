@@ -49,6 +49,7 @@ namespace RiderQc.Web.Controllers.MVC.Admin
             }
             ModelState.AddModelError("LoginError", "Invalid login attempt");
             return View(user);
+            //jai besoin de chier
         }
 
         [HttpGet]

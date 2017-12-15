@@ -51,6 +51,26 @@ namespace RiderQc.Web.DAL
             }
         }
 
+        public bool EditUser(User user)
+        {
+            int result = -1;
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                ctx.Entry(user).State = EntityState.Modified;
+                result = ctx.SaveChanges();
+            }
+
+            if (result <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public bool CheckUserExistence(string username)
         {
             using (RiderQcContext ctx = new RiderQcContext())
