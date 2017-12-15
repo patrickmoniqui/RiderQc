@@ -271,5 +271,32 @@ namespace RiderQc.Web.DAL
 
             return rides;
         }
+
+        public bool EditUserPwd(string username, string pwd)
+        {
+            int result = -1;
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User _user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if (_user != null)
+                {
+                    string hashedPwd = EncryptionHelper.HashToSHA256(pwd);
+                    _user.Password = hashedPwd;
+
+                    ctx.Entry(_user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
+            }
+
+            if (result <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

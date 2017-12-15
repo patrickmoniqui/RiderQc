@@ -23,8 +23,8 @@ export class NavbarLoginComponent implements OnInit {
   user: User;
   token: string;
   err: string;
-
-
+  InvalidCreds: string = "";
+  
   constructor(private authService: AuthService, public userService: UserService) {
 
     this.isLogged = this.userService.isLogged;

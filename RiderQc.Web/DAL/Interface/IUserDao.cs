@@ -11,6 +11,7 @@ namespace RiderQc.Web.DAL.Interface
         bool CheckUserExistence(string username);
         bool CredentialsAreValid(string username, string password);
         bool EditUser(User user);
+        bool EditUserPwd(string username, string pwd);
         List<Ride> GetMyRides(string username);
         User GetByUsername(string username);
         User GetUserById(int user_id);

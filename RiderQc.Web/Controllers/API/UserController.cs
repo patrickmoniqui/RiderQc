@@ -181,6 +181,31 @@ namespace RiderQc.Web.Controllers.API
         }
 
         /// <summary>
+        /// Edit user password
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpPut]
+        [Route("password")]
+        public IHttpActionResult EditUserPassword([FromUri] string pwd)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+            bool result = false;
+
+            result = repo.EditUserPwd(user.Username, pwd);
+
+            if (result)
+            {
+                return Ok("User password successfully edited");
+            }
+            else
+            {
+                return BadRequest("Error while editing user password.");
+            }
+        }
+
+        /// <summary>
         /// Get User by username
         /// </summary>
         /// <param name="username"></param>

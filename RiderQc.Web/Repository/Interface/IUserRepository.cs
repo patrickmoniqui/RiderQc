@@ -14,6 +14,7 @@ namespace RiderQc.Web.Repository.Interface
         bool CheckUserExistence(string username);
         bool CredentialsAreValid(string username, string password);
         bool EditUser(UserViewModel user);
+        bool EditUserPwd(string username, string pwd);
         UserViewModel GetUserById(int userId);
         UserViewModel GetUserByName(string username);
         User GetUserByNameAdmin(string username);

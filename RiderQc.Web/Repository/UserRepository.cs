@@ -239,5 +239,10 @@ namespace RiderQc.Web.Repository
         {
             return dao.GetUserById(userId);
         }
+
+        public bool EditUserPwd(string username, string pwd)
+        {
+            return dao.EditUserPwd(username, pwd);
+        }
     }
 }
