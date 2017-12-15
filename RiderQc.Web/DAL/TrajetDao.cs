@@ -70,6 +70,7 @@ namespace RiderQc.Web.DAL
             }
         }
 
+
         public bool Update(Trajet trajet)
         {
             using (RiderQcContext ctx = new RiderQcContext())
@@ -79,7 +80,7 @@ namespace RiderQc.Web.DAL
                 _trajet.Description = trajet.Description;
                 _trajet.GoogleCo = trajet.GoogleCo;
 
-                ctx.Entry<Trajet>(_trajet).State = System.Data.Entity.EntityState.Modified;
+                ctx.Entry<Trajet>(_trajet).State = EntityState.Modified;
                 
                 int result = ctx.SaveChanges();
 

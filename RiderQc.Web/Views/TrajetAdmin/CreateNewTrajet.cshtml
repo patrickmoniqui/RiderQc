@@ -1,4 +1,4 @@
-﻿@model RiderQc.Web.ViewModels.Trajet.TrajetViewModel
+﻿@model RiderQc.Web.ViewModels.Api.Trajet.TrajetAdminCreateViewModel
 
 @{
     ViewBag.Title = "CreateNewTrajet";
@@ -7,19 +7,19 @@
 <h2>CreateNewTrajet</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateNewTrajet", "TrajetAdmin", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TrajetViewModel</h4>
+        <h4>TrajetAdminCreateViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.TrajetId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CreatorId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TrajetId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TrajetId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CreatorId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreatorId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -36,26 +36,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GpsPoints, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GpsPoints, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.EditorFor(model => model.GpsPoints, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.EditorFor(model => model.GpsPoints, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.EditorFor(model => model.GpsPoints, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GpsPoints, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Creator, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.DisplayNameFor(model => model.Creator.UserID)
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Creator.UserID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Creator.UserID, "", new { @class = "text-danger" })
             </div>
         </div>
 

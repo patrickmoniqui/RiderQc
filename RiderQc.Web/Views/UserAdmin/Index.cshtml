@@ -61,7 +61,7 @@
                 <td class="text-center">
                     <button class="btn-primary btn" onclick="location.href='@Url.Action("edit", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-edit"></i> Edit</button>
                     <button class="btn-info btn" onclick="location.href='@Url.Action("detail", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-book"></i> Details</button>
-                    <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/user", id = item.Username })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                    <button class="btn-danger btn" onclick="location.href='@Url.Action("delete", new { controller = "admin/user", id = item.UserID })'"><i class="glyphicon glyphicon-remove"></i> Delete</button>
                 </td>
             </tr>
         }

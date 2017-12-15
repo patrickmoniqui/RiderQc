@@ -89,30 +89,67 @@ namespace RiderQc.Web.Controllers
                     }
                     
                 }
+                return Redirect("/admin/user/list");
+            }
+
+            return Redirect("/admin/account/login");
+        }
+
+
+        [Route("delete/{userid}")]
+        public ActionResult DeleteUser(int userid)
+        {
+            if (Authenticate())
+            {
+                UserAdminViewModel user = repo.GetUserAdminById(userid);
+                //repo.DeleteUser(username);
                 return View(user);
             }
 
             return Redirect("/admin/account/login");
         }
 
-
+        [HttpPost]
         [Route("delete/{username}")]
-        public ActionResult DeleteUser(string username)
+        public ActionResult DeleteUser(UserAdminViewModel user )
         {
             if (Authenticate())
             {
-                repo.DeleteUser(username);
-                return View();
+                User rawUser = repo.GetRawUserById(user.UserID);
+                if (rawUser != null)
+                {
+                    rawUser.Username = user.Username;
+                    repo.DeleteUser(rawUser.Username);
+                }
+                return Redirect("/admin/user/list");
             }
 
             return Redirect("/admin/account/login");
         }
+
 
         [Route("create")]
         public ActionResult CreateNewUser()
         {
             if (Authenticate())
                 return View();
+
+            return Redirect("/admin/account/login");
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult CreateNewUser(UserRegisterViewModel user)
+        {
+            if (Authenticate())
+            {
+                if (ModelState.IsValid)
+                {
+                        repo.RegisterUser(user);
+
+                }
+                return Redirect("/admin/user/list");
+            }
 
             return Redirect("/admin/account/login");
         }
