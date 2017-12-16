@@ -2,6 +2,7 @@
 using RiderQc.Web.Helpers;
 using RiderQc.Web.Models;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Api.User;
 using RiderQc.Web.ViewModels.Ride;
 using RiderQc.Web.ViewModels.User;
 using System;
@@ -138,6 +139,69 @@ namespace RiderQc.Web.Controllers.API
             else
             {
                 return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Edit user
+        /// </summary>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpPut]
+        [Route("")]
+        public IHttpActionResult EditUser(EditUserViewModel editUserViewModel)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+            bool result = false;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            UserViewModel userViewModel = new UserViewModel();
+            userViewModel.UserID = user.Id;
+            userViewModel.Username = user.Username;
+            userViewModel.DateOfBirth = editUserViewModel.DateOfBirth;
+            userViewModel.Description = editUserViewModel.Description;
+            userViewModel.DpUrl = editUserViewModel.DpUrl;
+            userViewModel.Region = editUserViewModel.Region;
+            userViewModel.Ville = editUserViewModel.Ville;
+
+            result = repo.EditUser(userViewModel);
+
+            if(result)
+            {
+                return Ok("User successfully edited");
+            }
+            else
+            {
+                return BadRequest("Error while editing user.");
+            }
+        }
+
+        /// <summary>
+        /// Edit user password
+        /// </summary>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        [AuthTokenAuthorization]
+        [HttpPut]
+        [Route("password")]
+        public IHttpActionResult EditUserPassword([FromUri] string pwd)
+        {
+            ApplicationUser user = (ApplicationUser)User;
+            bool result = false;
+
+            result = repo.EditUserPwd(user.Username, pwd);
+
+            if (result)
+            {
+                return Ok("User password successfully edited");
+            }
+            else
+            {
+                return BadRequest("Error while editing user password.");
             }
         }
 

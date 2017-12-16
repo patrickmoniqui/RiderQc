@@ -1,20 +1,16 @@
 <section *ngIf="trajet">
   <div class="panel panel-primary trajet-container">
     <div class="panel-heading text-center">
-      <a [routerLink]="['/trajet/details'+ trajet.TrajetId]" [queryParams]="{ReturnUrl:'trajet'}">
+      <a [routerLink]="['/trajet/details/'+ trajet.TrajetId]" [queryParams]="{ReturnUrl:'rides'}">
         {{trajet.Title}}
       </a>
-      <p style="display:inline-block">
-        by
-      </p>
-      <a style="display:inline-block" [routerLink]="['/user/'+trajet.Creator.Username]">
+      <a style="display:inline-block; font-size:0.8em" [routerLink]="['/user/'+trajet.Creator.Username]">
         <i class="fa fa-user" aria-hidden="true"></i> by {{trajet.Creator.Username}}
       </a>
       <button (click)="toggleTrajetContainer(this)" class="btn-nostyle" style="float:right">
         <i class="fa fa-expand" aria-hidden="true"></i>
       </button>
-
-      <a [routerLink]="['/trajet/edit/'+trajet.TrajetId]" [queryParams]="{ReturnUrl:'trajet'}" *ngIf="isLogged && trajet.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
+      <a [routerLink]="['/trajet/edit/'+trajet.TrajetId]" [queryParams]="{ReturnUrl:'trajet/details/' + trajet.TrajetId}" *ngIf="isLogged && trajet.Creator.Username.indexOf(user?.Username) > -1" style="float:left">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </a>
     </div>

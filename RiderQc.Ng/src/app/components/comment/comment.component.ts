@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 //Models
 import { CommentReply } from '../../model/commentReply';
 import { Comment } from '../../model/comment';
+import { User } from '../../model/user';
 
 //Services
 import { CommentService } from '../../services/comment.service';
@@ -21,12 +22,21 @@ export class CommentComponent implements OnInit {
     public commentService: CommentService;
     public userService: UserService;
     public isLogged: Boolean;
-
+    public LoggedUser: User;
 
     constructor(public _commentService: CommentService, public _userService: UserService, private route: ActivatedRoute, private router: Router) {
         this.commentService = _commentService;
         this.userService = _userService;
         this.isLogged = this.userService.isLogged;
+
+        if (this.isLogged)
+        {
+          this.userService.getLoggedUser().subscribe((user) => this.LoggedUser = user);
+        }
+        else
+        {
+          this.LoggedUser = null;
+        }
     }
 
     ngOnInit() {

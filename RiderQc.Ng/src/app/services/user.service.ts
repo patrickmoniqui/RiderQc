@@ -34,8 +34,18 @@ export class UserService {
 
     getUser(username: string): Observable<User> {
         return this.http.get(`${this.baseUrl}/user?username=${username}`)
-            .map(res => res.json());
-
+          .map((response: Response) => {
+            if (response.status == 200) {
+              return response.json();
+            }
+            else if (response.status == 401) {
+              this.removeAuthCookie();
+            }
+            else
+            {
+              return null;
+            }
+          });
     }
 
     getUserByAuthToken(authToken: string): Observable<User> {

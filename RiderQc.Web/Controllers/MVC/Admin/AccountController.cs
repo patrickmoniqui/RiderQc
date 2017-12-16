@@ -43,12 +43,13 @@ namespace RiderQc.Web.Controllers.MVC.Admin
                         if (repo2.GetUserRole(userFromDB.UserID).RoleId == Constant.UserRole_Admin)
                         {
                             Session["Username"] = userFromDB.Username;
-                            return RedirectToAction("Index", "UserAdmin");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
             }
             ModelState.AddModelError("LoginError", "Invalid login attempt");
             return View(user);
+            //jai besoin de chier
         }
 
         [HttpGet]

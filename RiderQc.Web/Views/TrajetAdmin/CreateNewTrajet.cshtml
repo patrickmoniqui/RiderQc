@@ -1,4 +1,4 @@
-﻿@model RiderQc.Web.ViewModels.Trajet.TrajetViewModel
+﻿@model RiderQc.Web.ViewModels.Api.Trajet.TrajetAdminCreateViewModel
 
 @{
     ViewBag.Title = "CreateNewTrajet";
@@ -6,29 +6,38 @@
 
 <h2>CreateNewTrajet</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm("CreateNewTrajet", "TrajetAdmin", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Trajet</h4>
+        <h4>TrajetAdminCreateViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CreatorId, "CreatorId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreatorId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CreatorId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.CreatorId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreatorId, "", new { @class = "text-danger" })
             </div>
-        </div>*@
-        <!-- Commented in case Potato wants to change stuff, only making it not crash on runtime - Benjamin Lam -->
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.GoogleCo, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GoogleCo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GoogleCo, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -39,5 +48,9 @@
 }
 
 <div>
-    <button class="btn-info btn" onclick="location.href='@Url.Action("list", new { controller = "admin/trajet" })'">Back to List</button>
+    @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

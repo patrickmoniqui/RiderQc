@@ -44,6 +44,7 @@ export class MapComponent implements OnInit {
         if (this.showInstructions) {
             this.showExpansion = true;
         }
+      
         this.google_map_style = {
             'height': this.height + "vh"
         };
@@ -64,13 +65,11 @@ export class MapComponent implements OnInit {
                     draggable: this.editable
                 });
                 this.vc.directionsDisplay.addListener('directions_changed', function () {
-                    console.log("Complete: ", self.vc.directionsDisplay);
                     self.setTrajetInfo(self.vc.directionsDisplay.directions.routes[0].legs[0]);
                     self.setWaypoints(self.vc.directionsDisplay.directions.request.waypoints);
                     self.setOrigin(self.vc.directionsDisplay.directions.request.origin);
                     self.setDestination(self.vc.directionsDisplay.directions.request.destination);
                     self.emitValues();
-                    console.log(self.vc.directionsDisplay.directions.routes[0].legs[0]);
                 });
 
                 if (this.editable) {
@@ -87,9 +86,6 @@ export class MapComponent implements OnInit {
                             if (place.geometry === undefined || place.geometry === null) {
                                 return;
                             }
-                            console.log("Place", place);
-                            console.log("lat: ", place.geometry.location.lat());
-                            console.log("lng: ", place.geometry.location.lng());
                             //set latitude, longitude and zoom
                             this.placeInfoOrigin.lat = place.geometry.location.lat();
                             this.placeInfoOrigin.lng = place.geometry.location.lng();
@@ -116,9 +112,6 @@ export class MapComponent implements OnInit {
                             if (place.geometry === undefined || place.geometry === null) {
                                 return;
                             }
-                            console.log("Place", place);
-                            console.log("lat: ", place.geometry.location.lat());
-                            console.log("lng: ", place.geometry.location.lng());
                             //set latitude, longitude and zoom
                             this.placeInfoDestination.lat = place.geometry.location.lat();
                             this.placeInfoDestination.lng = place.geometry.location.lng();
@@ -137,8 +130,8 @@ export class MapComponent implements OnInit {
     }
     
     toggleInstructions() {
-        this.showInstructions = !this.showInstructions;
-        this.vc.ngOnInit();
+      this.showInstructions = !this.showInstructions;
+      this.vc.ngOnInit();
     }
 
     deleteWaypoint(index: number) {
@@ -149,28 +142,24 @@ export class MapComponent implements OnInit {
     setGivenWaypoints() {
         let lat: number = this.waypoints[0].split(", ")[0];
         let lng: number = this.waypoints[0].split(", ")[1];
-        console.log("Origin:", lat, ",", lng);
         this.trajetInfo.origin = { lng: +lng, lat: +lat };
         lat = this.waypoints[this.waypoints.length - 1].split(", ")[0];
         lng = this.waypoints[this.waypoints.length - 1].split(", ")[1];
-        console.log("Destination:", lat, ",", lng);
         this.trajetInfo.destination = { lng: +lng, lat: +lat };
         for (let i = 1; i <= this.waypoints.length - 2; i++) {
-            lat = this.waypoints[i].split(", ")[0];
-            lng = this.waypoints[i].split(", ")[1];
+            lat = this.waypoints[i].split(",")[0];
+            lng = this.waypoints[i].split(",")[1];
             if (lat != null && lng != null) {
                 this.trajetInfo.waypoints[i - 1] = {
                     location: lat + "," + lng,
                     stopover: false
                 }
-                console.log("trajetInfo waypoint", i, ":", this.trajetInfo.waypoints[i - 1].location);
             }
         }
     }
 
     setWaypoints(waypoints: any) {
         let i = 0;
-        console.log("Waypoints lenght: ", waypoints.length);
         for (let wp of waypoints) {
             if (wp.location.lat != null && wp.location.lng != null) {
                 this.trajetInfo.waypoints[i] = {
@@ -232,7 +221,6 @@ export class MapComponent implements OnInit {
             array.push(eachObj.location);
         });
         array.push(this.trajetInfo.destination.lat + ", " + this.trajetInfo.destination.lng);
-        console.log(array);
         this.trajetUpdated.emit(array);
     }
 
@@ -247,7 +235,6 @@ export class MapComponent implements OnInit {
         var locality = null;
 
         for (var i = 0, component; component = components[i]; i++) {
-            console.log(component);
             if (component.types[0] == 'country') {
                 country = component['short_name'] + ', ' + component['long_name'];
             }

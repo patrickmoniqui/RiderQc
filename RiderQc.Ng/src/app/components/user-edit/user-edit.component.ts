@@ -27,6 +27,11 @@ export class UserEditComponent implements OnInit {
     private pass: string;
     private confirmPass: string;
 
+    user: User;
+    showPass: boolean;
+    InfoGroup: FormGroup;
+    pass: string = "hello";
+>>>>>>> develop
     regions = [
         "Bas-Saint-Laurent", "Saguenay–Lac-Saint-Jean", "Capitale-Nationale", "Mauricie", "Estrie", "Montréal",
         "Outaouais", "Abitibi-Témiscamingue", "Côte-Nord", "Nord-du-Québec", "Gaspésie–Îles-de-la-Madeleine",

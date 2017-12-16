@@ -277,6 +277,10 @@
     <Compile Include="Migrations\201712132210272_AddRideRatingFix.Designer.cs">
       <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712160015181_User Active.cs" />
+    <Compile Include="Migrations\201712160015181_User Active.Designer.cs">
+      <DependentUpon>201712160015181_User Active.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="NinjectBinding.cs" />
@@ -314,10 +318,12 @@
     <Compile Include="ViewModels\Api\Ride\RideCreateWithTrajetViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideCreateViewModel.cs" />
     <Compile Include="ViewModels\Api\Ride\RideViewModel.cs" />
+    <Compile Include="ViewModels\Api\Trajet\TrajetAdminCreateViewModel.cs" />
     <Compile Include="ViewModels\Api\Trajet\TrajetCreateViewModel.cs" />
     <Compile Include="ViewModels\Api\Trajet\TrajetViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserAdminViewModel.cs" />
     <Compile Include="ViewModels\Api\User\AuthentificationTokenViewModel.cs" />
+    <Compile Include="ViewModels\Api\User\EditUserViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserLoginViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserRegisterViewModel.cs" />
     <Compile Include="ViewModels\Api\User\UserSimpleViewModel.cs" />
@@ -366,20 +372,20 @@
     <Content Include="Views\UserAdmin\Index.cshtml" />
     <Content Include="Views\UserAdmin\CreateNewUser.cshtml" />
     <Content Include="Views\UserAdmin\DeleteUser.cshtml" />
-    <Content Include="Views\UserAdmin\DetailUser.cshtml" />
     <Content Include="Views\UserAdmin\EditUser.cshtml" />
     <Content Include="Views\TrajetAdmin\Index.cshtml" />
-    <Content Include="Views\TrajetAdmin\Edittrajet.cshtml" />
     <Content Include="Views\TrajetAdmin\DeleteTrajet.cshtml" />
-    <Content Include="Views\TrajetAdmin\CreateNewTrajet.cshtml" />
-    <Content Include="Views\TrajetAdmin\DetailTrajet.cshtml" />
     <Content Include="Views\RideAdmin\Index.cshtml" />
-    <Content Include="Views\RideAdmin\EditRide.cshtml" />
-    <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
-    <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
-    <Content Include="Views\RideAdmin\DetailRide.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Redoc.cshtml" />
+    <Content Include="Views\TrajetAdmin\DetailTrajet.cshtml" />
+    <Content Include="Views\RideAdmin\EditRide.cshtml" />
+    <Content Include="Views\RideAdmin\DetailRide.cshtml" />
+    <Content Include="Views\RideAdmin\CreateNewRide.cshtml" />
+    <Content Include="Views\RideAdmin\DeleteRide.cshtml" />
+    <Content Include="Views\UserAdmin\DetailUser.cshtml" />
+    <Content Include="Views\TrajetAdmin\CreateNewTrajet.cshtml" />
+    <Content Include="Views\TrajetAdmin\Edittrajet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712132210272_AddRideRatingFix.resx">
       <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712160015181_User Active.resx">
+      <DependentUpon>201712160015181_User Active.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

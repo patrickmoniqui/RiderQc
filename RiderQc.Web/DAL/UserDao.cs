@@ -16,8 +16,14 @@ namespace RiderQc.Web.DAL
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                ctx.Users.Remove(ctx.Users.FirstOrDefault(x => x.Username == username));
-                result = ctx.SaveChanges();
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if(user != null)
+                {
+                    user.IsActive = false;
+                    ctx.Entry(user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
             }
 
             if (result >= 1)
@@ -37,6 +43,7 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 user.Password = EncryptionHelper.HashToSHA256(user.Password);
+                user.IsActive = true;
                 ctx.Users.Add(user);
                 result = ctx.SaveChanges();
             }
@@ -50,6 +57,38 @@ namespace RiderQc.Web.DAL
                 return false;
             }
         }
+
+        public bool EditUser(User user)
+        {
+            int result = -1;
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User _user = ctx.Users.FirstOrDefault(x => x.UserID == user.UserID);
+
+                if(_user != null)
+                {
+                    _user.DateOfBirth = user.DateOfBirth;
+                    _user.Description = user.Description;
+                    _user.DpUrl = user.DpUrl;
+                    _user.Region = user.Region;
+                    _user.Ville = user.Ville;
+
+                    ctx.Entry(_user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
+                
+            }
+
+            if (result <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public bool CheckUserExistence(string username)
         {
@@ -89,7 +128,8 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 var users = ctx.Users
-                    .Include(u => u.Motoes);
+                    .Include(u => u.Motoes)
+                    .Where(x => x.IsActive);
 
                 if (users != null)
                 {
@@ -238,6 +278,33 @@ namespace RiderQc.Web.DAL
             }
 
             return rides;
+        }
+
+        public bool EditUserPwd(string username, string pwd)
+        {
+            int result = -1;
+            using (RiderQcContext ctx = new RiderQcContext())
+            {
+                User _user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if (_user != null)
+                {
+                    string hashedPwd = EncryptionHelper.HashToSHA256(pwd);
+                    _user.Password = hashedPwd;
+
+                    ctx.Entry(_user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
+            }
+
+            if (result <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

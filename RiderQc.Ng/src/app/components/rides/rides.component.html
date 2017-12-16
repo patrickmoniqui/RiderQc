@@ -1,3 +1,5 @@
+<div *ngIf="!finishedLoading" class="loading">Loading rides&#8230;</div>
+
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="text-center">Browse rides <span class="badge"> {{!!rides?.length ? rides.length : 0}} </span></h1>
@@ -14,14 +16,8 @@
   <app-ride-single [ride]="ride">Loading ride...</app-ride-single>
 </div>
 
-<div *ngIf="isLoading">
-  <h1 class="text-center">
-    Loading...
-  </h1>
-</div>
-
 <!-- No rides -->
-<div class="items-not-found" *ngIf="rides?.length == 0">
+<div *ngIf="finishedLoading && rides?.length == 0" class="items-not-found">
   <h1>
     <i class="fa fa-times" aria-hidden="true"></i>
     No rides found.

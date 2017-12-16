@@ -1,3 +1,4 @@
+<div *ngIf="!finishedLoading && !user" class="loading">Loading ride&#8230;</div>
 <section *ngIf="ride" class="container">
   <section *ngIf="user && ((isModification && (ride.Creator.UserID == user.UserID)) || !isModification)">
     <div class="panel panel-primary ride-container">
@@ -15,16 +16,8 @@
             <br />
 
             <form (ngSubmit)="submitForm()" [formGroup]="rideForm" class="form-horizontal">
-              <input type="hidden" max="9999999999" formControlName="creatorid" [(ngModel)]="ride.Creator" placeholder="CreatorId" class="form-control">
-
-              <div class="form-group">
-                <label for="RideId" class="col-md-4 control-label">Id :</label>
-                <div class="col-md-6">
-                  <input type="number" max="9999999999" formControlName="rideid" [(ngModel)]="ride.RideId" placeholder="Id" class="form-control">
-                </div>
-                <span [hidden]="rideForm.controls.rideid.valid" class="col-md-3 control-valid">(Le rideid est requis)</span><br />
-                <div class="col-md-2"></div>
-              </div>
+              <input type="hidden" max="9999999999" formControlName="rideid" [(ngModel)]="ride.RideId" placeholder="Id" class="form-control">
+              <input type="hidden" max="9999999999" formControlName="creatorid" [(ngModel)]="user" placeholder="CreatorId" class="form-control">
 
               <div class="form-group">
                 <label for="Title" class="col-md-4 control-label">Title :</label>
@@ -44,24 +37,31 @@
               </div>
 
               <div class="form-group">
-                <label for="TrajetId" class="col-md-4 control-label">Trajet Id :</label>
-                <div class="col-md-3">
+                <label for="TrajetId" class="col-md-4 control-label">Trajet :</label>
+                <div class="col-md-4">
                   <select formControlName="trajetid" [(ngModel)]="ride.TrajetId" class="form-control">
-                    <option *ngFor="let trajet of trajets" value={{trajet.TrajetId}}>{{trajet.TrajetId}} - {{trajet.Title}}</option>
+                    <option *ngFor="let trajet of trajets" value={{trajet.TrajetId}}>{{trajet.Title}}</option>
                   </select>
                 </div>
-                <div class="col-md-5"></div>
+                <div class="col-md-4">
+                  <a [routerLink]="['/trajet/create/']" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}">
+                    <button type="button" class="btn btn-primary">New</button>
+                  </a>
+                  <a [routerLink]="['/trajet/details/' + ride.TrajetId]" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}">
+                    <button type="button" [disabled]="!ride.TrajetId" class="btn btn-primary">Details</button>
+                  </a>
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="Level" class="col-md-4 control-label">Level :</label>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <select formControlName="levelid" [(ngModel)]="ride.LevelId" class="form-control">
                     <option *ngFor="let level of levels" value={{level.LevelId}}>{{level.Name}}</option>
                   </select>
                 </div>
                 <span [hidden]="rideForm.controls.levelid.valid" class="col-md-3 control-valid">(Le Level est requis)</span>
-                <div class="col-md-5"></div>
+                <div class="col-md-4"></div>
               </div>
 
               <div class="form-group">
@@ -83,28 +83,13 @@
               </div>
 
               <p [hidden]="rideForm.controls.creatorid.valid" class="control-valid">(Le creatorid est requis)</p>
+              <p [hidden]="!rideForm.hasError('endDateLessThanStartDate')" class="control-valid">‌​(La date de fin ne peut etre avant la date de debut)</p>
 
               <button type="submit" [disabled]="!rideForm.valid" class="btn btn-primary">Submit</button>
             </form>
           </section>
         </div>
-        <a href="#" [routerLink]="['/rides']">Retour à la liste des rides</a>
       </div>
-      <!--
-      <section>
-        <ul>
-          <li><b>Id :</b> {{ride.RideId}}</li>
-          <li><b>Title : </b> {{ride.title}}</li>
-          <li><b>Description : </b> {{ride.description}}</li>
-          <li><b>Creator Id : </b> {{ride.CreatorId}}</li>
-          <li><b>TrajetId : </b> {{ride.TrajetId}}</li>
-          <li><b>Level Id : </b> {{ride.LevelId}}</li>
-          <li><b>Date Depart : </b> {{ride.DateDepart}}</li>
-          <li><b>Date Fin : </b> {{ride.DateFin}}</li>
-          <li><b>Levels : </b> <ul><li *ngFor="let level of levels">{{level.Name}}</li></ul></li>
-        </ul>
-      </section>
-      -->
     </div>
   </section>
   <section *ngIf="!(user && ((isModification && (ride.Creator.UserID == user.UserID)) || !isModification))">

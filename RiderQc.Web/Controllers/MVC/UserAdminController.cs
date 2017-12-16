@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.Helpers;
+﻿using RiderQc.Web.Entities;
+using RiderQc.Web.Helpers;
 using RiderQc.Web.Repository.Interface;
 using RiderQc.Web.ViewModels.Admin;
 using RiderQc.Web.ViewModels.Comment;
@@ -20,10 +21,7 @@ namespace RiderQc.Web.Controllers
         private List<TrajetViewModel> trajetList = new List<TrajetViewModel>();
         private List<LevelViewModel> levelList = new List<LevelViewModel>();
         private List<RideViewModel> rideList = new List<RideViewModel>();
-
-
-
-
+        
         // GET: UserAdmin
         private readonly IUserRepository repo;
 
@@ -60,29 +58,93 @@ namespace RiderQc.Web.Controllers
             if (Authenticate())
             {
                 UserAdminViewModel user = repo.GetUserAdminById(userid);
+                user.Password = "";
                 return View(user);
             }
 
             return Redirect("/admin/account/login");
         }
 
-        [Route("delete/{username}")]
-        public ActionResult DeleteUser(string username)
+        [HttpPost]
+        [Route("edit/{userid}")]
+        public ActionResult EditUser(UserAdminViewModel user)
         {
             if (Authenticate())
             {
-                repo.DeleteUser(username);
-                return View();
+                if(ModelState.IsValid)
+                {
+                    UserViewModel rawUser = new UserViewModel();
+                    rawUser.Username = user.Username;
+                    rawUser.DateOfBirth = user.DateOfBirth;
+                    rawUser.Description = user.Description;
+                    rawUser.Password = user.Password;
+                    rawUser.Region = user.Region;
+                    rawUser.Ville = user.Ville;
+                    rawUser.DpUrl = user.DpUrl;
+                    repo.EditUser(rawUser);
+
+                    if(!string.IsNullOrWhiteSpace(user.Password))
+                    {
+                        repo.EditUserPwd(user.Username, user.Password);
+                    }
+                    
+                }
+                return Redirect("/admin/user/list");
             }
 
             return Redirect("/admin/account/login");
         }
+
+
+        [Route("delete/{userid}")]
+        public ActionResult DeleteUser(int userid)
+        {
+            if (Authenticate())
+            {
+                UserAdminViewModel user = repo.GetUserAdminById(userid);
+                //repo.DeleteUser(username);
+                return View(user);
+            }
+
+            return Redirect("/admin/account/login");
+        }
+
+        [HttpPost]
+        [Route("delete/{username}")]
+        public ActionResult DeleteUser(UserAdminViewModel user )
+        {
+            if (Authenticate())
+            {
+                repo.DeleteUser(user.Username);
+                return Redirect("/admin/user/list");
+            }
+
+            return Redirect("/admin/account/login");
+        }
+
 
         [Route("create")]
         public ActionResult CreateNewUser()
         {
             if (Authenticate())
                 return View();
+
+            return Redirect("/admin/account/login");
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult CreateNewUser(UserRegisterViewModel user)
+        {
+            if (Authenticate())
+            {
+                if (ModelState.IsValid)
+                {
+                        repo.RegisterUser(user);
+
+                }
+                return Redirect("/admin/user/list");
+            }
 
             return Redirect("/admin/account/login");
         }

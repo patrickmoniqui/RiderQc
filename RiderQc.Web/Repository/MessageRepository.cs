@@ -31,7 +31,7 @@ namespace RiderQc.Web.Repository
                 msg.MessageId = message.MessageId;
                 msg.MessageText = message.MessageText;
                 msg.Read = message.Read;
-                msg.TimeStamp = DateTime.Now;
+                msg.TimeStamp = message.TimeStamp;
 
                 UserSimpleViewModel _me = new UserSimpleViewModel();
                 _me.UserID = message.Sender.UserID;
@@ -62,7 +62,7 @@ namespace RiderQc.Web.Repository
                 
                 msg.MessageId = message.MessageId;
                 msg.MessageText = message.MessageText;
-                msg.TimeStamp = DateTime.Now;
+                msg.TimeStamp = message.TimeStamp;
 
                 UserSimpleViewModel _me = new UserSimpleViewModel();
                 _me.UserID = message.Sender.UserID;
@@ -93,7 +93,7 @@ namespace RiderQc.Web.Repository
 
                 msg.MessageId = message.MessageId;
                 msg.MessageText = message.MessageText;
-                msg.TimeStamp = DateTime.Now;
+                msg.TimeStamp = message.TimeStamp;
 
                 UserSimpleViewModel _me = new UserSimpleViewModel();
                 _me.UserID = message.Sender.UserID;

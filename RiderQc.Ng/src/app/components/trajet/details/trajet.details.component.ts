@@ -4,9 +4,11 @@ import { FormBuilder, FormGroup, FormArray, Validators, NgForm } from '@angular/
 
 //Services
 import { TrajetService } from '../../../services/trajet.service';
+import { UserService } from "../../../services/user.service";
 
 //Models
 import { Trajet } from "../../../model/trajet";
+import { User } from "../../../model/user";
 
 @Component({
     selector: 'app-trajet',
@@ -18,18 +20,31 @@ import { Trajet } from "../../../model/trajet";
 export class TrajetDetailsComponent {
     @Input() trajetId;
     public trajet: Trajet;
+    public user: User;
+    public isLogged: Boolean;
+    public userService: UserService;
     sub: any;
     response: any;
 
     constructor(public trajetService: TrajetService,
-        private route: ActivatedRoute,
-        private router: Router) { }
+      private _userService: UserService,
+      private route: ActivatedRoute,
+      private router: Router) {
+        this.userService = _userService;
+        this.isLogged = this.userService.isLogged;
+
+        if (this.isLogged) {
+            this.userService.getLoggedUser().subscribe(x => this.user = x);
+        }
+        else {
+            this.user = null;
+        }
+    }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let id = Number.parseInt(params['id']);
             if (id) {
-                console.log('getting trajet with id: ', id);
                 this.trajetService
                     .details(id)
                     .subscribe(trajet => {

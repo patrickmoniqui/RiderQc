@@ -1,4 +1,5 @@
-﻿using RiderQc.Web.ViewModels.Trajet;
+﻿using RiderQc.Web.ViewModels.Api.Trajet;
+using RiderQc.Web.ViewModels.Trajet;
 using System.Collections.Generic;
 
 namespace RiderQc.Web.Repository.Interface
@@ -11,5 +12,6 @@ namespace RiderQc.Web.Repository.Interface
         bool Exist(int trajetId);
         TrajetViewModel Get(int trajetId);
         List<TrajetViewModel> GetAllTrajets();
+        bool CreateAdminTrajet(TrajetAdminCreateViewModel trajetVM);
     }
 }

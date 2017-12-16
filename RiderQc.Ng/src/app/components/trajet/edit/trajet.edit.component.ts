@@ -73,27 +73,40 @@ export class TrajetEditComponent {
                 title: ['', Validators.required],
                 description: [''],
                 creatorid: ['', Validators.required],
-                gpsPoints: ['', Validators.required]
+                GpsPoints: ['', Validators.required]
             });
 
         });
     }
 
     handleTrajetUpdated(trajet) {
-        this.trajetForm.patchValue({ gpsPoints: trajet });
+        this.trajetForm.patchValue({ GpsPoints: trajet });
         this.trajet.GpsPoints = trajet;
-        console.log("gps points: ", this.trajet.GpsPoints);
-        console.log("updated value: ", this.trajetForm.value);
     }
 
     submitForm() {
         if (this.user) {
-            this.trajet.Creator = this.user;
-            this.trajetForm.patchValue({ creatorid: this.user.UserID });
-            this.trajetService.add(this.trajet);
-            console.log("you submitted value: ", this.trajetForm.value);
+            if (this.trajetForm.valid) {
+              this.trajet.Creator = this.user;
+              this.trajetForm.patchValue({ creatorid: this.user.UserID });
+              if (this.isModification) {
+                this.trajetService
+                    .update(this.trajetForm.value)
+                    .subscribe(p => {
+                        this.response = p;
+                        alert(this.response);
+                    });
+              } else {
+                  console.log("Add trajet");
+                  this.trajetService
+                      .add(this.trajetForm.value)
+                      .subscribe(p => {
+                          this.response = p;
+                          alert(this.response);
+                      });
+              }
+            }
         } else {
-            console.log("no user");
         }
     }
 }

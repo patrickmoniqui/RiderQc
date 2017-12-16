@@ -1,4 +1,4 @@
-﻿@model RiderQc.Web.ViewModels.Admin.UserAdminViewModel
+﻿@model RiderQc.Web.ViewModels.User.UserRegisterViewModel
 
 @{
     ViewBag.Title = "CreateNewUser";
@@ -6,7 +6,7 @@
 
 <h2>CreateNewUser</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateNewUser", "UserAdmin", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     

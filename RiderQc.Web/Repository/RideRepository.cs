@@ -124,5 +124,6 @@ namespace RiderQc.Web.Repository
 
             return ridesViewModel;
         }
+
     }
 }

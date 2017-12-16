@@ -1,6 +1,7 @@
 ﻿using RiderQc.Web.DAL.Interface;
 using RiderQc.Web.Entities;
 using RiderQc.Web.Repository.Interface;
+using RiderQc.Web.ViewModels.Api.Trajet;
 using RiderQc.Web.ViewModels.Trajet;
 using RiderQc.Web.ViewModels.User;
 using System;
@@ -29,6 +30,19 @@ namespace RiderQc.Web.Repository
             
             return dao.Create(trajet);
         }
+
+        public bool CreateAdminTrajet(TrajetAdminCreateViewModel trajetVM)
+        {
+            Trajet trajet = new Trajet();
+            trajet.CreatorId = trajetVM.CreatorId;
+            trajet.Title = trajetVM.Title;
+            trajet.Description = trajetVM.Description;
+            trajet.GoogleCo = "";
+
+            return dao.Create(trajet);
+        }
+
+    
 
         public bool Delete(int trajetId)
         {
