@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
+import { FormControl } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 //Model
 import { User } from '../../model/user';
 
 //Services
 import { UserService } from '../../services/user.service';
-import { FormGroup } from "@angular/forms/forms";
+
 
 
 @Component({
@@ -16,12 +18,15 @@ import { FormGroup } from "@angular/forms/forms";
   providers:[UserService],
 })
 export class UserEditComponent implements OnInit {
-
+    
+    private errorlbl: string;
     currdate: any = "";
     private user: User;
+    private user1: User;
     private showPass: boolean;
-    private InfoGroup: FormGroup;
-    private pass: string = "hello";
+    private pass: string;
+    private confirmPass: string;
+
     regions = [
         "Bas-Saint-Laurent", "Saguenay–Lac-Saint-Jean", "Capitale-Nationale", "Mauricie", "Estrie", "Montréal",
         "Outaouais", "Abitibi-Témiscamingue", "Côte-Nord", "Nord-du-Québec", "Gaspésie–Îles-de-la-Madeleine",
@@ -30,14 +35,12 @@ export class UserEditComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     ngOnInit() {
+   
         this.userService.getLoggedUser().subscribe(
             user => this.user = user);
         console.log(this.user);
         this.showPass = false;
-        /*this.InfoGroup = new FormGroup({
-
-        });*/
-        
+              
         var date = new Date(this.user.DateOfBirth);
         var day = date.getDay();
         var month = date.getMonth();
@@ -48,13 +51,34 @@ export class UserEditComponent implements OnInit {
     {
         this.showPass = true;
     }
-    ChangePass(pass)
+    ChangePass()
     {
-        console.log(pass);
+        console.log(this.pass);
+        if (this.pass.length < 6)
+        {
+            this.errorlbl = "This password is not long enough";
+        }
+        else
+        {
+            if (this.pass !== this.confirmPass) {
+                this.errorlbl = "The Passwords don't match";
+            }
+            else
+            {
+                this.userService.ChangePass(this.pass).subscribe();
+            }
+        }
+        
+            
+        
     }
     hidePass()
     {
         this.showPass = false;
         
+    }
+    clearError()
+    {
+        this.errorlbl = "";
     }
 }

@@ -37,6 +37,7 @@ import { SingleComponent } from './components/rides/single/single.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { AddMotoComponent } from './components/add-moto/add-moto.component';
 
 let config = new AuthServiceConfig([
   {
@@ -76,7 +77,8 @@ export function provideConfig() {
     SingleComponent,
     MessagingComponent,
     UserEditComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    AddMotoComponent
   ],
   imports: [
     BrowserModule,

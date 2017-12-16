@@ -81,6 +81,19 @@ export class UserService {
             });
     }
 
+    ChangePass(password: string) {
+        console.log("changing password" + password);
+        console.log(this.token);
+        console.log(`${this.baseUrl}/user/password?pwd=${password}`);
+        console.log(this.getBearerAuthHeader());
+        return this.http.put(`${this.baseUrl}/user/password?pwd=${password}`, this.getBearerAuthHeader())
+            .map((response: Response) => {
+                console.log(response);
+                return response;
+            }).catch(this.handleError);
+
+    }
+
 
     register(jsonUser) {
         let body = JSON.stringify(jsonUser);
