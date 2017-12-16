@@ -21,10 +21,7 @@ namespace RiderQc.Web.Controllers
         private List<TrajetViewModel> trajetList = new List<TrajetViewModel>();
         private List<LevelViewModel> levelList = new List<LevelViewModel>();
         private List<RideViewModel> rideList = new List<RideViewModel>();
-
-
-
-
+        
         // GET: UserAdmin
         private readonly IUserRepository repo;
 
@@ -61,6 +58,7 @@ namespace RiderQc.Web.Controllers
             if (Authenticate())
             {
                 UserAdminViewModel user = repo.GetUserAdminById(userid);
+                user.Password = "";
                 return View(user);
             }
 
@@ -84,6 +82,11 @@ namespace RiderQc.Web.Controllers
                     rawUser.Ville = user.Ville;
                     rawUser.DpUrl = user.DpUrl;
                     repo.EditUser(rawUser);
+
+                    if(!string.IsNullOrWhiteSpace(user.Password))
+                    {
+                        repo.EditUserPwd(user.Username, user.Password);
+                    }
                     
                 }
                 return Redirect("/admin/user/list");
@@ -112,12 +115,7 @@ namespace RiderQc.Web.Controllers
         {
             if (Authenticate())
             {
-                User rawUser = repo.GetRawUserById(user.UserID);
-                if (rawUser != null)
-                {
-                    rawUser.Username = user.Username;
-                    repo.DeleteUser(rawUser.Username);
-                }
+                repo.DeleteUser(user.Username);
                 return Redirect("/admin/user/list");
             }
 

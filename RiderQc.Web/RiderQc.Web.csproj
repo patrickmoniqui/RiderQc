@@ -277,6 +277,10 @@
     <Compile Include="Migrations\201712132210272_AddRideRatingFix.Designer.cs">
       <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712160015181_User Active.cs" />
+    <Compile Include="Migrations\201712160015181_User Active.Designer.cs">
+      <DependentUpon>201712160015181_User Active.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="NinjectBinding.cs" />
@@ -429,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712132210272_AddRideRatingFix.resx">
       <DependentUpon>201712132210272_AddRideRatingFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712160015181_User Active.resx">
+      <DependentUpon>201712160015181_User Active.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

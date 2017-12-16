@@ -16,8 +16,14 @@ namespace RiderQc.Web.DAL
             int result = -1;
             using (RiderQcContext ctx = new RiderQcContext())
             {
-                ctx.Users.Remove(ctx.Users.FirstOrDefault(x => x.Username == username));
-                result = ctx.SaveChanges();
+                User user = ctx.Users.FirstOrDefault(x => x.Username == username);
+
+                if(user != null)
+                {
+                    user.IsActive = false;
+                    ctx.Entry(user).State = EntityState.Modified;
+                    result = ctx.SaveChanges();
+                }
             }
 
             if (result >= 1)
@@ -37,6 +43,7 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 user.Password = EncryptionHelper.HashToSHA256(user.Password);
+                user.IsActive = true;
                 ctx.Users.Add(user);
                 result = ctx.SaveChanges();
             }
@@ -121,7 +128,8 @@ namespace RiderQc.Web.DAL
             using (RiderQcContext ctx = new RiderQcContext())
             {
                 var users = ctx.Users
-                    .Include(u => u.Motoes);
+                    .Include(u => u.Motoes)
+                    .Where(x => x.IsActive);
 
                 if (users != null)
                 {
