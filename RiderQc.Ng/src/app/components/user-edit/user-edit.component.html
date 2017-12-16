@@ -1,27 +1,52 @@
 <div id="container">
-  <!--<form [formGroup]="InfoGroup" class="form" novalidatee>-->
-    <input id="ville" placeholder="ville" class="form-control" [(ngModel)]="user.Ville"  />
-    <select class="form-control" >
+
+
+  <div id="container">
+    <!--<form [formGroup]="InfoGroup" class="form" novalidatee>-->
+    <h2>
+      Change User Information Section
+    </h2>
+    <label id="errorLabel" style="color: red;">{{errorlbl1}}</label>
+
+    <input id="ville" placeholder="ville" class="form-control" [(ngModel)]="user.Ville" (change)="addValue('Ville')" />
+    <select class="form-control" (change)="addValue('Region')" [(ngModel)]="user.Region">
       <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
     </select>
-    <textarea id="description" placeholder="Description" class="form-control" type="text" [(ngModel)]="user.Description"></textarea>
-    <input id="dateOfBirth" type="date" min="1900-01-01" onkeydown="return false" placeholder="Date de Naissance" class="form-control"  [(ngModel)]="currdate" />
+    <textarea id="description" placeholder="Description" class="form-control" type="text" [(ngModel)]="user.Description" (change)="addValue('Description')"></textarea>
+    <button name="changeUser" (click)="UpdateUser()">Change Info</button>
 
+
+
+
+    <!--</form>-->
+
+    <form>
     
-
-
-  <!--</form>-->
+      <div *ngIf="!showPass">
+        <a (click)="ShowPass()">Change Password</a>
+      </div>
+      <div *ngIf="showPass">
+        <h2>
+          Change Password Section
+        </h2>
+        <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
+        <input name="pass" type="password" placeholder="Password" [(ngModel)]="pass" (change)="clearError()" />
+        <input name="confirmPass" type="password" placeholder="Confirm Password" [(ngModel)]="confirmPass" (change)="clearError()" />
+        <button name="changePass" (click)="ChangePass()">ChangePass</button>
+        <button name="hidePass" (click)="hidePass()">Clear and Hide</button>
+      </div>
+    </form>
+  </div>
+  <div id="container">
+    <h2>
+      Create Moto Section
+    </h2>
+    <input type="text" name="moto.Brand" placeholder="Brand" required [(ngModel)]="moto.Brand"/>
+    <input type="text" name="moto.Model" placeholder="Model" required [(ngModel)]="moto.Model"/>
+    <input type="number" name="moto.Year" placeholder="Year" required [(ngModel)]="moto.Year"/>
   
-  <form>
-    <div *ngIf="!showPass">
-      <a (click) ="ShowPass()">Change Password</a>
-    </div>
-    <div *ngIf="showPass">
-      <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
-      <input id="password" type="password" placeholder="Password" class="form-control"  />
-      <input id="passwordConf" type="password" placeholder="Confirm Password" class="form-control"  />
-      <button name="changePass" (click)="ChangePass('Hello')">Change Password</button>
-      <button name="hidePass" (click)="hidePass()">Clear and Hide</button>
-    </div>
-   </form>
+    
+  
+    <button name="createMoto" (click)="CreateMoto()">Create Moto</button>
+  </div>
 </div>

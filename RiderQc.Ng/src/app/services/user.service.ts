@@ -91,6 +91,28 @@ export class UserService {
             });
     }
 
+    ChangePass(password: string) {
+        let options = new RequestOptions({ headers: this.getBearerAuthHeader() });
+        let body = JSON.stringify("{}");
+        return this.http.put(this.baseUrl + "/user/password?pwd=" + password, body, options)
+            .map((response: Response) => {
+                console.log(response);
+                return response;
+            }).catch(this.handleError);
+
+    }
+    UpdateUser(jsonUser)
+    {
+        let body = JSON.stringify(jsonUser);
+        console.log(body);
+        let options = new RequestOptions({ headers: this.getBearerAuthHeader() });
+        return this.http.put(this.baseUrl + "/user", body, options)
+            .map((response: Response) => {
+                console.log(response);
+            return response;
+        }).catch(this.handleError);
+    }
+
 
     register(jsonUser) {
         let body = JSON.stringify(jsonUser);
@@ -124,6 +146,8 @@ export class UserService {
     {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + this.token);
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
         return headers;
     }
 
