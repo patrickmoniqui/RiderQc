@@ -1,3 +1,4 @@
+<div *ngIf="!finishedLoading && !user" class="loading">Loading ride&#8230;</div>
 <section *ngIf="ride" class="container">
   <section *ngIf="user && ((isModification && (ride.Creator.UserID == user.UserID)) || !isModification)">
     <div class="panel panel-primary ride-container">
@@ -42,7 +43,14 @@
                     <option *ngFor="let trajet of trajets" value={{trajet.TrajetId}}>{{trajet.Title}}</option>
                   </select>
                 </div>
-                <div class="col-md-4"><a [routerLink]="['/trajet/create/']" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}"><button type="button" class="btn btn-primary">New</button></a>  <a [routerLink]="['/trajet/details/' + ride.TrajetId]" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}"><button type="button" [disabled]="!ride.TrajetId" class="btn btn-primary">Details</button></a></div>
+                <div class="col-md-4">
+                  <a [routerLink]="['/trajet/create/']" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}">
+                    <button type="button" class="btn btn-primary">New</button>
+                  </a>
+                  <a [routerLink]="['/trajet/details/' + ride.TrajetId]" [queryParams]="{ReturnUrl: isModification ? 'ride/edit/' + ride.RideId : 'ride/create'}">
+                    <button type="button" [disabled]="!ride.TrajetId" class="btn btn-primary">Details</button>
+                  </a>
+                </div>
               </div>
 
               <div class="form-group">

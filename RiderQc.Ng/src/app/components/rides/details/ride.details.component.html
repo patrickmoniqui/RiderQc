@@ -15,7 +15,7 @@
     <div class="panel-body">
       <div class="col-md-12 ride-map ride-map-container">
         <div class="panel panel-danger">
-          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <a *ngIf="isLogged" style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]" [queryParams]="{ReturnUrl:'ride/details/'+ride.RideId}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit</a></div>
+          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <span *ngIf="ride.Trajet.Creator != null"><a *ngIf="isLogged && ride.Trajet.Creator.Username.indexOf(user?.Username) > -1" style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]" [queryParams]="{ReturnUrl:'ride/details/'+ride.RideId}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></span></div>
           <div>
             <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="50"></app-map>
           </div>
@@ -51,6 +51,11 @@
                                 (onRatingChange)="onRatingChange($event)"
                                 (onHoverRatingChange)="onHoverRatingChange($event)">
               </star-rating-comp>
+            </p>
+            <p>
+              <a [routerLink]="['/trajet/details/' + ride.TrajetId]" [queryParams]="{ReturnUrl: 'ride/details/' + ride.RideId}">
+                <button type="button" [disabled]="!ride.TrajetId" class="btn btn-primary">Trajet Details</button>
+              </a>
             </p>
           </div>
         </div>

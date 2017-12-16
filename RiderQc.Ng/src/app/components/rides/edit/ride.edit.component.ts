@@ -30,6 +30,7 @@ export class RideEditComponent implements OnInit {
     public user: User;
     public isLogged: Boolean;
     isModification: boolean = false;
+    public finishedLoading: Boolean = false;
     sub: any;
     response: any;
     rideForm: FormGroup;
@@ -67,7 +68,14 @@ export class RideEditComponent implements OnInit {
                 this.rideService
                     .details(id)
                     .subscribe(ride => {
-                        this.ride = ride;
+                        this.ride = ride; this.finishedLoading = true;
+                    },
+                    error => {
+                        this.finishedLoading = true;
+                    },
+                    () => {
+                        // 'onCompleted' callback.
+                        this.finishedLoading = true;
                     });
             } else {
                 this.ride = new Ride();
