@@ -1,13 +1,17 @@
-﻿<div class="container">
+﻿
+
+<div class="container">
     <div class="card text-center">
         <div class="card-header">
-            Welcome to the Administrator's panel
+            <h1>Welcome to the Administrator's panel</h1>
         </div>
         <div class="card-block">
             <h4 class="card-title">Select one of the following links.</h4>
-            @Html.ActionLink("Manage the users", "list", new { controller = "admin/user", @class = "btn btn-success" })
-            @Html.ActionLink("Manage the trajets", "list", new { controller = "admin/trajet", @class = "btn btn-success" })
-            @Html.ActionLink("Manage the rides", "list", new { controller = "admin/ride", @class = "btn btn-success" })
+            @Html.ActionLink("Manage the users", "list", new { controller = "admin/user"})
+            <br />
+            @Html.ActionLink("Manage the trajets", "list", new { controller = "admin/trajet"})
+            <br />
+            @Html.ActionLink("Manage the rides", "list", new { controller = "admin/ride"})
         </div>
     </div>
 </div>
