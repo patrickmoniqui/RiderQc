@@ -18,10 +18,10 @@ import { FormGroup } from "@angular/forms/forms";
 export class UserEditComponent implements OnInit {
 
     currdate: any = "";
-    private user: User;
-    private showPass: boolean;
-    private InfoGroup: FormGroup;
-    private pass: string = "hello";
+    user: User;
+    showPass: boolean;
+    InfoGroup: FormGroup;
+    pass: string = "hello";
     regions = [
         "Bas-Saint-Laurent", "Saguenay–Lac-Saint-Jean", "Capitale-Nationale", "Mauricie", "Estrie", "Montréal",
         "Outaouais", "Abitibi-Témiscamingue", "Côte-Nord", "Nord-du-Québec", "Gaspésie–Îles-de-la-Madeleine",

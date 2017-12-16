@@ -1,7 +1,5 @@
 <div id="container">
   <!--<form [formGroup]="InfoGroup" class="form" novalidatee>-->
-    <label id="errorLabel" style="color: red;">{{errorlbl}}</label>
-
     <input id="ville" placeholder="ville" class="form-control" [(ngModel)]="user.Ville"  />
     <select class="form-control" >
       <option *ngFor="let x of regions" [value]="x" [selected]="user.Region == x">{{x}}</option>
