@@ -43,7 +43,7 @@ namespace RiderQc.Web.Controllers.MVC.Admin
                         if (repo2.GetUserRole(userFromDB.UserID).RoleId == Constant.UserRole_Admin)
                         {
                             Session["Username"] = userFromDB.Username;
-                            return RedirectToAction("Index", "UserAdmin");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
             }

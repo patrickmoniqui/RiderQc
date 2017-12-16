@@ -3,8 +3,10 @@ using System.Web.Mvc;
 
 namespace RiderQc.Web.Controllers
 {
+    [RoutePrefix("admin")]
     public class HomeController : Controller
     {
+        [Route("home")]
         public ActionResult Index()
         {
             if (Authenticate())
