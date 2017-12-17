@@ -41,31 +41,32 @@ export class RideDetailsComponent implements OnInit {
     )
     {
       this.isLogged = _userService.isLogged;
+    }
 
+    ngOnInit() {
       if (this.isLogged) {
-        this._userService.getLoggedUser().subscribe(x => this.user = x);
+        this._userService.getLoggedUser().subscribe((x) => {
+          this.user = x;
+          this.loadRide()
+        });
       }
       else {
         this.user = null;
       }
     }
 
-    ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            let id = Number.parseInt(params['id']);
-            this.rideService
-                .details(id)
-                .subscribe(
-                p => {
-                    this.ride = p;
-                    this.trajetService
-                        .details(this.ride.TrajetId)
-                        .subscribe(
-                        t => {
-                            this.ride.Trajet = t;
-                        });
-                });
-        });
+    loadRide()
+    {
+      this.sub = this.route.params.subscribe(params => {
+        let id = Number.parseInt(params['id']);
+        this.rideService
+          .details(id)
+          .subscribe(
+          p => {
+            this.ride = p;
+            console.log(this.ride);
+          });
+      });
     }
   
     attendRide(ride: Ride) {
@@ -123,5 +124,4 @@ export class RideDetailsComponent implements OnInit {
     getTimes = function (n) {
         return new Array(n);
     };
-
 }

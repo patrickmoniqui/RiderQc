@@ -159,10 +159,13 @@ namespace RiderQc.Web.DAL
             levelViewModel.Name = ride.Level.Name;
             rideViewModel.Level = levelViewModel;
 
-            TrajetViewModel trajetViewModel = new TrajetViewModel();
-            trajetViewModel.TrajetId = ride.Trajet.TrajetId;
-            trajetViewModel.GpsPoints = ride.Trajet.GoogleCo.Split(';').ToList();
-            rideViewModel.Trajet = trajetViewModel;
+            if(ride.Trajet != null)
+            {
+                TrajetViewModel trajetViewModel = new TrajetViewModel();
+                trajetViewModel.TrajetId = ride.Trajet.TrajetId;
+                trajetViewModel.GpsPoints = ride.Trajet.GoogleCo.Split(';').ToList();
+                rideViewModel.Trajet = trajetViewModel;
+            }
 
             UserSimpleViewModel userSimpleViewModel = new UserSimpleViewModel();
             userSimpleViewModel.UserID = ride.User.UserID;

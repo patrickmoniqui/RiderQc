@@ -76,7 +76,7 @@ export class RidesComponent implements OnInit {
             var tmpRides: Ride[] = new Array();
 
             for (var i = 0, len = this.rides.length; i < len; i++) {
-                if (this.rides[i].Title.includes(value)) {
+              if (this.rides[i].Title.includes(value)) {
                     tmpRides.push(this.rides[i]);
                 }
             }
