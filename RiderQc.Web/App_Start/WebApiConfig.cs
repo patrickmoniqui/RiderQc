@@ -17,7 +17,7 @@ namespace RiderQc.Web
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
             config.MapHttpAttributeRoutes();
-            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "yyyy-MM-dd HH:mm:ss" };
         }
     }
 }
