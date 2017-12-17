@@ -48,7 +48,6 @@ export class RideDetailsComponent implements OnInit {
       if (this.isLogged) {
         this._userService.getLoggedUser().subscribe((x) => {
           this.user = x;
-          console.log(this.user);
           this.loadRide()
         });
       }
