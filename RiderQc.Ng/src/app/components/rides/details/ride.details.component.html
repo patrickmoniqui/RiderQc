@@ -15,7 +15,7 @@
     <div class="panel-body">
       <div class="col-md-12 ride-map ride-map-container">
         <div class="panel panel-danger">
-          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <span *ngIf="ride?.Trajet != null"><a *ngIf="isLogged && ride.Trajet.Creator.Username.indexOf(user?.Username) > -1" style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]" [queryParams]="{ReturnUrl:'ride/details/'+ride.RideId}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></span></div>
+          <div class="panel-heading"><i class="fa fa-location-arrow" aria-hidden="true"></i>Map <span *ngIf="ride.Trajet != null"><a *ngIf="isLogged && ride.Creator.Username.indexOf(user?.Username) > -1" style="float:right" [routerLink]="['/trajet/edit/'+ride.Trajet.TrajetId]" [queryParams]="{ReturnUrl:'ride/details/'+ride.RideId}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></span></div>
           <div *ngIf="ride.Trajet != null">
             <app-map [editable]="false" [waypoints]="ride.Trajet.GpsPoints" [showInstructions]="true" [height]="50"></app-map>
           </div>

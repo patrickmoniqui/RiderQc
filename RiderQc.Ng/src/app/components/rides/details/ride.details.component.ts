@@ -40,13 +40,15 @@ export class RideDetailsComponent implements OnInit {
       public trajetService: TrajetService,
     )
     {
-      this.isLogged = _userService.isLogged;
     }
 
     ngOnInit() {
+      this.isLogged = this._userService.isLogged;
+
       if (this.isLogged) {
         this._userService.getLoggedUser().subscribe((x) => {
           this.user = x;
+          console.log(this.user);
           this.loadRide()
         });
       }
