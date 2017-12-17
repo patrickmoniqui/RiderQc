@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { FormControl } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { FormGroup, Validators } from '@angular/forms';
 
 //Model
