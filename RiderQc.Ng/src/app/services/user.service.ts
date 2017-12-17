@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 
 //Import Model
 import { User } from '../model/user';
+import { UserEdit } from '../model/user-edit';
 
 @Injectable()
 export class UserService {
@@ -101,6 +102,15 @@ export class UserService {
             }).catch(this.handleError);
 
     }
+
+    editUser(user: UserEdit) : Observable<boolean>
+    {
+      let header = new RequestOptions({ headers: this.getBearerAuthHeader() });
+
+      return this.http.put(this.baseUrl + "/user", user, header)
+        .map(res => res.json());
+    }
+
     UpdateUser(jsonUser)
     {
         let body = JSON.stringify(jsonUser);

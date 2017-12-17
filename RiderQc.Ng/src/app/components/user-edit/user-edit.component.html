@@ -1,4 +1,4 @@
-<div id="container">
+<div *ngIf="user" id="container">
   <h2>Edit user</h2>
   <hr />
   <div class="container">
@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
       <label for="DateOfBirth">Date of birth</label>
-      <input type="datetime-local" [(ngModel)]="user.DateOfBirth" placeholder="Date of birth" class="form-control form-control" value="{{user.DateOfBirth}}">
+      <input type="datetime-local" [(ngModel)]="user.DateOfBirth" placeholder="Date of birth" class="form-control form-control">
     </div>
     <div class="form-group">
       <label for="Ville">Ville</label>
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="Description">Description</label>
-      <input type="text" class="form-control" placeholder="Description" value="{{user.Description}}">
+      <input [(ngModel)]="user.Description" type="text" class="form-control" placeholder="Description" value="{{user.Description}}">
     </div>
     <button (click)="UpdateUser()" type="submit" class="btn btn-primary">Save</button>
 
