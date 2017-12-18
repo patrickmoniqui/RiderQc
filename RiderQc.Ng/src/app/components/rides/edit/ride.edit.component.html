@@ -64,7 +64,7 @@
               <div class="form-group">
                 <label for="DateDepart" class="col-md-4 control-label">Date Depart :</label>
                 <div class="col-md-4">
-                  <input type="datetime-local" formControlName="datedepart" [(ngModel)]="ride.DateDepart" placeholder="DateDepart" class="form-control">
+                  <input type="datetime-local" formControlName="datedepart" [(ngModel)]="ride.DateDepart"  placeholder="DateDepart" class="form-control" value="{{ride.DateDepart | date:'yyyy-MM-ddTHH:mm:ss'}}">
                 </div>
                 <span [hidden]="rideForm.controls.datedepart.valid" class="col-md-3 control-valid">(La Date Depart est requise)</span>
                 <div class="col-md-4"></div>
@@ -73,7 +73,7 @@
               <div class="form-group">
                 <label for="DateFin" class="col-md-4 control-label">Date Fin :</label>
                 <div class="col-md-4">
-                  <input type="datetime-local" formControlName="datefin" [(ngModel)]="ride.DateFin" placeholder="DateFin" class="form-control">
+                  <input type="datetime-local" formControlName="datefin" [(ngModel)]="ride.DateFin" placeholder="DateFin" class="form-control" value="{{ride.DateFin | date:'yyyy-MM-ddTHH:mm:ss'}}">
                 </div>
                 <span [hidden]="rideForm.controls.datefin.valid" class="col-md-3 control-valid">(La Date Fin est requise)</span>
                 <div class="col-md-4"></div>
