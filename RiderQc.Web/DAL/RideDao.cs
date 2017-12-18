@@ -336,7 +336,8 @@ namespace RiderQc.Web.DAL
                 _ride.DateDepart = ride.DateDepart;
                 _ride.DateFin = ride.DateFin;
                 _ride.Description = ride.Description;
-                _ride.Level = ride.Level;
+                _ride.LevelId = ride.LevelId;
+                _ride.TrajetId = ride.TrajetId;
                 _ride.Title = ride.Title;
                 result = ctx.SaveChanges();
             }

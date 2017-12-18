@@ -98,6 +98,7 @@ namespace RiderQc.Web.Repository
             ride.Description = rideViewModel.Description;
             ride.CreatorId = rideViewModel.CreatorId;
             ride.LevelId = rideViewModel.LevelId;
+            ride.TrajetId = rideViewModel.TrajetId;
             ride.DateDepart = rideViewModel.DateDepart;
             ride.DateFin = rideViewModel.DateFin;
 

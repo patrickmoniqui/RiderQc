@@ -100,6 +100,16 @@ namespace RiderQc.Web.Controllers.Api
         [AuthTokenAuthorization]
         public IHttpActionResult Update(int rideId, RideCreateViewModel rideViewModel)
         {
+            if (!levelRepo.Exist(rideViewModel.LevelId))
+            {
+                ModelState.AddModelError("LevelId", "LevelId is invalid.");
+            }
+
+            if (rideViewModel.TrajetId != null && !trajetRepo.Exist((int)rideViewModel.TrajetId))
+            {
+                ModelState.AddModelError("TrajetId", "TrajetId is invalid.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
